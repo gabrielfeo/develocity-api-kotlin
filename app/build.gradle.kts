@@ -10,13 +10,13 @@ application {
 
 openApiGenerate {
     generatorName.set("kotlin")
-    val apiSpec = provider {
-        val geVersion = "2022.4" // Must be later than 2022.1
-        val configFile = "gradle-enterprise-${geVersion}-api.yaml"
-        resources.text
-            .fromUri("https://docs.gradle.com/enterprise/api-manual/ref/$configFile")
-            .asFile().absolutePath
-    }
+    val apiSpec = providers.gradleProperty("gradle.enterprise.version")
+        .map { version ->
+            val configFile = "gradle-enterprise-$version-api.yaml"
+            resources.text
+                .fromUri("https://docs.gradle.com/enterprise/api-manual/ref/$configFile")
+                .asFile().absolutePath
+        }
     inputSpec.set(apiSpec)
     val generateDir = project.layout.buildDirectory.file("generated/$name")
     outputDir.set(generateDir.map { it.asFile.absolutePath })
