@@ -1,0 +1,12 @@
+.gradle
+out
+!*/src/**/out
+
+build
+!*/src/**/build
+!*/*/src/**/build
+
+**/.log
+.DS_Store
+
+.idea
