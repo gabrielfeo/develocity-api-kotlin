@@ -29,8 +29,9 @@ openApiGenerate {
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
     ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
     apiPackage.set("com.gradle.enterprise.api")
-    modelPackage.set(apiPackage.map { "$it.model" })
-    packageName.set(apiPackage.map { "$it.client" })
+    modelPackage.set("com.gradle.enterprise.api.model")
+    packageName.set("com.gradle.enterprise.api.client")
+    invokerPackage.set("com.gradle.enterprise.api.client")
 }
 
 sourceSets {
