@@ -8,16 +8,22 @@ application {
     mainClass.set("com.gabrielfeo.gradle.enterprise.api.app.template.AppKt")
 }
 
+
+val downloadApiSpec by tasks.registering {
+    val geVersion = providers.gradleProperty("gradle.enterprise.version").get()
+    val specName = "gradle-enterprise-$geVersion-api.yaml"
+    val spec = resources.text.fromUri("https://docs.gradle.com/enterprise/api-manual/ref/$specName")
+    val outFile = project.layout.buildDirectory.file(specName)
+    inputs.property("GE version", geVersion)
+    outputs.file(outFile)
+    doLast {
+        spec.asFile().renameTo(outFile.get().asFile)
+    }
+}
+
 openApiGenerate {
     generatorName.set("kotlin")
-    val apiSpec = providers.gradleProperty("gradle.enterprise.version")
-        .map { version ->
-            val configFile = "gradle-enterprise-$version-api.yaml"
-            resources.text
-                .fromUri("https://docs.gradle.com/enterprise/api-manual/ref/$configFile")
-                .asFile().absolutePath
-        }
-    inputSpec.set(apiSpec)
+    inputSpec.set(downloadApiSpec.map { it.outputs.files.first().absolutePath })
     val generateDir = project.layout.buildDirectory.file("generated/$name")
     outputDir.set(generateDir.map { it.asFile.absolutePath })
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
