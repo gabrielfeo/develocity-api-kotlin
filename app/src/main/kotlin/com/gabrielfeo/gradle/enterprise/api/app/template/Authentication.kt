@@ -1,20 +1,10 @@
 package com.gabrielfeo.gradle.enterprise.api.app.template
 
-import com.gradle.enterprise.api.client.infrastructure.ApiClient
-
-sealed interface TokenSource {
-    class MacOsKeychain(val keyName: String = "Gradle Enterprise API token") : TokenSource
-    class EnvironmentVariable(val varName: String = "GRADLE_ENTERPRISE_API_TOKEN") : TokenSource
+fun getTokenFromEnv(varName: String): String {
+    return checkNotNull(System.getenv(varName)) { "No such var '$varName'" }
 }
 
-fun setAuthentication(source: TokenSource) {
-    ApiClient.accessToken = when (source) {
-        is TokenSource.MacOsKeychain -> getTokenFromKeychain(source.keyName)
-        is TokenSource.EnvironmentVariable -> System.getenv(source.varName)
-    }
-}
-
-private fun getTokenFromKeychain(keyName: String): String {
+fun getTokenFromKeychain(keyName: String): String {
     val process = ProcessBuilder(
         "security",
         "find-generic-password",
