@@ -2,7 +2,11 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.10"
     id("org.openapi.generator") version "6.2.1"
     `java-library`
+    `maven-publish`
 }
+
+group = "com.github.gabrielfeo"
+version = "1.0"
 
 val downloadApiSpec by tasks.registering {
     val geVersion = providers.gradleProperty("gradle.enterprise.version").get()
@@ -41,6 +45,15 @@ sourceSets {
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(18))
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("library") {
+            artifactId = "gradle-enterprise-api-kotlin"
+            from(components["java"])
+        }
     }
 }
 
