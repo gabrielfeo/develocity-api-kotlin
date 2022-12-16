@@ -1,9 +1,7 @@
-rootProject.name = "gradle-enterprise-api-app-template"
+rootProject.name = "gradle-enterprise-api-kotlin"
 
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
     }
 }
-
-include("app")

@@ -1,4 +1,4 @@
-package com.gabrielfeo.gradle.enterprise.api.app.template
+package com.gabrielfeo.gradle.enterprise.api
 
 fun requireBaseUrl(
     varName: String = "GRADLE_ENTERPRISE_URL",
