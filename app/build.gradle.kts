@@ -1,13 +1,8 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.7.10"
-    application
     id("org.openapi.generator") version "6.2.1"
+    `java-library`
 }
-
-application {
-    mainClass.set("com.gabrielfeo.gradle.enterprise.api.app.template.AppKt")
-}
-
 
 val downloadApiSpec by tasks.registering {
     val geVersion = providers.gradleProperty("gradle.enterprise.version").get()
@@ -50,11 +45,11 @@ java {
 }
 
 dependencies {
-    implementation("com.squareup.moshi:moshi:1.13.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+    api("com.squareup.moshi:moshi:1.13.0")
+    api("com.squareup.moshi:moshi-kotlin:1.13.0")
+    api("com.squareup.okhttp3:okhttp:4.10.0")
+    api("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    api("com.squareup.retrofit2:retrofit:2.9.0")
+    api("com.squareup.retrofit2:converter-moshi:2.9.0")
+    api("com.squareup.retrofit2:converter-scalars:2.9.0")
 }
