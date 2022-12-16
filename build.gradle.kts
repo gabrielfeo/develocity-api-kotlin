@@ -1,5 +1,7 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.7.10"
+    val kotlinVersion = "1.7.10"
+    id("org.jetbrains.kotlin.jvm") version kotlinVersion
+    id("org.jetbrains.dokka") version kotlinVersion
     id("org.openapi.generator") version "6.2.1"
     `java-library`
     `maven-publish`
@@ -43,9 +45,15 @@ sourceSets {
 }
 
 java {
+    withSourcesJar()
+    withJavadocJar()
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
     }
+}
+
+tasks.named<Jar>("javadocJar") {
+    from(tasks.dokkaJavadoc)
 }
 
 publishing {
