@@ -1,13 +1,21 @@
 package com.gabrielfeo.gradle.enterprise.api
 
-fun requireToken(
-    keyName: String = "gradle-enterprise-api-token",
-    varName: String = "GRADLE_ENTERPRISE_API_TOKEN",
+private const val DEFAULT_KEY_NAME = "gradle-enterprise-api-token"
+private const val DEFAULT_VAR_NAME = "GRADLE_ENTERPRISE_API_TOKEN"
+
+internal fun requireToken(
+    keyName: String = DEFAULT_KEY_NAME,
+    varName: String = DEFAULT_VAR_NAME,
     debugging: Boolean = false,
 ): String {
     return tokenFromKeychain(keyName, debugging)
         ?: tokenFromEnv(varName, debugging)
-        ?: error("No API token. If your GE instance needs no auth, build a custom client.")
+        ?: error("""
+            No API token. Either
+              - create a key in macOS keychain labeled $DEFAULT_KEY_NAME
+              - export in environment variable $DEFAULT_VAR_NAME
+              - set the global property `accessToken`
+        """.trimIndent())
 }
 
 private fun tokenFromEnv(varName: String, debugging: Boolean): String? {
