@@ -29,10 +29,10 @@ openApiGenerate {
     outputDir.set(generateDir.map { it.asFile.absolutePath })
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
     ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
-    apiPackage.set("com.gradle.enterprise.api")
-    modelPackage.set("com.gradle.enterprise.api.model")
-    packageName.set("com.gradle.enterprise.api.client")
-    invokerPackage.set("com.gradle.enterprise.api.client")
+    apiPackage.set("com.gabrielfeo.gradle.enterprise.api")
+    modelPackage.set("com.gabrielfeo.gradle.enterprise.api")
+    packageName.set("com.gabrielfeo.gradle.enterprise.api")
+    invokerPackage.set("com.gabrielfeo.gradle.enterprise.api")
     additionalProperties.put("library", "jvm-retrofit2")
 }
 
