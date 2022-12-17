@@ -25,7 +25,7 @@ val downloadApiSpec by tasks.registering {
 openApiGenerate {
     generatorName.set("kotlin")
     inputSpec.set(downloadApiSpec.map { it.outputs.files.first().absolutePath })
-    val generateDir = project.layout.buildDirectory.file("generated/$name")
+    val generateDir = project.layout.buildDirectory.file("generated/openapi-generator")
     outputDir.set(generateDir.map { it.asFile.absolutePath })
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
     ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
