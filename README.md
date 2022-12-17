@@ -40,6 +40,9 @@ It's recommended to learn about endpoints and their responses through IDE auto-c
 appearing in auto-complete is the full API manual. Each method is documented with
 params and possible status codes.
 
+Helper functions are also available:
+- `GradleEnterpriseApi.buildsSequence()` returns a sequence making paged requests underneath
+
 ## More info
 
 - Currently built for Gradle Enterprise `2022.4`, but can be used with previous versions.
