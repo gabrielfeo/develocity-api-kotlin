@@ -48,10 +48,12 @@ Helper functions are also available:
 - Currently built for Gradle Enterprise `2022.4`, but can be used with previous versions.
 - Use JDK 8 or 14+ to run, if you want to avoid the ["illegal reflective access" warning about
   Retrofit][3]
-- If you use Retrofit's `Call.enqueue` or `Call.await` (coroutines) instead of `Call.execute` be
-  aware that the script will keep running for an extra ~60s after code finishes. This is [expected
-  behavior of OkHttp][4]. This library doesn't provide access to the OkHttpClient for you to call
-  `shutdown`, so it's recommended to use `execute`.
+- There is a global instance `okHttpClient` so you can change what's needed, but also concurrency 
+  shortcuts `maxConcurrentRequests` and `shutdown()`.
+  - `maxConcurrentRequests` is useful to speed up scripts, but if you start getting HTTP 504 from
+    your GE instance, decreasing this value should help. 
+  - The script will keep running for an extra ~60s after code finishes, as an [expected behavior
+  of OkHttp][4], unless you call `shutdown()` (global function). 
 - All classes are in the same package, so that if you need to make small edits to scripts where
   there's no auto-complete, a single wildcard import can be used:
 
