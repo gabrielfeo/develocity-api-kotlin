@@ -2,7 +2,7 @@ package com.gabrielfeo.gradle.enterprise.api
 
 private const val DEFAULT_VAR_NAME = "GRADLE_ENTERPRISE_URL"
 
-fun requireBaseUrl(
+internal fun requireBaseUrl(
     varName: String = DEFAULT_VAR_NAME,
 ): String {
     return checkNotNull(System.getenv(varName)) {
