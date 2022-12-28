@@ -1,4 +1,4 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.gradle.enterprise.api.internal
 
 private const val DEFAULT_KEY_NAME = "gradle-enterprise-api-token"
 private const val DEFAULT_VAR_NAME = "GRADLE_ENTERPRISE_API_TOKEN"

@@ -1,18 +1,9 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.gradle.enterprise.api.internal.caching
 
-import okhttp3.*
-import okhttp3.HttpUrl.Companion.toHttpUrl
-import java.io.File
+import okhttp3.Interceptor
+import okhttp3.Request
+import okhttp3.Response
 import kotlin.time.Duration.Companion.days
-
-internal val cache: Cache = run {
-    val host = baseUrl().toHttpUrl().host
-    val tempDir = System.getProperty("java.io.tmpdir")
-    Cache(
-        directory = File(tempDir, "gradle-enterprise-api-cache-$host"),
-        maxSize = maxCacheSize,
-    )
-}
 
 internal class CacheEnforcingInterceptor(
     private val cacheablePaths: List<Regex>,
