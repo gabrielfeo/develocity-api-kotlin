@@ -19,5 +19,5 @@ val cacheablePaths: MutableList<Regex> = mutableListOf(
 var baseUrl: () -> String = { requireBaseUrl() }
 var accessToken: () -> String = { requireToken() }
 
-var maxConcurrentRequests = 30
+var maxConcurrentRequests = 15
 var debugLoggingEnabled = System.getenv("GRADLE_ENTERPRISE_API_DEBUG_LOGGING").toBoolean()
