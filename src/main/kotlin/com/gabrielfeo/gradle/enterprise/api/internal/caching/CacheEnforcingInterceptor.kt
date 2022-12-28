@@ -12,11 +12,10 @@ internal class CacheEnforcingInterceptor(
     private val maxAge = 365.days.inWholeMilliseconds
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-        if (!isCacheable(request)) {
-            return chain.proceed(request)
+        val response = chain.proceed(chain.request())
+        if (!isCacheable(response.request)) {
+            return response
         }
-        val response = chain.proceed(request)
         return response.newBuilder()
             .header("cache-control", "max-age=$maxAge")
             .removeHeader("pragma")
