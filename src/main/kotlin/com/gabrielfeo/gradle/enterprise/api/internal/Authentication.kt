@@ -1,15 +1,18 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
+import com.gabrielfeo.gradle.enterprise.api.debugLoggingEnabled
+import java.util.logging.Level.INFO
+import java.util.logging.Logger
+
 private const val DEFAULT_KEY_NAME = "gradle-enterprise-api-token"
 private const val DEFAULT_VAR_NAME = "GRADLE_ENTERPRISE_API_TOKEN"
 
 internal fun requireToken(
     keyName: String = DEFAULT_KEY_NAME,
     varName: String = DEFAULT_VAR_NAME,
-    debugging: Boolean = false,
 ): String {
-    return tokenFromKeychain(keyName, debugging)
-        ?: tokenFromEnv(varName, debugging)
+    return tokenFromKeychain(keyName)
+        ?: tokenFromEnv(varName)
         ?: error("""
             No API token. Either
               - create a key in macOS keychain labeled $DEFAULT_KEY_NAME
@@ -18,15 +21,15 @@ internal fun requireToken(
         """.trimIndent())
 }
 
-private fun tokenFromEnv(varName: String, debugging: Boolean): String? {
+private fun tokenFromEnv(varName: String): String? {
     return System.getenv(varName).also {
-        if (debugging && it.isNullOrBlank()) {
-            println("Env var $varName=$it")
+        if (debugLoggingEnabled && it.isNullOrBlank()) {
+            Logger.getGlobal().log(INFO, "Env var $varName=$it")
         }
     }
 }
 
-private fun tokenFromKeychain(keyName: String, debugging: Boolean): String? {
+private fun tokenFromKeychain(keyName: String): String? {
     val login = System.getenv("LOGNAME")
     val process = ProcessBuilder(
         "security", "find-generic-password", "-w", "-a", login, "-s", keyName
@@ -36,8 +39,8 @@ private fun tokenFromKeychain(keyName: String, debugging: Boolean): String? {
         return process.inputStream.bufferedReader().use {
             it.readText().trim()
         }
-    } else if (debugging) {
-        println("Failed to get key from keychain (exit $status)")
+    } else if (debugLoggingEnabled) {
+        Logger.getGlobal().log(INFO, "Failed to get key from keychain (exit $status)")
     }
     return null
 }
