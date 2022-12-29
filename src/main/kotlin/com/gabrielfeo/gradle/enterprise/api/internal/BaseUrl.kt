@@ -1,14 +1,12 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-private const val DEFAULT_VAR_NAME = "GRADLE_ENTERPRISE_URL"
-
 internal fun requireBaseUrl(
-    varName: String = DEFAULT_VAR_NAME,
+    envName: String,
 ): String {
-    return checkNotNull(System.getenv(varName)) {
+    return checkNotNull(System.getenv(envName)) {
         """
             No base URL provided. Either
-              - export an environment variable $DEFAULT_VAR_NAME
+              - export an environment variable `GRADLE_ENTERPRISE_BASE_URL`
               - set the global property `baseUrl`
         """.trimIndent()
     }

@@ -4,19 +4,16 @@ import com.gabrielfeo.gradle.enterprise.api.debugLoggingEnabled
 import java.util.logging.Level.INFO
 import java.util.logging.Logger
 
-private const val DEFAULT_KEY_NAME = "gradle-enterprise-api-token"
-private const val DEFAULT_VAR_NAME = "GRADLE_ENTERPRISE_API_TOKEN"
-
 internal fun requireToken(
-    keyName: String = DEFAULT_KEY_NAME,
-    varName: String = DEFAULT_VAR_NAME,
+    keychainName: String,
+    envName: String,
 ): String {
-    return tokenFromKeychain(keyName)
-        ?: tokenFromEnv(varName)
+    return tokenFromKeychain(keychainName)
+        ?: tokenFromEnv(envName)
         ?: error("""
-            No API token. Either
-              - create a key in macOS keychain labeled $DEFAULT_KEY_NAME
-              - export in environment variable $DEFAULT_VAR_NAME
+            No API token found. Either
+              - create a key in macOS keychain labeled `gradle-enterprise-api-token`
+              - export in environment variable `GRADLE_ENTERPRISE_API_TOKEN`
               - set the global property `accessToken`
         """.trimIndent())
 }
