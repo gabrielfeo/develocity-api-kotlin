@@ -4,7 +4,7 @@ build/generated/openapi-generator/api/*
 build/generated/openapi-generator/gradle/**/*
 build/generated/openapi-generator/docs/*
 build/generated/openapi-generator/src/main/AndroidManifest.xml
-build/generated/openapi-generator/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/ApiClient.kt
+build/generated/openapi-generator/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/internal/infrastructure/ApiClient.kt
 build/generated/openapi-generator/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/BuildsApi.kt
 build/generated/openapi-generator/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/BuildCacheApi.kt
 build/generated/openapi-generator/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/MetaApi.kt

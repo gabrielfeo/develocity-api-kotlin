@@ -1,10 +1,10 @@
 package com.gabrielfeo.gradle.enterprise.api
 
+import com.gabrielfeo.gradle.enterprise.api.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
-import retrofit2.HttpException
 import retrofit2.await
 
 private const val API_MAX_BUILDS = 1000

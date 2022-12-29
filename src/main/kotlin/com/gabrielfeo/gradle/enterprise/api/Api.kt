@@ -113,7 +113,7 @@ var cacheDir = System.getenv("GRADLE_ENTERPRISE_API_CACHE_DIR")?.let(::File)
     ?: File(System.getProperty("java.io.tmpdir"), "gradle-enterprise-api-kotlin-cache")
 
 /**
- * Enables debug logging from the library. All logging is output to the program's standard streams.
- * By default, uses environment variable `GRADLE_ENTERPRISE_API_DEBUG_LOGGING` or `false`.
+ * Enables debug logging from the library. All logging is output to stderr. By default, uses
+ * environment variable `GRADLE_ENTERPRISE_API_DEBUG_LOGGING` or `false`.
  */
 var debugLoggingEnabled = System.getenv("GRADLE_ENTERPRISE_API_DEBUG_LOGGING").toBoolean()
