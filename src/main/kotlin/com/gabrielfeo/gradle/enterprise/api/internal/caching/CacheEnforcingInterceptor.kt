@@ -3,17 +3,18 @@ package com.gabrielfeo.gradle.enterprise.api.internal.caching
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
-import kotlin.time.Duration.Companion.days
 
 internal class CacheEnforcingInterceptor(
-    private val cacheableUrlPattern: Regex,
+    private val longTermCacheUrlPattern: Regex,
+    private val longTermCacheMaxAge: Long,
+    private val shortTermCacheUrlPattern: Regex,
+    private val shortTermCacheMaxAge: Long,
 ) : Interceptor {
-
-    private val maxAge = 365.days.inWholeMilliseconds
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
-        if (!isCacheable(response.request)) {
+        val maxAge = maxAgeFor(response.request)
+        if (maxAge <= 0) {
             return response
         }
         return response.newBuilder()
@@ -24,6 +25,12 @@ internal class CacheEnforcingInterceptor(
             .build()
     }
 
-    private fun isCacheable(request: Request) =
-        cacheableUrlPattern.matches(request.url.toString())
+    private fun maxAgeFor(request: Request): Long {
+        val url = request.url.toString()
+        return when {
+            longTermCacheUrlPattern.matches(url) -> longTermCacheMaxAge
+            shortTermCacheUrlPattern.matches(url) -> shortTermCacheMaxAge
+            else -> 0
+        }
+    }
 }
