@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
@@ -40,17 +42,19 @@ fun shutdown() {
 }
 
 /**
- * List of patterns matching API URLs that are OK to store in the HTTP cache. Matches by default:
+ * Regex pattern to match API URLs that are OK to store in the HTTP cache. Matches by default:
  * - {host}/api/builds/{id}/gradle-attributes
  * - {host}/api/builds/{id}/maven-attributes
  *
- * By default, the Gradle Enterprise disallows HTTP caching via response headers. This library
+ * By default, the Gradle Enterprise API disallows HTTP caching via response headers. This library
  * removes such headers to forcefully allow caching, if the path is matched by any of these
  * patterns.
+ *
+ * Use `|` to define multiple patterns in one, e.g. `.*gradle-attributes|.*test-distribution`.
  */
-val cacheablePaths: MutableList<Regex> = mutableListOf(
-    """.*/api/builds/[\d\w]+/(?:gradle|maven)-attributes""".toRegex(),
-)
+val cacheableUrlPattern: Regex = System.getenv("GRADLE_ENTERPRISE_API_CACHEABLE_URL_PATTERN")
+    ?.toRegex()
+    ?: """.*/api/builds/[\d\w]+/(?:gradle|maven)-attributes""".toRegex()
 
 /**
  * Maximum amount of concurrent requests allowed. Further requests will be queued. By default,

@@ -2,7 +2,7 @@ package com.gabrielfeo.gradle.enterprise.api.internal
 
 import com.gabrielfeo.gradle.enterprise.api.accessToken
 import com.gabrielfeo.gradle.enterprise.api.auth.HttpBearerAuth
-import com.gabrielfeo.gradle.enterprise.api.cacheablePaths
+import com.gabrielfeo.gradle.enterprise.api.cacheableUrlPattern
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.cache
@@ -14,7 +14,7 @@ val okHttpClient: OkHttpClient by lazy {
         .cache(cache)
         .addInterceptor(HttpBearerAuth("bearer", accessToken()))
         .addInterceptor(CacheHitLoggingInterceptor())
-        .addNetworkInterceptor(CacheEnforcingInterceptor(cacheablePaths))
+        .addNetworkInterceptor(CacheEnforcingInterceptor(cacheableUrlPattern))
         .build()
         .apply {
             dispatcher.maxRequests = maxConcurrentRequests
