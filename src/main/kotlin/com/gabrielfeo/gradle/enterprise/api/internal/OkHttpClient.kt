@@ -1,6 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.auth.HttpBearerAuth
+import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.cache

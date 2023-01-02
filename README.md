@@ -128,7 +128,7 @@ api.getBuild(id = "hy5nxbzfjxe5k")
 It's recommended to learn about endpoints and their responses through IDE auto-complete. Javadoc
 appearing in auto-complete is the full API manual, same as Gradle's online docs.
 
-This library provides a few helper functions on top of the regular API:
+This library provides a few extension functions on top of the regular API:
 
 ```kotlin
 // Regular query to /api/builds, limited to 1000 builds server-side
@@ -161,11 +161,12 @@ api.getGradleAttributesFlow(since = lastMonth)
     your GE instance, decreasing this value should help.
   - The script will keep running for an extra ~60s after code finishes, as an [expected behavior
   of OkHttp][4], unless you call `shutdown()` (global function).
-- All classes are in the same package, so that if you need to make small edits to scripts where
-  there's no auto-complete, a single wildcard import can be used:
+- All classes live in these two packages. If you need to make small edits to scripts where 
+  there's no auto-complete, wildcard imports can be used:
 
 ```kotlin
 import com.gabrielfeo.gradle.enterprise.api.*
+import com.gabrielfeo.gradle.enterprise.api.model.*
 ```
 
 ###  Internals
