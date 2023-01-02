@@ -1,3 +1,6 @@
+import org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC
+import org.jetbrains.dokka.gradle.DokkaTask
+
 plugins {
     val kotlinVersion = "1.7.10"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
@@ -8,7 +11,7 @@ plugins {
 }
 
 group = "com.github.gabrielfeo"
-version = "1.0"
+version = "0.7"
 
 val downloadApiSpec by tasks.registering {
     val geVersion = providers.gradleProperty("gradle.enterprise.version").get()
@@ -30,9 +33,9 @@ openApiGenerate {
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
     ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
     apiPackage.set("com.gabrielfeo.gradle.enterprise.api")
-    modelPackage.set("com.gabrielfeo.gradle.enterprise.api")
-    packageName.set("com.gabrielfeo.gradle.enterprise.api")
-    invokerPackage.set("com.gabrielfeo.gradle.enterprise.api")
+    modelPackage.set("com.gabrielfeo.gradle.enterprise.api.model")
+    packageName.set("com.gabrielfeo.gradle.enterprise.api.internal")
+    invokerPackage.set("com.gabrielfeo.gradle.enterprise.api.internal")
     additionalProperties.put("library", "jvm-retrofit2")
 }
 
@@ -52,8 +55,25 @@ java {
     }
 }
 
+tasks.withType<DokkaTask>().configureEach {
+    dokkaSourceSets.all {
+        jdkVersion.set(8)
+        suppressGeneratedFiles.set(false)
+        documentedVisibilities.set(setOf(PUBLIC))
+        perPackageOption {
+            matchingRegex.set(""".*\.internal.*""")
+            suppress.set(true)
+        }
+        externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
+        externalDocumentationLink("https://square.github.io/okhttp/4.x/okhttp/")
+        externalDocumentationLink("https://square.github.io/retrofit/2.x/retrofit/")
+        externalDocumentationLink("https://square.github.io/moshi/1.x/moshi/")
+        externalDocumentationLink("https://square.github.io/moshi/1.x/moshi-kotlin/")
+    }
+}
+
 tasks.named<Jar>("javadocJar") {
-    from(tasks.dokkaJavadoc)
+    from(tasks.dokkaHtml)
 }
 
 publishing {
