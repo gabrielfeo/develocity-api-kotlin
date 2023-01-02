@@ -4,6 +4,7 @@ package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
 import java.io.File
+import kotlin.time.Duration.Companion.days
 
 /**
  * The global instance of [GradleEnterpriseApi].
@@ -42,19 +43,51 @@ fun shutdown() {
 }
 
 /**
- * Regex pattern to match API URLs that are OK to store in the HTTP cache. Matches by default:
+ * Regex pattern to match API URLs that are OK to store long-term in the HTTP cache, up to
+ * [longTermCacheMaxAge] (1y by default, max value). By default, uses environment variable
+ * `GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN` or a pattern matching:
  * - {host}/api/builds/{id}/gradle-attributes
  * - {host}/api/builds/{id}/maven-attributes
  *
- * By default, the Gradle Enterprise API disallows HTTP caching via response headers. This library
- * removes such headers to forcefully allow caching, if the path is matched by any of these
- * patterns.
+ * Gradle Enterprise API disallows HTTP caching, but this library forcefully removes such
+ * restriction.
+ *
+ * Use `|` to define multiple patterns in one, e.g. `.*gradle-attributes|.*test-distribution`.
+*/
+var longTermCacheUrlPattern: Regex =
+    System.getenv("GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN")?.toRegex()
+        ?: """.*/api/builds/[\d\w]+/(?:gradle|maven)-attributes""".toRegex()
+
+/**
+ * Max age in seconds for URLs to be cached long-term (matched by [longTermCacheUrlPattern]).
+ * By default, uses environment variable `GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_MAX_AGE` or 1 year.
+ */
+var longTermCacheMaxAge: Long =
+    System.getenv("GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE")?.toLong()
+        ?: 365.days.inWholeSeconds
+
+/**
+ * Regex pattern to match API URLs that are OK to store short-term in the HTTP cache, up to
+ * [shortTermCacheMaxAge] (1d by default). By default, uses environment variable
+ * `GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_URL_PATTERN` or a pattern matching:
+ * - {host}/api/builds
+ *
+ * Gradle Enterprise API disallows HTTP caching, but this library forcefully removes such
+ * restriction.
  *
  * Use `|` to define multiple patterns in one, e.g. `.*gradle-attributes|.*test-distribution`.
  */
-val cacheableUrlPattern: Regex = System.getenv("GRADLE_ENTERPRISE_API_CACHEABLE_URL_PATTERN")
-    ?.toRegex()
-    ?: """.*/api/builds/[\d\w]+/(?:gradle|maven)-attributes""".toRegex()
+var shortTermCacheUrlPattern: Regex =
+    System.getenv("GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_URL_PATTERN")?.toRegex()
+        ?: """.*/builds(?:\?.*|\Z)""".toRegex()
+
+/**
+ * Max age in seconds for URLs to be cached short-term (matched by [shortTermCacheUrlPattern]).
+ * By default, uses environment variable `GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE` or 1 day.
+ */
+var shortTermCacheMaxAge: Long =
+    System.getenv("GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE")?.toLong()
+        ?: 1.days.inWholeSeconds
 
 /**
  * Maximum amount of concurrent requests allowed. Further requests will be queued. By default,
