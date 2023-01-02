@@ -6,7 +6,7 @@ import okhttp3.Response
 import kotlin.time.Duration.Companion.days
 
 internal class CacheEnforcingInterceptor(
-    private val cacheablePaths: List<Regex>,
+    private val cacheableUrlPattern: Regex,
 ) : Interceptor {
 
     private val maxAge = 365.days.inWholeMilliseconds
@@ -25,5 +25,5 @@ internal class CacheEnforcingInterceptor(
     }
 
     private fun isCacheable(request: Request) =
-        cacheablePaths.any { it.matches(request.url.toString()) }
+        cacheableUrlPattern.matches(request.url.toString())
 }
