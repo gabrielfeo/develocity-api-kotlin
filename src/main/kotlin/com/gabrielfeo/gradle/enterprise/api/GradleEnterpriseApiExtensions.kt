@@ -1,13 +1,14 @@
 package com.gabrielfeo.gradle.enterprise.api
 
+import com.gabrielfeo.gradle.enterprise.api.internal.API_MAX_BUILDS
+import com.gabrielfeo.gradle.enterprise.api.internal.operator.pagedUntilLastBuild
+import com.gabrielfeo.gradle.enterprise.api.internal.operator.withGradleAttributes
 import com.gabrielfeo.gradle.enterprise.api.model.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import retrofit2.await
-
-private const val API_MAX_BUILDS = 1000
 
 /**
  * Gets builds on demand from the API, in as many requests as necessary. It allows
@@ -24,42 +25,16 @@ fun GradleEnterpriseApi.getBuildsFlow(
     fromInstant: Long? = null,
     fromBuild: String? = null,
 ): Flow<Build> = flow {
-    var lastBuildId: String? = null
-    while (true) {
-        val call = when (lastBuildId) {
-            null -> getBuilds(
-                since = since, sinceBuild = sinceBuild,
-                fromInstant = fromInstant, fromBuild = fromBuild,
-                maxBuilds = API_MAX_BUILDS,
-            )
-            else -> getBuilds(fromBuild = lastBuildId, maxBuilds = API_MAX_BUILDS)
-        }
-        val builds = call.await()
-        emitAll(builds.asFlow())
-        when {
-            builds.isEmpty() || builds.size < API_MAX_BUILDS -> break
-            else -> lastBuildId = builds.last().id
-        }
-    }
+    val firstBuilds = getBuilds(
+        since = since,
+        sinceBuild = sinceBuild,
+        fromInstant = fromInstant,
+        fromBuild = fromBuild,
+        maxBuilds = API_MAX_BUILDS,
+    ).await()
+    val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(maxPerRequest = API_MAX_BUILDS)
+    emitAll(pagedBuilds)
 }
-
-/**
- * Joins builds with their [GradleAttributes], which comes from a different endpoint
- * ([GradleEnterpriseApi.getGradleAttributes]).
- *
- * Don't expect client-side filtering to be efficient. Does as many concurrent calls
- * as it can, requesting attributes in an eager coroutine, in [scope].
- */
-fun Flow<Build>.withGradleAttributes(
-    scope: CoroutineScope = GlobalScope,
-): Flow<Pair<Build, GradleAttributes>> =
-    map { build ->
-        build to scope.async {
-            api.getGradleAttributes(build.id).await()
-        }
-    }.buffer(Int.MAX_VALUE).map { (build, attrs) ->
-        build to attrs.await()
-    }
 
 /**
  * Gets [GradleAttributes] of all builds from a given date. Queries [GradleEnterpriseApi.getBuilds]
@@ -69,7 +44,10 @@ fun Flow<Build>.withGradleAttributes(
  * Don't expect client-side filtering to be efficient. Does as many concurrent calls
  * as it can, requesting attributes in an eager coroutine, in [scope]. For other params,
  * see [getBuildsFlow] and [GradleEnterpriseApi.getBuilds].
+ *
+ * @param scope CoroutineScope in which to create coroutines. Defaults to [GlobalScope].
  */
+@OptIn(DelicateCoroutinesApi::class)
 fun GradleEnterpriseApi.getGradleAttributesFlow(
     since: Long = 0,
     sinceBuild: String? = null,
