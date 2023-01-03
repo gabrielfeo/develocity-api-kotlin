@@ -33,13 +33,17 @@ var accessToken: () -> String = {
 }
 
 /**
- * Shutdown the internal OkHttp client, releasing resources and allowing the program to finish
- * before the client's idle timeout.
+ * Shutdown the internal client, releasing resources and allowing the program to
+ * finish before the client's idle timeout.
  *
  * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/#shutdown-isnt-necessary
  */
 fun shutdown() {
-    okHttpClient.dispatcher.executorService.shutdownNow()
+    okHttpClient.run {
+        dispatcher.executorService.shutdown()
+        connectionPool.evictAll();
+        cache?.close();
+    }
 }
 
 /**
