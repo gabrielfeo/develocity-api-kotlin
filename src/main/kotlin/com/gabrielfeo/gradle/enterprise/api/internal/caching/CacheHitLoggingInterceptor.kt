@@ -1,6 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.internal.caching
 
-import com.gabrielfeo.gradle.enterprise.api.debugLoggingEnabled
+import com.gabrielfeo.gradle.enterprise.api.Options
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.util.logging.Level
@@ -11,7 +11,7 @@ internal class CacheHitLoggingInterceptor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!debugLoggingEnabled) {
+        if (!Options.debugLoggingEnabled) {
             return chain.proceed(chain.request())
         }
         val url = chain.request().url
