@@ -8,7 +8,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
-import retrofit2.await
 
 /**
  * Gets builds on demand from the API, in as many requests as necessary. It allows
@@ -31,7 +30,7 @@ fun GradleEnterpriseApi.getBuildsFlow(
         fromInstant = fromInstant,
         fromBuild = fromBuild,
         maxBuilds = API_MAX_BUILDS,
-    ).await()
+    )
     val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(maxPerRequest = API_MAX_BUILDS)
     emitAll(pagedBuilds)
 }

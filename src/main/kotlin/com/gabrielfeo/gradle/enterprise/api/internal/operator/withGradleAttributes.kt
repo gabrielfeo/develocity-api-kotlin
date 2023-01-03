@@ -18,7 +18,7 @@ internal fun Flow<Build>.withGradleAttributes(
 ): Flow<Pair<Build, GradleAttributes>> =
     map { build ->
         build to scope.async {
-            api.getGradleAttributes(build.id).await()
+            api.getGradleAttributes(build.id)
         }
     }.buffer(Int.MAX_VALUE).map { (build, attrs) ->
         build to attrs.await()

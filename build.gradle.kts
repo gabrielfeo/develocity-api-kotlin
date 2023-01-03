@@ -37,6 +37,25 @@ openApiGenerate {
     packageName.set("com.gabrielfeo.gradle.enterprise.api.internal")
     invokerPackage.set("com.gabrielfeo.gradle.enterprise.api.internal")
     additionalProperties.put("library", "jvm-retrofit2")
+    additionalProperties.put("useCoroutines", true)
+}
+
+tasks.openApiGenerate.configure {
+    // Replace Response<X> with X in every method return type of GradleEnterpriseApi.kt
+    doLast {
+        val apiFile = File(
+            outputDir.get(),
+            "src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/GradleEnterpriseApi.kt",
+        )
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "file" to apiFile,
+                "match" to ": Response<(.*?)>$",
+                "replace" to """: \1""",
+                "flags" to "gm",
+            )
+        }
+    }
 }
 
 sourceSets {

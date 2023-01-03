@@ -23,7 +23,7 @@ internal fun Flow<Build>.pagedUntilLastBuild(
         if (lastBuildId.isEmpty()) {
             return@flow
         } else while (true) {
-            val builds = api.getBuilds(fromBuild = lastBuildId, maxBuilds = maxPerRequest).await()
+            val builds = api.getBuilds(fromBuild = lastBuildId, maxBuilds = maxPerRequest)
             emitAll(builds.asFlow())
             when {
                 builds.isEmpty() || builds.size < API_MAX_BUILDS -> break
