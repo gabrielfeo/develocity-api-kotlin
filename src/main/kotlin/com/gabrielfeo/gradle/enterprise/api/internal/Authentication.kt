@@ -1,6 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.debugLoggingEnabled
+import com.gabrielfeo.gradle.enterprise.api.Options
 import java.util.logging.Level.INFO
 import java.util.logging.Logger
 
@@ -20,7 +20,7 @@ internal fun requireToken(
 
 private fun tokenFromEnv(varName: String): String? {
     return System.getenv(varName).also {
-        if (debugLoggingEnabled && it.isNullOrBlank()) {
+        if (Options.debugLoggingEnabled && it.isNullOrBlank()) {
             Logger.getGlobal().log(INFO, "Env var $varName=$it")
         }
     }
@@ -36,7 +36,7 @@ private fun tokenFromKeychain(keyName: String): String? {
         return process.inputStream.bufferedReader().use {
             it.readText().trim()
         }
-    } else if (debugLoggingEnabled) {
+    } else if (Options.debugLoggingEnabled) {
         Logger.getGlobal().log(INFO, "Failed to get key from keychain (exit $status)")
     }
     return null
