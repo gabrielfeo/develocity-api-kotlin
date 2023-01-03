@@ -6,10 +6,18 @@
     <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-const savedDarkMode = storage ? JSON.parse(storage) : false
-if(savedDarkMode === true){
-    document.getElementsByTagName("html")[0].classList.add("theme-dark")
-}</script>
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
 <script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
 <link href="../../../../styles/style.css" rel="Stylesheet">
 <link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
@@ -21,6 +29,7 @@ if(savedDarkMode === true){
 <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
 <div class="navigation-wrapper" id="navigation-wrapper">
@@ -31,7 +40,7 @@ if(savedDarkMode === true){
             </a>
     </div>
     <div>
-0.7    </div>
+0.9    </div>
     <div class="pull-right d-flex">
         <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
         <div id="searchBar"></div>
@@ -43,13 +52,13 @@ if(savedDarkMode === true){
     </div>
     <div id="main">
 <div class="main-content" id="content" pageIds="gradle-enterprise-api-kotlin::com.gabrielfeo.gradle.enterprise.api.model/GradleBuildCachePerformanceTaskExecutionEntry.AvoidanceOutcome///PointingToDeclaration//769193423">
-  <div class="breadcrumbs"><a href="../../../../index.html">gradle-enterprise-api-kotlin</a><span class="delimiter">/</span><a href="../../index.html">com.gabrielfeo.gradle.enterprise.api.model</a><span class="delimiter">/</span><a href="../index.html">GradleBuildCachePerformanceTaskExecutionEntry</a><span class="delimiter">/</span><a href="index.html">AvoidanceOutcome</a></div>
+  <div class="breadcrumbs"><a href="../../../../index.html">gradle-enterprise-api-kotlin</a><span class="delimiter">/</span><a href="../../index.html">com.gabrielfeo.gradle.enterprise.api.model</a><span class="delimiter">/</span><a href="../index.html">GradleBuildCachePerformanceTaskExecutionEntry</a><span class="delimiter">/</span><span class="current">AvoidanceOutcome</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Avoidance</span><wbr></wbr><span><span>Outcome</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">AvoidanceOutcome</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">GradleBuildCachePerformanceTaskExecutionEntry.AvoidanceOutcome</a><span class="token operator">&gt; </span><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">The avoidance outcome of this task with respect to performance:   * <code class="lang-kotlin">avoided_up_to_date</code> - Task whose execution was avoided due to build incrementalism   * <code class="lang-kotlin">avoided_from_local_cache</code> - Task whose execution was avoided due to reusing a local build cache entry   * <code class="lang-kotlin">avoided_from_remote_cache</code> - Task whose execution was avoided due to reusing a remote build cache entry   * <code class="lang-kotlin">executed_cacheable</code> - Task which was executed but was cacheable   * <code class="lang-kotlin">executed_not_cacheable</code> - Task which was executed but was not cacheable   * <code class="lang-kotlin">executed_unknown_cacheability</code> - Task which was executed and whose cacheability could not be determined   * <code class="lang-kotlin">lifecycle</code> - Lifecycle task   * <code class="lang-kotlin">no-source</code> - No-source task   * <code class="lang-kotlin">skipped</code> - Skipped task</p><p class="paragraph">Values: avoidedUpToDate,avoidedFromLocalCache,avoidedFromRemoteCache,executedCacheable,executedNotCacheable,executedUnknownCacheability,lifecycle,noMinusSource,skipped</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">AvoidanceOutcome</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">GradleBuildCachePerformanceTaskExecutionEntry.AvoidanceOutcome</a><span class="token operator">&gt; </span></div><p class="paragraph">The avoidance outcome of this task with respect to performance:   * <code class="lang-kotlin">avoided_up_to_date</code> - Task whose execution was avoided due to build incrementalism   * <code class="lang-kotlin">avoided_from_local_cache</code> - Task whose execution was avoided due to reusing a local build cache entry   * <code class="lang-kotlin">avoided_from_remote_cache</code> - Task whose execution was avoided due to reusing a remote build cache entry   * <code class="lang-kotlin">executed_cacheable</code> - Task which was executed but was cacheable   * <code class="lang-kotlin">executed_not_cacheable</code> - Task which was executed but was not cacheable   * <code class="lang-kotlin">executed_unknown_cacheability</code> - Task which was executed and whose cacheability could not be determined   * <code class="lang-kotlin">lifecycle</code> - Lifecycle task   * <code class="lang-kotlin">no-source</code> - No-source task   * <code class="lang-kotlin">skipped</code> - Skipped task</p><p class="paragraph">Values: avoidedUpToDate,avoidedFromLocalCache,avoidedFromRemoteCache,executedCacheable,executedNotCacheable,executedUnknownCacheability,lifecycle,noMinusSource,skipped</p></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Entries">Entries</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Entries">Entries</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
     <div class="tabs-section-body">
       <h2 class="tabbedcontent">Entries</h2>
       <div class="table" data-togglable="Entries"><a data-name="187050045%2FClasslikes%2F769193423" anchor-label="avoidedUpToDate" id="187050045%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
@@ -62,7 +71,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;avoided_up_to_date&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="avoided-up-to-date/index.html">avoidedUpToDate</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;avoided_up_to_date&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="avoided-up-to-date/index.html">avoidedUpToDate</a></div></div></div></div>
               </div>
             </div>
           </div>
@@ -77,7 +86,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;avoided_from_local_cache&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="avoided-from-local-cache/index.html">avoidedFromLocalCache</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;avoided_from_local_cache&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="avoided-from-local-cache/index.html">avoidedFromLocalCache</a></div></div></div></div>
               </div>
             </div>
           </div>
@@ -92,7 +101,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;avoided_from_remote_cache&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="avoided-from-remote-cache/index.html">avoidedFromRemoteCache</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;avoided_from_remote_cache&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="avoided-from-remote-cache/index.html">avoidedFromRemoteCache</a></div></div></div></div>
               </div>
             </div>
           </div>
@@ -107,7 +116,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;executed_cacheable&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="executed-cacheable/index.html">executedCacheable</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;executed_cacheable&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="executed-cacheable/index.html">executedCacheable</a></div></div></div></div>
               </div>
             </div>
           </div>
@@ -122,7 +131,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;executed_not_cacheable&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="executed-not-cacheable/index.html">executedNotCacheable</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;executed_not_cacheable&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="executed-not-cacheable/index.html">executedNotCacheable</a></div></div></div></div>
               </div>
             </div>
           </div>
@@ -137,7 +146,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;executed_unknown_cacheability&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="executed-unknown-cacheability/index.html">executedUnknownCacheability</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;executed_unknown_cacheability&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="executed-unknown-cacheability/index.html">executedUnknownCacheability</a></div></div></div></div>
               </div>
             </div>
           </div>
@@ -152,7 +161,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;lifecycle&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="lifecycle/index.html">lifecycle</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;lifecycle&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="lifecycle/index.html">lifecycle</a></div></div></div></div>
               </div>
             </div>
           </div>
@@ -167,7 +176,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;no-source&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="no-minus-source/index.html">noMinusSource</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;no-source&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="no-minus-source/index.html">noMinusSource</a></div></div></div></div>
               </div>
             </div>
           </div>
@@ -182,7 +191,39 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation">@</span><span data-unresolved-link="com.squareup.moshi/Json///PointingToDeclaration/"><span class="token annotation">Json</span></span><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;skipped&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="skipped/index.html">skipped</a></div><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;skipped&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="skipped/index.html">skipped</a></div></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="150060447%2FFunctions%2F769193423" anchor-label="valueOf" id="150060447%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="150060447%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">GradleBuildCachePerformanceTaskExecutionEntry.AvoidanceOutcome</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="485244139%2FFunctions%2F769193423" anchor-label="values" id="485244139%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="485244139%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">GradleBuildCachePerformanceTaskExecutionEntry.AvoidanceOutcome</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
               </div>
             </div>
           </div>
@@ -199,7 +240,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-372974862%2FProperties%2F769193423" anchor-label="name" id="-372974862%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../-maven-build-cache-performance-goal-execution-entry/-non-cacheability-category/unknown-entitlements/index.html#-372974862%2FProperties%2F769193423">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-372974862%2FProperties%2F769193423" anchor-label="name" id="-372974862%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../-maven-build-cache-performance-goal-execution-entry/-non-cacheability-category/unknown-entitlements/index.html#-372974862%2FProperties%2F769193423">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
               </div>
             </div>
           </div>
@@ -214,7 +255,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-739389684%2FProperties%2F769193423" anchor-label="ordinal" id="-739389684%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../-maven-build-cache-performance-goal-execution-entry/-non-cacheability-category/unknown-entitlements/index.html#-739389684%2FProperties%2F769193423">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-739389684%2FProperties%2F769193423" anchor-label="ordinal" id="-739389684%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../-maven-build-cache-performance-goal-execution-entry/-non-cacheability-category/unknown-entitlements/index.html#-739389684%2FProperties%2F769193423">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
               </div>
             </div>
           </div>
@@ -229,7 +270,7 @@ if(savedDarkMode === true){
                 </span></span></div>
             <div>
               <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-727607972%2FProperties%2F769193423" anchor-label="value" id="-727607972%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="value.html">value</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-727607972%2FProperties%2F769193423" anchor-label="value" id="-727607972%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="value.html">value</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
               </div>
             </div>
           </div>
