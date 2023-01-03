@@ -1,6 +1,4 @@
-package com.gabrielfeo.gradle.enterprise.api
-
-import com.gabrielfeo.gradle.enterprise.api.model.*
+package com.gabrielfeo.gradle.enterprise.api.model
 
 operator fun List<BuildAttributesValue>.get(name: String): String? {
     return find { it.name == name }?.value
