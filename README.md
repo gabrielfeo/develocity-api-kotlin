@@ -1,18 +1,20 @@
 # Gradle Enterprise API Kotlin
 
+[![Release](https://jitpack.io/v/gabrielfeo/gradle-enterprise-api-kotlin.svg)](https://jitpack.io/#gabrielfeo/gradle-enterprise-api-kotlin)
+[![Javadoc](https://img.shields.io/badge/javadoc-0.9-orange)](https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/)
+
 A Kotlin library to access the [Gradle Enterprise API][1], easy to use from Kotlin
 scripts:
 
 ```kotlin
-val builds = api.getBuilds(since = 0, maxBuilds = 10).execute().body()!!
-builds.forEach {
+api.getBuilds(since = yesterday).forEach {
   println(it)
 }
 ```
 
 ## Setup
 
-Set up your environment once and use the library from any script in your machine.
+Set up once and use the library from any script in your machine:
 
 - `GRADLE_ENTERPRISE_URL` environment variable: the URL of your Gradle Enterprise instance
 - `GRADLE_ENTERPRISE_API_TOKEN` environment variable: an API access token for the Gradle
@@ -26,56 +28,11 @@ API:
 @file:Repository("https://jitpack.io")
 @file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:1.0")
 
-val builds = api.getBuilds(since = 0, maxBuilds = 10).execute().body()!!
-builds.forEach {
-  println(it)
-}
+api.getBuild(id = "hy5nxbzfjxe5k")
 ```
 
-See the [sample script](./sample.main.kts) for a complete example.
-
-<details>
-  <summary>Optional setup</summary>
-
-  All of the following have default values and are completely optional. See
-  [Api.kt](src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/Api.kt) for details.
-
-  ##### Caching
-
-  Gradle Enterprise API disallows HTTP caching, but this library forces
-  caching for faster queries. Caching is split in two categories:
-
-  1. Short-term cache (default max-age of 1 day)
-    - `/api/builds`
-  2. Long-term cache (default max-age of 1 year)
-    - `/api/builds/{id}/gradle-attributes`
-    - `/api/builds/{id}/maven-attributes`
-
-  max-age and cached URLs can be changed with options below.
-
-  - `GRADLE_ENTERPRISE_API_CACHE_DIR`: HTTP cache location. Defaults to the system temporary
-    directory.
-  - `GRADLE_ENTERPRISE_API_MAX_CACHE_SIZE`: Max size of the HTTP cache in bytes. Defaults to ~1GB.
-  - `GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_URL_PATTERN`: Regex pattern to match API URLs that are
-    OK to store short-term in the HTTP cache.
-  - `GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE`: Max age in seconds of each response stored
-    short-term in the HTTP cache.
-  - `GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN`: Regex pattern to match API URLs that are
-    OK to store long-term in the HTTP cache.
-  - `GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_MAX_AGE`: Max age in seconds of each response stored
-    long-term in the HTTP cache.
-
-  ##### Concurrency
-
-  - `GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS`: Maximum amount of concurrent requests
-    allowed. Defaults to 15.
-
-  ##### Debugging
-
-  - `GRADLE_ENTERPRISE_API_DEBUG_LOGGING`: `true` to enable debug logging from the library. Defaults
-    to `false`.
-
-</details>
+For configuring base URL and token via code and other available options, see the
+[`Options` object][8].
 
 <details>
   <summary>Setup in full projects (non-scripts)</summary>
@@ -104,63 +61,43 @@ See the [sample script](./sample.main.kts) for a complete example.
     ```
 
   </details>
-
-  Any option can also be changed from code rather than from environment, as long as it's done
-  before the first `api` usage.
-
-  ```kotlin
-  baseUrl = { "https://my.ge.org" }
-  accessToken = { getFromVault("ge-api-token") }
-  api.getBuilds(id = "hy5nxbzfjxe5k")
-  ```
-
 </details>
 
 ## Usage
 
-API endpoints are provided as a single interface: `GradleEnterpriseApi`. It's
+API endpoints are provided as a single interface: [`GradleEnterpriseApi`][9]. The Javadoc is a
+the same as Gradle's online docs, as they're generated from the same spec. An instance is
 initialized and ready-to-use as the global `api` instance:
 
 ```kotlin
 api.getBuild(id = "hy5nxbzfjxe5k")
 ```
 
-It's recommended to learn about endpoints and their responses through IDE auto-complete. Javadoc
-appearing in auto-complete is the full API manual, same as Gradle's online docs.
-
-This library provides a few extension functions on top of the regular API:
+The library also provides a few extension functions on top of the regular API, such as paged 
+requests and joining. See [`GradleEnterpriseApi` extensions][10].
 
 ```kotlin
-// Regular query to /api/builds, limited to 1000 builds server-side
+// Standard query to /api/builds, limited to 1000 builds server-side
 api.getBuilds(since = lastMonth)
-// Streams all available builds from a given date, split in as getBuilds
-// as needed
+// Extension: Streams all available builds since given date (paging underneath)
 api.getBuildsFlow(since = lastMonth)
 ```
+
+It's recommended to call [`shutdown()`][11] at the end of scripts to release resources and let the 
+program exit. Otherwise, it'll keep running for an extra ~60s after code finishes, as an [expected
+behavior of OkHttp][4].
 
 ```kotlin
-// To get build scan data such as username, tags and custom values, one
-// must usually query /api/builds/{id}/gradle-attributes per-build, which
-// is verbose and slow (1 request at a time)
-api.getBuildsFlow(since = lastMonth)
-  .map { build -> api.getGradleAttributes(id = build.id) }
-// Streams all available builds as GradleAttributes from a given date,
-// requesting more than 1 build at a time.
-api.getGradleAttributesFlow(since = lastMonth)
+val builds = api.getBuilds()
+// do work ...
+shutdown()
 ```
-
 
 ## More info
 
-- Currently built for Gradle Enterprise `2022.4`, but can be used with previous versions.
+- Currently built for Gradle Enterprise `2022.4`, but should work fine with previous versions.
 - Use JDK 8 or 14+ to run, if you want to avoid the ["illegal reflective access" warning about
   Retrofit][3]
-- There is a global instance `okHttpClient` so you can change what's needed, but also concurrency
-  shortcuts `maxConcurrentRequests` and `shutdown()`.
-  - `maxConcurrentRequests` is useful to speed up scripts, but if you start getting HTTP 504 from
-    your GE instance, decreasing this value should help.
-  - The script will keep running for an extra ~60s after code finishes, as an [expected behavior
-  of OkHttp][4], unless you call `shutdown()` (global function).
 - All classes live in these two packages. If you need to make small edits to scripts where 
   there's no auto-complete, wildcard imports can be used:
 
@@ -180,3 +117,8 @@ API classes such as `GradleEnterpriseApi` and response models are generated from
 [4]: https://github.com/square/retrofit/issues/3144#issuecomment-508300518
 [5]: https://docs.gradle.com/enterprise/api-manual/#reference_documentation
 [6]: https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc
+[7]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/
+[8]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/
+[9]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/
+[10]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/index.html#373241164%2FExtensions%2F769193423
+[11]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/shutdown.html

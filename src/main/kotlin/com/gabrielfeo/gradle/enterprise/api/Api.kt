@@ -14,10 +14,7 @@ val api: GradleEnterpriseApi by lazy {
 }
 
 /**
- * Shutdown the internal client, releasing resources and allowing the program to
- * finish before the client's idle timeout.
- *
- * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/#shutdown-isnt-necessary
+ * Release resources allowing the program to finish before the internal client's idle timeout.
  */
 fun shutdown() {
     okHttpClient.run {
