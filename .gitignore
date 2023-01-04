@@ -6,6 +6,8 @@ build
 !*/src/**/build
 !*/*/src/**/build
 
+local.properties
+
 **/.log
 .DS_Store
 
