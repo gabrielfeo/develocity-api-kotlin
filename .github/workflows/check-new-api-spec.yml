@@ -1,7 +1,7 @@
 name: 'Verify PR'
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
   schedule:
     - cron: '0 6 * * 1'
 
