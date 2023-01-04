@@ -27,6 +27,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           branch: "feature/api-spec-${{ env.SPEC_VERSION }}"
+          commit-message: "Bump GE API spec version to ${{ env.SPEC_VERSION }}"
           title: "Support Gradle Enterprise API ${{ env.SPEC_VERSION }}"
           body: "https://docs.gradle.com/enterprise/api-manual/#release_history"
           author: "github-actions <github-actions@github.com>"
