@@ -14,7 +14,19 @@ jobs:
   check-new-api-spec:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 'Checkout'
         uses: actions/checkout@v3
-      - name: Check for new API spec
-        run: ./.github/scripts/check_for_new_api_spec.py
+      - name: 'Check for new API spec'
+        run: ./.github/scripts/update_api_spec_version.py
+      - name: 'Read current spec version'
+        run: |
+          version=$(./.github/scripts/read_current_api_spec_version.py)
+          echo "SPEC_VERSION=$version" >> "$GITHUB_ENV"
+      - name: 'Create PR'
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: "feature/api-spec-${{ env.SPEC_VERSION }}"
+          title: "Support Gradle Enterprise API ${{ env.SPEC_VERSION }}"
+          description: "https://docs.gradle.com/enterprise/api-manual/#release_history"
+          author: "github-actions <github-actions@github.com>"
+          committer: "github-actions <github-actions@github.com>"

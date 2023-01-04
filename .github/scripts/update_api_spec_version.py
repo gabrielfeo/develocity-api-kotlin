@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
 
 import requests
-
-
-def get_current_api_version(properties_file) -> str:
-    with open(properties_file, mode='r') as file:
-        for line in file.readlines():
-            if '=' not in line:
-                continue
-            k, v = line.strip().split('=', maxsplit=2)
-            if k == 'gradle.enterprise.version':
-                return v
+import fileinput
+import sys
+from read_current_api_spec_version import get_current_api_spec_version
 
 
 def get_possible_version_bumps(version: str) -> list[str]:
@@ -32,12 +25,24 @@ def get_first_available_version(versions: list[str]) -> str:
             return version
 
 
+def update_version(properties_file, new_version):
+    for line in fileinput.input(properties_file, inplace=True):
+        if '=' in line:
+            k, v = line.strip().split('=', maxsplit=2)
+            if k == 'gradle.enterprise.version':
+                line = f"{k}={new_version}\n"
+        sys.stdout.write(line)
+
+
 def main(properties_file):
-    current = get_current_api_version(properties_file)
+    current = get_current_api_spec_version(properties_file)
     possible_bumps = get_possible_version_bumps(current)
     available_update = get_first_available_version(possible_bumps)
     if available_update:
-        print(available_update)
+        print(f"Updating to {available_update}")
+        update_version(properties_file, available_update)
+    else:
+        print('No update available')
 
 
 if __name__ == '__main__':

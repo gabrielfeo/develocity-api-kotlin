@@ -29,3 +29,18 @@ jobs:
           tasks: 'check'
           # artifact-name: 'Test reports (${{matrix.runner}})'
           # path-to-upload: '**/build/reports/tests/**'
+
+  check-py-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check for modified code
+        id: diff
+        uses: tj-actions/changed-files@v24
+        with:
+          files: |
+            **/*.py
+      - name: 'unittest discover'
+        if: ${{ steps.diff.outputs.all_modified_files }}
+        run: python3 -m unittest discover
