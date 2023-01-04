@@ -392,17 +392,23 @@ $dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi/listTes
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi/listTestDistributionApiKeys/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/list-test-distribution-api-keys.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi/regenerateSecretOfBuildCacheNode/#kotlin.String/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/regenerate-secret-of-build-cache-node.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi/revokeTestDistributionApiKey/#kotlin.String/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/revoke-test-distribution-api-key.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache///PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/index.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache/cacheDir/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/cache-dir.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache/cacheEnabled/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/cache-enabled.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache/clear/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/clear.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache/longTermCacheMaxAge/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/long-term-cache-max-age.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache/longTermCacheUrlPattern/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/long-term-cache-url-pattern.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache/maxCacheSize/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/max-cache-size.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache/shortTermCacheMaxAge/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/short-term-cache-max-age.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Cache/shortTermCacheUrlPattern/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/short-term-cache-url-pattern.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Concurrency///PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-concurrency/index.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Concurrency/maxConcurrentRequests/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-concurrency/max-concurrent-requests.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Debugging///PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-debugging/index.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.Debugging/debugLoggingEnabled/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-debugging/debug-logging-enabled.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.GradleEnterpriseInstance///PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-gradle-enterprise-instance/index.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.GradleEnterpriseInstance/token/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-gradle-enterprise-instance/token.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.GradleEnterpriseInstance/url/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-gradle-enterprise-instance/url.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Options///PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/index.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/accessToken/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/access-token.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/baseUrl/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/base-url.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/cacheDir/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/cache-dir.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/debugLoggingEnabled/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/debug-logging-enabled.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/longTermCacheMaxAge/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/long-term-cache-max-age.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/longTermCacheUrlPattern/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/long-term-cache-url-pattern.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/maxCacheSize/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/max-cache-size.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/maxConcurrentRequests/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/max-concurrent-requests.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/shortTermCacheMaxAge/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/short-term-cache-max-age.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/shortTermCacheUrlPattern/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/short-term-cache-url-pattern.html
 com.gabrielfeo.gradle.enterprise.api
 com.gabrielfeo.gradle.enterprise.api.model
 

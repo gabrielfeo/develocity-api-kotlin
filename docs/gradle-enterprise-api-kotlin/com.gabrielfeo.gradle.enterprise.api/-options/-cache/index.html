@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Cache</title>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../../index.html">
+                    <span>gradle-enterprise-api-kotlin</span>
+            </a>
+    </div>
+    <div>
+0.10.0    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="gradle-enterprise-api-kotlin::com.gabrielfeo.gradle.enterprise.api/Options.Cache///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../../index.html">gradle-enterprise-api-kotlin</a><span class="delimiter">/</span><a href="../../index.html">com.gabrielfeo.gradle.enterprise.api</a><span class="delimiter">/</span><a href="../index.html">Options</a><span class="delimiter">/</span><span class="current">Cache</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Cache</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Cache</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/gradle-enterprise-api-kotlin/blob/0.10.0/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/Options.kt#L61">source</a>)</span></span></div><p class="paragraph">HTTP cache is off by default, but can speed up requests significantly. The Gradle Enterprise API disallows HTTP caching, but this library forcefully enables it by overwriting cache-related headers in API responses. Enable with <a href="cache-enabled.html">cacheEnabled</a>.</p><p class="paragraph">Responses can be:</p><ul><li><p class="paragraph">cached short-term: default max-age of 1 day</p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds</code></p></li><li><p class="paragraph">cached long-term: default max-age of 1 year</p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/gradle-attributes</code></p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/maven-attributes</code></p></li><li><p class="paragraph">not cached</p></li><li><p class="paragraph">all other paths</p></li></ul><p class="paragraph">Whether a response is cached short-term, long-term or not cached at all depends on whether it was matched by <a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a> or <a href="long-term-cache-url-pattern.html">longTermCacheUrlPattern</a>.</p><p class="paragraph">Whenever GE is upgraded, cache should be <a href="clear.html">clear</a>ed.</p><h3 class=""> Caveats</h3><p class="paragraph">While not encouraged by the API, caching shouldn't have any major downsides other than a time gap for certain queries, or having to reset cache when GE is upgraded.</p><h4 class=""> Time gap</h4><p class="paragraph"><code class="lang-kotlin">/api/builds</code> responses always change as new builds are uploaded. Caching this path short-term (default 1 day) means new builds uploaded after the cached response won't be included in the query until the cache is invalidated 24h later. If that's a problem, caching can be disabled for this <code class="lang-kotlin">/api/builds</code> by changing <a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a>.</p><h4 class=""> GE upgrades</h4><p class="paragraph">When GE is upgraded, any API response can change. New data might be available in API endpoints such as <code class="lang-kotlin">/api/build/{id}/gradle-attributes</code>. Thus, whenever the GE version itself is upgraded, cache should be <a href="clear.html">clear</a>ed.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-495564737%2FFunctions%2F769193423" anchor-label="clear" id="-495564737%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="clear.html"><span><span>clear</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-495564737%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="clear.html"><span class="token function">clear</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Clears <a href="cache-dir.html">cacheDir</a> including files that weren't created by the cache.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="865351651%2FProperties%2F769193423" anchor-label="cacheDir" id="865351651%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="cache-dir.html"><span>cache</span><wbr></wbr><span><span>Dir</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="865351651%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="865351651%2FProperties%2F769193423" anchor-label="cacheDir" id="865351651%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="cache-dir.html">cacheDir</a><span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/io/File.html">File</a></div><div class="brief "><a data-name="865351651%2FProperties%2F769193423" anchor-label="cacheDir" id="865351651%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">HTTP cache location. By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_CACHE_DIR</code> or the system temporary folder (<code class="lang-kotlin">java.io.tmpdir</code> / gradle-enterprise-api-kotlin-cache).</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1054137809%2FProperties%2F769193423" anchor-label="cacheEnabled" id="-1054137809%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="cache-enabled.html"><span>cache</span><wbr></wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1054137809%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-1054137809%2FProperties%2F769193423" anchor-label="cacheEnabled" id="-1054137809%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="cache-enabled.html">cacheEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><a data-name="-1054137809%2FProperties%2F769193423" anchor-label="cacheEnabled" id="-1054137809%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Whether caching is enabled. By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_CACHE_ENABLED</code> or <code class="lang-kotlin">false</code>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1206573143%2FProperties%2F769193423" anchor-label="longTermCacheMaxAge" id="1206573143%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="long-term-cache-max-age.html"><span>long</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Max</span><wbr></wbr><span><span>Age</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1206573143%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1206573143%2FProperties%2F769193423" anchor-label="longTermCacheMaxAge" id="1206573143%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="long-term-cache-max-age.html">longTermCacheMaxAge</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><a data-name="1206573143%2FProperties%2F769193423" anchor-label="longTermCacheMaxAge" id="1206573143%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Max age in seconds for URLs to be cached long-term (matched by <a href="long-term-cache-url-pattern.html">longTermCacheUrlPattern</a>). By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_MAX_AGE</code> or 1 year.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-552342927%2FProperties%2F769193423" anchor-label="longTermCacheUrlPattern" id="-552342927%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="long-term-cache-url-pattern.html"><span>long</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Url</span><wbr></wbr><span><span>Pattern</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-552342927%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-552342927%2FProperties%2F769193423" anchor-label="longTermCacheUrlPattern" id="-552342927%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="long-term-cache-url-pattern.html">longTermCacheUrlPattern</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a></div><div class="brief "><a data-name="-552342927%2FProperties%2F769193423" anchor-label="longTermCacheUrlPattern" id="-552342927%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Regex pattern to match API URLs that are OK to store long-term in the HTTP cache, up to <a href="long-term-cache-max-age.html">longTermCacheMaxAge</a> (1y by default, max value). By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN</code> or a pattern matching:</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="449743343%2FProperties%2F769193423" anchor-label="maxCacheSize" id="449743343%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="max-cache-size.html"><span>max</span><wbr></wbr><span>Cache</span><wbr></wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="449743343%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="449743343%2FProperties%2F769193423" anchor-label="maxCacheSize" id="449743343%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="max-cache-size.html">maxCacheSize</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><a data-name="449743343%2FProperties%2F769193423" anchor-label="maxCacheSize" id="449743343%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Max size of the HTTP cache. By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_MAX_CACHE_SIZE</code> or ~1 GB.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1291443289%2FProperties%2F769193423" anchor-label="shortTermCacheMaxAge" id="1291443289%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="short-term-cache-max-age.html"><span>short</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Max</span><wbr></wbr><span><span>Age</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1291443289%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1291443289%2FProperties%2F769193423" anchor-label="shortTermCacheMaxAge" id="1291443289%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="short-term-cache-max-age.html">shortTermCacheMaxAge</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><a data-name="1291443289%2FProperties%2F769193423" anchor-label="shortTermCacheMaxAge" id="1291443289%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Max age in seconds for URLs to be cached short-term (matched by <a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a>). By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE</code> or 1 day.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-48423565%2FProperties%2F769193423" anchor-label="shortTermCacheUrlPattern" id="-48423565%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="short-term-cache-url-pattern.html"><span>short</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Url</span><wbr></wbr><span><span>Pattern</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-48423565%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-48423565%2FProperties%2F769193423" anchor-label="shortTermCacheUrlPattern" id="-48423565%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a></div><div class="brief "><a data-name="-48423565%2FProperties%2F769193423" anchor-label="shortTermCacheUrlPattern" id="-48423565%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Regex pattern to match API URLs that are OK to store short-term in the HTTP cache, up to <a href="short-term-cache-max-age.html">shortTermCacheMaxAge</a> (1d by default). By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_URL_PATTERN</code> or a pattern matching:</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
