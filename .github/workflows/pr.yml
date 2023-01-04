@@ -1,0 +1,31 @@
+name: 'Verify PR'
+
+on:
+  pull_request
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  check-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check for modified code
+        id: diff
+        uses: tj-actions/changed-files@v24
+        with:
+          files: |
+            **/src/**
+            **/*.gradle*
+            ./gradle/*
+      - name: gradle check
+        if: ${{ steps.diff.outputs.all_modified_files }}
+        uses: ./.github/actions/build
+        with:
+          tasks: 'check'
+          artifact-name: 'Test reports (${{matrix.runner}})'
+          path-to-upload: '**/build/reports/tests/**'

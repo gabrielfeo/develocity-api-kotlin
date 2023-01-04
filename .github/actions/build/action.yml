@@ -1,0 +1,35 @@
+name: 'Build'
+description: 'Run a Gradle build'
+inputs:
+  tasks:
+    description: "Gradle tasks"
+    required: true
+  artifact-name:
+    description: "Artifact name"
+    required: false
+  path-to-upload:
+    description: "Path to upload as artifact"
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: temurin
+        java-version: 8
+    - name: Set up Gradle env
+      uses: gradle/gradle-build-action@v2.1.4
+    - name: Run Gradle tasks
+      shell: bash
+      run: |
+        echo "::group::Gradle build log"
+        ./gradlew ${{ inputs.tasks }}
+        echo "::endgroup::"
+    - name: Upload
+      if: always()
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ inputs.path-to-upload }}
+        if-no-files-found: error

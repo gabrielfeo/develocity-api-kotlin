@@ -3,6 +3,7 @@ out
 !*/src/**/out
 
 build
+!.github/actions/build
 !*/src/**/build
 !*/*/src/**/build
 
