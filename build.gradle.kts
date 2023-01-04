@@ -1,3 +1,4 @@
+import java.net.URL
 import org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC
 import org.jetbrains.dokka.gradle.DokkaTask
 
@@ -11,6 +12,7 @@ plugins {
 
 group = "com.github.gabrielfeo"
 version = "0.10.0"
+val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
 
 val downloadApiSpec by tasks.registering {
     val geVersion = providers.gradleProperty("gradle.enterprise.version").get()
@@ -75,6 +77,11 @@ java {
 
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.all {
+        sourceLink {
+            localDirectory.set(file("src/main/kotlin"))
+            remoteUrl.set(URL("$repoUrl/blob/$version/src/main/kotlin"))
+            remoteLineSuffix.set("#L")
+        }
         jdkVersion.set(8)
         suppressGeneratedFiles.set(false)
         documentedVisibilities.set(setOf(PUBLIC))
