@@ -1,4 +1,4 @@
-name: 'Verify PR'
+name: 'Check for new API spec version'
 
 on:
   workflow_dispatch:
