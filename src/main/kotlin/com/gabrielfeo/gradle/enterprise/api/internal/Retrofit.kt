@@ -7,8 +7,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 internal val retrofit: Retrofit by lazy {
+    val url = Options.GradleEnterpriseInstance.url()
+    check("/api" !in url) { "Instance URL must be the plain instance URL, without /api" }
     Retrofit.Builder()
-        .baseUrl(Options.GradleEnterpriseInstance.baseUrl())
+        .baseUrl(url)
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create(Serializer.moshi))
         .client(okHttpClient)

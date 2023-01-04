@@ -16,7 +16,7 @@ internal val okHttpClient: OkHttpClient by lazy {
         if (Options.Debugging.debugLoggingEnabled && Options.Cache.cacheEnabled) {
             addInterceptor(CacheHitLoggingInterceptor())
         }
-        addInterceptor(HttpBearerAuth("bearer", Options.GradleEnterpriseInstance.accessToken()))
+        addInterceptor(HttpBearerAuth("bearer", Options.GradleEnterpriseInstance.token()))
         if (Options.Cache.cacheEnabled) {
             addNetworkInterceptor(buildCacheEnforcingInterceptor())
         }

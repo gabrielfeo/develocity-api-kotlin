@@ -23,10 +23,10 @@ object Options {
     object GradleEnterpriseInstance {
 
         /**
-         * Provides the URL of a Gradle Enterprise API instance. By default, uses environment variable
-         * `GRADLE_ENTERPRISE_URL`.
+         * Provides the URL of a Gradle Enterprise API instance (without `/api`). By default, uses
+         * environment variable `GRADLE_ENTERPRISE_URL`.
          */
-        var baseUrl: () -> String = {
+        var url: () -> String = {
             requireBaseUrl(envName = "GRADLE_ENTERPRISE_URL")
         }
 
@@ -34,7 +34,7 @@ object Options {
          * Provides the access token for a Gradle Enterprise API instance. By default, uses keychain entry
          * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_URL`.
          */
-        var accessToken: () -> String = {
+        var token: () -> String = {
             requireToken(
                 keychainName = "gradle-enterprise-api-token",
                 envName = "GRADLE_ENTERPRISE_API_TOKEN",
