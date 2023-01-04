@@ -16,8 +16,8 @@ api.getBuilds(since = yesterday).forEach {
 
 Set up once and use the library from any script in your machine:
 
-- `GRADLE_ENTERPRISE_URL` environment variable: the URL of your Gradle Enterprise instance
-- `GRADLE_ENTERPRISE_API_TOKEN` environment variable: an API access token for the Gradle
+- [`GRADLE_ENTERPRISE_URL`][16] environment variable: the URL of your Gradle Enterprise instance
+- [`GRADLE_ENTERPRISE_API_TOKEN`][17] environment variable: an API access token for the Gradle
   Enterprise instance. Alternatively, can be a macOS keychain entry labeled
   `gradle-enterprise-api-token` (recommended).
 
@@ -128,3 +128,5 @@ API classes such as `GradleEnterpriseApi` and response models are generated from
 [13]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/index.html
 [14]: https://jitpack.io/#gabrielfeo/gradle-enterprise-api-kotlin
 [15]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/
+[16]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-gradle-enterprise-instance/index.html#1947291631%2FProperties%2F769193423
+[17]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-gradle-enterprise-instance/index.html#-1521379912%2FProperties%2F769193423
