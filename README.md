@@ -1,7 +1,7 @@
 # Gradle Enterprise API Kotlin
 
-[![Release](https://jitpack.io/v/gabrielfeo/gradle-enterprise-api-kotlin.svg)](https://jitpack.io/#gabrielfeo/gradle-enterprise-api-kotlin)
-[![Javadoc](https://img.shields.io/badge/javadoc-0.9-orange)](https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/)
+[![Release](https://jitpack.io/v/gabrielfeo/gradle-enterprise-api-kotlin.svg)][14]
+[![Javadoc](https://img.shields.io/badge/javadoc-latest-orange)][15]
 
 A Kotlin library to access the [Gradle Enterprise API][1], easy to use from Kotlin
 scripts:
@@ -32,7 +32,9 @@ api.getBuild(id = "hy5nxbzfjxe5k")
 ```
 
 For configuring base URL and token via code and other available options, see the
-[`Options` object][8].
+[`Options` object][8]. HTTP caching is available, which can speed up queries significantly, but is
+off by default. Enable with [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12]. See [`Options.Cache`][13]
+for caveats.
 
 <details>
   <summary>Setup in full projects (non-scripts)</summary>
@@ -73,7 +75,7 @@ initialized and ready-to-use as the global `api` instance:
 api.getBuild(id = "hy5nxbzfjxe5k")
 ```
 
-The library also provides a few extension functions on top of the regular API, such as paged 
+The library also provides a few extension functions on top of the regular API, such as paged
 requests and joining. See [`GradleEnterpriseApi` extensions][10].
 
 ```kotlin
@@ -83,7 +85,7 @@ api.getBuilds(since = lastMonth)
 api.getBuildsFlow(since = lastMonth)
 ```
 
-It's recommended to call [`shutdown()`][11] at the end of scripts to release resources and let the 
+It's recommended to call [`shutdown()`][11] at the end of scripts to release resources and let the
 program exit. Otherwise, it'll keep running for an extra ~60s after code finishes, as an [expected
 behavior of OkHttp][4].
 
@@ -98,7 +100,7 @@ shutdown()
 - Currently built for Gradle Enterprise `2022.4`, but should work fine with previous versions.
 - Use JDK 8 or 14+ to run, if you want to avoid the ["illegal reflective access" warning about
   Retrofit][3]
-- All classes live in these two packages. If you need to make small edits to scripts where 
+- All classes live in these two packages. If you need to make small edits to scripts where
   there's no auto-complete, wildcard imports can be used:
 
 ```kotlin
@@ -122,3 +124,7 @@ API classes such as `GradleEnterpriseApi` and response models are generated from
 [9]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/
 [10]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/index.html#373241164%2FExtensions%2F769193423
 [11]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/shutdown.html
+[12]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/index.html#-1054137809%2FProperties%2F769193423
+[13]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/index.html
+[14]: https://jitpack.io/#gabrielfeo/gradle-enterprise-api-kotlin
+[15]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/

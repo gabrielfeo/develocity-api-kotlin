@@ -11,9 +11,6 @@ internal class CacheHitLoggingInterceptor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!Options.debugLoggingEnabled) {
-            return chain.proceed(chain.request())
-        }
         val url = chain.request().url
         val response = chain.proceed(chain.request())
         val wasHit = with(response) { cacheResponse != null && networkResponse == null }

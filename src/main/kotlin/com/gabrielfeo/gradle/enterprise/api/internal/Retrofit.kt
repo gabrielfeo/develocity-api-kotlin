@@ -8,7 +8,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 internal val retrofit: Retrofit by lazy {
     Retrofit.Builder()
-        .baseUrl(Options.baseUrl())
+        .baseUrl(Options.GradleEnterpriseInstance.baseUrl())
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create(Serializer.moshi))
         .client(okHttpClient)

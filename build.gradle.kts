@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.github.gabrielfeo"
-version = "0.9"
+version = "0.10.0"
 
 val downloadApiSpec by tasks.registering {
     val geVersion = providers.gradleProperty("gradle.enterprise.version").get()

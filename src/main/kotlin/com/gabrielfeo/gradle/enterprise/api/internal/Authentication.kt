@@ -20,7 +20,7 @@ internal fun requireToken(
 
 private fun tokenFromEnv(varName: String): String? {
     return System.getenv(varName).also {
-        if (Options.debugLoggingEnabled && it.isNullOrBlank()) {
+        if (Options.Debugging.debugLoggingEnabled && it.isNullOrBlank()) {
             Logger.getGlobal().log(INFO, "Env var $varName=$it")
         }
     }
@@ -36,7 +36,7 @@ private fun tokenFromKeychain(keyName: String): String? {
         return process.inputStream.bufferedReader().use {
             it.readText().trim()
         }
-    } else if (Options.debugLoggingEnabled) {
+    } else if (Options.Debugging.debugLoggingEnabled) {
         Logger.getGlobal().log(INFO, "Failed to get key from keychain (exit $status)")
     }
     return null
