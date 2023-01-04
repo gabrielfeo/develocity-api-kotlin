@@ -27,5 +27,5 @@ jobs:
         uses: ./.github/actions/build
         with:
           tasks: 'check'
-          artifact-name: 'Test reports (${{matrix.runner}})'
-          path-to-upload: '**/build/reports/tests/**'
+          # artifact-name: 'Test reports (${{matrix.runner}})'
+          # path-to-upload: '**/build/reports/tests/**'

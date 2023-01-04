@@ -27,7 +27,7 @@ runs:
         ./gradlew ${{ inputs.tasks }}
         echo "::endgroup::"
     - name: Upload
-      if: always()
+      if: ${{ inputs.path-to-upload }}
       uses: actions/upload-artifact@v3.0.0
       with:
         name: ${{ inputs.artifact-name }}
