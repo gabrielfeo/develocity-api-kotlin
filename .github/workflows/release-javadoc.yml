@@ -32,7 +32,7 @@ jobs:
         with:
           tasks: 'javadocJar'
           artifact-name: 'javadoc'
-          path-to-upload: "build/libs/gradle-enterprise-api-kotlin-$VERSION_NAME-javadoc.jar"
+          path-to-upload: "build/libs/gradle-enterprise-api-kotlin-${{ env.VERSION_NAME }}-javadoc.jar"
 
   push-javadoc:
     needs: [build-javadoc]
