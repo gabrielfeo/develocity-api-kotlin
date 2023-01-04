@@ -1,0 +1,51 @@
+name: 'Release javadoc'
+
+on:
+  push:
+    tags: ['*']
+  workflow_dispatch:
+    inputs:
+      version_name:
+        description: 'Version'
+        required: true
+
+defaults:
+  runs-on: ubuntu-latest
+  run:
+    shell: bash
+
+env:
+  VERSION_NAME: ${{ github.event.inputs.version_name || github.ref_name }}
+
+jobs:
+
+  build-javadoc:
+    outputs:
+      version: ${{ env.VERSION }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build javadoc
+        uses: ./.github/actions/build
+        with:
+          tasks: 'javadocJar'
+          artifact-name: 'javadoc'
+          path-to-upload: "build/libs/gradle-enterprise-api-kotlin-$VERSION_NAME-javadoc.jar"
+
+  push-javadoc:
+    needs: [build-javadoc]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download javadoc
+        uses: actions/download-artifact@v3
+      - name: Commit and push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout gh-pages
+          rm -rf docs
+          unzip "gradle-enterprise-api-kotlin-$VERSION_NAME-javadoc.jar" -d docs
+          git add docs
+          git commit -m "Add $VERSION_NAME javadoc"
+          git push
