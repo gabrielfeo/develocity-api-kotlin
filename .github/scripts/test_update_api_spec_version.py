@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from check_for_new_api_spec import *
+from update_api_spec_version import main
 from tempfile import NamedTemporaryFile
 import unittest
 from unittest import mock
@@ -20,8 +20,12 @@ class TestCheckForNewApiSpec(unittest.TestCase):
     @mock.patch('requests.get')
     def test_main_many_updates_available(self, mock_get, mock_print):
         mock_get.return_value.status_code = 200
+
         main(self.properties_file.name)
-        mock_print.assert_called_once_with('2023.4')
+
+        with open(self.properties_file.name) as file:
+            self.assertEqual(file.read(),
+                             'gradle.enterprise.version=2023.4\n1=2\n')
         mock_get.assert_called_once_with(
             'https://docs.gradle.com/enterprise/api-manual/ref/gradle-enterprise-2023.4-api.yaml'
         )
@@ -30,8 +34,12 @@ class TestCheckForNewApiSpec(unittest.TestCase):
     @mock.patch('requests.get')
     def test_main_no_updates_available(self, mock_get, mock_print):
         mock_get.return_value.status_code = 404
+
         main(self.properties_file.name)
-        mock_print.assert_not_called()
+
+        with open(self.properties_file.name) as file:
+            self.assertEqual(file.read(),
+                             'gradle.enterprise.version=2022.4\n1=2\n')
         mock_get.assert_has_calls([
             mock.call(
                 'https://docs.gradle.com/enterprise/api-manual/ref/gradle-enterprise-2023.4-api.yaml'),
