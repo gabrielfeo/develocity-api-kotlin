@@ -34,7 +34,7 @@ jobs:
           artifact-name: 'javadoc'
           path-to-upload: "build/libs/gradle-enterprise-api-kotlin-${{ env.VERSION_NAME }}-javadoc.jar"
 
-  push-javadoc:
+  commit-to-gh-pages:
     needs: [build-javadoc]
     runs-on: ubuntu-latest
     steps:
