@@ -7,9 +7,10 @@ build
 !*/src/**/build
 !*/*/src/**/build
 
-local.properties
+__pycache__
 
 **/.log
 .DS_Store
 
 .idea
+local.properties
