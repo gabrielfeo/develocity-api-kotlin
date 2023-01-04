@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: ${{ env.VERSION_NAME }}
       - name: Build javadoc
         uses: ./.github/actions/build
         with:
@@ -37,6 +39,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          ref: ${{ env.VERSION_NAME }}
       - name: Download javadoc
         uses: actions/download-artifact@v3
       - name: Commit and push
