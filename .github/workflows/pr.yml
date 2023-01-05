@@ -71,14 +71,14 @@ jobs:
             .github/workflows/check-new-api-spec.yml
             .github/scripts/*
 
-  publish-javadoc-dry-run:
+  dry-run-publish-javadoc:
     needs: [choose-dry-runs]
     if: ${{ needs.choose-dry-runs.outputs.dry-run-publish-javadoc }}
     uses: ./.github/workflows/publish-javadoc.yml
     with:
       dry_run: true
 
-  check-new-api-spec-dry-run:
+  dry-run-check-new-api-spec:
     needs: [choose-dry-runs]
     if: ${{ needs.choose-dry-runs.outputs.dry-run-check-new-api-spec }}
     uses: ./.github/workflows/check-new-api-spec.yml
