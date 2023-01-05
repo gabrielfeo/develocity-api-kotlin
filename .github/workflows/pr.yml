@@ -70,6 +70,7 @@ jobs:
           files: |
             .github/workflows/check-new-api-spec.yml
             .github/scripts/*
+            gradle.properties
 
   dry-run-publish-javadoc:
     needs: [choose-dry-runs]
