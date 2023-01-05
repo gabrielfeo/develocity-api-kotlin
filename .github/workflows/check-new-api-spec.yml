@@ -10,13 +10,18 @@ on:
         type: boolean
         required: false
   workflow_call:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        type: boolean
+        required: true
 
 defaults:
   run:
     shell: bash
 
 env:
-  DRY_RUN: ${{ github.event.inputs.dry_run || github.event_name == 'pull_request' }}
+  DRY_RUN: ${{ github.event.inputs.dry_run }}
 
 jobs:
 

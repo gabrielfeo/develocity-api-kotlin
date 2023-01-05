@@ -45,13 +45,16 @@ jobs:
         if: ${{ steps.diff.outputs.all_modified_files }}
         run: python3 -m unittest discover -bs .github/scripts
 
-  publish-javadoc-dry-run:
+  choose-dry-runs:
     runs-on: ubuntu-latest
+    outputs:
+      dry-run-publish-javadoc: ${{ steps.diff-publish-javadoc.outputs.all_modified_files }}
+      dry-run-check-new-api-spec: ${{ steps.diff-check-new-api-spec.outputs.all_modified_files }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Check for modified code
-        id: diff
+      - name: Diff publish-javadoc.yml
+        id: diff-publish-javadoc
         uses: tj-actions/changed-files@v24
         with:
           files: |
@@ -60,22 +63,24 @@ jobs:
             **/src/**
             **/*.gradle*
             ./gradle/*
-      - name: Trigger dry run
-        if: ${{ steps.diff.outputs.all_modified_files }}
-        uses: ./.github/workflows/publish-javadoc.yml
-
-  check-new-api-spec-dry-run:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Check for modified code
-        id: diff
+      - name: Diff check-new-api-spec.yml
+        id: diff-check-new-api-spec
         uses: tj-actions/changed-files@v24
         with:
           files: |
             .github/workflows/check-new-api-spec.yml
             .github/scripts/*
-      - name: Trigger dry run
-        if: ${{ steps.diff.outputs.all_modified_files }}
-        uses: ./.github/workflows/check-new-api-spec.yml
+
+  publish-javadoc-dry-run:
+    needs: [choose-dry-runs]
+    if: ${{ needs.choose-dry-runs.outputs.dry-run-publish-javadoc }}
+    uses: ./.github/workflows/publish-javadoc.yml
+    with:
+      dry_run: true
+
+  check-new-api-spec-dry-run:
+    needs: [choose-dry-runs]
+    if: ${{ needs.choose-dry-runs.outputs.dry-run-check-new-api-spec }}
+    uses: ./.github/workflows/check-new-api-spec.yml
+    with:
+      dry_run: true
