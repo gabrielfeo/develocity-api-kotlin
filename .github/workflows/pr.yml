@@ -46,7 +46,28 @@ jobs:
         run: python3 -m unittest discover -bs .github/scripts
 
   publish-javadoc-dry-run:
-    uses: ./.github/workflows/publish-javadoc.yml
+    - name: Check for modified code
+        id: diff
+        uses: tj-actions/changed-files@v24
+        with:
+          files: |
+            .github/workflows/publish-javadoc.yml
+            .github/scripts/*
+            **/src/**
+            **/*.gradle*
+            ./gradle/*
+    - name: Trigger dry run
+      if: ${{ steps.diff.outputs.all_modified_files }}
+      uses: ./.github/workflows/publish-javadoc.yml
 
   check-new-api-spec-dry-run:
-    uses: ./.github/workflows/check-new-api-spec.yml
+    - name: Check for modified code
+        id: diff
+        uses: tj-actions/changed-files@v24
+        with:
+          files: |
+            .github/workflows/check-new-api-spec.yml
+            .github/scripts/*
+    - name: Trigger dry run
+      if: ${{ steps.diff.outputs.all_modified_files }}
+      uses: ./.github/workflows/check-new-api-spec.yml
