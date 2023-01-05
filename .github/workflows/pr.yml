@@ -48,6 +48,8 @@ jobs:
   publish-javadoc-dry-run:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Check for modified code
         id: diff
         uses: tj-actions/changed-files@v24
@@ -65,13 +67,15 @@ jobs:
   check-new-api-spec-dry-run:
     runs-on: ubuntu-latest
     steps:
-    - name: Check for modified code
-      id: diff
-      uses: tj-actions/changed-files@v24
-      with:
-        files: |
-          .github/workflows/check-new-api-spec.yml
-          .github/scripts/*
-    - name: Trigger dry run
-      if: ${{ steps.diff.outputs.all_modified_files }}
-      uses: ./.github/workflows/check-new-api-spec.yml
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check for modified code
+        id: diff
+        uses: tj-actions/changed-files@v24
+        with:
+          files: |
+            .github/workflows/check-new-api-spec.yml
+            .github/scripts/*
+      - name: Trigger dry run
+        if: ${{ steps.diff.outputs.all_modified_files }}
+        uses: ./.github/workflows/check-new-api-spec.yml
