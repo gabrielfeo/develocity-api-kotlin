@@ -20,9 +20,6 @@ defaults:
   run:
     shell: bash
 
-env:
-  DRY_RUN: ${{ github.event.inputs.dry_run }}
-
 jobs:
 
   check-new-api-spec:
@@ -39,7 +36,7 @@ jobs:
           exit 1
           echo "SPEC_VERSION=$version" | tee -a "$GITHUB_ENV"
       - name: 'Create PR'
-        if: ${{ env.DRY_RUN == 'false' }}
+        if: ${{ !inputs.dry_run }}
         uses: peter-evans/create-pull-request@v4
         with:
           branch: "feature/api-spec-${{ env.SPEC_VERSION }}"

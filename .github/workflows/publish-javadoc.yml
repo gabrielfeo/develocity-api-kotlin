@@ -21,7 +21,6 @@ defaults:
     shell: bash
 
 env:
-  DRY_RUN: ${{ github.event.inputs.dry_run }}
   JAR_NAME: gradle-enterprise-api-kotlin-SNAPSHOT-javadoc.jar
 
 jobs:
@@ -54,13 +53,13 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          echo "$DRY_RUN"
+          echo "${{ inputs.dry_run }}"
           git status
           git add docs
           git commit -m "Add ${{ github.ref_name }} javadoc"
       - name: Push
         run: |
-          if [[ "$DRY_RUN" == 'true' ]]; then
+          if [[ "${{ inputs.dry_run }}" == 'true' ]]; then
             args=' --dry-run'
           fi
           git push origin HEAD:gh-pages $args
