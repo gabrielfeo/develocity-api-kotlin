@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.github.gabrielfeo"
-version = "0.10.0"
+version = "SNAPSHOT"
 val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
 
 val downloadApiSpec by tasks.registering {
