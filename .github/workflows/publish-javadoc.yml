@@ -10,13 +10,17 @@ on:
         type: boolean
         required: false
   workflow_call:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        type: boolean
+        required: true
 
 defaults:
   run:
     shell: bash
 
 env:
-  DRY_RUN: ${{ github.event.inputs.dry_run || github.event_name == 'pull_request' }}
   JAR_NAME: gradle-enterprise-api-kotlin-SNAPSHOT-javadoc.jar
 
 jobs:
@@ -39,21 +43,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Fetch branch
-        run: git fetch origin gh-pages && git checkout FETCH_HEAD
+        with:
+          ref: gh-pages
       - name: Download javadoc
         uses: actions/download-artifact@v3
       - name: Unzip javadoc
-        run: rm -rf docs && unzip "javadoc/$JAR_NAME" -d docs
+        run: |
+          rm -rf docs
+          unzip "javadoc/$JAR_NAME" -d docs
+          rm -rf javadoc
       - name: Commit
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add docs
-          git commit -m "Add ${{ github.ref_name }} javadoc"
+          git commit --allow-empty -m "Add ${{ github.ref_name }} javadoc"
       - name: Push
         run: |
-          if [[ "$DRY_RUN" == 'true' ]]; then
+          if [[ "${{ inputs.dry_run }}" == 'true' ]]; then
             args=' --dry-run'
           fi
-          git push origin HEAD:gh-pages $args
+          git push $args
