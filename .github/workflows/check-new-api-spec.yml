@@ -33,7 +33,6 @@ jobs:
         run: |
           version="$(./.github/scripts/read_current_api_spec_version.py)"
           [[ -n "$version" ]]
-          exit 1
           echo "SPEC_VERSION=$version" | tee -a "$GITHUB_ENV"
       - name: 'Create PR'
         if: ${{ !inputs.dry_run }}
