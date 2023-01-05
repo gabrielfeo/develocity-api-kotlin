@@ -10,13 +10,15 @@ on:
         type: boolean
         required: false
   workflow_call:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        type: boolean
+        required: true
 
 defaults:
   run:
     shell: bash
-
-env:
-  DRY_RUN: ${{ github.event.inputs.dry_run || github.event_name == 'pull_request' }}
 
 jobs:
 
@@ -31,9 +33,10 @@ jobs:
         run: |
           version="$(./.github/scripts/read_current_api_spec_version.py)"
           [[ -n "$version" ]]
+          exit 1
           echo "SPEC_VERSION=$version" | tee -a "$GITHUB_ENV"
       - name: 'Create PR'
-        if: ${{ env.DRY_RUN == 'false' }}
+        if: ${{ !inputs.dry_run }}
         uses: peter-evans/create-pull-request@v4
         with:
           branch: "feature/api-spec-${{ env.SPEC_VERSION }}"
