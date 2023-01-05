@@ -39,15 +39,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Fetch branch
+        run: git fetch gh-pages && git checkout FETCH_HEAD
       - name: Download javadoc
         uses: actions/download-artifact@v3
+      - name: Unzip javadoc
+        run: rm -rf docs && unzip "$JAR_NAME" -d docs
       - name: Commit
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout gh-pages
-          rm -rf docs
-          unzip "$JAR_NAME" -d docs
           git add docs
           git commit -m "Add ${{ github.ref_name }} javadoc"
       - name: Push
