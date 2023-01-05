@@ -44,7 +44,7 @@ jobs:
       - name: Download javadoc
         uses: actions/download-artifact@v3
       - name: Unzip javadoc
-        run: rm -rf docs && unzip "$JAR_NAME" -d docs
+        run: rm -rf docs && unzip "javadoc/$JAR_NAME" -d docs
       - name: Commit
         run: |
           git config user.name github-actions
