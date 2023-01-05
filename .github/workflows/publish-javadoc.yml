@@ -4,12 +4,19 @@ on:
   push:
     tags: ['*']
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        type: boolean
+        required: false
+  pull_request:
 
 defaults:
   run:
     shell: bash
 
 env:
+  DRY_RUN: ${{ github.event.inputs.dry_run || github.event_name == 'pull_request' }}
   JAR_NAME: gradle-enterprise-api-kotlin-SNAPSHOT-javadoc.jar
 
 jobs:
@@ -43,4 +50,6 @@ jobs:
           unzip "$JAR_NAME" -d docs
           git add docs
           git commit -m "Add ${{ github.ref_name }} javadoc"
-          git push
+          if [[ "$DRY_RUN" == 'false' ]]; then
+            git push
+          fi
