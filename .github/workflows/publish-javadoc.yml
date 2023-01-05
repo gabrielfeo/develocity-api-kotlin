@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Download javadoc
         uses: actions/download-artifact@v3
-      - name: Commit and push
+      - name: Commit
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -50,6 +50,9 @@ jobs:
           unzip "$JAR_NAME" -d docs
           git add docs
           git commit -m "Add ${{ github.ref_name }} javadoc"
-          if [[ "$DRY_RUN" == 'false' ]]; then
-            git push
+      - name: Push
+        run: |
+          if [[ "$DRY_RUN" == 'true' ]]; then
+            args=' --dry-run'
           fi
+          git push $args
