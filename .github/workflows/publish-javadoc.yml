@@ -33,7 +33,7 @@ jobs:
           artifact-name: 'javadoc'
           path-to-upload: "build/libs/${{ env.JAR_NAME }}"
 
-  commit-to-gh-pages:
+  publish-javadoc:
     needs: [build-javadoc]
     runs-on: ubuntu-latest
     steps:
@@ -56,4 +56,4 @@ jobs:
           if [[ "$DRY_RUN" == 'true' ]]; then
             args=' --dry-run'
           fi
-          git push $args
+          git push origin HEAD:gh-pages $args
