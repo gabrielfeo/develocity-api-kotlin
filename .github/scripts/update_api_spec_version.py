@@ -10,10 +10,13 @@ def get_possible_version_bumps(version: str) -> list[str]:
     parts: list = version.split('.')
     possible_bumps = []
     for i in range(len(parts)):
-        bump = parts.copy()
-        bumped_part = int(bump[i]) + 1
-        bump[i] = str(bumped_part)
-        possible_bumps.append(".".join(bump))
+        bump = [int(p) for p in parts]
+        bump[i] += 1
+        if i < len(parts) - 1:
+            for j in range(i + 1, len(parts)):
+                bump[j] = 0
+        bump = ".".join([str(part) for part in bump])
+        possible_bumps.append(bump)
     return possible_bumps
 
 
