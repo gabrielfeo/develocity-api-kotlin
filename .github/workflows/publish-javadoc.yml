@@ -43,8 +43,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Fetch branch
-        run: git fetch origin gh-pages && git checkout FETCH_HEAD
+          ref: gh-pages
       - name: Download javadoc
         uses: actions/download-artifact@v3
       - name: Unzip javadoc
@@ -63,4 +62,4 @@ jobs:
           if [[ "${{ inputs.dry_run }}" == 'true' ]]; then
             args=' --dry-run'
           fi
-          git push origin HEAD:gh-pages $args
+          git push $args
