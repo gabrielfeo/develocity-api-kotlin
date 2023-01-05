@@ -47,17 +47,14 @@ jobs:
         run: git fetch origin gh-pages && git checkout FETCH_HEAD
       - name: Download javadoc
         uses: actions/download-artifact@v3
-      - name: Unzip javadoc
+      - name: Unzip and commit
         run: |
-          rm -rf docs
-          unzip "javadoc/$JAR_NAME" -d docs
-          git add docs
       - name: Commit
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git status
-          git commit -m "Add ${{ github.ref_name }} javadoc"
+          rm -rf docs && unzip "javadoc/$JAR_NAME" -d docs
+          git add docs && git commit -m "Add ${{ github.ref_name }} javadoc"
       - name: Push
         run: |
           if [[ "${{ inputs.dry_run }}" == 'true' ]]; then
