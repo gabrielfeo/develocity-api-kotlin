@@ -48,14 +48,15 @@ jobs:
       - name: Download javadoc
         uses: actions/download-artifact@v3
       - name: Unzip javadoc
-        run: rm -rf docs && unzip "javadoc/$JAR_NAME" -d docs
+        run: |
+          rm -rf docs
+          unzip "javadoc/$JAR_NAME" -d docs
+          git add docs
       - name: Commit
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          echo "${{ inputs.dry_run }}"
           git status
-          git add docs
           git commit -m "Add ${{ github.ref_name }} javadoc"
       - name: Push
         run: |
