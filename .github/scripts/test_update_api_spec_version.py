@@ -5,12 +5,16 @@ from tempfile import NamedTemporaryFile
 import unittest
 from unittest import mock
 
+API_MANUAL = "https://docs.gradle.com/enterprise/api-manual"
+ORIGINAL_VERSION = '2022.4'
+
 
 class TestCheckForNewApiSpec(unittest.TestCase):
 
     def setUp(self):
         self.properties_file = NamedTemporaryFile()
-        self.properties_file.write(b'gradle.enterprise.version=2022.4\n1=2\n')
+        content = f"gradle.enterprise.version={ORIGINAL_VERSION}\n1=2\n"
+        self.properties_file.write(content.encode())
         self.properties_file.flush()
 
     def tearDown(self):
@@ -20,32 +24,26 @@ class TestCheckForNewApiSpec(unittest.TestCase):
     @mock.patch('requests.get')
     def test_main_many_updates_available(self, mock_get, mock_print):
         mock_get.return_value.status_code = 200
-
         main(self.properties_file.name)
-
-        with open(self.properties_file.name) as file:
-            self.assertEqual(file.read(),
-                             'gradle.enterprise.version=2023.4\n1=2\n')
-        mock_get.assert_called_once_with(
-            'https://docs.gradle.com/enterprise/api-manual/ref/gradle-enterprise-2023.4-api.yaml'
-        )
+        self.assert_updated_to('2023.0')
+        self.assert_checked_for(['2023.0'], mock_get)
 
     @mock.patch('builtins.print')
     @mock.patch('requests.get')
     def test_main_no_updates_available(self, mock_get, mock_print):
         mock_get.return_value.status_code = 404
-
         main(self.properties_file.name)
+        self.assert_updated_to(ORIGINAL_VERSION)
+        self.assert_checked_for(['2023.0', '2022.5'], mock_get)
 
+    def assert_updated_to(self, version):
         with open(self.properties_file.name) as file:
             self.assertEqual(file.read(),
-                             'gradle.enterprise.version=2022.4\n1=2\n')
-        mock_get.assert_has_calls([
-            mock.call(
-                'https://docs.gradle.com/enterprise/api-manual/ref/gradle-enterprise-2023.4-api.yaml'),
-            mock.call(
-                'https://docs.gradle.com/enterprise/api-manual/ref/gradle-enterprise-2022.5-api.yaml'),
-        ])
+                             f"gradle.enterprise.version={version}\n1=2\n")
+
+    def assert_checked_for(self, versions, mock_get):
+        mock_get.assert_has_calls(
+            [mock.call(f"{API_MANUAL}/ref/gradle-enterprise-{v}-api.yaml") for v in versions])
 
 
 if __name__ == '__main__':
