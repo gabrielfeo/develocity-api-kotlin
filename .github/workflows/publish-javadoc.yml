@@ -49,8 +49,6 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Unzip and commit
         run: |
-      - name: Commit
-        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           rm -rf docs && unzip "javadoc/$JAR_NAME" -d docs
