@@ -44,3 +44,9 @@ jobs:
       - name: 'unittest discover'
         if: ${{ steps.diff.outputs.all_modified_files }}
         run: python3 -m unittest discover -bs .github/scripts
+
+  publish-javadoc-dry-run:
+    uses: ./.github/workflows/publish-javadoc.yml
+
+  check-new-api-spec-dry-run:
+    uses: ./.github/workflows/check-new-api-spec.yml

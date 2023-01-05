@@ -9,7 +9,7 @@ on:
         description: 'Dry run'
         type: boolean
         required: false
-  pull_request:
+  workflow_call:
 
 defaults:
   run:
