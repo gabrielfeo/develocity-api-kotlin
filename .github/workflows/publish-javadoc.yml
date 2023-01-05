@@ -4,35 +4,27 @@ on:
   push:
     tags: ['*']
   workflow_dispatch:
-    inputs:
-      version_name:
-        description: 'Version'
-        required: true
 
 defaults:
   run:
     shell: bash
 
 env:
-  VERSION_NAME: ${{ github.event.inputs.version_name || github.ref_name }}
+  JAR_NAME: gradle-enterprise-api-kotlin-SNAPSHOT-javadoc.jar
 
 jobs:
 
   build-javadoc:
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ env.VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          ref: ${{ env.VERSION_NAME }}
       - name: Build javadoc
         uses: ./.github/actions/build
         with:
           tasks: 'javadocJar'
           artifact-name: 'javadoc'
-          path-to-upload: "build/libs/gradle-enterprise-api-kotlin-${{ env.VERSION_NAME }}-javadoc.jar"
+          path-to-upload: "build/libs/${{ env.JAR_NAME }}"
 
   commit-to-gh-pages:
     needs: [build-javadoc]
@@ -40,8 +32,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          ref: ${{ env.VERSION_NAME }}
       - name: Download javadoc
         uses: actions/download-artifact@v3
       - name: Commit and push
@@ -50,7 +40,7 @@ jobs:
           git config user.email github-actions@github.com
           git checkout gh-pages
           rm -rf docs
-          unzip "gradle-enterprise-api-kotlin-$VERSION_NAME-javadoc.jar" -d docs
+          unzip "$JAR_NAME" -d docs
           git add docs
-          git commit -m "Add $VERSION_NAME javadoc"
+          git commit -m "Add ${{ github.ref_name }} javadoc"
           git push
