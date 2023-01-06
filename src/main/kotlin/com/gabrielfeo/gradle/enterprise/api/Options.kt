@@ -1,4 +1,4 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate", "unused")
 
 package com.gabrielfeo.gradle.enterprise.api
 
@@ -6,18 +6,7 @@ import com.gabrielfeo.gradle.enterprise.api.internal.*
 import java.io.File
 import kotlin.time.Duration.Companion.days
 
-val options = buildOptions(env = RealEnv, keychain = RealKeychain(RealEnv))
-
-internal fun buildOptions(
-    env: Env,
-    keychain: Keychain,
-) = object : Options(
-    gradleEnterpriseInstance = object : GradleEnterpriseInstanceOptions(env, keychain) {},
-    concurrency = object : ConcurrencyOptions(env) {},
-    cache = object : CacheOptions(env) {},
-    debugging = object : DebuggingOptions(env) {},
-) {}
-
+val options = Options(env = RealEnv, keychain = RealKeychain(RealEnv))
 
 /**
  * Library configuration options. Should not be changed after accessing the [api] object for the
@@ -25,19 +14,22 @@ internal fun buildOptions(
  *
  * Use the global [options] instance.
  */
-abstract class Options internal constructor(
-    val gradleEnterpriseInstance: GradleEnterpriseInstanceOptions,
-    val concurrency: ConcurrencyOptions,
-    val cache: CacheOptions,
-    val debugging: DebuggingOptions,
+class Options internal constructor(
+    env: Env,
+    keychain: Keychain,
 ) {
+
+    val gradleEnterpriseInstance = GradleEnterpriseInstanceOptions(env, keychain)
+    val concurrency = ConcurrencyOptions(env)
+    val cache = CacheOptions(env)
+    val debugging = DebuggingOptions(env)
 
     /**
      * Options about the GE instance, such as URL and API token.
      *
      * Access via the global [options] instance.
      */
-    abstract class GradleEnterpriseInstanceOptions internal constructor(
+    class GradleEnterpriseInstanceOptions internal constructor(
         private val env: Env,
         private val keychain: Keychain,
     ) {
@@ -67,7 +59,7 @@ abstract class Options internal constructor(
      *
      * Access via the global [options] instance.
      */
-    abstract class ConcurrencyOptions internal constructor(
+    class ConcurrencyOptions internal constructor(
         env: Env,
     ) {
 
@@ -123,7 +115,7 @@ abstract class Options internal constructor(
      * endpoints such as `/api/build/{id}/gradle-attributes`. Thus, whenever the GE version
      * itself is upgraded, cache should be [clear]ed.
      */
-    abstract class CacheOptions internal constructor(
+    class CacheOptions internal constructor(
         env: Env,
     ) {
 
@@ -204,7 +196,7 @@ abstract class Options internal constructor(
      *
      * Access via the global [options] instance.
      */
-    abstract class DebuggingOptions internal constructor(
+    class DebuggingOptions internal constructor(
         env: Env,
     ) {
 

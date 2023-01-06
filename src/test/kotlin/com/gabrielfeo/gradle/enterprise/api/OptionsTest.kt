@@ -13,7 +13,7 @@ class OptionsTest {
 
     @Test
     fun `URL from env is required`() {
-        val options = buildOptions(env = FakeEnv())
+        val options = Options(FakeEnv(), FakeKeychain())
         assertFails {
             options.gradleEnterpriseInstance.url()
         }
@@ -21,7 +21,7 @@ class OptionsTest {
 
     @Test
     fun `Token from keychain is preferred`() {
-        val options = buildOptions(
+        val options = Options(
             keychain = FakeKeychain("gradle-enterprise-api-token" to "foo"),
             env = FakeEnv("GRADLE_ENTERPRISE_API_TOKEN" to "bar"),
         )
@@ -30,7 +30,7 @@ class OptionsTest {
 
     @Test
     fun `Token from env is fallback`() {
-        val options = buildOptions(
+        val options = Options(
             keychain = FakeKeychain(),
             env = FakeEnv("GRADLE_ENTERPRISE_API_TOKEN" to "bar"),
         )
@@ -39,7 +39,7 @@ class OptionsTest {
 
     @Test
     fun `Token from keychain or env is required`() {
-        val options = buildOptions(
+        val options = Options(
             keychain = FakeKeychain(),
             env = FakeEnv(),
         )
@@ -50,7 +50,7 @@ class OptionsTest {
 
     @Test
     fun `maxConcurrentRequests accepts int`() {
-        val options = buildOptions(
+        val options = Options(
             keychain = FakeKeychain(),
             env = FakeEnv("GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS" to "1"),
         )
@@ -61,7 +61,7 @@ class OptionsTest {
 
     @Test
     fun `default longTermCacheUrlPattern matches attributes path`() {
-        val options = buildOptions()
+        val options = Options(FakeEnv(), FakeKeychain())
         with(options.cache.longTermCacheUrlPattern) {
             assertTrue(matches("https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-attributes"))
             assertTrue(matches("https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-attributes"))
@@ -70,14 +70,10 @@ class OptionsTest {
 
     @Test
     fun `default shortTermCacheUrlPattern matches builds path`() {
-        val options = buildOptions()
+        val options = Options(FakeEnv(), FakeKeychain())
         with(options.cache.shortTermCacheUrlPattern) {
             assertTrue(matches("https://ge.gradle.org/api/builds?since=0"))
             assertTrue(matches("https://ge.gradle.org/api/builds?since=0&maxBuilds=2"))
         }
     }
-
-    private fun buildOptions(
-        env: Env = FakeEnv(),
-    ): Options = buildOptions(env, FakeKeychain())
 }
