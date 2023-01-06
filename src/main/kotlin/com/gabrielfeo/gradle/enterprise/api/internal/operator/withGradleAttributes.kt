@@ -6,7 +6,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import retrofit2.await
 
-// TODO Test
 /**
  * Joins builds with their [GradleAttributes], which comes from a different endpoint
  * ([GradleEnterpriseApi.getGradleAttributes]).

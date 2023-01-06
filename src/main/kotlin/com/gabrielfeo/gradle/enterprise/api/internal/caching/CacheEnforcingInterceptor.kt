@@ -5,7 +5,6 @@ import okhttp3.Request
 import okhttp3.Response
 
 
-// TODO Test
 internal class CacheEnforcingInterceptor(
     private val longTermCacheUrlPattern: Regex,
     private val longTermCacheMaxAge: Long,

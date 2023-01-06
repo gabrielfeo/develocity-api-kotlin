@@ -9,7 +9,6 @@ import okhttp3.OkHttpClient
 import java.util.logging.Level
 import java.util.logging.Logger
 
-// TODO Integration test
 internal val okHttpClient: OkHttpClient by lazy {
     val cache = buildCache()
     with(OkHttpClient.Builder()) {
