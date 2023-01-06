@@ -1,6 +1,5 @@
 package com.gabrielfeo.gradle.enterprise.api.internal.caching
 
-import com.gabrielfeo.gradle.enterprise.api.Options
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.util.logging.Level
