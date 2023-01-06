@@ -7,5 +7,3 @@ interface Env {
 object RealEnv : Env {
     override fun get(name: String): String? = System.getenv(name)
 }
-
-fun Env.require(name: String) = checkNotNull(get(name)) { "'$name' variable required" }

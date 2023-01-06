@@ -13,24 +13,24 @@ internal val okHttpClient: OkHttpClient by lazy {
     val cache = buildCache()
     with(OkHttpClient.Builder()) {
         cache(cache)
-        if (Options.Debugging.debugLoggingEnabled && Options.Cache.cacheEnabled) {
+        if (options.debugging.debugLoggingEnabled && options.cache.cacheEnabled) {
             addInterceptor(CacheHitLoggingInterceptor())
         }
-        addInterceptor(HttpBearerAuth("bearer", Options.GradleEnterpriseInstance.token()))
-        if (Options.Cache.cacheEnabled) {
+        addInterceptor(HttpBearerAuth("bearer", options.gradleEnterpriseInstance.token()))
+        if (options.cache.cacheEnabled) {
             addNetworkInterceptor(buildCacheEnforcingInterceptor())
         }
         build().apply {
-            dispatcher.maxRequests = Options.Concurrency.maxConcurrentRequests
-            dispatcher.maxRequestsPerHost = Options.Concurrency.maxConcurrentRequests
+            dispatcher.maxRequests = options.concurrency.maxConcurrentRequests
+            dispatcher.maxRequestsPerHost = options.concurrency.maxConcurrentRequests
         }
     }
 }
 
 internal fun buildCache(): Cache {
-    val cacheDir = Options.Cache.cacheDir
-    val maxSize = Options.Cache.maxCacheSize
-    if (Options.Debugging.debugLoggingEnabled) {
+    val cacheDir = options.cache.cacheDir
+    val maxSize = options.cache.maxCacheSize
+    if (options.debugging.debugLoggingEnabled) {
         val logger = Logger.getGlobal()
         logger.log(Level.INFO, "HTTP cache dir: $cacheDir (max ${maxSize}B)")
     }
@@ -38,8 +38,8 @@ internal fun buildCache(): Cache {
 }
 
 private fun buildCacheEnforcingInterceptor() = CacheEnforcingInterceptor(
-    longTermCacheUrlPattern = Options.Cache.longTermCacheUrlPattern,
-    longTermCacheMaxAge = Options.Cache.longTermCacheMaxAge,
-    shortTermCacheUrlPattern = Options.Cache.shortTermCacheUrlPattern,
-    shortTermCacheMaxAge = Options.Cache.shortTermCacheMaxAge,
+    longTermCacheUrlPattern = options.cache.longTermCacheUrlPattern,
+    longTermCacheMaxAge = options.cache.longTermCacheMaxAge,
+    shortTermCacheUrlPattern = options.cache.shortTermCacheUrlPattern,
+    shortTermCacheMaxAge = options.cache.shortTermCacheMaxAge,
 )

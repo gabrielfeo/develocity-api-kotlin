@@ -1,6 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.Options
+import com.gabrielfeo.gradle.enterprise.api.options
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -21,7 +21,7 @@ class RealKeychain(
             return process.inputStream.bufferedReader().use {
                 it.readText().trim()
             }
-        } else if (Options.Debugging.debugLoggingEnabled) {
+        } else if (options.debugging.debugLoggingEnabled) {
             Logger.getGlobal().log(Level.INFO, "Failed to get key from keychain (exit $status)")
         }
         return null
