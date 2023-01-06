@@ -2,12 +2,11 @@
 
 package com.gabrielfeo.gradle.enterprise.api
 
+import com.gabrielfeo.gradle.enterprise.api.Options.Cache.cacheEnabled
 import com.gabrielfeo.gradle.enterprise.api.Options.Cache.clear
 import com.gabrielfeo.gradle.enterprise.api.Options.Cache.longTermCacheUrlPattern
 import com.gabrielfeo.gradle.enterprise.api.Options.Cache.shortTermCacheUrlPattern
-import com.gabrielfeo.gradle.enterprise.api.internal.buildCache
-import com.gabrielfeo.gradle.enterprise.api.internal.requireBaseUrl
-import com.gabrielfeo.gradle.enterprise.api.internal.requireToken
+import com.gabrielfeo.gradle.enterprise.api.internal.*
 import java.io.File
 import kotlin.time.Duration.Companion.days
 
@@ -16,6 +15,9 @@ import kotlin.time.Duration.Companion.days
  * first time.
  */
 object Options {
+
+    internal var env: Env = RealEnv
+    internal var keychain: Keychain = RealKeychain(RealEnv)
 
     /**
      * Options about the GE instance, such as URL and API token.
@@ -27,7 +29,8 @@ object Options {
          * environment variable `GRADLE_ENTERPRISE_URL`.
          */
         var url: () -> String = {
-            requireBaseUrl(envName = "GRADLE_ENTERPRISE_URL")
+            env["GRADLE_ENTERPRISE_URL"]
+                ?: error("GE instance URL is required")
         }
 
         /**
@@ -35,10 +38,9 @@ object Options {
          * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_URL`.
          */
         var token: () -> String = {
-            requireToken(
-                keychainName = "gradle-enterprise-api-token",
-                envName = "GRADLE_ENTERPRISE_API_TOKEN",
-            )
+            keychain["gradle-enterprise-api-token"]
+                ?: env["GRADLE_ENTERPRISE_API_TOKEN"]
+                ?: error("GE token is required")
         }
     }
 
