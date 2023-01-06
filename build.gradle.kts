@@ -124,4 +124,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
 }
