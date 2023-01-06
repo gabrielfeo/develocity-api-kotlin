@@ -9,25 +9,32 @@ import okhttp3.OkHttpClient
 import java.util.logging.Level
 import java.util.logging.Logger
 
-internal val okHttpClient: OkHttpClient by lazy {
-    val cache = buildCache()
-    with(OkHttpClient.Builder()) {
-        cache(cache)
-        if (options.debugging.debugLoggingEnabled && options.cache.cacheEnabled) {
-            addInterceptor(CacheHitLoggingInterceptor())
-        }
-        addInterceptor(HttpBearerAuth("bearer", options.gradleEnterpriseInstance.token()))
-        if (options.cache.cacheEnabled) {
-            addNetworkInterceptor(buildCacheEnforcingInterceptor())
-        }
-        build().apply {
-            dispatcher.maxRequests = options.concurrency.maxConcurrentRequests
-            dispatcher.maxRequestsPerHost = options.concurrency.maxConcurrentRequests
-        }
+internal val okHttpClient by lazy {
+    buildOkHttpClient(options = options)
+}
+
+internal fun buildOkHttpClient(
+    options: Options,
+) = with(OkHttpClient.Builder()) {
+    if (options.cache.cacheEnabled) {
+        cache(buildCache(options))
+    }
+    if (options.debugging.debugLoggingEnabled && options.cache.cacheEnabled) {
+        addInterceptor(CacheHitLoggingInterceptor())
+    }
+    addInterceptor(HttpBearerAuth("bearer", options.gradleEnterpriseInstance.token()))
+    if (options.cache.cacheEnabled) {
+        addNetworkInterceptor(buildCacheEnforcingInterceptor(options))
+    }
+    build().apply {
+        dispatcher.maxRequests = options.concurrency.maxConcurrentRequests
+        dispatcher.maxRequestsPerHost = options.concurrency.maxConcurrentRequests
     }
 }
 
-internal fun buildCache(): Cache {
+internal fun buildCache(
+    options: Options
+): Cache {
     val cacheDir = options.cache.cacheDir
     val maxSize = options.cache.maxCacheSize
     if (options.debugging.debugLoggingEnabled) {
@@ -37,7 +44,9 @@ internal fun buildCache(): Cache {
     return Cache(cacheDir, maxSize)
 }
 
-private fun buildCacheEnforcingInterceptor() = CacheEnforcingInterceptor(
+private fun buildCacheEnforcingInterceptor(
+    options: Options,
+) = CacheEnforcingInterceptor(
     longTermCacheUrlPattern = options.cache.longTermCacheUrlPattern,
     longTermCacheMaxAge = options.cache.longTermCacheMaxAge,
     shortTermCacheUrlPattern = options.cache.shortTermCacheUrlPattern,

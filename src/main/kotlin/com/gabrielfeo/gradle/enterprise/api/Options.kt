@@ -130,7 +130,7 @@ class Options internal constructor(
          * Clears [cacheDir] including files that weren't created by the cache.
          */
         fun clear() {
-            buildCache().delete()
+            buildCache(options).delete()
         }
 
         /**
