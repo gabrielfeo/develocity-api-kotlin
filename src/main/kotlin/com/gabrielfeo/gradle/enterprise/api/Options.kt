@@ -6,15 +6,18 @@ import com.gabrielfeo.gradle.enterprise.api.internal.*
 import java.io.File
 import kotlin.time.Duration.Companion.days
 
-val options = object : Options(
-    gradleEnterpriseInstance = object : GradleEnterpriseInstanceOptions(
-        env = RealEnv,
-        keychain = RealKeychain(RealEnv)
-    ) {},
-    concurrency = object : ConcurrencyOptions(env = RealEnv) {},
-    cache = object : CacheOptions(env = RealEnv) {},
-    debugging = object : DebuggingOptions(env = RealEnv) {},
+val options = buildOptions(env = RealEnv, keychain = RealKeychain(RealEnv))
+
+internal fun buildOptions(
+    env: Env,
+    keychain: Keychain,
+) = object : Options(
+    gradleEnterpriseInstance = object : GradleEnterpriseInstanceOptions(env, keychain) {},
+    concurrency = object : ConcurrencyOptions(env) {},
+    cache = object : CacheOptions(env) {},
+    debugging = object : DebuggingOptions(env) {},
 ) {}
+
 
 /**
  * Library configuration options. Should not be changed after accessing the [api] object for the

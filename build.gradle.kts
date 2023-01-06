@@ -110,6 +110,12 @@ publishing {
     }
 }
 
+testing {
+    suites.withType<JvmTestSuite> {
+        useKotlinTest()
+    }
+}
+
 dependencies {
     api("com.squareup.moshi:moshi:1.14.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
