@@ -31,7 +31,7 @@ fun GradleEnterpriseApi.getBuildsFlow(
         fromBuild = fromBuild,
         maxBuilds = API_MAX_BUILDS,
     )
-    val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(maxPerRequest = API_MAX_BUILDS)
+    val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(api, maxBuilds = API_MAX_BUILDS)
     emitAll(pagedBuilds)
 }
 
