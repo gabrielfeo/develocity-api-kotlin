@@ -59,6 +59,6 @@ fun GradleEnterpriseApi.getGradleAttributesFlow(
         sinceBuild = sinceBuild,
         fromInstant = fromInstant,
         fromBuild = fromBuild
-    ).withGradleAttributes(scope).map { (_, attrs) ->
+    ).withGradleAttributes(scope, api).map { (_, attrs) ->
         attrs
     }

@@ -126,5 +126,4 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-    testImplementation("app.cash.turbine:turbine:0.12.1")
 }

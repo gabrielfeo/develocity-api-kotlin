@@ -2,22 +2,7 @@ package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.model.*
 
-class FakeGradleEnterpriseApi(
-    private val getBuildsDelegate: suspend (GetBuildsContext) -> List<Build>,
-) : GradleEnterpriseApi {
-
-    var getBuildsCallCount = 0
-
-    data class GetBuildsContext(
-        val callCount: Int,
-        val since: Long?,
-        val sinceBuild: String?,
-        val fromInstant: Long?,
-        val fromBuild: String?,
-        val reverse: Boolean?,
-        val maxBuilds: Int?,
-        val maxWaitSecs: Int?,
-    )
+interface GradleEnterpriseApiStub : GradleEnterpriseApi {
 
     override suspend fun getBuilds(
         since: Long?,
@@ -28,19 +13,7 @@ class FakeGradleEnterpriseApi(
         maxBuilds: Int?,
         maxWaitSecs: Int?,
     ): List<Build> {
-        getBuildsCallCount++
-        return getBuildsDelegate(
-            GetBuildsContext(
-                getBuildsCallCount,
-                since,
-                sinceBuild,
-                fromInstant,
-                fromBuild,
-                reverse,
-                maxBuilds,
-                maxWaitSecs,
-            )
-        )
+        TODO("Not yet implemented")
     }
 
     override suspend fun getGradleAttributes(
