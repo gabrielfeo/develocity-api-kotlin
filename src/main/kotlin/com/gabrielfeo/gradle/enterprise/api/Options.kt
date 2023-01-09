@@ -35,8 +35,8 @@ class Options internal constructor(
     ) {
 
         /**
-         * Provides the URL of a Gradle Enterprise API instance (without `/api`). By default, uses
-         * environment variable `GRADLE_ENTERPRISE_API_URL`.
+         * Provides the URL of a Gradle Enterprise API instance REST API. By default, uses
+         * environment variable `GRADLE_ENTERPRISE_API_URL`. Must end with `/api/`.
          */
         var url: () -> String = {
             env["GRADLE_ENTERPRISE_API_URL"]
