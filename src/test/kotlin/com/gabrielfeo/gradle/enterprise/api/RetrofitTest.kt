@@ -15,10 +15,11 @@ import kotlin.test.*
 class RetrofitTest {
 
     @Test
-    fun `Sets URL from options`() {
+    fun `Sets instance URL from options, stripping api segment`() {
         val retrofit = buildRetrofit(
-            "GRADLE_ENTERPRISE_URL" to "https://example.com/",
+            "GRADLE_ENTERPRISE_API_URL" to "https://example.com/api/",
         )
+        // That's what generated classes expect
         assertEquals("https://example.com/", retrofit.baseUrl().toString())
     }
 
@@ -26,7 +27,7 @@ class RetrofitTest {
     fun `Rejects invalid URL`() {
         assertFails {
             buildRetrofit(
-                "GRADLE_ENTERPRISE_URL" to "https://example.com/api/",
+                "GRADLE_ENTERPRISE_API_URL" to "https://example.com/",
             )
         }
     }
@@ -37,8 +38,6 @@ class RetrofitTest {
         val env = FakeEnv(*envVars)
         if ("GRADLE_ENTERPRISE_API_TOKEN" !in env)
             env["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
-        if ("GRADLE_ENTERPRISE_URL" !in env)
-            env["GRADLE_ENTERPRISE_URL"] = "example-url"
         val options = Options(env, FakeKeychain())
         return buildRetrofit(
             options = options,

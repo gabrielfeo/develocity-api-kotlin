@@ -22,9 +22,10 @@ internal fun buildRetrofit(
     client: OkHttpClient,
     moshi: Moshi,
 ) = with(Retrofit.Builder()) {
-    val url = options.gradleEnterpriseInstance.url()
-    check("/api" !in url) { "Instance URL must be the plain instance URL, without /api" }
-    baseUrl(url)
+    val apiUrl = options.gradleEnterpriseInstance.url()
+    check("/api/" in apiUrl) { "A valid API URL must end in /api/" }
+    val instanceUrl = apiUrl.substringBefore("api/")
+    baseUrl(instanceUrl)
     addConverterFactory(ScalarsConverterFactory.create())
     addConverterFactory(MoshiConverterFactory.create(moshi))
     client(client)
