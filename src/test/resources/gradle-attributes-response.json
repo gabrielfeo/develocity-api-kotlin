@@ -1,0 +1,188 @@
+{
+  "id": "psa5uc3o2hebc",
+  "buildStartTime": 1655856017507,
+  "buildDuration": 232754,
+  "gradleVersion": "7.4.1",
+  "pluginVersion": "3.8.1",
+  "rootProjectName": "gradle",
+  "requestedTasks": [],
+  "hasFailed": false,
+  "tags": [
+    "LOCAL",
+    "Android Studio",
+    "Dirty",
+    "feature/example",
+    "IDE sync",
+    "Mac OS X"
+  ],
+  "values": [
+    {
+      "name": "Android Studio version",
+      "value": "2021.1.1 Patch 3"
+    },
+    {
+      "name": "Build Cache: Local",
+      "value": "Enabled"
+    },
+    {
+      "name": "Build Cache: Remote",
+      "value": "Enabled"
+    },
+    {
+      "name": "Build secrets migration done",
+      "value": "true"
+    },
+    {
+      "name": "CPU: Cores",
+      "value": "12"
+    },
+    {
+      "name": "CPU: Name",
+      "value": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz"
+    },
+    {
+      "name": "CPU: Usage [Begin]",
+      "value": "42.53% user, 23.56% sys, 33.89% idle "
+    },
+    {
+      "name": "CPU: Usage [End]",
+      "value": "21.90% user, 19.56% sys, 58.53% idle "
+    },
+    {
+      "name": "Displays: Names",
+      "value": "Color LCD, LG HDR WFHD"
+    },
+    {
+      "name": "Displays: Total",
+      "value": "2"
+    },
+    {
+      "name": "Email",
+      "value": "example@github.com"
+    },
+    {
+      "name": "Git branch",
+      "value": "feature/example"
+    },
+    {
+      "name": "Git commit id",
+      "value": "d92128a2124b2330f7d0f72386ee122838d383b2"
+    },
+    {
+      "name": "Git commit id short",
+      "value": "d92128a2"
+    },
+    {
+      "name": "Git repository",
+      "value": "https://github.com/gradle/gradle.git"
+    },
+    {
+      "name": "Gradle: StartParameter",
+      "value": "StartParameter{taskRequests=[DefaultTaskExecutionRequest{args=[],projectPath='null',rootDir='null'}], excludedTaskNames=[], currentDir=/Users/example/projects/gradle, projectDir=/Users/example/projects/gradle, projectProperties={android.injected.build.model.only.advanced=true, android.injected.build.model.disable.src.download=true, org.gradle.kotlin.dsl.provider.cid=83559353704077, android.injected.invoked.from.ide=true, android.injected.build.model.only.versioned=3, android.injected.studio.version=2021.1.1 Patch 3, idea.gradle.do.not.build.tasks=true, android.injected.build.model.only=true}, systemPropertiesArgs={idea.active=true, java.awt.headless=true, idea.sync.active=true, org.gradle.internal.GradleProjectBuilderOptions=omit_all_tasks, idea.version=2021.1}, gradleUserHomeDir=/Users/example/.gradle, gradleHome=/Users/example/.gradle/wrapper/dists/gradle-7.4.1-all/htb4l60oox3i12rnwfoqoo8d/gradle-7.4.1, logLevel=LIFECYCLE, showStacktrace=ALWAYS, buildFile=null, initScripts=[/private/var/folders/b1/xhx7v4215k58r3ct3hf201d80000gn/T/ijmapper.gradle, /private/var/folders/b1/xhx7v4215k58r3ct3hf201d80000gn/T/sync.studio.tooling.gradle, /private/var/folders/b1/xhx7v4215k58r3ct3hf201d80000gn/T/ijinit.gradle], dryRun=false, rerunTasks=false, offline=false, refreshDependencies=false, parallelProjectExecution=true, configureOnDemand=true, maxWorkerCount=12, buildCacheEnabled=true, writeDependencyLocks=false, verificationMode=STRICT, refreshKeys=false}"
+    },
+    {
+      "name": "JVM: Available Processors",
+      "value": "12"
+    },
+    {
+      "name": "JVM: Free Memory [Begin]",
+      "value": "4978M"
+    },
+    {
+      "name": "JVM: Free Memory [End]",
+      "value": "1978M"
+    },
+    {
+      "name": "JVM: Max Memory",
+      "value": "5120M"
+    },
+    {
+      "name": "JVM: Total Memory [Begin]",
+      "value": "5120M"
+    },
+    {
+      "name": "JVM: Total Memory [End]",
+      "value": "5120M"
+    },
+    {
+      "name": "Memory: Swap Usage [Begin]",
+      "value": "5679.25M"
+    },
+    {
+      "name": "Memory: Swap Usage [End]",
+      "value": "8550.75M"
+    },
+    {
+      "name": "Memory: Total",
+      "value": "16G"
+    },
+    {
+      "name": "Modules Count",
+      "value": "414"
+    },
+    {
+      "name": "OS: Build",
+      "value": "21C52"
+    },
+    {
+      "name": "OS: Name",
+      "value": "macOS"
+    },
+    {
+      "name": "OS: Version",
+      "value": "12.1"
+    },
+    {
+      "name": "Power: Source",
+      "value": "AC Power"
+    },
+    {
+      "name": "Version: AGP"
+    },
+    {
+      "name": "Version: JDK",
+      "value": "11"
+    },
+    {
+      "name": "Version: Kotlin"
+    }
+  ],
+  "links": [
+    {
+      "label": "Git commit id build scans",
+      "url": "https://ge.gradle.org/scans?search.names=Git+commit+id+short&search.values=d92128a2#selection.buildScanB=psa5uc3o2hebc"
+    }
+  ],
+  "gradleEnterpriseSettings": {
+    "backgroundPublicationEnabled": true,
+    "buildOutputCapturingEnabled": true,
+    "taskInputsFileCapturingEnabled": true,
+    "testOutputCapturingEnabled": true
+  },
+  "buildOptions": {
+    "buildCacheEnabled": true,
+    "configurationCacheEnabled": false,
+    "configurationOnDemandEnabled": true,
+    "continuousBuildEnabled": false,
+    "continueOnFailureEnabled": false,
+    "daemonEnabled": true,
+    "dryRunEnabled": false,
+    "fileSystemWatchingEnabled": true,
+    "maxNumberOfGradleWorkers": 12,
+    "offlineModeEnabled": false,
+    "parallelProjectExecutionEnabled": true,
+    "refreshDependenciesEnabled": false,
+    "rerunTasksEnabled": false
+  },
+  "environment": {
+    "username": "example",
+    "operatingSystem": "macOS 12.1 (x86_64)",
+    "numberOfCpuCores": 12,
+    "jreVersion": "Oracle OpenJDK Runtime Environment 11.0.12+8-LTS-237",
+    "jvmVersion": "Oracle Java HotSpot(TM) 64-Bit Server VM 11.0.12+8-LTS-237 (mixed mode)",
+    "jvmMaxMemoryHeapSize": 5368709120,
+    "jvmCharset": "UTF-8",
+    "jvmLocale": "English (Brazil)",
+    "publicHostname": "13654-MB"
+  }
+}

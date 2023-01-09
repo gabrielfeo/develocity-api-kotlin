@@ -9,37 +9,46 @@ import okhttp3.OkHttpClient
 import java.util.logging.Level
 import java.util.logging.Logger
 
-internal val okHttpClient: OkHttpClient by lazy {
-    val cache = buildCache()
-    with(OkHttpClient.Builder()) {
-        cache(cache)
-        if (Options.Debugging.debugLoggingEnabled && Options.Cache.cacheEnabled) {
-            addInterceptor(CacheHitLoggingInterceptor())
-        }
-        addInterceptor(HttpBearerAuth("bearer", Options.GradleEnterpriseInstance.token()))
-        if (Options.Cache.cacheEnabled) {
-            addNetworkInterceptor(buildCacheEnforcingInterceptor())
-        }
-        build().apply {
-            dispatcher.maxRequests = Options.Concurrency.maxConcurrentRequests
-            dispatcher.maxRequestsPerHost = Options.Concurrency.maxConcurrentRequests
-        }
+internal val okHttpClient by lazy {
+    buildOkHttpClient(options = options)
+}
+
+internal fun buildOkHttpClient(
+    options: Options,
+) = with(OkHttpClient.Builder()) {
+    if (options.cache.cacheEnabled) {
+        cache(buildCache(options))
+    }
+    if (options.debugging.debugLoggingEnabled && options.cache.cacheEnabled) {
+        addInterceptor(CacheHitLoggingInterceptor())
+    }
+    addInterceptor(HttpBearerAuth("bearer", options.gradleEnterpriseInstance.token()))
+    if (options.cache.cacheEnabled) {
+        addNetworkInterceptor(buildCacheEnforcingInterceptor(options))
+    }
+    build().apply {
+        dispatcher.maxRequests = options.concurrency.maxConcurrentRequests
+        dispatcher.maxRequestsPerHost = options.concurrency.maxConcurrentRequests
     }
 }
 
-internal fun buildCache(): Cache {
-    val cacheDir = Options.Cache.cacheDir
-    val maxSize = Options.Cache.maxCacheSize
-    if (Options.Debugging.debugLoggingEnabled) {
+internal fun buildCache(
+    options: Options
+): Cache {
+    val cacheDir = options.cache.cacheDir
+    val maxSize = options.cache.maxCacheSize
+    if (options.debugging.debugLoggingEnabled) {
         val logger = Logger.getGlobal()
         logger.log(Level.INFO, "HTTP cache dir: $cacheDir (max ${maxSize}B)")
     }
     return Cache(cacheDir, maxSize)
 }
 
-private fun buildCacheEnforcingInterceptor() = CacheEnforcingInterceptor(
-    longTermCacheUrlPattern = Options.Cache.longTermCacheUrlPattern,
-    longTermCacheMaxAge = Options.Cache.longTermCacheMaxAge,
-    shortTermCacheUrlPattern = Options.Cache.shortTermCacheUrlPattern,
-    shortTermCacheMaxAge = Options.Cache.shortTermCacheMaxAge,
+private fun buildCacheEnforcingInterceptor(
+    options: Options,
+) = CacheEnforcingInterceptor(
+    longTermCacheUrlPattern = options.cache.longTermCacheUrlPattern,
+    longTermCacheMaxAge = options.cache.longTermCacheMaxAge,
+    shortTermCacheUrlPattern = options.cache.shortTermCacheUrlPattern,
+    shortTermCacheMaxAge = options.cache.shortTermCacheMaxAge,
 )

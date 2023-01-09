@@ -1,33 +1,46 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate", "unused")
 
 package com.gabrielfeo.gradle.enterprise.api
 
-import com.gabrielfeo.gradle.enterprise.api.Options.Cache.clear
-import com.gabrielfeo.gradle.enterprise.api.Options.Cache.longTermCacheUrlPattern
-import com.gabrielfeo.gradle.enterprise.api.Options.Cache.shortTermCacheUrlPattern
-import com.gabrielfeo.gradle.enterprise.api.internal.buildCache
-import com.gabrielfeo.gradle.enterprise.api.internal.requireBaseUrl
-import com.gabrielfeo.gradle.enterprise.api.internal.requireToken
+import com.gabrielfeo.gradle.enterprise.api.internal.*
 import java.io.File
 import kotlin.time.Duration.Companion.days
+
+val options = Options(env = RealEnv, keychain = RealKeychain(RealEnv))
 
 /**
  * Library configuration options. Should not be changed after accessing the [api] object for the
  * first time.
+ *
+ * Use the global [options] instance.
  */
-object Options {
+class Options internal constructor(
+    env: Env,
+    keychain: Keychain,
+) {
+
+    val gradleEnterpriseInstance = GradleEnterpriseInstanceOptions(env, keychain)
+    val concurrency = ConcurrencyOptions(env)
+    val cache = CacheOptions(env)
+    val debugging = DebuggingOptions(env)
 
     /**
      * Options about the GE instance, such as URL and API token.
+     *
+     * Access via the global [options] instance.
      */
-    object GradleEnterpriseInstance {
+    class GradleEnterpriseInstanceOptions internal constructor(
+        private val env: Env,
+        private val keychain: Keychain,
+    ) {
 
         /**
          * Provides the URL of a Gradle Enterprise API instance (without `/api`). By default, uses
          * environment variable `GRADLE_ENTERPRISE_URL`.
          */
         var url: () -> String = {
-            requireBaseUrl(envName = "GRADLE_ENTERPRISE_URL")
+            env["GRADLE_ENTERPRISE_URL"]
+                ?: error("GE instance URL is required")
         }
 
         /**
@@ -35,17 +48,20 @@ object Options {
          * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_URL`.
          */
         var token: () -> String = {
-            requireToken(
-                keychainName = "gradle-enterprise-api-token",
-                envName = "GRADLE_ENTERPRISE_API_TOKEN",
-            )
+            keychain["gradle-enterprise-api-token"]
+                ?: env["GRADLE_ENTERPRISE_API_TOKEN"]
+                ?: error("GE token is required")
         }
     }
 
     /**
      * Concurrency options.
+     *
+     * Access via the global [options] instance.
      */
-    object Concurrency {
+    class ConcurrencyOptions internal constructor(
+        env: Env,
+    ) {
 
         /**
          * Maximum amount of concurrent requests allowed. Further requests will be queued. By default,
@@ -54,7 +70,7 @@ object Options {
          * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-dispatcher
          */
         var maxConcurrentRequests =
-            System.getenv("GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS")?.toInt()
+            env["GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS"]?.toInt()
                 ?: 15
     }
 
@@ -62,6 +78,8 @@ object Options {
      * HTTP cache is off by default, but can speed up requests significantly. The Gradle Enterprise
      * API disallows HTTP caching, but this library forcefully enables it by overwriting
      * cache-related headers in API responses. Enable with [cacheEnabled].
+     *
+     * Access via the global [options] instance.
      *
      * Responses can be:
      *
@@ -97,20 +115,22 @@ object Options {
      * endpoints such as `/api/build/{id}/gradle-attributes`. Thus, whenever the GE version
      * itself is upgraded, cache should be [clear]ed.
      */
-    object Cache {
+    class CacheOptions internal constructor(
+        env: Env,
+    ) {
 
         /**
          * Whether caching is enabled. By default, uses environment variable
          * `GRADLE_ENTERPRISE_API_CACHE_ENABLED` or `false`.
          */
         var cacheEnabled: Boolean =
-            System.getenv("GRADLE_ENTERPRISE_API_CACHE_ENABLED").toBoolean()
+            env["GRADLE_ENTERPRISE_API_CACHE_ENABLED"].toBoolean()
 
         /**
          * Clears [cacheDir] including files that weren't created by the cache.
          */
         fun clear() {
-            buildCache().delete()
+            buildCache(options).delete()
         }
 
         /**
@@ -118,7 +138,7 @@ object Options {
          * or the system temporary folder (`java.io.tmpdir` / gradle-enterprise-api-kotlin-cache).
          */
         var cacheDir =
-            System.getenv("GRADLE_ENTERPRISE_API_CACHE_DIR")?.let(::File)
+            env["GRADLE_ENTERPRISE_API_CACHE_DIR"]?.let(::File)
                 ?: File(System.getProperty("java.io.tmpdir"), "gradle-enterprise-api-kotlin-cache")
 
         /**
@@ -126,7 +146,7 @@ object Options {
          * `GRADLE_ENTERPRISE_API_MAX_CACHE_SIZE` or ~1 GB.
          */
         var maxCacheSize =
-            System.getenv("GRADLE_ENTERPRISE_API_MAX_CACHE_SIZE")?.toLong()
+            env["GRADLE_ENTERPRISE_API_MAX_CACHE_SIZE"]?.toLong()
                 ?: 1_000_000_000L
 
         /**
@@ -139,7 +159,7 @@ object Options {
          * Use `|` to define multiple patterns in one, e.g. `.*gradle-attributes|.*test-distribution`.
          */
         var longTermCacheUrlPattern: Regex =
-            System.getenv("GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN")?.toRegex()
+            env["GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN"]?.toRegex()
                 ?: """.*/api/builds/[\d\w]+/(?:gradle|maven)-attributes""".toRegex()
 
         /**
@@ -147,7 +167,7 @@ object Options {
          * By default, uses environment variable `GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_MAX_AGE` or 1 year.
          */
         var longTermCacheMaxAge: Long =
-            System.getenv("GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE")?.toLong()
+            env["GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE"]?.toLong()
                 ?: 365.days.inWholeSeconds
 
         /**
@@ -159,7 +179,7 @@ object Options {
          * Use `|` to define multiple patterns in one, e.g. `.*gradle-attributes|.*test-distribution`.
          */
         var shortTermCacheUrlPattern: Regex =
-            System.getenv("GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_URL_PATTERN")?.toRegex()
+            env["GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_URL_PATTERN"]?.toRegex()
                 ?: """.*/builds(?:\?.*|\Z)""".toRegex()
 
         /**
@@ -167,20 +187,24 @@ object Options {
          * By default, uses environment variable `GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE` or 1 day.
          */
         var shortTermCacheMaxAge: Long =
-            System.getenv("GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE")?.toLong()
+            env["GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE"]?.toLong()
                 ?: 1.days.inWholeSeconds
     }
 
     /**
      * Library debugging options.
+     *
+     * Access via the global [options] instance.
      */
-    object Debugging {
+    class DebuggingOptions internal constructor(
+        env: Env,
+    ) {
 
         /**
          * Enables debug logging from the library. All logging is output to stderr. By default, uses
          * environment variable `GRADLE_ENTERPRISE_API_DEBUG_LOGGING` or `false`.
          */
         var debugLoggingEnabled =
-            System.getenv("GRADLE_ENTERPRISE_API_DEBUG_LOGGING").toBoolean()
+            env["GRADLE_ENTERPRISE_API_DEBUG_LOGGING"].toBoolean()
     }
 }

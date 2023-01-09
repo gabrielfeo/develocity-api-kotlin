@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.API_MAX_BUILDS
@@ -23,16 +25,20 @@ fun GradleEnterpriseApi.getBuildsFlow(
     sinceBuild: String? = null,
     fromInstant: Long? = null,
     fromBuild: String? = null,
-): Flow<Build> = flow {
-    val firstBuilds = getBuilds(
-        since = since,
-        sinceBuild = sinceBuild,
-        fromInstant = fromInstant,
-        fromBuild = fromBuild,
-        maxBuilds = API_MAX_BUILDS,
-    )
-    val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(maxPerRequest = API_MAX_BUILDS)
-    emitAll(pagedBuilds)
+    buildsPerPage: Int = API_MAX_BUILDS,
+): Flow<Build> {
+    val api = this
+    return flow {
+        val firstBuilds = getBuilds(
+            since = since,
+            sinceBuild = sinceBuild,
+            fromInstant = fromInstant,
+            fromBuild = fromBuild,
+            maxBuilds = buildsPerPage,
+        )
+        val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(api, buildsPerPage)
+        emitAll(pagedBuilds)
+    }
 }
 
 /**
@@ -40,9 +46,9 @@ fun GradleEnterpriseApi.getBuildsFlow(
  * first, since it's the only endpoint providing a timeline of builds, then maps each to
  * [GradleEnterpriseApi.getGradleAttributes].
  *
- * Don't expect client-side filtering to be efficient. Does as many concurrent calls
- * as it can, requesting attributes in an eager coroutine, in [scope]. For other params,
- * see [getBuildsFlow] and [GradleEnterpriseApi.getBuilds].
+ * Don't expect client-side filtering to be efficient. Will request up to [Int.MAX_VALUE]
+ * builds and their attributes concurrently and eagerly, with a buffer, in coroutines started in
+ * [scope]. For other params, see [getBuildsFlow] and [GradleEnterpriseApi.getBuilds].
  *
  * @param scope CoroutineScope in which to create coroutines. Defaults to [GlobalScope].
  */
@@ -59,6 +65,6 @@ fun GradleEnterpriseApi.getGradleAttributesFlow(
         sinceBuild = sinceBuild,
         fromInstant = fromInstant,
         fromBuild = fromBuild
-    ).withGradleAttributes(scope).map { (_, attrs) ->
+    ).withGradleAttributes(scope, api = this).map { (_, attrs) ->
         attrs
     }

@@ -110,6 +110,12 @@ publishing {
     }
 }
 
+testing {
+    suites.withType<JvmTestSuite> {
+        useKotlinTest()
+    }
+}
+
 dependencies {
     api("com.squareup.moshi:moshi:1.14.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
@@ -118,4 +124,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0")
+    testImplementation("com.squareup.okio:okio:3.3.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 }
