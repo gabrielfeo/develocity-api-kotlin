@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Check for modified code
         id: diff
-        uses: tj-actions/changed-files@v24
+        uses: tj-actions/changed-files@v35
         with:
           files: |
             **/src/**
@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Check for modified code
         id: diff
-        uses: tj-actions/changed-files@v24
+        uses: tj-actions/changed-files@v35
         with:
           files: |
             **/*.py
@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Diff publish-javadoc.yml
         id: diff-publish-javadoc
-        uses: tj-actions/changed-files@v24
+        uses: tj-actions/changed-files@v35
         with:
           files: |
             .github/workflows/publish-javadoc.yml
@@ -65,7 +65,7 @@ jobs:
             ./gradle/*
       - name: Diff check-new-api-spec.yml
         id: diff-check-new-api-spec
-        uses: tj-actions/changed-files@v24
+        uses: tj-actions/changed-files@v35
         with:
           files: |
             .github/workflows/check-new-api-spec.yml
