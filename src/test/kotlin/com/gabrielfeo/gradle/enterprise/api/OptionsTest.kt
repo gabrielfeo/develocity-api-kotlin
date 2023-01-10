@@ -12,11 +12,20 @@ import kotlin.test.assertTrue
 class OptionsTest {
 
     @Test
-    fun `URL from env is required`() {
+    fun `Given no URL set in env, url() fails`() {
         val options = Options(FakeEnv(), FakeKeychain())
         assertFails {
             options.gradleEnterpriseInstance.url()
         }
+    }
+
+    @Test
+    fun `Given URL set in env, url() returns env URL`() {
+        val options = Options(
+            FakeEnv("GRADLE_ENTERPRISE_API_URL" to "https://example.com/api/"),
+            FakeKeychain(),
+        )
+        assertEquals("https://example.com/api/", options.gradleEnterpriseInstance.url())
     }
 
     @Test

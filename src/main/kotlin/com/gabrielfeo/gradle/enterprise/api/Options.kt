@@ -35,22 +35,22 @@ class Options internal constructor(
     ) {
 
         /**
-         * Provides the URL of a Gradle Enterprise API instance (without `/api`). By default, uses
-         * environment variable `GRADLE_ENTERPRISE_URL`.
+         * Provides the URL of a Gradle Enterprise API instance REST API. By default, uses
+         * environment variable `GRADLE_ENTERPRISE_API_URL`. Must end with `/api/`.
          */
         var url: () -> String = {
-            env["GRADLE_ENTERPRISE_URL"]
-                ?: error("GE instance URL is required")
+            env["GRADLE_ENTERPRISE_API_URL"]
+                ?: error("GRADLE_ENTERPRISE_API_URL is required")
         }
 
         /**
          * Provides the access token for a Gradle Enterprise API instance. By default, uses keychain entry
-         * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_URL`.
+         * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_API_TOKEN`.
          */
         var token: () -> String = {
             keychain["gradle-enterprise-api-token"]
                 ?: env["GRADLE_ENTERPRISE_API_TOKEN"]
-                ?: error("GE token is required")
+                ?: error("GRADLE_ENTERPRISE_API_TOKEN is required")
         }
     }
 
