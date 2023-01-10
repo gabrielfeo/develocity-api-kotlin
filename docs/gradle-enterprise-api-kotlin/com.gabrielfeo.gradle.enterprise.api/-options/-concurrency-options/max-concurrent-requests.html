@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>shortTermCacheMaxAge</title>
+    <title>maxConcurrentRequests</title>
     <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../../";</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
@@ -51,12 +51,12 @@ SNAPSHOT    </div>
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageIds="gradle-enterprise-api-kotlin::com.gabrielfeo.gradle.enterprise.api/Options.Cache/shortTermCacheMaxAge/#/PointingToDeclaration//769193423">
-  <div class="breadcrumbs"><a href="../../../../index.html">gradle-enterprise-api-kotlin</a><span class="delimiter">/</span><a href="../../index.html">com.gabrielfeo.gradle.enterprise.api</a><span class="delimiter">/</span><a href="../index.html">Options</a><span class="delimiter">/</span><a href="index.html">Cache</a><span class="delimiter">/</span><span class="current">shortTermCacheMaxAge</span></div>
+<div class="main-content" id="content" pageIds="gradle-enterprise-api-kotlin::com.gabrielfeo.gradle.enterprise.api/Options.ConcurrencyOptions/maxConcurrentRequests/#/PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../../index.html">gradle-enterprise-api-kotlin</a><span class="delimiter">/</span><a href="../../index.html">com.gabrielfeo.gradle.enterprise.api</a><span class="delimiter">/</span><a href="../index.html">Options</a><span class="delimiter">/</span><a href="index.html">ConcurrencyOptions</a><span class="delimiter">/</span><span class="current">maxConcurrentRequests</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>short</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Max</span><wbr></wbr><span><span>Age</span></span></h1>
+    <h1 class="cover"><span>max</span><wbr></wbr><span>Concurrent</span><wbr></wbr><span><span>Requests</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="short-term-cache-max-age.html">shortTermCacheMaxAge</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/gradle-enterprise-api-kotlin/blob/SNAPSHOT/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/Options.kt#L165">source</a>)</span></span></div><p class="paragraph">Max age in seconds for URLs to be cached short-term (matched by <a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a>). By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE</code> or 1 day.</p></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="max-concurrent-requests.html">maxConcurrentRequests</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/gradle-enterprise-api-kotlin/blob/SNAPSHOT/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/Options.kt#L66">source</a>)</span></span></div><p class="paragraph">Maximum amount of concurrent requests allowed. Further requests will be queued. By default, uses environment variable <code class="lang-kotlin">GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS</code> or 15.</p><p class="paragraph">https://square.github.io/okhttp/4.x/okhttp/okhttp3/-dispatcher</p></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
