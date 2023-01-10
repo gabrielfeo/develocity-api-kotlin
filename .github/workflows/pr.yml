@@ -45,6 +45,23 @@ jobs:
         if: ${{ steps.diff.outputs.all_modified_files }}
         run: python3 -m unittest discover -bs .github/scripts
 
+  test-readme-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build javadoc
+        uses: ./.github/actions/build
+        with:
+          tasks: 'dokkaHtml'
+      - name: Replace javadoc links for local links
+        run: ./.github/scripts/replace_readme_links.py
+      - name: Check README links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          folder-path: .
+          max-depth: 1
+
   choose-dry-runs:
     runs-on: ubuntu-latest
     outputs:
