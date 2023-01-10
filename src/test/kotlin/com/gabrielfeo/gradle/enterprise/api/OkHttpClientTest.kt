@@ -68,8 +68,8 @@ class OkHttpClientTest {
         val env = FakeEnv(*envVars)
         if ("GRADLE_ENTERPRISE_API_TOKEN" !in env)
             env["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
-        if ("GRADLE_ENTERPRISE_URL" !in env)
-            env["GRADLE_ENTERPRISE_URL"] = "example-url"
+        if ("GRADLE_ENTERPRISE_API_URL" !in env)
+            env["GRADLE_ENTERPRISE_API_URL"] = "example-url"
         return buildOkHttpClient(Options(env, FakeKeychain()))
     }
 }
