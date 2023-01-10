@@ -40,7 +40,7 @@ class Options internal constructor(
          */
         var url: () -> String = {
             env["GRADLE_ENTERPRISE_API_URL"]
-                ?: error("GE instance URL is required")
+                ?: error("GRADLE_ENTERPRISE_API_URL is required")
         }
 
         /**
@@ -50,7 +50,7 @@ class Options internal constructor(
         var token: () -> String = {
             keychain["gradle-enterprise-api-token"]
                 ?: env["GRADLE_ENTERPRISE_API_TOKEN"]
-                ?: error("GE token is required")
+                ?: error("GRADLE_ENTERPRISE_API_TOKEN is required")
         }
     }
 
