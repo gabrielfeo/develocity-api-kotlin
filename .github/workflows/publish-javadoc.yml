@@ -31,7 +31,7 @@ jobs:
         uses: ./.github/actions/build
         with:
           tasks: 'dokkaHtml'
-          artifact-name: 'javadoc'
+          artifact-name: 'docs'
           path-to-upload: "build/dokka/html/**/*"
 
   publish-javadoc:
@@ -47,7 +47,7 @@ jobs:
       - name: Download new javadoc
         uses: actions/download-artifact@v3
         with:
-          path: docs
+          path: ./
       - name: Commit
         run: |
           git config user.name github-actions
