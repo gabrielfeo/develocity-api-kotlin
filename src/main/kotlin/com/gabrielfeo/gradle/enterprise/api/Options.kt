@@ -6,6 +6,9 @@ import com.gabrielfeo.gradle.enterprise.api.internal.*
 import java.io.File
 import kotlin.time.Duration.Companion.days
 
+/**
+ * The global [Options] instance.
+ */
 val options = Options(env = RealEnv, keychain = RealKeychain(RealEnv))
 
 /**
