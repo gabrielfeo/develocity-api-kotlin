@@ -2,7 +2,9 @@ name: 'Check PR'
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - gh-pages
   workflow_call:
   workflow_dispatch:
 
