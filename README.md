@@ -32,8 +32,8 @@ api.getBuild(id = "hy5nxbzfjxe5k")
 ```
 
 For configuring base URL and token via code and other available options, see the
-[`Options` object][8]. HTTP caching is available, which can speed up queries significantly, but is
-off by default. Enable with [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12]. See [`Options.Cache`][13]
+[`options` object][8]. HTTP caching is available, which can speed up queries significantly, but is
+off by default. Enable with [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12]. See [`CacheOptions`][13]
 for caveats.
 
 <details>
@@ -120,13 +120,13 @@ API classes such as `GradleEnterpriseApi` and response models are generated from
 [5]: https://docs.gradle.com/enterprise/api-manual/#reference_documentation
 [6]: https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc
 [7]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/
-[8]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/
+[8]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/options.html
 [9]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/
 [10]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/index.html#373241164%2FExtensions%2F769193423
 [11]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/shutdown.html
-[12]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/index.html#-1054137809%2FProperties%2F769193423
-[13]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache/index.html
+[12]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache-options/index.html#1054652077%2FProperties%2F769193423
+[13]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-cache-options/index.html
 [14]: https://jitpack.io/#gabrielfeo/gradle-enterprise-api-kotlin
 [15]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/
 [16]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-gradle-enterprise-instance-options/index.html#-259580834%2FProperties%2F769193423
-[17]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-gradle-enterprise-instance/index.html#2124126004%2FProperties%2F769193423
+[17]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-gradle-enterprise-instance-options/index.html#-42243308%2FProperties%2F769193423
