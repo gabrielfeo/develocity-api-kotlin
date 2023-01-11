@@ -7,7 +7,7 @@ A Kotlin library to access the [Gradle Enterprise API][1], easy to use from Kotl
 scripts:
 
 ```kotlin
-api.getBuilds(since = yesterday).forEach {
+gradleEnterpriseApi.getBuilds(since = yesterday).forEach {
   println(it)
 }
 ```
@@ -28,7 +28,7 @@ API:
 @file:Repository("https://jitpack.io")
 @file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:1.0")
 
-api.getBuild(id = "hy5nxbzfjxe5k")
+gradleEnterpriseApi.getBuild(id = "hy5nxbzfjxe5k")
 ```
 
 For configuring base URL and token via code and other available options, see the
@@ -69,10 +69,10 @@ for caveats.
 
 API endpoints are provided as a single interface: [`GradleEnterpriseApi`][9]. The Javadoc is a
 the same as Gradle's online docs, as they're generated from the same spec. An instance is
-initialized and ready-to-use as the global `api` instance:
+initialized and ready-to-use as the global `gradleEnterpriseApi` instance:
 
 ```kotlin
-api.getBuild(id = "hy5nxbzfjxe5k")
+gradleEnterpriseApi.getBuild(id = "hy5nxbzfjxe5k")
 ```
 
 The library also provides a few extension functions on top of the regular API, such as paged
@@ -80,9 +80,9 @@ requests and joining. See [`GradleEnterpriseApi` extensions][10].
 
 ```kotlin
 // Standard query to /api/builds, limited to 1000 builds server-side
-api.getBuilds(since = lastMonth)
+gradleEnterpriseApi.getBuilds(since = lastMonth)
 // Extension: Streams all available builds since given date (paging underneath)
-api.getBuildsFlow(since = lastMonth)
+gradleEnterpriseApi.getBuildsFlow(since = lastMonth)
 ```
 
 It's recommended to call [`shutdown()`][11] at the end of scripts to release resources and let the
@@ -90,7 +90,7 @@ program exit. Otherwise, it'll keep running for an extra ~60s after code finishe
 behavior of OkHttp][4].
 
 ```kotlin
-val builds = api.getBuilds()
+val builds = gradleEnterpriseApi.getBuilds()
 // do work ...
 shutdown()
 ```

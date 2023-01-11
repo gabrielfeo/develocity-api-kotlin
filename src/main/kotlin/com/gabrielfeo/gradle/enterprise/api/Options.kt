@@ -12,8 +12,8 @@ import kotlin.time.Duration.Companion.days
 val options = Options(env = RealEnv, keychain = RealKeychain(RealEnv))
 
 /**
- * Library configuration options. Should not be changed after accessing the [api] object for the
- * first time.
+ * Library configuration options. Should not be changed after accessing the [gradleEnterpriseApi]
+ * object for the first time.
  *
  * Use the global [options] instance.
  */
