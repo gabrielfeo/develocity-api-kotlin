@@ -45,6 +45,10 @@ jobs:
         if: ${{ steps.diff.outputs.all_modified_files }}
         run: python3 -m unittest discover -bs .github/scripts
 
+  readme-links-test:
+    needs: [choose-dry-runs]
+    uses: ./.github/workflows/test-readme-links.yml
+
   choose-dry-runs:
     runs-on: ubuntu-latest
     outputs:

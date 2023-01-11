@@ -20,9 +20,6 @@ defaults:
   run:
     shell: bash
 
-env:
-  JAR_NAME: gradle-enterprise-api-kotlin-SNAPSHOT-javadoc.jar
-
 jobs:
 
   build-javadoc:
@@ -33,9 +30,9 @@ jobs:
       - name: Build javadoc
         uses: ./.github/actions/build
         with:
-          tasks: 'javadocJar'
-          artifact-name: 'javadoc'
-          path-to-upload: "build/libs/${{ env.JAR_NAME }}"
+          tasks: 'dokkaHtml'
+          artifact-name: 'docs'
+          path-to-upload: "build/dokka/html/**/*"
 
   publish-javadoc:
     needs: [build-javadoc]
@@ -45,13 +42,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: gh-pages
-      - name: Download javadoc
+      - name: Delete current javadoc
+        run: rm -rf docs
+      - name: Download new javadoc
         uses: actions/download-artifact@v3
-      - name: Unzip javadoc
-        run: |
-          rm -rf docs
-          unzip "javadoc/$JAR_NAME" -d docs
-          rm -rf javadoc
+        with:
+          path: ./
       - name: Commit
         run: |
           git config user.name github-actions
