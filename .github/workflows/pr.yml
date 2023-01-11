@@ -50,13 +50,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Build javadoc
-        uses: ./.github/actions/build
+      - name: Check for modified code
+        id: diff
+        uses: tj-actions/changed-files@v35
         with:
-          tasks: 'dokkaHtml'
-      - name: Replace javadoc links for local links
-        run: ./.github/scripts/replace_readme_links.py
+          files: |
+            README.md
       - name: Check README links
+        if: ${{ steps.diff.outputs.all_modified_files }}
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           folder-path: .

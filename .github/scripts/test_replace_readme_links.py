@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from replace_readme_links import main, JAVADOC_EXTERNAL_URL, JAVADOC_LOCAL_URL
+from replace_readme_links import main, JAVADOC_EXTERNAL_ROOT_URL
 from tempfile import NamedTemporaryFile
 import unittest
 
@@ -21,33 +21,33 @@ class TestCheckForNewApiSpec(unittest.TestCase):
 
     def test_main_replaces_javadoc_links_for_local_links(self):
         self.write_readme(f"""
-                          [a]({JAVADOC_EXTERNAL_URL}/a) unrelated [b][external]
+                          [a]({JAVADOC_EXTERNAL_ROOT_URL}/a) unrelated [b][external]
                           unrelated text
 
-                          [external]: {JAVADOC_EXTERNAL_URL}/b""")
-        main(self.readme_file.name)
+                          [external]: {JAVADOC_EXTERNAL_ROOT_URL}/b""")
+        main(self.readme_file.name, local_javadoc_root="./example")
         self.assert_readme(f"""
-                          [a]({JAVADOC_LOCAL_URL}/a) unrelated [b][external]
+                          [a](file://./example/a) unrelated [b][external]
                           unrelated text
 
-                          [external]: {JAVADOC_LOCAL_URL}/b""")
+                          [external]: file://./example/b""")
 
     def test_main_preserves_non_javadoc_links(self):
         self.write_readme(f"""
-                          [a]({JAVADOC_EXTERNAL_URL}/a) unrelated [b][external]
+                          [a]({JAVADOC_EXTERNAL_ROOT_URL}/a) unrelated [b][external]
                           [c][google] unrelated text
                           [d](https://google.com)
 
                           [google]: https://google.com
-                          [external]: {JAVADOC_EXTERNAL_URL}/b""")
-        main(self.readme_file.name)
+                          [external]: {JAVADOC_EXTERNAL_ROOT_URL}/b""")
+        main(self.readme_file.name, local_javadoc_root="./example")
         self.assert_readme(f"""
-                          [a]({JAVADOC_LOCAL_URL}/a) unrelated [b][external]
+                          [a](file://./example/a) unrelated [b][external]
                           [c][google] unrelated text
                           [d](https://google.com)
 
                           [google]: https://google.com
-                          [external]: {JAVADOC_LOCAL_URL}/b""")
+                          [external]: file://./example/b""")
 
 
 if __name__ == '__main__':
