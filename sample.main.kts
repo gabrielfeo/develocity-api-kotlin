@@ -1,5 +1,5 @@
 @file:Repository("https://jitpack.io")
-@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.9")
+@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.12.0")
 
 /*
  * Counts how many developers don't run tests on their local machine
@@ -19,7 +19,7 @@ val oneMonthAgo = LocalDate.now()
 runBlocking {
 
     // Filter builds from the API
-    val buildsByUser = api.getGradleAttributesFlow(since = oneMonthAgo)
+    val buildsByUser = gradleEnterpriseApi.getGradleAttributesFlow(since = oneMonthAgo)
         .filter { "CI" !in it.tags }
         .toList()
         .groupBy { it.environment.username }
