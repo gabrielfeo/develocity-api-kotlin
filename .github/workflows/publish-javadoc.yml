@@ -20,9 +20,6 @@ defaults:
   run:
     shell: bash
 
-env:
-  JAR_NAME: gradle-enterprise-api-kotlin-SNAPSHOT-javadoc.jar
-
 jobs:
 
   build-javadoc:
@@ -37,29 +34,8 @@ jobs:
           artifact-name: 'javadoc'
           path-to-upload: "build/dokka/html/**/*"
 
-  test-readme-links:
-    runs-on: ubuntu-latest
-    needs: [build-javadoc]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Download new javadoc
-        uses: actions/download-artifact@v3
-        with:
-          path: 'build/dokka/html'
-      - name: Replace javadoc links for local links
-        run: ./.github/scripts/replace_readme_links.py && git diff
-      - name: Check README links
-        if: ${{ !inputs.dry_run }}
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-          folder-path: .
-          max-depth: 1
-
   publish-javadoc:
-    needs:
-      - build-javadoc
-      - test-readme-links
+    needs: [build-javadoc]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

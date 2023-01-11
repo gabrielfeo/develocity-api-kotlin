@@ -45,23 +45,9 @@ jobs:
         if: ${{ steps.diff.outputs.all_modified_files }}
         run: python3 -m unittest discover -bs .github/scripts
 
-  test-readme-links:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Check for modified code
-        id: diff
-        uses: tj-actions/changed-files@v35
-        with:
-          files: |
-            README.md
-      - name: Check README links
-        if: ${{ steps.diff.outputs.all_modified_files }}
-        uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-          folder-path: .
-          max-depth: 1
+  readme-links-test:
+    needs: [choose-dry-runs]
+    uses: ./.github/workflows/test-readme-links.yml
 
   choose-dry-runs:
     runs-on: ubuntu-latest
