@@ -29,15 +29,14 @@ class OkHttpClientTest {
 
     @Test
     fun `Given no maxConcurrentRequests, preserves original client's Dispatcher values`() {
-        val client = buildClient(
-            clientBuilder = OkHttpClient.Builder()
-                .dispatcher(
-                    Dispatcher().apply {
-                        maxRequests = 1
-                        maxRequestsPerHost = 1
-                    }
-                )
-        )
+        val baseClient = OkHttpClient.Builder()
+            .dispatcher(
+                Dispatcher().apply {
+                    maxRequests = 1
+                    maxRequestsPerHost = 1
+                }
+            ).build()
+        val client = buildClient(clientBuilder = baseClient.newBuilder())
         assertEquals(1, client.dispatcher.maxRequests)
         assertEquals(1, client.dispatcher.maxRequestsPerHost)
     }
