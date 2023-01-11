@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 
-from update_api_spec_version import main
+from replace_readme_links import main, JAVADOC_EXTERNAL_URL, JAVADOC_LOCAL_URL
 from tempfile import NamedTemporaryFile
 import unittest
-from unittest import mock
-
-JAVADOC_LINK_1 = "https://docs.gradle.com/enterprise/api-manual"
-EXTERNAL_LINK = "https://google.com"
 
 
 class TestCheckForNewApiSpec(unittest.TestCase):
@@ -16,27 +12,43 @@ class TestCheckForNewApiSpec(unittest.TestCase):
         self.readme_file.write(text.encode())
         self.readme_file.flush()
 
+    def assert_readme(self, expected):
+        with open(self.readme_file.name) as file:
+            self.assertEqual(file.read().strip(), expected.strip())
+
     def tearDown(self):
         self.readme_file.close()
 
-    @mock.patch('builtins.print')
-    def test_main_replaces_javadoc_links_for_local_links(self, mock_print):
-        self.write_readme(TODO)
-        main(self.readme_file.name)
-        # TODO Assert replaced links
-        # TODO Assert printed replacements
+    def test_main_replaces_javadoc_links_for_local_links(self):
+        self.write_readme(f"""
+                          [a]({JAVADOC_EXTERNAL_URL}/a) unrelated [b][external]
+                          unrelated text
 
-    @mock.patch('builtins.print')
-    def test_main_preserves_non_javadoc_links(self, mock_print):
-        self.write_readme(TODO)
+                          [external]: {JAVADOC_EXTERNAL_URL}/b""")
         main(self.readme_file.name)
-        # TODO Assert replaced javadoc links
-        # TODO Assert printed replacements
-        # TODO Assert didn't replace non-javadoc links
+        self.assert_readme(f"""
+                          [a]({JAVADOC_LOCAL_URL}/a) unrelated [b][external]
+                          unrelated text
 
-    def assert_readme_content(self, expected):
-        with open(self.readme_file.name) as file:
-            self.assertEqual(file.read(), expected)
+                          [external]: {JAVADOC_LOCAL_URL}/b""")
+
+    def test_main_preserves_non_javadoc_links(self):
+        self.write_readme(f"""
+                          [a]({JAVADOC_EXTERNAL_URL}/a) unrelated [b][external]
+                          [c][google] unrelated text
+                          [d](https://google.com)
+
+                          [google]: https://google.com
+                          [external]: {JAVADOC_EXTERNAL_URL}/b""")
+        main(self.readme_file.name)
+        self.assert_readme(f"""
+                          [a]({JAVADOC_LOCAL_URL}/a) unrelated [b][external]
+                          [c][google] unrelated text
+                          [d](https://google.com)
+
+                          [google]: https://google.com
+                          [external]: {JAVADOC_LOCAL_URL}/b""")
+
 
 if __name__ == '__main__':
     unittest.main()
