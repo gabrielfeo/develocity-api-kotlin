@@ -5,7 +5,6 @@ import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
 import okhttp3.Cache
-import okhttp3.OkHttpClient
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -15,7 +14,7 @@ internal val okHttpClient by lazy {
 
 internal fun buildOkHttpClient(
     options: Options,
-) = with(OkHttpClient.Builder()) {
+) = with(options.httpClient.clientBuilder()) {
     if (options.cache.cacheEnabled) {
         cache(buildCache(options))
     }
@@ -27,8 +26,10 @@ internal fun buildOkHttpClient(
         addNetworkInterceptor(buildCacheEnforcingInterceptor(options))
     }
     build().apply {
-        dispatcher.maxRequests = options.concurrency.maxConcurrentRequests
-        dispatcher.maxRequestsPerHost = options.concurrency.maxConcurrentRequests
+        options.httpClient.maxConcurrentRequests?.let {
+            dispatcher.maxRequests = it
+            dispatcher.maxRequestsPerHost = it
+        }
     }
 }
 

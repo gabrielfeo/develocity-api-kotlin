@@ -64,7 +64,7 @@ class OptionsTest {
             env = FakeEnv("GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS" to "1"),
         )
         assertDoesNotThrow {
-            options.concurrency.maxConcurrentRequests
+            options.httpClient.maxConcurrentRequests
         }
     }
 
