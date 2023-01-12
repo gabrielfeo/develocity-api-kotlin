@@ -3,6 +3,8 @@
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
+import okhttp3.Dispatcher
+import okhttp3.OkHttpClient
 import java.io.File
 import kotlin.time.Duration.Companion.days
 
@@ -12,8 +14,8 @@ import kotlin.time.Duration.Companion.days
 val options = Options(env = RealEnv, keychain = RealKeychain(RealEnv))
 
 /**
- * Library configuration options. Should not be changed after accessing the [api] object for the
- * first time.
+ * Library configuration options. Should not be changed after accessing the [gradleEnterpriseApi]
+ * object for the first time.
  *
  * Use the global [options] instance.
  */
@@ -23,14 +25,14 @@ class Options internal constructor(
 ) {
 
     val gradleEnterpriseInstance = GradleEnterpriseInstanceOptions(env, keychain)
-    val concurrency = ConcurrencyOptions(env)
+    val httpClient = HttpClientOptions(env)
     val cache = CacheOptions(env)
     val debugging = DebuggingOptions(env)
 
     /**
      * Options about the GE instance, such as URL and API token.
      *
-     * Access via the global [options] instance.
+     * Access via the global [options] instance: `options.gradleEnterpriseInstance`.
      */
     class GradleEnterpriseInstanceOptions internal constructor(
         private val env: Env,
@@ -58,23 +60,37 @@ class Options internal constructor(
     }
 
     /**
-     * Concurrency options.
+     * HTTP client options.
      *
-     * Access via the global [options] instance.
+     * Access via the global [options] instance: `options.httpClient`.
      */
-    class ConcurrencyOptions internal constructor(
+    class HttpClientOptions internal constructor(
         env: Env,
     ) {
 
         /**
-         * Maximum amount of concurrent requests allowed. Further requests will be queued. By default,
-         * uses environment variable `GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS` or 15.
+         * Provider of an [OkHttpClient.Builder] to use when building the library's internal client.
+         * Has a default value and shouldn't be needed in scripts.
          *
-         * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-dispatcher
+         * This is aimed at using the library inside a full Kotlin project. Allows the internal client to
+         * share resources such as thread pools with another [OkHttpClient], useful for full Kotlin projects
+         * and rarely needed for scripting. See [OkHttpClient] for all that is shared.
+         */
+        var clientBuilder: () -> OkHttpClient.Builder = {
+            OkHttpClient.Builder()
+        }
+
+        /**
+         * Maximum amount of concurrent requests allowed. Further requests will be queued. By default,
+         * uses environment variable `GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS` or 5 (OkHttp's
+         * default value of [Dispatcher.maxRequestsPerHost]).
+         *
+         * If set, will set [Dispatcher.maxRequests] and [Dispatcher.maxRequestsPerHost] of the
+         * internal client, overwriting what's inherited from the base client of [clientBuilder],
+         * if any.
          */
         var maxConcurrentRequests =
             env["GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS"]?.toInt()
-                ?: 15
     }
 
     /**
@@ -82,7 +98,7 @@ class Options internal constructor(
      * API disallows HTTP caching, but this library forcefully enables it by overwriting
      * cache-related headers in API responses. Enable with [cacheEnabled].
      *
-     * Access via the global [options] instance.
+     * Access via the global [options] instance: `options.cache`.
      *
      * Responses can be:
      *
@@ -197,7 +213,7 @@ class Options internal constructor(
     /**
      * Library debugging options.
      *
-     * Access via the global [options] instance.
+     * Access via the global [options] instance: `options.debugging`.
      */
     class DebuggingOptions internal constructor(
         env: Env,

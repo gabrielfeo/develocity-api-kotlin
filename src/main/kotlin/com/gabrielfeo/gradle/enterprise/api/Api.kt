@@ -3,13 +3,11 @@
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
-import java.io.File
-import kotlin.time.Duration.Companion.days
 
 /**
  * The global instance of [GradleEnterpriseApi].
  */
-val api: GradleEnterpriseApi by lazy {
+val gradleEnterpriseApi: GradleEnterpriseApi by lazy {
     retrofit.create(GradleEnterpriseApi::class.java)
 }
 

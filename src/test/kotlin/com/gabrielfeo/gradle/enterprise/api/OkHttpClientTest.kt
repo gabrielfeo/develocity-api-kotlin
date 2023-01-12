@@ -1,15 +1,13 @@
 package com.gabrielfeo.gradle.enterprise.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.Env
 import com.gabrielfeo.gradle.enterprise.api.internal.FakeEnv
 import com.gabrielfeo.gradle.enterprise.api.internal.FakeKeychain
 import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
 import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
-import okhttp3.Interceptor
+import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
-import kotlin.reflect.KClass
 import kotlin.test.*
 
 class OkHttpClientTest {
@@ -21,12 +19,26 @@ class OkHttpClientTest {
     }
 
     @Test
-    fun `Sets max concurrency from options`() {
+    fun `Given maxConcurrentRequests, sets values in Dispatcher`() {
         val client = buildClient(
             "GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS" to "123"
         )
         assertEquals(123, client.dispatcher.maxRequests)
         assertEquals(123, client.dispatcher.maxRequestsPerHost)
+    }
+
+    @Test
+    fun `Given no maxConcurrentRequests, preserves original client's Dispatcher values`() {
+        val baseClient = OkHttpClient.Builder()
+            .dispatcher(
+                Dispatcher().apply {
+                    maxRequests = 1
+                    maxRequestsPerHost = 1
+                }
+            ).build()
+        val client = buildClient(clientBuilder = baseClient.newBuilder())
+        assertEquals(1, client.dispatcher.maxRequests)
+        assertEquals(1, client.dispatcher.maxRequestsPerHost)
     }
 
     @Test
@@ -64,12 +76,18 @@ class OkHttpClientTest {
 
     private fun buildClient(
         vararg envVars: Pair<String, String?>,
+        clientBuilder: OkHttpClient.Builder? = null,
     ): OkHttpClient {
         val env = FakeEnv(*envVars)
         if ("GRADLE_ENTERPRISE_API_TOKEN" !in env)
             env["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
         if ("GRADLE_ENTERPRISE_API_URL" !in env)
             env["GRADLE_ENTERPRISE_API_URL"] = "example-url"
-        return buildOkHttpClient(Options(env, FakeKeychain()))
+        val options = Options(env, FakeKeychain()).apply {
+            clientBuilder?.let {
+                httpClient.clientBuilder = { it }
+            }
+        }
+        return buildOkHttpClient(options)
     }
 }
