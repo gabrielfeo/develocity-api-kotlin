@@ -69,20 +69,35 @@ class OptionsTest {
     }
 
     @Test
-    fun `default longTermCacheUrlPattern matches attributes path`() {
+    fun `default longTermCacheUrlPattern matches attributes URLs`() {
         val options = Options(FakeEnv(), FakeKeychain())
-        with(options.cache.longTermCacheUrlPattern) {
-            assertTrue(matches("https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-attributes"))
-            assertTrue(matches("https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-attributes"))
-        }
+        options.cache.longTermCacheUrlPattern.assertMatches(
+            "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-attributes",
+            "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-attributes",
+        )
     }
 
     @Test
-    fun `default shortTermCacheUrlPattern matches builds path`() {
+    fun `default longTermCacheUrlPattern matches build cache performance URLs`() {
         val options = Options(FakeEnv(), FakeKeychain())
-        with(options.cache.shortTermCacheUrlPattern) {
-            assertTrue(matches("https://ge.gradle.org/api/builds?since=0"))
-            assertTrue(matches("https://ge.gradle.org/api/builds?since=0&maxBuilds=2"))
+        options.cache.longTermCacheUrlPattern.assertMatches(
+            "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-build-cache-performance",
+            "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-build-cache-performance",
+        )
+    }
+
+    @Test
+    fun `default shortTermCacheUrlPattern matches builds URLs`() {
+        val options = Options(FakeEnv(), FakeKeychain())
+        options.cache.shortTermCacheUrlPattern.assertMatches(
+            "https://ge.gradle.org/api/builds?since=0",
+            "https://ge.gradle.org/api/builds?since=0&maxBuilds=2",
+        )
+    }
+
+    private fun Regex.assertMatches(vararg values: String) {
+        values.forEach {
+            assertTrue(matches(it), "/$pattern/ doesn't match '$it'")
         }
     }
 }

@@ -107,6 +107,8 @@ class Options internal constructor(
      * - cached long-term: default max-age of 1 year
      *   - `/api/builds/{id}/gradle-attributes`
      *   - `/api/builds/{id}/maven-attributes`
+     *   - `/api/builds/{id}/gradle-build-cache-performance`
+     *   - `/api/builds/{id}/maven-build-cache-performance`
      * - not cached
      *   - all other paths
      *
@@ -174,12 +176,16 @@ class Options internal constructor(
          * `GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN` or a pattern matching:
          * - {host}/api/builds/{id}/gradle-attributes
          * - {host}/api/builds/{id}/maven-attributes
+         * - {host}/api/builds/{id}/gradle-build-cache-performance
+         * - {host}/api/builds/{id}/maven-build-cache-performance
          *
          * Use `|` to define multiple patterns in one, e.g. `.*gradle-attributes|.*test-distribution`.
          */
         var longTermCacheUrlPattern: Regex =
             env["GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN"]?.toRegex()
-                ?: """.*/api/builds/[\d\w]+/(?:gradle|maven)-attributes""".toRegex()
+                // @formatter:off
+                ?: Regex(""".*/api/builds/[\d\w]+/(?:gradle|maven)-(?:attributes|build-cache-performance)""")
+                // @formatter:on
 
         /**
          * Max age in seconds for URLs to be cached long-term (matched by [longTermCacheUrlPattern]).
