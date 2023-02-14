@@ -30,13 +30,15 @@ jobs:
       - name: Build javadoc
         uses: ./.github/actions/build
         with:
-          tasks: 'dokkaHtml'
+          args: 'dokkaHtml'
           artifact-name: 'docs'
           path-to-upload: "build/dokka/html/**/*"
 
   publish-javadoc:
     needs: [build-javadoc]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3

@@ -26,7 +26,7 @@ jobs:
         if: ${{ steps.diff.outputs.all_modified_files }}
         uses: ./.github/actions/build
         with:
-          tasks: 'check'
+          args: 'check'
           # artifact-name: 'Test reports (${{matrix.runner}})'
           # path-to-upload: '**/build/reports/tests/**'
 
@@ -48,6 +48,59 @@ jobs:
   readme-links-test:
     needs: [choose-dry-runs]
     uses: ./.github/workflows/test-readme-links.yml
+
+  generated-api-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR ref
+        uses: actions/checkout@v3
+      - name: Check for modified code
+        id: git-diff
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            **/*.gradle*
+      - name: gradle openApiGenerate (PR ref)
+        if: ${{ steps.git-diff.outputs.all_modified_files }}
+        uses: ./.github/actions/build
+        with:
+          args: 'openApiGenerate'
+      - run: mv ./build/generated/openapi-generator ./pr-ref-api
+      - name: Checkout base ref
+        if: ${{ steps.git-diff.outputs.all_modified_files }}
+        uses: actions/checkout@v3
+        with:
+          path: ./base-ref-checkout
+          ref: ${{ github.base_ref }}
+      - name: gradle openApiGenerate (base ref)
+        if: ${{ steps.git-diff.outputs.all_modified_files }}
+        uses: ./.github/actions/build
+        with:
+          args: '-p ./base-ref-checkout openApiGenerate'
+      - run: mv ./base-ref-checkout/build/generated/openapi-generator ./base-ref-api
+        if: ${{ steps.git-diff.outputs.all_modified_files }}
+      - name: Diff generated APIs
+        if: ${{ steps.git-diff.outputs.all_modified_files }}
+        run: |
+          echo -e '### Generated API diff\n\n```diff' > comment.md
+          diff -ur ./base-ref-api ./pr-ref-api | tee -a comment.md || true
+          echo -e '```' >> comment.md
+      - name: Find existing comment
+        if: ${{ steps.git-diff.outputs.all_modified_files }}
+        uses: peter-evans/find-comment@v2
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: 'Generated API diff'
+      - name: Create or update diff comment
+        if: ${{ steps.git-diff.outputs.all_modified_files }}
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          body-file: 'comment.md'
+          edit-mode: replace
 
   choose-dry-runs:
     runs-on: ubuntu-latest

@@ -5,7 +5,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.8.0"
     id("org.jetbrains.dokka") version "1.7.20"
-    id("org.openapi.generator") version "6.2.1"
+    id("org.openapi.generator") version "6.3.0"
     `java-library`
     `maven-publish`
 }
