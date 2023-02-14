@@ -30,7 +30,7 @@ jobs:
       - name: Build javadoc
         uses: ./.github/actions/build
         with:
-          tasks: 'dokkaHtml'
+          args: 'dokkaHtml'
           artifact-name: 'docs'
           path-to-upload: "build/dokka/html/**/*"
 

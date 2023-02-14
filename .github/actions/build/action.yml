@@ -1,8 +1,8 @@
 name: 'Build'
 description: 'Run a Gradle build'
 inputs:
-  tasks:
-    description: "Gradle tasks"
+  args:
+    description: "Gradle args"
     required: true
   artifact-name:
     description: "Artifact name"
@@ -20,11 +20,11 @@ runs:
         java-version: 8
     - name: Set up Gradle env
       uses: gradle/gradle-build-action@v2.1.4
-    - name: Run Gradle tasks
+    - name: Run Gradle build
       shell: bash
       run: |
         echo "::group::Gradle build log"
-        ./gradlew ${{ inputs.tasks }}
+        ./gradlew ${{ inputs.args }}
         echo "::endgroup::"
     - name: Upload
       if: ${{ inputs.path-to-upload }}
