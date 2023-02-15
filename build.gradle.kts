@@ -3,7 +3,7 @@ import org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.8.0"
+    id("org.jetbrains.kotlin.jvm") version "1.8.10"
     id("org.jetbrains.dokka") version "1.7.20"
     id("org.openapi.generator") version "6.3.0"
     `java-library`

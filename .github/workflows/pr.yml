@@ -51,6 +51,8 @@ jobs:
 
   generated-api-diff:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout PR ref
         uses: actions/checkout@v3
