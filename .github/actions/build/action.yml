@@ -18,14 +18,10 @@ runs:
       with:
         distribution: temurin
         java-version: 8
-    - name: Set up Gradle env
+    - name: Run Gradle
       uses: gradle/gradle-build-action@v2.1.4
-    - name: Run Gradle build
-      shell: bash
-      run: |
-        echo "::group::Gradle build log"
-        ./gradlew ${{ inputs.args }}
-        echo "::endgroup::"
+      with:
+        arguments: ${{ inputs.args }}
     - name: Upload
       if: ${{ inputs.path-to-upload }}
       uses: actions/upload-artifact@v3.0.0
