@@ -3,7 +3,7 @@ description: 'Run a Gradle build'
 inputs:
   args:
     description: "Gradle args"
-    required: true
+    required: false
   artifact-name:
     description: "Artifact name"
     required: false
