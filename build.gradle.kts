@@ -123,6 +123,9 @@ java {
 }
 
 dependencies {
+    constraints {
+        implementation("com.squareup.okio:okio:3.3.0")
+    }
     api("com.squareup.moshi:moshi:1.14.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
     api("com.squareup.okhttp3:okhttp:4.10.0")
