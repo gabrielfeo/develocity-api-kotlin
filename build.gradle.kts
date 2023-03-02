@@ -14,7 +14,10 @@ group = "com.github.gabrielfeo"
 version = "SNAPSHOT"
 val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
 
+val localSpecPath: String? by project
+
 val downloadApiSpec by tasks.registering {
+    onlyIf { localSpecPath == null }
     val geVersion = providers.gradleProperty("gradle.enterprise.version").get()
     val specName = "gradle-enterprise-$geVersion-api.yaml"
     val spec = resources.text.fromUri("https://docs.gradle.com/enterprise/api-manual/ref/$specName")
@@ -28,7 +31,14 @@ val downloadApiSpec by tasks.registering {
 
 openApiGenerate {
     generatorName.set("kotlin")
-    inputSpec.set(downloadApiSpec.map { it.outputs.files.first().absolutePath })
+    val spec = when (localSpecPath) {
+        null -> downloadApiSpec.map { it.outputs.files.first().absolutePath }
+        else -> provider {
+            println(File(localSpecPath).absolutePath)
+            File(localSpecPath).absolutePath
+        }
+    }
+    inputSpec.set(spec)
     val generateDir = project.layout.buildDirectory.file("generated/openapi-generator")
     outputDir.set(generateDir.map { it.asFile.absolutePath })
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
