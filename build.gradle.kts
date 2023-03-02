@@ -67,6 +67,38 @@ tasks.openApiGenerate.configure {
             )
         }
     }
+    // Workaround for properties generated with `arrayListOf(null,null)` as default value
+    doLast {
+        val srcDir = File(outputDir.get(), "src/main/kotlin")
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "match" to """arrayListOf\(null,null\)""",
+                "replace" to """emptyList()""",
+                "flags" to "gm",
+            ) {
+                "fileset"(
+                    "dir" to srcDir
+                )
+            }
+        }
+    }
+    // Workaround for missing imports of exploded queries
+    doLast {
+        val srcDir = File(outputDir.get(), "src/main/kotlin")
+        val modelPackage = openApiGenerate.modelPackage.get()
+        val modelPackagePattern = modelPackage.replace(".", "\\.")
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "match" to """(?:import $modelPackagePattern.[.\w]+\s)+""",
+                "replace" to "import $modelPackage.*\n",
+                "flags" to "m",
+            ) {
+                "fileset"(
+                    "dir" to srcDir
+                )
+            }
+        }
+    }
 }
 
 sourceSets {
