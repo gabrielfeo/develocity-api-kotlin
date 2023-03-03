@@ -14,29 +14,32 @@ group = "com.github.gabrielfeo"
 version = "SNAPSHOT"
 val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
 
-val localSpecPath: String? by project
+val localSpecPath = providers.gradleProperty("localSpecPath")
+val remoteSpecUrl = providers.gradleProperty("remoteSpecUrl").orElse(
+    providers.gradleProperty("gradle.enterprise.version").map { geVersion ->
+        val specName = "gradle-enterprise-$geVersion-api.yaml"
+        "https://docs.gradle.com/enterprise/api-manual/ref/$specName"
+    }
+)
 
 val downloadApiSpec by tasks.registering {
-    onlyIf { localSpecPath == null }
-    val geVersion = providers.gradleProperty("gradle.enterprise.version").get()
-    val specName = "gradle-enterprise-$geVersion-api.yaml"
-    val spec = resources.text.fromUri("https://docs.gradle.com/enterprise/api-manual/ref/$specName")
+    onlyIf { !localSpecPath.isPresent() }
+    val spec = resources.text.fromUri(remoteSpecUrl)
+    val specName = remoteSpecUrl.map { it.substringAfterLast('/') }
     val outFile = project.layout.buildDirectory.file(specName)
-    inputs.property("GE version", geVersion)
+    inputs.property("Spec URL", remoteSpecUrl)
     outputs.file(outFile)
     doLast {
+        logger.info("Downloaded API spec from ${remoteSpecUrl.get()}")
         spec.asFile().renameTo(outFile.get().asFile)
     }
 }
 
 openApiGenerate {
     generatorName.set("kotlin")
-    val spec = when (localSpecPath) {
-        null -> downloadApiSpec.map { it.outputs.files.first().absolutePath }
-        else -> provider {
-            println(File(localSpecPath).absolutePath)
-            File(localSpecPath).absolutePath
-        }
+    val spec = when {
+        localSpecPath.isPresent() -> localSpecPath.map { File(it).absolutePath }
+        else -> downloadApiSpec.map { it.outputs.files.first().absolutePath }
     }
     inputSpec.set(spec)
     val generateDir = project.layout.buildDirectory.file("generated/openapi-generator")
@@ -52,6 +55,9 @@ openApiGenerate {
 }
 
 tasks.openApiGenerate.configure {
+    doFirst {
+        logger.info("Using API spec ${inputSpec.get()}")
+    }
     // Replace Response<X> with X in every method return type of GradleEnterpriseApi.kt
     doLast {
         val apiFile = File(
