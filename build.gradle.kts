@@ -14,21 +14,34 @@ group = "com.github.gabrielfeo"
 version = "SNAPSHOT"
 val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
 
+val localSpecPath = providers.gradleProperty("localSpecPath")
+val remoteSpecUrl = providers.gradleProperty("remoteSpecUrl").orElse(
+    providers.gradleProperty("gradle.enterprise.version").map { geVersion ->
+        val specName = "gradle-enterprise-$geVersion-api.yaml"
+        "https://docs.gradle.com/enterprise/api-manual/ref/$specName"
+    }
+)
+
 val downloadApiSpec by tasks.registering {
-    val geVersion = providers.gradleProperty("gradle.enterprise.version").get()
-    val specName = "gradle-enterprise-$geVersion-api.yaml"
-    val spec = resources.text.fromUri("https://docs.gradle.com/enterprise/api-manual/ref/$specName")
+    onlyIf { !localSpecPath.isPresent() }
+    val spec = resources.text.fromUri(remoteSpecUrl)
+    val specName = remoteSpecUrl.map { it.substringAfterLast('/') }
     val outFile = project.layout.buildDirectory.file(specName)
-    inputs.property("GE version", geVersion)
+    inputs.property("Spec URL", remoteSpecUrl)
     outputs.file(outFile)
     doLast {
+        logger.info("Downloaded API spec from ${remoteSpecUrl.get()}")
         spec.asFile().renameTo(outFile.get().asFile)
     }
 }
 
 openApiGenerate {
     generatorName.set("kotlin")
-    inputSpec.set(downloadApiSpec.map { it.outputs.files.first().absolutePath })
+    val spec = when {
+        localSpecPath.isPresent() -> localSpecPath.map { File(it).absolutePath }
+        else -> downloadApiSpec.map { it.outputs.files.first().absolutePath }
+    }
+    inputSpec.set(spec)
     val generateDir = project.layout.buildDirectory.file("generated/openapi-generator")
     outputDir.set(generateDir.map { it.asFile.absolutePath })
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
@@ -42,6 +55,9 @@ openApiGenerate {
 }
 
 tasks.openApiGenerate.configure {
+    doFirst {
+        logger.info("Using API spec ${inputSpec.get()}")
+    }
     // Replace Response<X> with X in every method return type of GradleEnterpriseApi.kt
     doLast {
         val apiFile = File(
@@ -55,6 +71,38 @@ tasks.openApiGenerate.configure {
                 "replace" to """: \1""",
                 "flags" to "gm",
             )
+        }
+    }
+    // Workaround for properties generated with `arrayListOf(null,null)` as default value
+    doLast {
+        val srcDir = File(outputDir.get(), "src/main/kotlin")
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "match" to """arrayListOf\(null,null\)""",
+                "replace" to """emptyList()""",
+                "flags" to "gm",
+            ) {
+                "fileset"(
+                    "dir" to srcDir
+                )
+            }
+        }
+    }
+    // Workaround for missing imports of exploded queries
+    doLast {
+        val srcDir = File(outputDir.get(), "src/main/kotlin")
+        val modelPackage = openApiGenerate.modelPackage.get()
+        val modelPackagePattern = modelPackage.replace(".", "\\.")
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "match" to """(?:import $modelPackagePattern.[.\w]+\s)+""",
+                "replace" to "import $modelPackage.*\n",
+                "flags" to "m",
+            ) {
+                "fileset"(
+                    "dir" to srcDir
+                )
+            }
         }
     }
 }
