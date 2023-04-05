@@ -67,7 +67,7 @@ jobs:
           comment-author: 'github-actions[bot]'
           body-includes: 'Generated API diff'
       - name: Create or update diff comment
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
