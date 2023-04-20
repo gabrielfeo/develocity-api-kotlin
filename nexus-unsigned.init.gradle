@@ -1,0 +1,21 @@
+afterProject { Project p ->
+    if (p.path != ':library') {
+        return
+    }
+    PublishingExtension pub = p.extensions.getByType(PublishingExtension)
+    pub.publications.create('unsignedLibrary', MavenPublication) { unsigned ->
+        unsigned.artifactId = "gradle-enterprise-api-kotlin"
+        unsigned.from(p.components['java'])
+    }
+    pub.repositories.maven {
+        name = "nexus"
+        url = uri("https://nexus.dc.ifood.com.br/repository/releases/")
+        authentication {
+            it.register('basic', BasicAuthentication)
+        }
+        credentials {
+            it.username = p.properties['nexusUsername']
+            it.password = p.properties['nexusPassword']
+        }
+    }
+}

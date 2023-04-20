@@ -1,0 +1,37 @@
+# Important Notice
+#
+# This file is managed by Tompero's indexing process.
+# Manual changes to the managed fields won't take effect and will be overwritten by Tompero.
+#
+# Tompero will also push commits directly to this file when needed
+# without previous notice.
+#
+# Currently, the following fields are managed by Tompero:
+#
+# * requiredForDR
+
+apiVersion: ifood/v2
+kind: Repository
+tags: []
+metadata:
+  costCenter: '1122011221'
+  tribe: lc-oms-eng
+  squad: mobile-platform
+  team:
+    alias: android-mobile-platform
+    channel: mobp-support
+    email: carlos.souto@ifood.com.br
+    owner: carlos.souto
+spec:
+  contents:
+    - name: Gradle Enterprise API Kotlin
+      description: Library to extract data from Gradle Enterprise. Fork from GitHub to use a feature preview of Gradle Enterprise
+      type: library
+      subType:
+        - maven
+      impactLevel: 5
+      links: []
+      deployment:
+        type: artifact_repository
+      certifications: []
+      ownerLayerSlug: mob-pla

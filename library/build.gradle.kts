@@ -40,7 +40,7 @@ val downloadApiSpec by tasks.registering {
 openApiGenerate {
     generatorName.set("kotlin")
     val spec = when {
-        localSpecPath.isPresent() -> localSpecPath.map { File(it).absolutePath }
+        localSpecPath.isPresent() -> localSpecPath.map { rootProject.file(it).absolutePath }
         else -> downloadApiSpec.map { it.outputs.files.first().absolutePath }
     }
     inputSpec.set(spec)

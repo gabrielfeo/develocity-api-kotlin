@@ -1,0 +1,32 @@
+include:
+  - project: "ifood/pipelines/gitlab-pipelines"
+    ref: "ifood-gradle-library-1-stable"
+    file: "pipelines/ifood-gradle-library/main.yml"
+
+workflow:
+  rules:
+    - if: "$CI_PIPELINE_SOURCE == 'web' && $VERSION"
+
+publish:
+  script: >-
+    ./gradlew publishUnsignedLibraryPublicationToNexusRepository
+    --init-script nexus-unsigned.init.gradle
+    "-Pversion=$VERSION"
+    "-PnexusUsername=$NEXUS_USERNAME"
+    "-PnexusPassword=$NEXUS_PASSWORD"
+
+build:
+  rules:
+    - when: never
+
+sonarqube:
+  rules:
+    - when: never
+
+quality_gates_validation:
+  rules:
+    - when: never
+
+quality_gates_checkpoint:
+  rules:
+    - when: never
