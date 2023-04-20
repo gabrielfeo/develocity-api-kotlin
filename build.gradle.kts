@@ -11,7 +11,6 @@ plugins {
 }
 
 group = "com.github.gabrielfeo"
-version = "SNAPSHOT"
 val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
 
 val localSpecPath = providers.gradleProperty("localSpecPath")
