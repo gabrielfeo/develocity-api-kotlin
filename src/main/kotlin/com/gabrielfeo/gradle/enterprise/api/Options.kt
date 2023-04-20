@@ -91,6 +91,15 @@ class Options internal constructor(
          */
         var maxConcurrentRequests =
             env["GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS"]?.toInt()
+
+        /**
+         * Timeout for reading an API response, used for [OkHttpClient.readTimeoutMillis].
+         * By default, uses environment variable `GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS`
+         * or 60_000. Keep in mind that GE API responses can be big and slow to send depending on
+         * the endpoint.
+         */
+        var readTimeoutMillis: Long = env["GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS"]?.toLong()
+            ?: 60_000L
     }
 
     /**
