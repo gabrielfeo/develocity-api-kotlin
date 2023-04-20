@@ -410,6 +410,7 @@ $dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.GradleEnterpriseIns
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.HttpClientOptions///PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-http-client-options/index.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.HttpClientOptions/clientBuilder/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-http-client-options/client-builder.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.HttpClientOptions/maxConcurrentRequests/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-http-client-options/max-concurrent-requests.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/Options.HttpClientOptions/readTimeoutMillis/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/-http-client-options/read-timeout-millis.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Options///PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/index.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/cache/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/cache.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Options/debugging/#/PointingToDeclaration/gradle-enterprise-api-kotlin/com.gabrielfeo.gradle.enterprise.api/-options/debugging.html

@@ -42,6 +42,9 @@
     <div>
 SNAPSHOT    </div>
     <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":dokkaHtml/main">jvm</button>
+        </div>
         <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
         <div id="searchBar"></div>
     </div>
@@ -51,78 +54,78 @@ SNAPSHOT    </div>
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" id="content" pageIds="gradle-enterprise-api-kotlin::com.gabrielfeo.gradle.enterprise.api.model/MavenBuildCachePerformanceBuildCaches///PointingToDeclaration//769193423">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="gradle-enterprise-api-kotlin::com.gabrielfeo.gradle.enterprise.api.model/MavenBuildCachePerformanceBuildCaches///PointingToDeclaration//769193423">
   <div class="breadcrumbs"><a href="../../../index.html">gradle-enterprise-api-kotlin</a><span class="delimiter">/</span><a href="../index.html">com.gabrielfeo.gradle.enterprise.api.model</a><span class="delimiter">/</span><span class="current">MavenBuildCachePerformanceBuildCaches</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Maven</span><wbr></wbr><span>Build</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Performance</span><wbr></wbr><span>Build</span><wbr></wbr><span><span>Caches</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">MavenBuildCachePerformanceBuildCaches</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;overhead&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>overhead<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-overhead/index.html">MavenBuildCachePerformanceBuildCacheOverhead</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;local&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>local<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-local-info/index.html">MavenBuildCachePerformanceBuildCacheLocalInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;remote&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>remote<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-remote-info/index.html">MavenBuildCachePerformanceBuildCacheRemoteInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">Information about the local and remote build caches used in the build, if it was configured in the build. May be <code class="lang-kotlin">null</code> if the build cache configuration could not be captured (e.g. very early build failure).</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">MavenBuildCachePerformanceBuildCaches</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;overhead&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>overhead<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-overhead/index.html">MavenBuildCachePerformanceBuildCacheOverhead</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;local&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>local<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-local-info/index.html">MavenBuildCachePerformanceBuildCacheLocalInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;remote&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>remote<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-remote-info/index.html">MavenBuildCachePerformanceBuildCacheRemoteInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">Information about the local and remote build caches used in the build, if it was configured in the build. May be <code class="lang-kotlin">null</code> if the build cache configuration could not be captured (e.g. very early build failure).</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>overhead</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>local</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>remote</span></span></u></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Parameters">Parameters</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
     <div class="tabs-section-body">
-      <h4 class="">Parameters</h4>
-      <div data-togglable="Parameters">
-        <div class="platform-hinted WithExtraAttributes" data-platform-hinted="data-platform-hinted" data-togglable="Parameters"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>overhead</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>local</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>remote</span></span></u></div></span></div><div></div></div></div></div></div></div></div>
-      </div>
-      <h2 class="tabbedcontent">Constructors</h2>
-      <div class="table" data-togglable="Constructors"><a data-name="2132634849%2FConstructors%2F769193423" anchor-label="MavenBuildCachePerformanceBuildCaches" id="2132634849%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-          <div class="main-subrow keyValue TabbedContent">
-            <div class=""><span class="inline-flex">
-                <div><a href="-maven-build-cache-performance-build-caches.html"><span>Maven</span><wbr></wbr><span>Build</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Performance</span><wbr></wbr><span>Build</span><wbr></wbr><span><span>Caches</span></span></a></div>
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="2132634849%2FConstructors%2F769193423" anchor-label="MavenBuildCachePerformanceBuildCaches" id="2132634849%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-maven-build-cache-performance-build-caches.html"><span>Maven</span><wbr></wbr><span>Build</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Performance</span><wbr></wbr><span>Build</span><wbr></wbr><span><span>Caches</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2132634849%2FConstructors%2F769193423"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="-maven-build-cache-performance-build-caches.html"><span class="token function">MavenBuildCachePerformanceBuildCaches</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;overhead&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>overhead<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-overhead/index.html">MavenBuildCachePerformanceBuildCacheOverhead</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;local&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>local<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-local-info/index.html">MavenBuildCachePerformanceBuildCacheLocalInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;remote&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>remote<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-remote-info/index.html">MavenBuildCachePerformanceBuildCacheRemoteInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;overhead&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>overhead<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-overhead/index.html">MavenBuildCachePerformanceBuildCacheOverhead</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;local&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>local<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-local-info/index.html">MavenBuildCachePerformanceBuildCacheLocalInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;remote&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>remote<span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-remote-info/index.html">MavenBuildCachePerformanceBuildCacheRemoteInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <h2 class="">Properties</h2>
-      <div class="table" data-togglable="Properties"><a data-name="-18925846%2FProperties%2F769193423" anchor-label="local" id="-18925846%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="local.html"><span><span>local</span></span></a></div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-18925846%2FProperties%2F769193423" anchor-label="local" id="-18925846%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="local.html"><span><span>local</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-18925846%2FProperties%2F769193423"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="-18925846%2FProperties%2F769193423" anchor-label="local" id="-18925846%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="local.html">local</a><span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-local-info/index.html">MavenBuildCachePerformanceBuildCacheLocalInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="local.html">local</a><span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-local-info/index.html">MavenBuildCachePerformanceBuildCacheLocalInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 <a data-name="1280161361%2FProperties%2F769193423" anchor-label="overhead" id="1280161361%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="overhead.html"><span><span>overhead</span></span></a></div>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="overhead.html"><span><span>overhead</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1280161361%2FProperties%2F769193423"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1280161361%2FProperties%2F769193423" anchor-label="overhead" id="1280161361%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="overhead.html">overhead</a><span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-overhead/index.html">MavenBuildCachePerformanceBuildCacheOverhead</a></div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="overhead.html">overhead</a><span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-overhead/index.html">MavenBuildCachePerformanceBuildCacheOverhead</a></div></div></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 <a data-name="709630207%2FProperties%2F769193423" anchor-label="remote" id="709630207%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
-        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-          <div class="main-subrow keyValue ">
-            <div class=""><span class="inline-flex">
-                <div><a href="remote.html"><span><span>remote</span></span></a></div>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remote.html"><span><span>remote</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="709630207%2FProperties%2F769193423"></span>
-                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                </span></span></div>
-            <div>
-              <div class="title">
-                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="709630207%2FProperties%2F769193423" anchor-label="remote" id="709630207%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="remote.html">remote</a><span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-remote-info/index.html">MavenBuildCachePerformanceBuildCacheRemoteInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="remote.html">remote</a><span class="token operator">: </span><a href="../-maven-build-cache-performance-build-cache-remote-info/index.html">MavenBuildCachePerformanceBuildCacheRemoteInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
               </div>
             </div>
           </div>
