@@ -73,6 +73,24 @@ tasks.openApiGenerate.configure {
             )
         }
     }
+    // Add @JvmSuppressWildcards to avoid square/retrofit#3275
+    doLast {
+        val apiFile = File(
+            outputDir.get(),
+            "src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/GradleEnterpriseApi.kt",
+        )
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "file" to apiFile,
+                "match" to "interface GradleEnterpriseApi",
+                "replace" to """
+                    @JvmSuppressWildcards
+                    interface GradleEnterpriseApi
+                """.trimIndent(),
+                "flags" to "m",
+            )
+        }
+    }
     // Workaround for properties generated with `arrayListOf(null,null)` as default value
     doLast {
         val srcDir = File(outputDir.get(), "src/main/kotlin")
