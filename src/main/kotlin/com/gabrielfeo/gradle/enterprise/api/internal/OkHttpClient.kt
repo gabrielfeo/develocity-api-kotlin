@@ -5,6 +5,10 @@ import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
 import okhttp3.Cache
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+import java.time.Duration
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -15,22 +19,34 @@ internal val okHttpClient by lazy {
 internal fun buildOkHttpClient(
     options: Options,
 ) = with(options.httpClient.clientBuilder()) {
+    readTimeout(Duration.ofMillis(options.httpClient.readTimeoutMillis))
     if (options.cache.cacheEnabled) {
         cache(buildCache(options))
     }
-    if (options.debugging.debugLoggingEnabled && options.cache.cacheEnabled) {
-        addInterceptor(CacheHitLoggingInterceptor())
-    }
-    addInterceptor(HttpBearerAuth("bearer", options.gradleEnterpriseInstance.token()))
-    if (options.cache.cacheEnabled) {
-        addNetworkInterceptor(buildCacheEnforcingInterceptor(options))
-    }
+    addInterceptors(options)
+    addNetworkInterceptors(options)
     build().apply {
         options.httpClient.maxConcurrentRequests?.let {
             dispatcher.maxRequests = it
             dispatcher.maxRequestsPerHost = it
         }
     }
+}
+
+private fun OkHttpClient.Builder.addInterceptors(options: Options) {
+    if (options.debugging.debugLoggingEnabled && options.cache.cacheEnabled) {
+        addInterceptor(CacheHitLoggingInterceptor())
+    }
+}
+
+private fun OkHttpClient.Builder.addNetworkInterceptors(options: Options) {
+    if (options.cache.cacheEnabled) {
+        addNetworkInterceptor(buildCacheEnforcingInterceptor(options))
+    }
+    if (options.debugging.debugLoggingEnabled) {
+        addNetworkInterceptor(HttpLoggingInterceptor().apply { level = BODY })
+    }
+    addNetworkInterceptor(HttpBearerAuth("bearer", options.gradleEnterpriseInstance.token()))
 }
 
 internal fun buildCache(

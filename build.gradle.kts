@@ -11,7 +11,6 @@ plugins {
 }
 
 group = "com.github.gabrielfeo"
-version = "SNAPSHOT"
 val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
 
 val localSpecPath = providers.gradleProperty("localSpecPath")
@@ -70,6 +69,24 @@ tasks.openApiGenerate.configure {
                 "match" to ": Response<(.*?)>$",
                 "replace" to """: \1""",
                 "flags" to "gm",
+            )
+        }
+    }
+    // Add @JvmSuppressWildcards to avoid square/retrofit#3275
+    doLast {
+        val apiFile = File(
+            outputDir.get(),
+            "src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/GradleEnterpriseApi.kt",
+        )
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "file" to apiFile,
+                "match" to "interface GradleEnterpriseApi",
+                "replace" to """
+                    @JvmSuppressWildcards
+                    interface GradleEnterpriseApi
+                """.trimIndent(),
+                "flags" to "m",
             )
         }
     }
@@ -177,6 +194,7 @@ dependencies {
     api("com.squareup.moshi:moshi:1.14.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
     api("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     api("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")

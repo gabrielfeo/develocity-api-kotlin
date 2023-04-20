@@ -15,7 +15,7 @@ class OkHttpClientTest {
     @Test
     fun `Adds authentication`() {
         val client = buildClient()
-        assertTrue(client.interceptors.any { it is HttpBearerAuth })
+        assertTrue(client.networkInterceptors.any { it is HttpBearerAuth })
     }
 
     @Test
@@ -72,6 +72,13 @@ class OkHttpClientTest {
         assertTrue(client.networkInterceptors.none { it is CacheEnforcingInterceptor })
         assertTrue(client.interceptors.none { it is CacheHitLoggingInterceptor })
         assertNull(client.cache)
+    }
+
+    @Test
+    fun `Increases read timeout`() {
+        val client = buildClient()
+        val defaultTimeout = OkHttpClient.Builder().build().readTimeoutMillis
+        assertTrue(client.readTimeoutMillis > defaultTimeout)
     }
 
     private fun buildClient(
