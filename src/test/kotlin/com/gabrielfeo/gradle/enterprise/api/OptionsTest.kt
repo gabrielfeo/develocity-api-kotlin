@@ -95,6 +95,15 @@ class OptionsTest {
         )
     }
 
+    @Test
+    fun `Given timeout set in env, readTimeoutMillis returns env value`() {
+        val options = Options(
+            FakeEnv("GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS" to "100000"),
+            FakeKeychain(),
+        )
+        assertEquals(100_000L, options.httpClient.readTimeoutMillis)
+    }
+
     private fun Regex.assertMatches(vararg values: String) {
         values.forEach {
             assertTrue(matches(it), "/$pattern/ doesn't match '$it'")
