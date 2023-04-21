@@ -4,6 +4,9 @@ import requests
 import fileinput
 import sys
 from read_current_api_spec_version import get_current_api_spec_version
+from typing import Optional
+
+REFS_URL = "https://docs.gradle.com/enterprise/api-manual/ref"
 
 
 def get_possible_version_bumps(version: str) -> list[str]:
@@ -20,11 +23,12 @@ def get_possible_version_bumps(version: str) -> list[str]:
     return possible_bumps
 
 
-def get_first_available_version(versions: list[str]) -> str:
+def get_first_available_version(versions: list[str]) -> Optional[str]:
     for version in versions:
-        response = requests.get(
-            f"https://docs.gradle.com/enterprise/api-manual/ref/gradle-enterprise-{version}-api.yaml")
-        if response.status_code == 200:
+        url = f"{REFS_URL}/gradle-enterprise-{version}-api.yaml"
+        status = requests.get(url).status_code
+        print(f"HTTP {status} (GET {url})", file=sys.stderr)
+        if status == 200:
             return version
 
 
@@ -40,6 +44,7 @@ def update_version(properties_file, new_version):
 def main(properties_file):
     current = get_current_api_spec_version(properties_file)
     possible_bumps = get_possible_version_bumps(current)
+    print("Possible versions:", ', '.join(possible_bumps), file=sys.stderr)
     available_update = get_first_available_version(possible_bumps)
     if available_update:
         print(f"Updating to {available_update}")
