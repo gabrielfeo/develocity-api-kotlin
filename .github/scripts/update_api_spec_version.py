@@ -1,31 +1,22 @@
 #!/usr/bin/env python3
 
 import requests
+import re
 import fileinput
 import sys
 from read_current_api_spec_version import get_current_api_spec_version
 
-
-def get_possible_version_bumps(version: str) -> list[str]:
-    parts: list = version.split('.')
-    possible_bumps = []
-    for i in range(len(parts)):
-        bump = [int(p) for p in parts]
-        bump[i] += 1
-        if i < len(parts) - 1:
-            for j in range(i + 1, len(parts)):
-                bump[j] = 0
-        bump = ".".join([str(part) for part in bump])
-        possible_bumps.append(bump)
-    return possible_bumps
+VERSIONS_URL = "https://docs.gradle.com/enterprise/api-manual/"
+LATEST_VERSION_REGEX = r'<a [^>]*href="ref/gradle-enterprise-([\d.]+)-api\.yaml">Specification</a>'
 
 
-def get_first_available_version(versions: list[str]) -> str:
-    for version in versions:
-        response = requests.get(
-            f"https://docs.gradle.com/enterprise/api-manual/ref/gradle-enterprise-{version}-api.yaml")
-        if response.status_code == 200:
-            return version
+def extract_latest_version():
+    resp = requests.get(VERSIONS_URL)
+    resp.raise_for_status()
+    match = re.search(LATEST_VERSION_REGEX, resp.text)
+    if not match:
+        raise RuntimeError("Failed to retrieve latest version")
+    return match.group(1)
 
 
 def update_version(properties_file, new_version):
@@ -39,13 +30,11 @@ def update_version(properties_file, new_version):
 
 def main(properties_file):
     current = get_current_api_spec_version(properties_file)
-    possible_bumps = get_possible_version_bumps(current)
-    available_update = get_first_available_version(possible_bumps)
-    if available_update:
-        print(f"Updating to {available_update}")
-        update_version(properties_file, available_update)
-    else:
-        print('No update available')
+    latest = extract_latest_version()
+    if current == latest:
+        exit(1)
+    update_version(properties_file, latest)
+    print(latest)
 
 
 if __name__ == '__main__':

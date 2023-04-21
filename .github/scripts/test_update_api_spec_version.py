@@ -1,49 +1,48 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
 from update_api_spec_version import main
 from tempfile import NamedTemporaryFile
 import unittest
 from unittest import mock
 
-API_MANUAL = "https://docs.gradle.com/enterprise/api-manual"
-ORIGINAL_VERSION = '2022.4'
+TEST_RESOURCES = Path(__file__).parent / 'test_resources'
+TEST_API_MANUAL_HTML = TEST_RESOURCES / 'api_manual.html'
+LATEST_VERSION = '2023.1'  # Same as HTML
 
 
 class TestCheckForNewApiSpec(unittest.TestCase):
 
-    def setUp(self):
-        self.properties_file = NamedTemporaryFile()
-        content = f"gradle.enterprise.version={ORIGINAL_VERSION}\n1=2\n"
-        self.properties_file.write(content.encode())
-        self.properties_file.flush()
-
-    def tearDown(self):
-        self.properties_file.close()
-
     @mock.patch('builtins.print')
     @mock.patch('requests.get')
-    def test_main_many_updates_available(self, mock_get, mock_print):
+    def test_main_with_update_available(self, mock_get, _):
         mock_get.return_value.status_code = 200
-        main(self.properties_file.name)
-        self.assert_updated_to('2023.0')
-        self.assert_checked_for(['2023.0'], mock_get)
+        mock_get.return_value.text = TEST_API_MANUAL_HTML.read_text()
+        with self.properties_file(version='2022.4') as file:
+            main(properties_file=file.name)
+            self.assert_properties_version(file, LATEST_VERSION)
 
     @mock.patch('builtins.print')
     @mock.patch('requests.get')
-    def test_main_no_updates_available(self, mock_get, mock_print):
-        mock_get.return_value.status_code = 404
-        main(self.properties_file.name)
-        self.assert_updated_to(ORIGINAL_VERSION)
-        self.assert_checked_for(['2023.0', '2022.5'], mock_get)
+    def test_main_without_update_available(self, mock_get, _):
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.text = TEST_API_MANUAL_HTML.read_text()
+        with self.properties_file(version=LATEST_VERSION) as file:
+            with self.assertRaises(SystemExit):
+                main(properties_file=file.name)
+            self.assert_properties_version(file, LATEST_VERSION)
 
-    def assert_updated_to(self, version):
-        with open(self.properties_file.name) as file:
-            self.assertEqual(file.read(),
-                             f"gradle.enterprise.version={version}\n1=2\n")
+    def assert_properties_version(self, file, version):
+        with open(file.name) as file:
+            expected = f"gradle.enterprise.version={version}\n1=2\n"
+            self.assertEqual(file.read(), expected)
 
-    def assert_checked_for(self, versions, mock_get):
-        mock_get.assert_has_calls(
-            [mock.call(f"{API_MANUAL}/ref/gradle-enterprise-{v}-api.yaml") for v in versions])
+    def properties_file(self, version):
+        file = NamedTemporaryFile()
+        content = f"gradle.enterprise.version={version}\n1=2\n"
+        file.write(content.encode())
+        file.flush()
+        return file
 
 
 if __name__ == '__main__':
