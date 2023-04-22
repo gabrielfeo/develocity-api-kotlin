@@ -1,8 +1,8 @@
-name: 'Check for new API spec version'
+name: 'Update API spec'
 
 on:
   schedule:
-    - cron: '0 6 * * 1'
+    - cron: '0 6 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
@@ -22,7 +22,7 @@ defaults:
 
 jobs:
 
-  check-new-api-spec:
+  update-api-spec:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
