@@ -33,11 +33,19 @@ jobs:
             echo "NEW_VERSION=$(cat new.txt)" >> $GITHUB_ENV
           fi
           rm new.txt || true
+      - name: Check for existing PR
+        if: ${{ env.NEW_VERSION }}
+        run: |
+          set -u
+          echo "UPDATE_BRANCH='feature/api-spec-$NEW_VERSION'" >> $GITHUB_ENV
+          if git ls-remote --exit-code --heads origin "$UPDATE_BRANCH"; then
+            echo "EXISTING_PR=true" >> $GITHUB_ENV
+          fi
       - name: 'Create PR'
-        if: ${{ inputs.dry_run != true && env.NEW_VERSION }}
+        if: ${{ inputs.dry_run != true && env.NEW_VERSION && !env.EXISTING_PR }}
         uses: peter-evans/create-pull-request@v5
         with:
-          branch: "feature/api-spec-${{ env.NEW_VERSION }}"
+          branch: "${{ env.UPDATE_BRANCH }}"
           commit-message: "Bump GE API spec version to ${{ env.NEW_VERSION }}"
           title: "Bump GE API spec version to ${{ env.NEW_VERSION }}"
           body: "https://docs.gradle.com/enterprise/api-manual/#release_history"
