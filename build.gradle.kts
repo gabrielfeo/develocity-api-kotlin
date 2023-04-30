@@ -7,6 +7,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.8.10"
     id("org.openapi.generator") version "6.5.0"
     `java-library`
+    `java-test-fixtures`
     `maven-publish`
 }
 
