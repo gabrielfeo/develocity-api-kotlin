@@ -3,6 +3,7 @@
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
+import com.gabrielfeo.gradle.enterprise.api.internal.SystemProperties
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import java.io.File
@@ -11,7 +12,11 @@ import kotlin.time.Duration.Companion.days
 /**
  * The global [Options] instance.
  */
-val options = Options(env = RealEnv, keychain = RealKeychain(RealEnv))
+val options = Options(
+    env = RealEnv,
+    keychain = RealKeychain(RealSystemProperties),
+    systemProperties = RealSystemProperties,
+)
 
 /**
  * Library configuration options. Should not be changed after accessing the [gradleEnterpriseApi]
@@ -21,10 +26,11 @@ val options = Options(env = RealEnv, keychain = RealKeychain(RealEnv))
  */
 class Options internal constructor(
     env: Env,
+    systemProperties: SystemProperties,
     keychain: Keychain,
 ) {
 
-    val gradleEnterpriseInstance = GradleEnterpriseInstanceOptions(env, keychain)
+    val gradleEnterpriseInstance = GradleEnterpriseInstanceOptions(env, keychain, systemProperties)
     val httpClient = HttpClientOptions(env)
     val cache = CacheOptions(env)
     val debugging = DebuggingOptions(env)
@@ -37,6 +43,7 @@ class Options internal constructor(
     class GradleEnterpriseInstanceOptions internal constructor(
         private val env: Env,
         private val keychain: Keychain,
+        private val systemProperties: SystemProperties,
     ) {
 
         /**
@@ -52,10 +59,13 @@ class Options internal constructor(
          * Provides the access token for a Gradle Enterprise API instance. By default, uses keychain entry
          * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_API_TOKEN`.
          */
-        var token: () -> String = {
-            keychain["gradle-enterprise-api-token"]
-                ?: env["GRADLE_ENTERPRISE_API_TOKEN"]
-                ?: error("GRADLE_ENTERPRISE_API_TOKEN is required")
+        var token: () -> String = token@{
+            if (systemProperties["os.name"] == "Mac OS X") {
+                keychain["gradle-enterprise-api-token"]?.takeIf { it.isNotBlank() }?.let {
+                    return@token it
+                }
+            }
+            env["GRADLE_ENTERPRISE_API_TOKEN"] ?: error("GRADLE_ENTERPRISE_API_TOKEN is required")
         }
     }
 

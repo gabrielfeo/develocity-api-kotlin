@@ -9,10 +9,13 @@ interface Keychain {
 }
 
 class RealKeychain(
-    private val env: Env,
+    private val systemProperties: SystemProperties,
 ) : Keychain {
     override fun get(entry: String): String? {
-        val login = env["LOGNAME"]
+        val login = systemProperties["user.name"] ?: let {
+            Logger.getGlobal().log(Level.INFO, "Failed to get key from keychain (null user.name)")
+            return null
+        }
         val process = ProcessBuilder(
             "security", "find-generic-password", "-w", "-a", login, "-s", entry
         ).start()
