@@ -2,6 +2,7 @@ package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.FakeEnv
 import com.gabrielfeo.gradle.enterprise.api.internal.FakeKeychain
+import com.gabrielfeo.gradle.enterprise.api.internal.FakeSystemProperties
 import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
 import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
@@ -90,7 +91,7 @@ class OkHttpClientTest {
             env["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
         if ("GRADLE_ENTERPRISE_API_URL" !in env)
             env["GRADLE_ENTERPRISE_API_URL"] = "example-url"
-        val options = Options(env, FakeKeychain()).apply {
+        val options = Options(env, FakeSystemProperties.macOs, FakeKeychain()).apply {
             clientBuilder?.let {
                 httpClient.clientBuilder = { it }
             }

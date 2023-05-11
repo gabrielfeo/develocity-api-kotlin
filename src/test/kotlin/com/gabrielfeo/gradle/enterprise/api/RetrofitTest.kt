@@ -1,10 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.FakeEnv
-import com.gabrielfeo.gradle.enterprise.api.internal.FakeKeychain
+import com.gabrielfeo.gradle.enterprise.api.internal.*
 import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
-import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
-import com.gabrielfeo.gradle.enterprise.api.internal.buildRetrofit
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
 import com.squareup.moshi.Moshi
@@ -38,7 +35,7 @@ class RetrofitTest {
         val env = FakeEnv(*envVars)
         if ("GRADLE_ENTERPRISE_API_TOKEN" !in env)
             env["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
-        val options = Options(env, FakeKeychain())
+        val options = Options(env, FakeSystemProperties.macOs, FakeKeychain())
         return buildRetrofit(
             options = options,
             client = buildOkHttpClient(options),
