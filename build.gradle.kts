@@ -216,5 +216,5 @@ dependencies {
     api("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
 }
