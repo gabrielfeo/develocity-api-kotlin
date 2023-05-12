@@ -210,7 +210,7 @@ dependencies {
         implementation("com.squareup.okio:okio:3.3.0")
     }
     api("com.squareup.moshi:moshi:1.14.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
     api("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     api("com.squareup.retrofit2:retrofit:2.9.0")
