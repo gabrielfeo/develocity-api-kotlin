@@ -143,6 +143,11 @@ java {
     }
 }
 
+components.getByName<AdhocComponentWithVariants>("java").apply {
+    withVariantsFromConfiguration(configurations["testFixturesApiElements"]) { skip() }
+    withVariantsFromConfiguration(configurations["testFixturesRuntimeElements"]) { skip() }
+}
+
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.all {
         sourceLink {
