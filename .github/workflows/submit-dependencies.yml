@@ -28,5 +28,5 @@ jobs:
           use-gradlew: false
           include-build-environment: true
           gradle-build-configuration-mapping: |
-            :|compileClasspath
-            :|runtimeClasspath
+            :library|compileClasspath
+            :library|runtimeClasspath
