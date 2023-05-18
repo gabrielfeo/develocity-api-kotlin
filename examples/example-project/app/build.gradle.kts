@@ -3,16 +3,8 @@ plugins {
     application
 }
 
-testing {
-    suites {
-        withType<JvmTestSuite> {
-            useKotlinTest()
-        }
-    }
-}
-
 application {
-    mainClass.set("com.gabrielfeo.gradle.enterprise.api.example.AppKt")
+    mainClass.set("com.gabrielfeo.gradle.enterprise.api.example.MainKt")
 }
 
 repositories {
