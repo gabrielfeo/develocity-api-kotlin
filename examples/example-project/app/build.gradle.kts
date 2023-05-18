@@ -1,22 +1,25 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.8.10"
+    id("org.jetbrains.kotlin.jvm")
     application
 }
 
 testing {
     suites {
-        val test by getting(JvmTestSuite::class) {
+        withType<JvmTestSuite> {
             useKotlinTest()
         }
     }
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(19))
-    }
-}
-
 application {
     mainClass.set("com.gabrielfeo.gradle.enterprise.api.example.AppKt")
+}
+
+repositories {
+    mavenCentral()
+    maven(url = "https://jitpack.io")
+}
+
+dependencies {
+    implementation("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.15.1")
 }
