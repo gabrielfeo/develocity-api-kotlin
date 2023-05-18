@@ -79,7 +79,7 @@ jobs:
     with:
       dry_run: true
 
-  dry-run-check-new-api-spec:
-    uses: ./.github/workflows/check-new-api-spec.yml
+  dry-run-update-api-spec:
+    uses: ./.github/workflows/update-api-spec.yml
     with:
       dry_run: true
