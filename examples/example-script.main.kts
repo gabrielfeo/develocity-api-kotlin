@@ -1,5 +1,5 @@
 @file:Repository("https://jitpack.io")
-@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.14.0")
+@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.15.1")
 
 /*
  * Counts how many developers don't run tests on their local machine

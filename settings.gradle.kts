@@ -1,7 +1,22 @@
-rootProject.name = "gradle-enterprise-api-kotlin"
+plugins {
+    id("com.gradle.enterprise") version("3.13.2")
+}
+
+include(
+    ":library",
+    ":examples:example-project:app",
+)
 
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
+    }
+}
+
+gradleEnterprise {
+    buildScan {
+        publishAlways()
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
     }
 }

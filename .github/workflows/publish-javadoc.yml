@@ -32,7 +32,7 @@ jobs:
         with:
           args: 'dokkaHtml'
           artifact-name: 'docs'
-          path-to-upload: "build/dokka/html/**/*"
+          path-to-upload: "library/build/dokka/html/**/*"
 
   publish-javadoc:
     needs: [build-javadoc]
