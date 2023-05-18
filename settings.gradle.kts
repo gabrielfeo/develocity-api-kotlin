@@ -18,6 +18,5 @@ gradleEnterprise {
         publishAlways()
         termsOfServiceUrl = "https://gradle.com/terms-of-service"
         termsOfServiceAgree = "yes"
-        value("Gradle: StartParameter", gradle.startParameter.toString())
     }
 }
