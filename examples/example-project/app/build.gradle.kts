@@ -13,5 +13,5 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.15.1")
+    implementation("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.99992.0")
 }
