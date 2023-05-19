@@ -1,41 +1,93 @@
+#!/usr/bin/env kotlinc -script
+
+/*
+ * See what builds are most commonly invoked by developers, e.g. 'clean assemble',
+ * 'test' or 'check'. You can set up the URL and a token for your Gradle
+ * Enterprise instance and run this notebook as-is for your own project. This is a
+ * simple example of something you can do with the API. It could bring insights,
+ * for example:
+ *
+ * - "Our developers frequently clean together with assemble. We should ask them why,
+ *   because they shouldn't have to. Just an old habit from Maven or are they working
+ *   around a build issue we don't know about?"
+ *
+ * - "Some are doing check builds locally, which we set up to trigger our notably slow
+ *   legacy tests. We should suggest they run test instead, leaving check for CI to run."
+ */
+
 @file:Repository("https://jitpack.io")
 @file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.15.1")
 
-/*
- * Counts how many developers don't run tests on their local machine
- */
-
 import com.gabrielfeo.gradle.enterprise.api.*
+import com.gabrielfeo.gradle.enterprise.api.model.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.time.*
+import java.util.LinkedList
 
-val oneMonthAgo = LocalDate.now()
-    .minusMonths(1)
-    .atStartOfDay()
-    .toInstant(ZoneOffset.UTC)
-    .toEpochMilli()
+// Parameters
+val startDate = LocalDate.now().minusWeeks(1)
+val buildFilter: (GradleAttributes) -> Boolean = { build ->
+    "LOCAL" in build.tags
+}
 
-runBlocking {
-
-    // Filter builds from the API
-    val buildsByUser = gradleEnterpriseApi.getGradleAttributesFlow(since = oneMonthAgo)
-        .filter { "CI" !in it.tags }
-        .toList()
-        .groupBy { it.environment.username }
-    check(buildsByUser.isNotEmpty()) { "No builds found!" }
-
-    // Count users
-    val userCount = buildsByUser.size
-    val userCountDoesntRunTestsLocally = buildsByUser.count { (_, userBuilds) ->
-        userBuilds.none { build ->
-            build.requestedTasks.any { task -> "test" in task.lowercase() }
+// A utility to print progress as builds are fetched. You may ignore this.
+fun <T> Flow<T>.printProgress(produceMsg: (i: Int, current: T) -> String): Flow<T> {
+    var i = -1
+    var current: T? = null
+    fun printIt() {
+        val msg = current?.let { produceMsg(i, it) } ?: "Waiting for elements..."
+        print("\r$msg".padEnd(100))
+    }
+    val periodicPrinter = GlobalScope.launch {
+        while (true) {
+            printIt()
+            delay(500)
         }
     }
-
-    // Present result
-    val percent = "%.2f".format(userCountDoesntRunTestsLocally / userCount.toDouble() * 100)
-    print("$percent% of developers don't run tests on their local machine")
-    shutdown()
-
+    return onEach {
+        i++
+        current = it
+    }.onCompletion {
+        periodicPrinter.cancelAndJoin()
+        printIt()
+        println("\nEnd")
+    }
 }
+
+// Fetch builds from the API
+val builds: List<GradleAttributes> = runBlocking {
+    val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
+    gradleEnterpriseApi.getGradleAttributesFlow(since = startMilli)
+        .filter(buildFilter)
+        .printProgress { i, build ->
+            val buildDate = Instant.ofEpochMilli(build.buildStartTime).atOffset(ZoneOffset.UTC)
+            String.format("Fetched %09d builds, currently %s", i + 1, buildDate)
+        }.toList(LinkedList())
+}
+
+// Process builds and count how many times each was invoked
+val buildCounts = builds.groupBy { build ->
+    val tasks = build.requestedTasks.joinToString(" ").trim(':')
+    tasks.ifBlank { "IDE sync" }
+}.mapValues { (_, builds) ->
+    builds.size
+}.entries.sortedByDescending { (_, count) ->
+    count
+}
+
+// Print the top 5 as a pretty table
+val table = buildCounts.take(5).joinToString("\n") { (tasks, count) ->
+    "${tasks.padEnd(100)} | $count"
+}
+println(
+    """
+        |---------------------
+        |Most frequent builds:
+        |
+        |$table
+    """.trimMargin()
+)
+
+// Shutdown to end OkHttp's thread pool earlier
+shutdown()

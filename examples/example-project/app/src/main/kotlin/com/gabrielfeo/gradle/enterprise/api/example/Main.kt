@@ -1,6 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.example
 
-import com.gabrielfeo.gradle.enterprise.api.example.analysis.percentDevelopersThatDontRunTestsLocally
+import com.gabrielfeo.gradle.enterprise.api.example.analysis.mostFrequentBuilds
 import com.gabrielfeo.gradle.enterprise.api.gradleEnterpriseApi
 import com.gabrielfeo.gradle.enterprise.api.options
 import com.gabrielfeo.gradle.enterprise.api.shutdown
@@ -21,5 +21,5 @@ suspend fun main() {
 }
 
 private suspend fun runAllAnalysis() {
-    percentDevelopersThatDontRunTestsLocally(api = gradleEnterpriseApi)
+    mostFrequentBuilds(api = gradleEnterpriseApi)
 }
