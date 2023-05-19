@@ -4,10 +4,15 @@ import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
 import com.gabrielfeo.gradle.enterprise.api.internal.buildRetrofit
 import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.Serializer
 import retrofit2.Retrofit
+import retrofit2.create
 
 interface GradleEnterprise {
 
-    val api: GradleEnterpriseApi
+    val buildsApi: BuildsApi
+    val buildCacheApi: BuildCacheApi
+    val metaApi: MetaApi
+    val testDistributionApi: TestDistributionApi
+
     val options: Options
     fun withOptions(options: Options): GradleEnterprise
     fun shutdown()
@@ -32,9 +37,10 @@ private class DefaultGradleEnterprise(
         )
     }
 
-    override val api: GradleEnterpriseApi by lazy {
-        retrofit.create(GradleEnterpriseApi::class.java)
-    }
+    override val buildsApi: BuildsApi by lazy(retrofit::create)
+    override val buildCacheApi: BuildCacheApi by lazy(retrofit::create)
+    override val metaApi: MetaApi by lazy(retrofit::create)
+    override val testDistributionApi: TestDistributionApi by lazy(retrofit::create)
 
     override fun withOptions(options: Options) = DefaultGradleEnterprise(options)
 

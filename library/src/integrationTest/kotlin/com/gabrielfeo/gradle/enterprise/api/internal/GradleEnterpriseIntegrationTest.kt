@@ -9,7 +9,7 @@ class GradleEnterpriseIntegrationTest {
 
     @Test
     fun canFetchBuilds() = runTest {
-        val builds = GradleEnterprise.api.getBuilds(since = 0, maxBuilds = 1)
+        val builds = GradleEnterprise.buildsApi.getBuilds(since = 0, maxBuilds = 1)
         assertEquals(1, builds.size)
         GradleEnterprise.shutdown()
     }

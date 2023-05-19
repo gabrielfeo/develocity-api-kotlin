@@ -22,5 +22,5 @@ suspend fun main() {
 }
 
 private suspend fun runAllAnalysis(gradleEnterprise: GradleEnterprise) {
-    mostFrequentBuilds(api = gradleEnterprise.api)
+    mostFrequentBuilds(api = gradleEnterprise.buildsApi)
 }
