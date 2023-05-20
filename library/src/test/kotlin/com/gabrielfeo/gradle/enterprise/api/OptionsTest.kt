@@ -2,141 +2,81 @@ package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
 import org.junit.jupiter.api.assertDoesNotThrow
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFails
-import kotlin.test.assertTrue
+import kotlin.test.*
 
 class OptionsTest {
 
+    @BeforeTest
+    fun before() {
+        env = FakeEnv("GRADLE_ENTERPRISE_API_URL" to "https://example.com/api/")
+        systemProperties = FakeSystemProperties.macOs
+        keychain = FakeKeychain()
+    }
+
     @Test
-    fun `Given no URL set in env, url() fails`() {
-        val options = Options(FakeEnv(), FakeSystemProperties.macOs, FakeKeychain())
+    fun `Given no URL set in env, error`() {
+        env = FakeEnv()
         assertFails {
-            options.gradleEnterpriseInstance.url()
+            Options()
         }
     }
 
     @Test
-    fun `Given URL set in env, url() returns env URL`() {
-        val options = Options(
-            FakeEnv("GRADLE_ENTERPRISE_API_URL" to "https://example.com/api/"),
-            FakeSystemProperties.macOs,
-            FakeKeychain(),
-        )
-        assertEquals("https://example.com/api/", options.gradleEnterpriseInstance.url())
+    fun `Given URL set in env, apiUrl is env URL`() {
+        (env as FakeEnv)["GRADLE_ENTERPRISE_API_URL"] = "https://example.com/api/"
+        assertEquals("https://example.com/api/", Options().apiUrl)
     }
 
     @Test
     fun `Given macOS and keychain token, keychain token used`() {
-        val options = Options(
-            keychain = FakeKeychain("gradle-enterprise-api-token" to "foo"),
-            env = FakeEnv("GRADLE_ENTERPRISE_API_TOKEN" to "bar"),
-            systemProperties = FakeSystemProperties.macOs,
-        )
-        assertEquals("foo", options.gradleEnterpriseInstance.token())
+        (env as FakeEnv)["GRADLE_ENTERPRISE_API_TOKEN"] = "bar"
+        keychain = FakeKeychain("gradle-enterprise-api-token" to "foo")
+        assertEquals("foo", Options().apiToken())
     }
 
     @Test
     fun `Given macOS but no keychain token, env token used`() {
-        val options = Options(
-            keychain = FakeKeychain(),
-            env = FakeEnv("GRADLE_ENTERPRISE_API_TOKEN" to "bar"),
-            systemProperties = FakeSystemProperties.macOs,
-        )
-        assertEquals("bar", options.gradleEnterpriseInstance.token())
+        (env as FakeEnv)["GRADLE_ENTERPRISE_API_TOKEN"] = "bar"
+        assertEquals("bar", Options().apiToken())
     }
 
     @Test
     fun `Given Linux, keychain never tried and env token used`() {
-        val options = Options(
-            env = FakeEnv("GRADLE_ENTERPRISE_API_TOKEN" to "bar"),
-            systemProperties = FakeSystemProperties.linux,
-            keychain = object : Keychain {
-                override fun get(entry: String): String? {
-                    error("Error: Tried to access macOS keychain in Linux")
-                }
-            },
-        )
-        assertEquals("bar", options.gradleEnterpriseInstance.token())
+        (env as FakeEnv)["GRADLE_ENTERPRISE_API_TOKEN"] = "bar"
+        keychain = object : Keychain {
+            override fun get(entry: String) =
+                error("Error: Tried to access macOS keychain in Linux")
+        }
+        systemProperties = FakeSystemProperties.linux
+        assertEquals("bar", Options().apiToken())
     }
 
     @Test
-    fun `Given macOS and no token anywhere, fails`() {
-        val options = Options(
-            keychain = FakeKeychain(),
-            env = FakeEnv(),
-            systemProperties = FakeSystemProperties.macOs,
-        )
+    fun `Given macOS and no token anywhere, error`() {
         assertFails {
-            options.gradleEnterpriseInstance.token()
+            Options().apiToken()
         }
     }
 
     @Test
     fun `Given Linux and no env token, fails`() {
-        val options = Options(
-            keychain = FakeKeychain(),
-            env = FakeEnv(),
-            systemProperties = FakeSystemProperties.linux,
-        )
+        systemProperties = FakeSystemProperties.linux
         assertFails {
-            options.gradleEnterpriseInstance.token()
+            Options().apiToken()
         }
     }
 
     @Test
     fun `maxConcurrentRequests accepts int`() {
-        val options = Options(
-            keychain = FakeKeychain(),
-            env = FakeEnv("GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS" to "1"),
-            systemProperties = FakeSystemProperties.macOs,
-        )
+        (env as FakeEnv)["GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS"] = "1"
         assertDoesNotThrow {
-            options.httpClient.maxConcurrentRequests
+            Options().maxConcurrentRequests
         }
-    }
-
-    @Test
-    fun `default longTermCacheUrlPattern matches attributes URLs`() {
-        val options = Options(FakeEnv(), FakeSystemProperties.macOs, FakeKeychain())
-        options.cache.longTermCacheUrlPattern.assertMatches(
-            "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-attributes",
-            "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-attributes",
-        )
-    }
-
-    @Test
-    fun `default longTermCacheUrlPattern matches build cache performance URLs`() {
-        val options = Options(FakeEnv(), FakeSystemProperties.macOs, FakeKeychain())
-        options.cache.longTermCacheUrlPattern.assertMatches(
-            "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-build-cache-performance",
-            "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-build-cache-performance",
-        )
-    }
-
-    @Test
-    fun `default shortTermCacheUrlPattern matches builds URLs`() {
-        val options = Options(FakeEnv(), FakeSystemProperties.macOs, FakeKeychain())
-        options.cache.shortTermCacheUrlPattern.assertMatches(
-            "https://ge.gradle.org/api/builds?since=0",
-            "https://ge.gradle.org/api/builds?since=0&maxBuilds=2",
-        )
     }
 
     @Test
     fun `Given timeout set in env, readTimeoutMillis returns env value`() {
-        val options = Options(
-            FakeEnv("GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS" to "100000"),
-            FakeSystemProperties.macOs,
-            FakeKeychain(),
-        )
-        assertEquals(100_000L, options.httpClient.readTimeoutMillis)
-    }
-
-    private fun Regex.assertMatches(vararg values: String) {
-        values.forEach {
-            assertTrue(matches(it), "/$pattern/ doesn't match '$it'")
-        }
+        (env as FakeEnv)["GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS"] = "100000"
+        assertEquals(100_000L, Options().readTimeoutMillis)
     }
 }

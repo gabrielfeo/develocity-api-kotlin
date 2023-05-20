@@ -1,11 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
-import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
-import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
-import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
 import com.squareup.moshi.Moshi
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import kotlin.test.*
 
@@ -32,10 +28,13 @@ class RetrofitTest {
     private fun buildRetrofit(
         vararg envVars: Pair<String, String?>,
     ): Retrofit {
-        val env = FakeEnv(*envVars)
-        if ("GRADLE_ENTERPRISE_API_TOKEN" !in env)
-            env["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
-        val options = Options(env, FakeSystemProperties.macOs, FakeKeychain())
+        val fakeEnv = FakeEnv(*envVars)
+        if ("GRADLE_ENTERPRISE_API_TOKEN" !in fakeEnv)
+            fakeEnv["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
+        env = fakeEnv
+        systemProperties = FakeSystemProperties.macOs
+        keychain = FakeKeychain()
+        val options = Options()
         return buildRetrofit(
             options = options,
             client = buildOkHttpClient(options),

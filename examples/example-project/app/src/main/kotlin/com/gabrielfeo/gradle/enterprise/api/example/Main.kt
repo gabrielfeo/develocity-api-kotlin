@@ -1,9 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api.example
 
+import com.gabrielfeo.gradle.enterprise.api.GradleEnterprise
 import com.gabrielfeo.gradle.enterprise.api.example.analysis.mostFrequentBuilds
-import com.gabrielfeo.gradle.enterprise.api.gradleEnterpriseApi
-import com.gabrielfeo.gradle.enterprise.api.options
-import com.gabrielfeo.gradle.enterprise.api.shutdown
 import okhttp3.OkHttpClient
 
 /*
@@ -15,11 +13,14 @@ import okhttp3.OkHttpClient
 val clientBuilder = OkHttpClient.Builder()
 
 suspend fun main() {
-    options.httpClient.clientBuilder = { clientBuilder }
-    runAllAnalysis()
-    shutdown()
+    val newOptions = GradleEnterprise.options.copy(
+        clientBuilder = clientBuilder,
+    )
+    val gradleEnterprise = GradleEnterprise.withOptions(newOptions)
+    runAllAnalysis(gradleEnterprise)
+    gradleEnterprise.shutdown()
 }
 
-private suspend fun runAllAnalysis() {
-    mostFrequentBuilds(api = gradleEnterpriseApi)
+private suspend fun runAllAnalysis(gradleEnterprise: GradleEnterprise) {
+    mostFrequentBuilds(api = gradleEnterprise.api)
 }

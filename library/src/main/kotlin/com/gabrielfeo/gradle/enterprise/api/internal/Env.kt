@@ -1,9 +1,11 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-interface Env {
+internal var env: Env = RealEnv
+
+internal interface Env {
     operator fun get(name: String): String?
 }
 
-object RealEnv : Env {
+internal object RealEnv : Env {
     override fun get(name: String): String? = System.getenv(name)
 }

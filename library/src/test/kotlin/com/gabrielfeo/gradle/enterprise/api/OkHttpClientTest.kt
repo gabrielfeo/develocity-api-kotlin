@@ -1,10 +1,8 @@
 package com.gabrielfeo.gradle.enterprise.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.FakeEnv
+import com.gabrielfeo.gradle.enterprise.api.internal.*
 import com.gabrielfeo.gradle.enterprise.api.internal.FakeKeychain
-import com.gabrielfeo.gradle.enterprise.api.internal.FakeSystemProperties
 import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
-import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
 import okhttp3.Dispatcher
@@ -86,15 +84,17 @@ class OkHttpClientTest {
         vararg envVars: Pair<String, String?>,
         clientBuilder: OkHttpClient.Builder? = null,
     ): OkHttpClient {
-        val env = FakeEnv(*envVars)
-        if ("GRADLE_ENTERPRISE_API_TOKEN" !in env)
-            env["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
-        if ("GRADLE_ENTERPRISE_API_URL" !in env)
-            env["GRADLE_ENTERPRISE_API_URL"] = "example-url"
-        val options = Options(env, FakeSystemProperties.macOs, FakeKeychain()).apply {
-            clientBuilder?.let {
-                httpClient.clientBuilder = { it }
-            }
+        val fakeEnv = FakeEnv(*envVars)
+        if ("GRADLE_ENTERPRISE_API_TOKEN" !in fakeEnv)
+            fakeEnv["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
+        if ("GRADLE_ENTERPRISE_API_URL" !in fakeEnv)
+            fakeEnv["GRADLE_ENTERPRISE_API_URL"] = "example-url"
+        env = fakeEnv
+        systemProperties = FakeSystemProperties.macOs
+        keychain = FakeKeychain()
+        val options = when (clientBuilder) {
+            null -> Options()
+            else -> Options(clientBuilder = clientBuilder)
         }
         return buildOkHttpClient(options)
     }

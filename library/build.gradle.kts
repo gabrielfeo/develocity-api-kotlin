@@ -193,13 +193,21 @@ testing {
         }
         register<JvmTestSuite>("integrationTest") {
             dependencies {
-                implementation(project())
+//                implementation(project())
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
             }
         }
         withType<JvmTestSuite> {
             useKotlinTest()
         }
+    }
+}
+
+kotlin {
+    target {
+        val main by compilations.getting
+        val integrationTest by compilations.getting
+        integrationTest.associateWith(main)
     }
 }
 

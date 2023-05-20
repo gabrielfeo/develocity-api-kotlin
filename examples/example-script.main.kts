@@ -58,7 +58,7 @@ fun <T> Flow<T>.printProgress(produceMsg: (i: Int, current: T) -> String): Flow<
 // Fetch builds from the API
 val builds: List<GradleAttributes> = runBlocking {
     val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
-    gradleEnterpriseApi.getGradleAttributesFlow(since = startMilli)
+    GradleEnterprise.api.getGradleAttributesFlow(since = startMilli)
         .filter(buildFilter)
         .printProgress { i, build ->
             val buildDate = Instant.ofEpochMilli(build.buildStartTime).atOffset(ZoneOffset.UTC)
