@@ -15,7 +15,8 @@ import retrofit2.create
  * - [metaApi]
  * - [testDistributionApi]
  *
- * For simple use cases, you may use the companion instance directly, as if calling static methods:
+ * For simple use cases, you may use the companion instance ([DefaultInstance]) directly, as if
+ * calling static methods:
  *
  * ```kotlin
  * GradleEnterpriseApi.buildsApi.getBuilds(...)
@@ -51,7 +52,7 @@ interface GradleEnterpriseApi {
      * The default, companion instance of the Gradle Enterprise API client. See
      * [GradleEnterpriseApi].
      */
-    companion object Default : GradleEnterpriseApi by RealGradleEnterpriseApi() {
+    companion object DefaultInstance : GradleEnterpriseApi by RealGradleEnterpriseApi() {
 
         /**
          * Create a new instance of `GradleEnterpriseApi` with new options.
