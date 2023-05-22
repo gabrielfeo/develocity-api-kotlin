@@ -16,7 +16,7 @@ suspend fun main() {
     val newOptions = GradleEnterpriseApi.options.copy(
         clientBuilder = clientBuilder,
     )
-    val gradleEnterpriseApi = GradleEnterpriseApi.withOptions(newOptions)
+    val gradleEnterpriseApi = GradleEnterpriseApi.newInstance(newOptions)
     runAllAnalysis(gradleEnterpriseApi)
     gradleEnterpriseApi.shutdown()
 }
