@@ -1,7 +1,8 @@
 @file:Suppress("unused")
 
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.gradle.enterprise.api.extension
 
+import com.gabrielfeo.gradle.enterprise.api.BuildsApi
 import com.gabrielfeo.gradle.enterprise.api.internal.API_MAX_BUILDS
 import com.gabrielfeo.gradle.enterprise.api.internal.operator.pagedUntilLastBuild
 import com.gabrielfeo.gradle.enterprise.api.internal.operator.withGradleAttributes

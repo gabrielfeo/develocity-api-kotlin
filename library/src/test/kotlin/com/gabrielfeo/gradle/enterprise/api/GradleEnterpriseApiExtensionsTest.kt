@@ -1,5 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api
 
+import com.gabrielfeo.gradle.enterprise.api.extension.getBuildsFlow
+import com.gabrielfeo.gradle.enterprise.api.extension.getGradleAttributesFlow
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*

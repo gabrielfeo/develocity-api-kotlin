@@ -1,5 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.model
 
+import com.gabrielfeo.gradle.enterprise.api.extension.contains
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
