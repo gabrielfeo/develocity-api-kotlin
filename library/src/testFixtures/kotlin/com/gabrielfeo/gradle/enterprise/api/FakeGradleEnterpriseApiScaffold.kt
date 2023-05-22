@@ -6,41 +6,9 @@ import com.gabrielfeo.gradle.enterprise.api.model.*
  * Scaffold for a fake `GradleEnterpriseApi` implementation with default methods throwing a
  * [NotImplementedError]. Extend this interface and override methods to fake behavior as needed.
  */
-interface FakeGradleEnterpriseApiScaffold : GradleEnterpriseApi {
-
-    override suspend fun createOrUpdateBuildCacheNode(
-        name: String,
-        nodeConfiguration: NodeConfiguration,
-    ) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun createOrUpdateTestDistributionAgentPool(
-        poolId: String,
-        testDistributionAgentPoolConfiguration: TestDistributionAgentPoolConfiguration,
-    ): TestDistributionAgentPoolConfigurationWithId {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun createTestDistributionAgentPool(
-        testDistributionAgentPoolConfiguration: TestDistributionAgentPoolConfiguration,
-    ): TestDistributionAgentPoolConfigurationWithId {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun deleteTestDistributionAgentPool(poolId: String) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun generateTestDistributionApiKey(): TestDistributionApiKey {
-        TODO("Not yet implemented")
-    }
+interface FakeBuildsApiScaffold : BuildsApi {
 
     override suspend fun getBuild(id: String, availabilityWaitTimeoutSecs: Int?): Build {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getBuildCacheNode(name: String): NodeConfiguration {
         TODO("Not yet implemented")
     }
 
@@ -95,55 +63,6 @@ interface FakeGradleEnterpriseApiScaffold : GradleEnterpriseApi {
         id: String,
         availabilityWaitTimeoutSecs: Int?,
     ): List<MavenModule> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getTestDistributionAgentPool(
-        poolId: String,
-    ): TestDistributionAgentPoolConfigurationWithId {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getTestDistributionAgentPoolStatus(
-        poolId: String,
-    ): TestDistributionAgentPoolStatus {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getTestDistributionApiKey(
-        keyPrefix: String,
-    ): TestDistributionApiKeyPrefix {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getVersion(): GradleEnterpriseVersion {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun initiatePurgeOfBuildCacheNode(name: String) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun insertTestDistributionApiKey(
-        keyPrefix: String,
-        testDistributionApiKey: TestDistributionApiKey,
-    ): TestDistributionApiKeyPrefix {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun listTestDistributionAgentPools(): TestDistributionAgentPoolPage {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun listTestDistributionApiKeys(): TestDistributionApiKeyPrefixPage {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun regenerateSecretOfBuildCacheNode(name: String): KeySecretPair {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun revokeTestDistributionApiKey(keyPrefix: String) {
         TODO("Not yet implemented")
     }
 }

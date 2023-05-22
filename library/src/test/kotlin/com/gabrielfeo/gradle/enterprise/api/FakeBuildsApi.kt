@@ -3,12 +3,12 @@ package com.gabrielfeo.gradle.enterprise.api
 import com.gabrielfeo.gradle.enterprise.api.model.*
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class FakeGradleEnterpriseApi(
+class FakeBuildsApi(
     val builds: List<Build>,
-) : FakeGradleEnterpriseApiScaffold {
+) : FakeBuildsApiScaffold {
 
     val getBuildsCallCount = MutableStateFlow(0)
-    val getGradleAtrributesCallCount = MutableStateFlow(0)
+    val getGradleAttributesCallCount = MutableStateFlow(0)
 
     override suspend fun getBuilds(
         since: Long?,
@@ -43,7 +43,7 @@ class FakeGradleEnterpriseApi(
         id: String,
         availabilityWaitTimeoutSecs: Int?,
     ): GradleAttributes {
-        getGradleAtrributesCallCount.value++
+        getGradleAttributesCallCount.value++
         val attrs = readFromJsonResource<GradleAttributes>("gradle-attributes-response.json")
         return attrs.copy(id = id)
     }

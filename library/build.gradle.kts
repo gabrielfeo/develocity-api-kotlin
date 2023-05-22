@@ -56,45 +56,45 @@ openApiGenerate {
 }
 
 tasks.openApiGenerate.configure {
+    val srcDir = File(outputDir.get(), "src/main/kotlin")
     doFirst {
         logger.info("Using API spec ${inputSpec.get()}")
     }
     // Replace Response<X> with X in every method return type of GradleEnterpriseApi.kt
     doLast {
-        val apiFile = File(
-            outputDir.get(),
-            "src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/GradleEnterpriseApi.kt",
-        )
         ant.withGroovyBuilder {
             "replaceregexp"(
-                "file" to apiFile,
                 "match" to ": Response<(.*?)>$",
                 "replace" to """: \1""",
                 "flags" to "gm",
-            )
+            ) {
+                "fileset"(
+                    "dir" to srcDir,
+                    "includes" to "com/gabrielfeo/gradle/enterprise/api/*Api.kt",
+                )
+            }
         }
     }
     // Add @JvmSuppressWildcards to avoid square/retrofit#3275
     doLast {
-        val apiFile = File(
-            outputDir.get(),
-            "src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/GradleEnterpriseApi.kt",
-        )
         ant.withGroovyBuilder {
             "replaceregexp"(
-                "file" to apiFile,
-                "match" to "interface GradleEnterpriseApi",
+                "match" to "interface",
                 "replace" to """
                     @JvmSuppressWildcards
-                    interface GradleEnterpriseApi
+                    interface
                 """.trimIndent(),
                 "flags" to "m",
-            )
+            ) {
+                "fileset"(
+                    "dir" to srcDir,
+                    "includes" to "com/gabrielfeo/gradle/enterprise/api/*Api.kt",
+                )
+            }
         }
     }
     // Workaround for properties generated with `arrayListOf(null,null)` as default value
     doLast {
-        val srcDir = File(outputDir.get(), "src/main/kotlin")
         ant.withGroovyBuilder {
             "replaceregexp"(
                 "match" to """arrayListOf\(null,null\)""",
@@ -109,7 +109,6 @@ tasks.openApiGenerate.configure {
     }
     // Workaround for missing imports of exploded queries
     doLast {
-        val srcDir = File(outputDir.get(), "src/main/kotlin")
         val modelPackage = openApiGenerate.modelPackage.get()
         val modelPackagePattern = modelPackage.replace(".", "\\.")
         ant.withGroovyBuilder {
@@ -193,13 +192,21 @@ testing {
         }
         register<JvmTestSuite>("integrationTest") {
             dependencies {
-                implementation(project())
+//                implementation(project())
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
             }
         }
         withType<JvmTestSuite> {
             useKotlinTest()
         }
+    }
+}
+
+kotlin {
+    target {
+        val main by compilations.getting
+        val integrationTest by compilations.getting
+        integrationTest.associateWith(main)
     }
 }
 

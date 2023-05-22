@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.*
  * Makes paged requests to the API using `fromBuild`, [buildsPerPage] at a time.
  */
 internal fun Flow<Build>.pagedUntilLastBuild(
-    api: GradleEnterpriseApi,
+    api: BuildsApi,
     buildsPerPage: Int,
 ): Flow<Build> {
     val firstBuilds = this

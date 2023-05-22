@@ -17,7 +17,7 @@ jobs:
       - name: gradle check
         uses: ./.github/actions/build
         with:
-          args: 'check'
+          args: 'check compileIntegrationTestKotlin'
           # artifact-name: 'Test reports (${{matrix.runner}})'
           # path-to-upload: '**/build/reports/tests/**'
 

@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.*
  * - Use [Sequence.take] and similar functions to stop collecting early.
  * - A subset of `getBuilds` params are supported
  */
-fun GradleEnterpriseApi.getBuildsFlow(
+fun BuildsApi.getBuildsFlow(
     since: Long = 0,
     sinceBuild: String? = null,
     fromInstant: Long? = null,
@@ -53,7 +53,7 @@ fun GradleEnterpriseApi.getBuildsFlow(
  * @param scope CoroutineScope in which to create coroutines. Defaults to [GlobalScope].
  */
 @OptIn(DelicateCoroutinesApi::class)
-fun GradleEnterpriseApi.getGradleAttributesFlow(
+fun BuildsApi.getGradleAttributesFlow(
     since: Long = 0,
     sinceBuild: String? = null,
     fromInstant: Long? = null,

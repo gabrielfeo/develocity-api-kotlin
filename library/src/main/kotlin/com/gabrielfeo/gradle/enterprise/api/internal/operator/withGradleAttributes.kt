@@ -15,7 +15,7 @@ import retrofit2.await
  */
 internal fun Flow<Build>.withGradleAttributes(
     scope: CoroutineScope,
-    api: GradleEnterpriseApi,
+    api: BuildsApi,
 ): Flow<Pair<Build, GradleAttributes>> =
     map { build ->
         build to scope.async {

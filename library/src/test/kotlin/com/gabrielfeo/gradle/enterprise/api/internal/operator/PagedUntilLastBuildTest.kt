@@ -1,6 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.internal.operator
 
-import com.gabrielfeo.gradle.enterprise.api.FakeGradleEnterpriseApi
+import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
 import com.gabrielfeo.gradle.enterprise.api.model.Build
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,7 +16,7 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalCoroutinesApi::class)
 class PagedUntilLastBuildTest {
 
-    private val api = FakeGradleEnterpriseApi(
+    private val api = FakeBuildsApi(
         builds = listOf(
             FakeBuild(id = "a", availableAt = 1),
             FakeBuild(id = "b", availableAt = 2),

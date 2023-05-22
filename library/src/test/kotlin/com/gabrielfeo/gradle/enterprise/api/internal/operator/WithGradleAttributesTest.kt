@@ -1,9 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api.internal.operator
 
-import com.gabrielfeo.gradle.enterprise.api.FakeGradleEnterpriseApi
+import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
-import com.gabrielfeo.gradle.enterprise.api.model.GradleAttributes
-import com.gabrielfeo.gradle.enterprise.api.readFromJsonResource
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
@@ -14,7 +12,7 @@ import kotlin.time.Duration.Companion.seconds
 @OptIn(ExperimentalCoroutinesApi::class)
 class WithGradleAttributesTest {
 
-    private val api = FakeGradleEnterpriseApi(
+    private val api = FakeBuildsApi(
         builds = listOf(
             FakeBuild(id = "a", availableAt = 1),
             FakeBuild(id = "b", availableAt = 2),
@@ -27,7 +25,7 @@ class WithGradleAttributesTest {
     @Test
     fun `Pairs each build with its GradleAttributes`() = runTest {
         val buildsToAttrs = api.builds.asFlow().withGradleAttributes(scope = this, api).toList()
-        assertEquals(5, api.getGradleAtrributesCallCount.value)
+        assertEquals(5, api.getGradleAttributesCallCount.value)
         assertEquals(5, buildsToAttrs.size)
         buildsToAttrs.forEach { (build, attrs) ->
             assertEquals(build.id, attrs.id)
@@ -44,8 +42,8 @@ class WithGradleAttributesTest {
         }
         // Expect 5 eager calls despite slow collector
         withTimeoutOrNull(2.seconds) {
-            api.getGradleAtrributesCallCount.take(5).collect()
+            api.getGradleAttributesCallCount.take(5).collect()
         }
-        assertEquals(5, api.getGradleAtrributesCallCount.value)
+        assertEquals(5, api.getGradleAttributesCallCount.value)
     }
 }

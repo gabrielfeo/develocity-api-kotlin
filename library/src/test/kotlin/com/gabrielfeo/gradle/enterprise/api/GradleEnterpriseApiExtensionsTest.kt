@@ -11,7 +11,7 @@ import kotlin.time.Duration.Companion.seconds
 @OptIn(ExperimentalCoroutinesApi::class)
 class GradleEnterpriseApiExtensionsTest {
 
-    private val api = FakeGradleEnterpriseApi(
+    private val api = FakeBuildsApi(
         builds = listOf(
             FakeBuild(id = "a", availableAt = 1),
             FakeBuild(id = "b", availableAt = 2),
@@ -51,8 +51,8 @@ class GradleEnterpriseApiExtensionsTest {
         }
         // Expect one eager call per build despite slow collector
         withTimeoutOrNull(2.seconds) {
-            api.getGradleAtrributesCallCount.take(api.builds.size).collect()
+            api.getGradleAttributesCallCount.take(api.builds.size).collect()
         }
-        assertEquals(api.builds.size, api.getGradleAtrributesCallCount.value)
+        assertEquals(api.builds.size, api.getGradleAttributesCallCount.value)
     }
 }

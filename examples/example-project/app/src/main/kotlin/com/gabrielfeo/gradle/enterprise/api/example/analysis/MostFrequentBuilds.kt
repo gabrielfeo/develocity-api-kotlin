@@ -22,7 +22,7 @@ import java.util.LinkedList
  *   legacy tests. We should suggest they run test instead, leaving check for CI to run."
  */
 suspend fun mostFrequentBuilds(
-    api: GradleEnterpriseApi,
+    api: BuildsApi,
     startDate: LocalDate = LocalDate.now().minusWeeks(1),
     buildFilter: (GradleAttributes) -> Boolean = { build ->
         "LOCAL" in build.tags
@@ -63,6 +63,7 @@ suspend fun mostFrequentBuilds(
 
 
 // A utility to print progress as builds are fetched. You may ignore this.
+@OptIn(DelicateCoroutinesApi::class)
 fun <T> Flow<T>.printProgress(produceMsg: (i: Int, current: T) -> String): Flow<T> {
     var i = -1
     var current: T? = null
