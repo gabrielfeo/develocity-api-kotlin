@@ -6,7 +6,7 @@ import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.Serializer
 import retrofit2.Retrofit
 import retrofit2.create
 
-interface GradleEnterprise {
+interface GradleEnterpriseApi {
 
     val buildsApi: BuildsApi
     val buildCacheApi: BuildCacheApi
@@ -14,16 +14,16 @@ interface GradleEnterprise {
     val testDistributionApi: TestDistributionApi
 
     val options: Options
-    fun withOptions(options: Options): GradleEnterprise
+    fun withOptions(options: Options): GradleEnterpriseApi
     fun shutdown()
 
-    companion object : GradleEnterprise by DefaultGradleEnterprise()
+    companion object : GradleEnterpriseApi by DefaultGradleEnterpriseApi()
 
 }
 
-private class DefaultGradleEnterprise(
+private class DefaultGradleEnterpriseApi(
     override val options: Options = Options(),
-) : GradleEnterprise {
+) : GradleEnterpriseApi {
 
     private val okHttpClient by lazy {
         buildOkHttpClient(options = options)
@@ -42,7 +42,7 @@ private class DefaultGradleEnterprise(
     override val metaApi: MetaApi by lazy(retrofit::create)
     override val testDistributionApi: TestDistributionApi by lazy(retrofit::create)
 
-    override fun withOptions(options: Options) = DefaultGradleEnterprise(options)
+    override fun withOptions(options: Options) = DefaultGradleEnterpriseApi(options)
 
 
     /**

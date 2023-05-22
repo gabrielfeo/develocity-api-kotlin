@@ -1,16 +1,16 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.GradleEnterprise
+import com.gabrielfeo.gradle.enterprise.api.GradleEnterpriseApi
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class GradleEnterpriseIntegrationTest {
+class GradleEnterpriseApiIntegrationTest {
 
     @Test
     fun canFetchBuilds() = runTest {
-        val builds = GradleEnterprise.buildsApi.getBuilds(since = 0, maxBuilds = 1)
+        val builds = GradleEnterpriseApi.buildsApi.getBuilds(since = 0, maxBuilds = 1)
         assertEquals(1, builds.size)
-        GradleEnterprise.shutdown()
+        GradleEnterpriseApi.shutdown()
     }
 }
