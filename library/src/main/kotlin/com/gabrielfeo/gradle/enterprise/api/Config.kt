@@ -11,7 +11,7 @@ import kotlin.time.Duration.Companion.days
  * Library configuration options.
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
-data class Options(
+data class Config(
 
     /**
      * Enables debug logging from the library. All logging is output to stderr. By default, uses
@@ -70,10 +70,10 @@ data class Options(
             ?: 60_000L,
 
     /**
-     * See [CacheOptions].
+     * See [CacheConfig].
      */
-    val cacheOptions: CacheOptions =
-        CacheOptions(),
+    val cacheConfig: CacheConfig =
+        CacheConfig(),
 ) {
 
     /**
@@ -118,7 +118,7 @@ data class Options(
      * itself is upgraded, cache should be [clear]ed.
      */
     @Suppress("MemberVisibilityCanBePrivate")
-    data class CacheOptions(
+    data class CacheConfig(
 
         /**
          * Whether caching is enabled. By default, uses environment variable

@@ -4,7 +4,7 @@ import com.gabrielfeo.gradle.enterprise.api.internal.*
 import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.*
 
-class OptionsTest {
+class ConfigTest {
 
     @BeforeTest
     fun before() {
@@ -17,27 +17,27 @@ class OptionsTest {
     fun `Given no URL set in env, error`() {
         env = FakeEnv()
         assertFails {
-            Options()
+            Config()
         }
     }
 
     @Test
     fun `Given URL set in env, apiUrl is env URL`() {
         (env as FakeEnv)["GRADLE_ENTERPRISE_API_URL"] = "https://example.com/api/"
-        assertEquals("https://example.com/api/", Options().apiUrl)
+        assertEquals("https://example.com/api/", Config().apiUrl)
     }
 
     @Test
     fun `Given macOS and keychain token, keychain token used`() {
         (env as FakeEnv)["GRADLE_ENTERPRISE_API_TOKEN"] = "bar"
         keychain = FakeKeychain("gradle-enterprise-api-token" to "foo")
-        assertEquals("foo", Options().apiToken())
+        assertEquals("foo", Config().apiToken())
     }
 
     @Test
     fun `Given macOS but no keychain token, env token used`() {
         (env as FakeEnv)["GRADLE_ENTERPRISE_API_TOKEN"] = "bar"
-        assertEquals("bar", Options().apiToken())
+        assertEquals("bar", Config().apiToken())
     }
 
     @Test
@@ -48,13 +48,13 @@ class OptionsTest {
                 error("Error: Tried to access macOS keychain in Linux")
         }
         systemProperties = FakeSystemProperties.linux
-        assertEquals("bar", Options().apiToken())
+        assertEquals("bar", Config().apiToken())
     }
 
     @Test
     fun `Given macOS and no token anywhere, error`() {
         assertFails {
-            Options().apiToken()
+            Config().apiToken()
         }
     }
 
@@ -62,7 +62,7 @@ class OptionsTest {
     fun `Given Linux and no env token, fails`() {
         systemProperties = FakeSystemProperties.linux
         assertFails {
-            Options().apiToken()
+            Config().apiToken()
         }
     }
 
@@ -70,13 +70,13 @@ class OptionsTest {
     fun `maxConcurrentRequests accepts int`() {
         (env as FakeEnv)["GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS"] = "1"
         assertDoesNotThrow {
-            Options().maxConcurrentRequests
+            Config().maxConcurrentRequests
         }
     }
 
     @Test
     fun `Given timeout set in env, readTimeoutMillis returns env value`() {
         (env as FakeEnv)["GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS"] = "100000"
-        assertEquals(100_000L, Options().readTimeoutMillis)
+        assertEquals(100_000L, Config().readTimeoutMillis)
     }
 }

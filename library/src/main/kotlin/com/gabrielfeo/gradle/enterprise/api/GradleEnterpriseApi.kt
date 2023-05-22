@@ -22,7 +22,7 @@ import retrofit2.create
  * GradleEnterpriseApi.buildsApi.getBuilds(...)
  * ```
  *
- * However, if you need to change [options] at runtime or own the instance's lifecycle (e.g.
+ * However, if you need to change [config] at runtime or own the instance's lifecycle (e.g.
  * with an IoC container like Dagger), create a new instance:
  *
  * ```kotlin
@@ -41,7 +41,7 @@ interface GradleEnterpriseApi {
     /**
      * Library configuration options.
      */
-    val options: Options
+    val config: Config
 
     /**
      * Release resources allowing the program to finish before the internal client's idle timeout.
@@ -57,24 +57,24 @@ interface GradleEnterpriseApi {
         /**
          * Create a new instance of `GradleEnterpriseApi` with new options.
          */
-        fun newInstance(options: Options): GradleEnterpriseApi {
-            return RealGradleEnterpriseApi(options)
+        fun newInstance(config: Config): GradleEnterpriseApi {
+            return RealGradleEnterpriseApi(config)
         }
     }
 
 }
 
 private class RealGradleEnterpriseApi(
-    override val options: Options = Options(),
+    override val config: Config = Config(),
 ) : GradleEnterpriseApi {
 
     private val okHttpClient by lazy {
-        buildOkHttpClient(options = options)
+        buildOkHttpClient(config = config)
     }
 
     private val retrofit: Retrofit by lazy {
         buildRetrofit(
-            options,
+            config,
             okHttpClient,
             Serializer.moshi,
         )

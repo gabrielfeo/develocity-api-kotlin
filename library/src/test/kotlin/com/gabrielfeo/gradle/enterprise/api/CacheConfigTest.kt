@@ -1,10 +1,9 @@
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
-import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.*
 
-class CacheOptionsTest {
+class CacheConfigTest {
 
     @BeforeTest
     fun before() {
@@ -15,7 +14,7 @@ class CacheOptionsTest {
 
     @Test
     fun `default longTermCacheUrlPattern matches attributes URLs`() {
-        Options.CacheOptions().longTermCacheUrlPattern.assertMatches(
+        Config.CacheConfig().longTermCacheUrlPattern.assertMatches(
             "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-attributes",
             "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-attributes",
         )
@@ -23,7 +22,7 @@ class CacheOptionsTest {
 
     @Test
     fun `default longTermCacheUrlPattern matches build cache performance URLs`() {
-        Options.CacheOptions().longTermCacheUrlPattern.assertMatches(
+        Config.CacheConfig().longTermCacheUrlPattern.assertMatches(
             "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-build-cache-performance",
             "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-build-cache-performance",
         )
@@ -31,7 +30,7 @@ class CacheOptionsTest {
 
     @Test
     fun `default shortTermCacheUrlPattern matches builds URLs`() {
-        Options.CacheOptions().shortTermCacheUrlPattern.assertMatches(
+        Config.CacheConfig().shortTermCacheUrlPattern.assertMatches(
             "https://ge.gradle.org/api/builds?since=0",
             "https://ge.gradle.org/api/builds?since=0&maxBuilds=2",
         )

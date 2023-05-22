@@ -92,10 +92,10 @@ class OkHttpClientTest {
         env = fakeEnv
         systemProperties = FakeSystemProperties.macOs
         keychain = FakeKeychain()
-        val options = when (clientBuilder) {
-            null -> Options()
-            else -> Options(clientBuilder = clientBuilder)
+        val config = when (clientBuilder) {
+            null -> Config()
+            else -> Config(clientBuilder = clientBuilder)
         }
-        return buildOkHttpClient(options)
+        return buildOkHttpClient(config)
     }
 }
