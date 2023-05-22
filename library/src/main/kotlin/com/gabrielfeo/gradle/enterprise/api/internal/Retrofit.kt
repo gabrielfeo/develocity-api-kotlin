@@ -1,6 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.Options
+import com.gabrielfeo.gradle.enterprise.api.Config
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -8,11 +8,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 internal fun buildRetrofit(
-    options: Options,
+    config: Config,
     client: OkHttpClient,
     moshi: Moshi,
 ) = with(Retrofit.Builder()) {
-    val url = options.apiUrl
+    val url = config.apiUrl
     check("/api/" in url) { "A valid API URL must end in /api/" }
     val instanceUrl = url.substringBefore("api/")
     baseUrl(instanceUrl)

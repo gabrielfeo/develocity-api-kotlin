@@ -1,6 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.Options
+import com.gabrielfeo.gradle.enterprise.api.Config
 import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
@@ -13,44 +13,44 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 internal fun buildOkHttpClient(
-    options: Options,
-) = with(options.clientBuilder) {
-    readTimeout(Duration.ofMillis(options.readTimeoutMillis))
-    if (options.cacheOptions.cacheEnabled) {
-        cache(buildCache(options))
+    config: Config,
+) = with(config.clientBuilder) {
+    readTimeout(Duration.ofMillis(config.readTimeoutMillis))
+    if (config.cacheConfig.cacheEnabled) {
+        cache(buildCache(config))
     }
-    addInterceptors(options)
-    addNetworkInterceptors(options)
+    addInterceptors(config)
+    addNetworkInterceptors(config)
     build().apply {
-        options.maxConcurrentRequests?.let {
+        config.maxConcurrentRequests?.let {
             dispatcher.maxRequests = it
             dispatcher.maxRequestsPerHost = it
         }
     }
 }
 
-private fun OkHttpClient.Builder.addInterceptors(options: Options) {
-    if (options.debugLoggingEnabled && options.cacheOptions.cacheEnabled) {
+private fun OkHttpClient.Builder.addInterceptors(config: Config) {
+    if (config.debugLoggingEnabled && config.cacheConfig.cacheEnabled) {
         addInterceptor(CacheHitLoggingInterceptor())
     }
 }
 
-private fun OkHttpClient.Builder.addNetworkInterceptors(options: Options) {
-    if (options.cacheOptions.cacheEnabled) {
-        addNetworkInterceptor(buildCacheEnforcingInterceptor(options))
+private fun OkHttpClient.Builder.addNetworkInterceptors(config: Config) {
+    if (config.cacheConfig.cacheEnabled) {
+        addNetworkInterceptor(buildCacheEnforcingInterceptor(config))
     }
-    if (options.debugLoggingEnabled) {
+    if (config.debugLoggingEnabled) {
         addNetworkInterceptor(HttpLoggingInterceptor().apply { level = BODY })
     }
-    addNetworkInterceptor(HttpBearerAuth("bearer", options.apiToken()))
+    addNetworkInterceptor(HttpBearerAuth("bearer", config.apiToken()))
 }
 
 internal fun buildCache(
-    options: Options
+    config: Config
 ): Cache {
-    val cacheDir = options.cacheOptions.cacheDir
-    val maxSize = options.cacheOptions.maxCacheSize
-    if (options.debugLoggingEnabled) {
+    val cacheDir = config.cacheConfig.cacheDir
+    val maxSize = config.cacheConfig.maxCacheSize
+    if (config.debugLoggingEnabled) {
         val logger = Logger.getGlobal()
         logger.log(Level.INFO, "HTTP cache dir: $cacheDir (max ${maxSize}B)")
     }
@@ -58,10 +58,10 @@ internal fun buildCache(
 }
 
 private fun buildCacheEnforcingInterceptor(
-    options: Options,
+    config: Config,
 ) = CacheEnforcingInterceptor(
-    longTermCacheUrlPattern = options.cacheOptions.longTermCacheUrlPattern,
-    longTermCacheMaxAge = options.cacheOptions.longTermCacheMaxAge,
-    shortTermCacheUrlPattern = options.cacheOptions.shortTermCacheUrlPattern,
-    shortTermCacheMaxAge = options.cacheOptions.shortTermCacheMaxAge,
+    longTermCacheUrlPattern = config.cacheConfig.longTermCacheUrlPattern,
+    longTermCacheMaxAge = config.cacheConfig.longTermCacheMaxAge,
+    shortTermCacheUrlPattern = config.cacheConfig.shortTermCacheUrlPattern,
+    shortTermCacheMaxAge = config.cacheConfig.shortTermCacheMaxAge,
 )

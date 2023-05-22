@@ -34,10 +34,10 @@ class RetrofitTest {
         env = fakeEnv
         systemProperties = FakeSystemProperties.macOs
         keychain = FakeKeychain()
-        val options = Options()
+        val config = Config()
         return buildRetrofit(
-            options = options,
-            client = buildOkHttpClient(options),
+            config = config,
+            client = buildOkHttpClient(config),
             moshi = Moshi.Builder().build()
         )
     }
