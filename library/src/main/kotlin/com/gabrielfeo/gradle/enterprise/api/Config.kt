@@ -37,15 +37,16 @@ data class Config(
     },
 
     /**
-     * Provider of an [OkHttpClient.Builder] to use when building the library's internal client.
-     * Has a default value and shouldn't be needed in scripts.
+     * [OkHttpClient.Builder] to use when building the library's internal [OkHttpClient].
      *
-     * This is aimed at using the library inside a full Kotlin project. Allows the internal client to
-     * share resources such as thread pools with another [OkHttpClient], useful for full Kotlin projects
-     * and rarely needed for scripting. See [OkHttpClient] for all that is shared.
+     * This is aimed at using the library inside a full Kotlin project. Allows the internal client
+     * to share resources such as thread pools with another [OkHttpClient]. See [OkHttpClient]
+     * for all that is shared.
+     *
+     * The default is to share resources only within the library, i.e. multiple `Config()` with
+     * the default [clientBuilder] will already share resources.
      */
-    val clientBuilder: OkHttpClient.Builder =
-        OkHttpClient.Builder(),
+    val clientBuilder: OkHttpClient.Builder = basicOkHttpClient.newBuilder(),
 
     /**
      * Maximum amount of concurrent requests allowed. Further requests will be queued. By default,

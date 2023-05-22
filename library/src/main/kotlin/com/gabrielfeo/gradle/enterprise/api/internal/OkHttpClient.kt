@@ -12,6 +12,16 @@ import java.time.Duration
 import java.util.logging.Level
 import java.util.logging.Logger
 
+/**
+ * Base instance just so that multiple created [Config]s will share resources by default.
+ */
+internal val basicOkHttpClient by lazy {
+    OkHttpClient.Builder().build()
+}
+
+/**
+ * Builds the final `OkHttpClient` with a `Config`.
+ */
 internal fun buildOkHttpClient(
     config: Config,
 ) = with(config.clientBuilder) {
