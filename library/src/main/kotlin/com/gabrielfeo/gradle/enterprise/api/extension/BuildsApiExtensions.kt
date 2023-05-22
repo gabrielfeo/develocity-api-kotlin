@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.*
 
 /**
  * Gets builds on demand from the API, in as many requests as necessary. It allows
- * for queries of any size, as opposed to [GradleEnterpriseApi.getBuilds] which is limited by the
+ * for queries of any size, as opposed to [BuildsApi.getBuilds] which is limited by the
  * API itself to 1000.
  *
  * - Will request from the API until results end or an error occurs.
@@ -43,13 +43,13 @@ fun BuildsApi.getBuildsFlow(
 }
 
 /**
- * Gets [GradleAttributes] of all builds from a given date. Queries [GradleEnterpriseApi.getBuilds]
+ * Gets [GradleAttributes] of all builds from a given date. Queries [BuildsApi.getBuilds]
  * first, since it's the only endpoint providing a timeline of builds, then maps each to
- * [GradleEnterpriseApi.getGradleAttributes].
+ * [BuildsApi.getGradleAttributes].
  *
  * Don't expect client-side filtering to be efficient. Will request up to [Int.MAX_VALUE]
  * builds and their attributes concurrently and eagerly, with a buffer, in coroutines started in
- * [scope]. For other params, see [getBuildsFlow] and [GradleEnterpriseApi.getBuilds].
+ * [scope]. For other params, see [getBuildsFlow] and [BuildsApi.getBuilds].
  *
  * @param scope CoroutineScope in which to create coroutines. Defaults to [GlobalScope].
  */
