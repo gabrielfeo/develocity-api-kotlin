@@ -15,7 +15,7 @@ class CacheOptionsTest {
 
     @Test
     fun `default longTermCacheUrlPattern matches attributes URLs`() {
-        CacheOptions().longTermCacheUrlPattern.assertMatches(
+        Options.CacheOptions().longTermCacheUrlPattern.assertMatches(
             "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-attributes",
             "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-attributes",
         )
@@ -23,7 +23,7 @@ class CacheOptionsTest {
 
     @Test
     fun `default longTermCacheUrlPattern matches build cache performance URLs`() {
-        CacheOptions().longTermCacheUrlPattern.assertMatches(
+        Options.CacheOptions().longTermCacheUrlPattern.assertMatches(
             "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/gradle-build-cache-performance",
             "https://ge.gradle.org/api/builds/tgnsqkb2rhlni/maven-build-cache-performance",
         )
@@ -31,7 +31,7 @@ class CacheOptionsTest {
 
     @Test
     fun `default shortTermCacheUrlPattern matches builds URLs`() {
-        CacheOptions().shortTermCacheUrlPattern.assertMatches(
+        Options.CacheOptions().shortTermCacheUrlPattern.assertMatches(
             "https://ge.gradle.org/api/builds?since=0",
             "https://ge.gradle.org/api/builds?since=0&maxBuilds=2",
         )
