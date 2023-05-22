@@ -8,8 +8,7 @@ import java.util.logging.Logger
 import kotlin.time.Duration.Companion.days
 
 /**
- * Library configuration options. Should not be changed after accessing the [gradleEnterpriseApi]
- * object for the first time.
+ * Library configuration options.
  */
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 data class Options(
@@ -81,8 +80,6 @@ data class Options(
      * HTTP cache is off by default, but can speed up requests significantly. The Gradle Enterprise
      * API disallows HTTP caching, but this library forcefully enables it by overwriting
      * cache-related headers in API responses. Enable with [cacheEnabled].
-     *
-     * Access via the global [options] instance: `options.cache`.
      *
      * Responses can be:
      *
