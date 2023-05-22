@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>NonCacheabilityCategory</title>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../../index.html">
+                    <span>gradle-enterprise-api-kotlin</span>
+            </a>
+    </div>
+    <div>
+SNAPSHOT    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":dokkaHtml/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="gradle-enterprise-api-kotlin::com.gabrielfeo.gradle.enterprise.api.model/GradleBuildCachePerformanceTaskExecutionEntry.NonCacheabilityCategory///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../../index.html">gradle-enterprise-api-kotlin</a><span class="delimiter">/</span><a href="../../index.html">com.gabrielfeo.gradle.enterprise.api.model</a><span class="delimiter">/</span><a href="../index.html">GradleBuildCachePerformanceTaskExecutionEntry</a><span class="delimiter">/</span><span class="current">NonCacheabilityCategory</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Non</span><wbr></wbr><span>Cacheability</span><wbr></wbr><span><span>Category</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">NonCacheabilityCategory</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">GradleBuildCachePerformanceTaskExecutionEntry.NonCacheabilityCategory</a><span class="token operator">&gt; </span></div><p class="paragraph">The category of the non-cacheability reason:   * <code class="lang-kotlin">build_cache_not_enabled</code> - Caching has not been enabled for the build   * <code class="lang-kotlin">cache-if_condition_not_matched</code> - Caching was disabled for the task via <code class="lang-kotlin">org.gradle.api.tasks.TaskOutputs#cacheIf</code>   * <code class="lang-kotlin">disabled_to_ensure_correctness</code> - The task failed validation. Available since Gradle 7.0   * <code class="lang-kotlin">do-not-cache-if_condition_matched</code> - Caching was disabled for the task via <code class="lang-kotlin">org.gradle.api.tasks.TaskOutputs#doNotCacheIf</code>   * <code class="lang-kotlin">multiple_outputs_declared</code> - The task declared multiple outputs   * <code class="lang-kotlin">no_outputs_declared</code> - The task had no outputs declared   * <code class="lang-kotlin">non_cacheable_inputs</code> - One of the task inputs was not cacheable, either because some type used as an input to the task was loaded via a custom classloader, or a Java lambda was used as an input. Available since Gradle 5.0 and before Gradle 7.5   * <code class="lang-kotlin">non_cacheable_task_action</code> - One of the task actions was not cacheable, either because it was loaded via a custom classloader, or a Java lambda was used to implement it. Available since Gradle 5.0 and before Gradle 7.5   * <code class="lang-kotlin">non_cacheable_task_implementation</code> - The task implementation was not cacheable, either because it was loaded via a custom classloader, or a Java lambda was used to implement it. Available since Gradle 5.0 and before Gradle 7.5   * <code class="lang-kotlin">non_cacheable_tree_output</code> - The task had a <code class="lang-kotlin">org.gradle.api.file.FileTree</code> or a <code class="lang-kotlin">org.gradle.api.internal.file.collections.DirectoryFileTree</code> as an output. Available since Gradle 5.0   * <code class="lang-kotlin">overlapping_outputs</code> - The tasks outputs overlapped with another task. As Gradle cannot safely determine which task each output file belongs to, it disabled caching               * <code class="lang-kotlin">task_has_no_actions</code> - The task did not declare any actions   * <code class="lang-kotlin">task_output_caching_not_enabled</code> - Caching has not been enabled for the task   * <code class="lang-kotlin">unknown</code> - Reason for disabled caching was not known  May be <code class="lang-kotlin">null</code> when the task was cacheable or if the information was not available.</p><p class="paragraph">Values: buildCacheNotEnabled,cacheMinusIfConditionNotMatched,disabledToEnsureCorrectness,doMinusNotMinusCacheMinusIfConditionMatched,multipleOutputsDeclared,noOutputsDeclared,nonCacheableInputs,nonCacheableTaskAction,nonCacheableTaskImplementation,nonCacheableTreeOutput,overlappingOutputs,taskHasNoActions,taskOutputCachingNotEnabled,unknown</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="-2019789534%2FClasslikes%2F769193423" anchor-label="buildCacheNotEnabled" id="-2019789534%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="build-cache-not-enabled/index.html">buildCacheNotEnabled</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2019789534%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;build_cache_not_enabled&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="build-cache-not-enabled/index.html">buildCacheNotEnabled</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="75377033%2FClasslikes%2F769193423" anchor-label="cacheMinusIfConditionNotMatched" id="75377033%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cache-minus-if-condition-not-matched/index.html">cacheMinusIfConditionNotMatched</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="75377033%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;cache-if_condition_not_matched&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="cache-minus-if-condition-not-matched/index.html">cacheMinusIfConditionNotMatched</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1967167252%2FClasslikes%2F769193423" anchor-label="disabledToEnsureCorrectness" id="1967167252%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="disabled-to-ensure-correctness/index.html">disabledToEnsureCorrectness</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1967167252%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;disabled_to_ensure_correctness&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="disabled-to-ensure-correctness/index.html">disabledToEnsureCorrectness</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1579607550%2FClasslikes%2F769193423" anchor-label="doMinusNotMinusCacheMinusIfConditionMatched" id="1579607550%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="do-minus-not-minus-cache-minus-if-condition-matched/index.html">doMinusNotMinusCacheMinusIfConditionMatched</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1579607550%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;do-not-cache-if_condition_matched&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="do-minus-not-minus-cache-minus-if-condition-matched/index.html">doMinusNotMinusCacheMinusIfConditionMatched</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1874215548%2FClasslikes%2F769193423" anchor-label="multipleOutputsDeclared" id="-1874215548%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="multiple-outputs-declared/index.html">multipleOutputsDeclared</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1874215548%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;multiple_outputs_declared&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="multiple-outputs-declared/index.html">multipleOutputsDeclared</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-877452173%2FClasslikes%2F769193423" anchor-label="noOutputsDeclared" id="-877452173%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="no-outputs-declared/index.html">noOutputsDeclared</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-877452173%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;no_outputs_declared&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="no-outputs-declared/index.html">noOutputsDeclared</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-728318408%2FClasslikes%2F769193423" anchor-label="nonCacheableInputs" id="-728318408%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="non-cacheable-inputs/index.html">nonCacheableInputs</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-728318408%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;non_cacheable_inputs&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="non-cacheable-inputs/index.html">nonCacheableInputs</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-73936022%2FClasslikes%2F769193423" anchor-label="nonCacheableTaskAction" id="-73936022%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="non-cacheable-task-action/index.html">nonCacheableTaskAction</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-73936022%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;non_cacheable_task_action&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="non-cacheable-task-action/index.html">nonCacheableTaskAction</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1274195994%2FClasslikes%2F769193423" anchor-label="nonCacheableTaskImplementation" id="-1274195994%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="non-cacheable-task-implementation/index.html">nonCacheableTaskImplementation</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1274195994%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;non_cacheable_task_implementation&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="non-cacheable-task-implementation/index.html">nonCacheableTaskImplementation</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2053303950%2FClasslikes%2F769193423" anchor-label="nonCacheableTreeOutput" id="2053303950%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="non-cacheable-tree-output/index.html">nonCacheableTreeOutput</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2053303950%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;non_cacheable_tree_output&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="non-cacheable-tree-output/index.html">nonCacheableTreeOutput</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1826133817%2FClasslikes%2F769193423" anchor-label="overlappingOutputs" id="1826133817%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="overlapping-outputs/index.html">overlappingOutputs</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1826133817%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;overlapping_outputs&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="overlapping-outputs/index.html">overlappingOutputs</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="727588679%2FClasslikes%2F769193423" anchor-label="taskHasNoActions" id="727588679%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="task-has-no-actions/index.html">taskHasNoActions</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="727588679%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;task_has_no_actions&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="task-has-no-actions/index.html">taskHasNoActions</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-254799793%2FClasslikes%2F769193423" anchor-label="taskOutputCachingNotEnabled" id="-254799793%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="task-output-caching-not-enabled/index.html">taskOutputCachingNotEnabled</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-254799793%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;task_output_caching_not_enabled&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="task-output-caching-not-enabled/index.html">taskOutputCachingNotEnabled</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-926127214%2FClasslikes%2F769193423" anchor-label="unknown" id="-926127214%2FClasslikes%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unknown/index.html">unknown</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-926127214%2FClasslikes%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><div class="block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;unknown&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span></div></div><a href="unknown/index.html">unknown</a></div></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1930777502%2FFunctions%2F769193423" anchor-label="valueOf" id="-1930777502%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1930777502%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">GradleBuildCachePerformanceTaskExecutionEntry.NonCacheabilityCategory</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1077482258%2FFunctions%2F769193423" anchor-label="values" id="-1077482258%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1077482258%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">GradleBuildCachePerformanceTaskExecutionEntry.NonCacheabilityCategory</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F769193423" anchor-label="name" id="-372974862%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-maven-build-cache-performance-goal-execution-entry/-non-cacheability-category/unknown-entitlements/index.html#-372974862%2FProperties%2F769193423"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-372974862%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../-maven-build-cache-performance-goal-execution-entry/-non-cacheability-category/unknown-entitlements/index.html#-372974862%2FProperties%2F769193423">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-739389684%2FProperties%2F769193423" anchor-label="ordinal" id="-739389684%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../../-maven-build-cache-performance-goal-execution-entry/-non-cacheability-category/unknown-entitlements/index.html#-739389684%2FProperties%2F769193423"><span><span>ordinal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-739389684%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../-maven-build-cache-performance-goal-execution-entry/-non-cacheability-category/unknown-entitlements/index.html#-739389684%2FProperties%2F769193423">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1300191481%2FProperties%2F769193423" anchor-label="value" id="1300191481%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value.html"><span><span>value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1300191481%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="value.html">value</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>BuildsQuery</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>gradle-enterprise-api-kotlin</span>
+            </a>
+    </div>
+    <div>
+SNAPSHOT    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":dokkaHtml/main">jvm</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="gradle-enterprise-api-kotlin::com.gabrielfeo.gradle.enterprise.api.model/BuildsQuery///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../index.html">gradle-enterprise-api-kotlin</a><span class="delimiter">/</span><a href="../index.html">com.gabrielfeo.gradle.enterprise.api.model</a><span class="delimiter">/</span><span class="current">BuildsQuery</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Builds</span><wbr></wbr><span><span>Query</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">BuildsQuery</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;since&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>since<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;sinceBuild&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>sinceBuild<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;fromInstant&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>fromInstant<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;fromBuild&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>fromBuild<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;reverse&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>reverse<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;maxBuilds&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>maxBuilds<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;maxWaitSecs&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>maxWaitSecs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>since</span></span></u></div></span></div><div><div class="title"><p class="paragraph"><strong>This parameter is deprecated, use </strong><code class="strong lang-kotlin"><strong>fromInstant</strong></code><strong> instead.</strong> A unix-epoch-time in milliseconds allowing to retrieve builds for which Gradle Enterprise completed receiving and processing the build after this instant. This parameter can only be used with <code class="lang-kotlin">reverse=false</code>. Therefore, a value of <code class="lang-kotlin">0</code> will process all builds. If not provided, the time in milliseconds when the request is received by the Gradle Enterprise instance will be used. This parameter has no effect if any of <code class="lang-kotlin">sinceBuild</code>, <code class="lang-kotlin">fromInstant</code>, <code class="lang-kotlin">fromBuild</code> are used.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>since</span><wbr></wbr><span><span>Build</span></span></u></div></span></div><div><div class="title"><p class="paragraph"><strong>This parameter is deprecated, use </strong><code class="strong lang-kotlin"><strong>fromBuild</strong></code><strong> instead.</strong> A Build Scan ID allowing to retrieve builds for which Gradle Enterprise completed receiving and processing after the given Build Scan ID (excluding it). This parameter can only be used with <code class="lang-kotlin">reverse=false</code>. This parameter has precedence over any value set for the <code class="lang-kotlin">since</code> parameter. A valid Build Scan ID must be provided, that is, a Build Scan ID that exists in the Gradle Enterprise instance. A Build Scan ID for a deleted build is valid. This parameter has no effect if any of <code class="lang-kotlin">fromInstant</code>, <code class="lang-kotlin">fromBuild</code> are used.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>from</span><wbr></wbr><span><span>Instant</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A unix-epoch-time in milliseconds allowing to retrieve builds for which Gradle Enterprise completed receiving and processing the build after this instant when used in conjunction with <code class="lang-kotlin">reverse=false</code>, or before this instant when used in conjunction with <code class="lang-kotlin">reverse=true</code>. Therefore, a value of <code class="lang-kotlin">0</code> will process all builds. If not provided, the time in milliseconds when the request is received by the Gradle Enterprise instance will be used. This parameter has no effect if <code class="lang-kotlin">fromBuild</code> is used.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>from</span><wbr></wbr><span><span>Build</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A Build Scan ID allowing to retrieve builds for which Gradle Enterprise completed receiving and processing after the given Build Scan ID (excluding it) when used in conjunction with <code class="lang-kotlin">reverse=false</code>, or before the given Build Scan ID (excluding it) when used in conjunction with <code class="lang-kotlin">reverse=true</code>. This parameter has precedence over any value set for the <code class="lang-kotlin">since</code>, <code class="lang-kotlin">sinceBuild</code>, <code class="lang-kotlin">fromInstant</code> parameters. A valid Build Scan ID must be provided, that is, a Build Scan ID that exists in the Gradle Enterprise instance. A Build Scan ID for a deleted build is valid.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>reverse</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A boolean indicating the time direction of the query. A value of <code class="lang-kotlin">true</code> indicates a backward query, and returned builds will be sorted from most to least recent. A value of <code class="lang-kotlin">false</code> indicates a forward query, and returned builds will be sorted from least to most recent. This parameter has no effect if any of <code class="lang-kotlin">since</code>, <code class="lang-kotlin">sinceBuild</code> are used. If not provided, the default value is <code class="lang-kotlin">false</code>.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>max</span><wbr></wbr><span><span>Builds</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The maximum number of builds returned by the query. The query returns when that number is reached or when <code class="lang-kotlin">maxWaitSecs</code> is reached. If not provided, the default value is <code class="lang-kotlin">100</code>.</p></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>max</span><wbr></wbr><span>Wait</span><wbr></wbr><span><span>Secs</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The maximum number of seconds to wait for builds before returning. If this time is reached before <code class="lang-kotlin">maxBuilds</code> is reached, the query returns with the already processed builds. Note that this time is respected with best effort. A query will return soon after this time has passed but there is no guarantee that it exactly returns before this time has passed. This parameter has no effect if <code class="lang-kotlin">reverse=true</code> is specified, because new builds cannot become available in the past. If not provided, the default value is <code class="lang-kotlin">3</code>.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1313702423%2FConstructors%2F769193423" anchor-label="BuildsQuery" id="1313702423%2FConstructors%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-builds-query.html"><span>Builds</span><wbr></wbr><span><span>Query</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1313702423%2FConstructors%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;since&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>since<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;sinceBuild&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>sinceBuild<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;fromInstant&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>fromInstant<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;fromBuild&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>fromBuild<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;reverse&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>reverse<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;maxBuilds&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>maxBuilds<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;maxWaitSecs&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>maxWaitSecs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-566901348%2FProperties%2F769193423" anchor-label="fromBuild" id="-566901348%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from-build.html"><span>from</span><wbr></wbr><span><span>Build</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-566901348%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="from-build.html">fromBuild</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1547873865%2FProperties%2F769193423" anchor-label="fromInstant" id="1547873865%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from-instant.html"><span>from</span><wbr></wbr><span><span>Instant</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1547873865%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="from-instant.html">fromInstant</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-878236713%2FProperties%2F769193423" anchor-label="maxBuilds" id="-878236713%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-builds.html"><span>max</span><wbr></wbr><span><span>Builds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-878236713%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="max-builds.html">maxBuilds</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1601541829%2FProperties%2F769193423" anchor-label="maxWaitSecs" id="1601541829%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-wait-secs.html"><span>max</span><wbr></wbr><span>Wait</span><wbr></wbr><span><span>Secs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1601541829%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="max-wait-secs.html">maxWaitSecs</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1905965598%2FProperties%2F769193423" anchor-label="reverse" id="1905965598%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reverse.html"><span><span>reverse</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1905965598%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="reverse.html">reverse</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-991456890%2FProperties%2F769193423" anchor-label="since" id="-991456890%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="since.html"><span><span>since</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-991456890%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="since.html"><strike>since</strike></a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="244132102%2FProperties%2F769193423" anchor-label="sinceBuild" id="244132102%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="since-build.html"><span>since</span><wbr></wbr><span><span>Build</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="244132102%2FProperties%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="since-build.html"><strike>sinceBuild</strike></a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
