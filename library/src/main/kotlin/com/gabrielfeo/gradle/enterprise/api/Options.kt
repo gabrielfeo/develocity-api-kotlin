@@ -75,7 +75,7 @@ data class Options(
         CacheOptions(),
 )
 
-fun requireEnvOrKeychainToken(debugLoggingEnabled: Boolean): String {
+internal fun requireEnvOrKeychainToken(debugLoggingEnabled: Boolean): String {
     if (systemProperties["os.name"] == "Mac OS X") {
         when (val result = keychain.get("gradle-enterprise-api-token")) {
             is KeychainResult.Success -> return result.token
