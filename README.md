@@ -106,6 +106,7 @@ shutdown()
 ```kotlin
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
+import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 ```
 
 ###  Internals

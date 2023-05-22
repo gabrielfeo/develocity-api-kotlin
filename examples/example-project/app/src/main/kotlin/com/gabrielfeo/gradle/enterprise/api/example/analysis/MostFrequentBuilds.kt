@@ -1,6 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api.example.analysis
 
 import com.gabrielfeo.gradle.enterprise.api.*
+import com.gabrielfeo.gradle.enterprise.api.extension.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
