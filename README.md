@@ -27,9 +27,58 @@ That's it! You can now use the library without any code configuration from:
 - [Kotlin projects](./examples/example-project)
 - [Jupyter notebooks with the Kotlin kernel](./examples/example-notebooks)
 
+### Setup snippets
+
+<details>
+  <summary>Add to a Kotlin script</summary>
+
+```kotlin
+@file:Repository("https://jitpack.io")
+@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0")
+```
+
+</details>
+
+<details>
+  <summary>Add to a Kotlin project</summary>
+
+Groovy
+
+```groovy
+repositories {
+  maven { url = 'https://jitpack.io' }
+}
+dependencies {
+  implementation 'com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0'
+}
+```
+
+Kotlin
+
+```kotlin
+repositories {
+  maven(url = "https://jitpack.io")
+}
+dependencies {
+  implementation("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0")
+}
+```
+
+</details>
+
+<details>
+  <summary>Add to a Jupyter notebook</summary>
+
+```
+%useLatestDescriptors
+%use gradle-enterprise-api-kotlin(version=0.16.0)
+```
+
+</details>
+
 ## Usage
 
-The [`GradleEnterpriseApi`][9] interface represents the Gradle Enterprise REST API. It contains 
+The [`GradleEnterpriseApi`][9] interface represents the Gradle Enterprise REST API. It contains
 the 4 APIs exactly as listed in the [REST API Manual][5]:
 
 ```kotlin
@@ -63,7 +112,7 @@ finishes, as an [expected behavior of OkHttp][4].
 ### Caching
 
 HTTP caching is available, which can speed up queries significantly, but is
-off by default. Enable by simply setting [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12] to `true`. See 
+off by default. Enable by simply setting [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12] to `true`. See
 [`CacheConfig`][13] for caveats.
 
 ### Extensions
@@ -71,10 +120,10 @@ off by default. Enable by simply setting [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`]
 Explore the library's convenience extensions:
 [`com.gabrielfeo.gradle.enterprise.api.extension`][25].
 
-What you'll probably use the most is [`getGradleAttributesFlow`][24], which will call 
+What you'll probably use the most is [`getGradleAttributesFlow`][24], which will call
 `/api/builds` to get the list of build IDs since a given date and join each with
-`/api/builds/{id}/gradle-attributes`, which contains tags and custom values on each build. It 
-also takes care of paging under-the-hood, returning a [`Flow`][26] of all builds since the given 
+`/api/builds/{id}/gradle-attributes`, which contains tags and custom values on each build. It
+also takes care of paging under-the-hood, returning a [`Flow`][26] of all builds since the given
 date, so you don't have to worry about the REST API's limit of 1000 builds per request:
 
 ```kotlin
@@ -88,14 +137,14 @@ builds.collect {
 
 [![Javadoc](https://img.shields.io/badge/javadoc-latest-orange)][7]
 
-The javadoc of API interfaces and models, such as [`BuildsApi`][18] and [`GradleAttributes`][19],  
-matches the [REST API Manual][5] exactly. Both these classes and Gradle's own manual are generated 
+The javadoc of API interfaces and models, such as [`BuildsApi`][18] and [`GradleAttributes`][19],
+matches the [REST API Manual][5] exactly. Both these classes and Gradle's own manual are generated
 from the same OpenAPI spec.
 
 ## Optional setup
 
-Creating a custom [`Config`][8] allows you to change library settings via code instead of 
-environment variables. It also lets you share resource between the library's `OkHttpClient` and 
+Creating a custom [`Config`][8] allows you to change library settings via code instead of
+environment variables. It also lets you share resource between the library's `OkHttpClient` and
 your own. For example:
 
 ```kotlin
@@ -112,11 +161,11 @@ See the [`Config`][8] documentation for more.
 
 ## More info
 
-- Currently built for Gradle Enterprise `2022.4`, but should work fine with previous and 
+- Currently built for Gradle Enterprise `2022.4`, but should work fine with previous and
   future versions. The library will be updated regularly for new API versions.
 - Use JDK 8 or 14+ to run, if you want to avoid the ["illegal reflective access" warning about
   Retrofit][3]
-- All classes live in these packages. If you need to make small edits to scripts where there's 
+- All classes live in these packages. If you need to make small edits to scripts where there's
   no auto-complete, wildcard imports can be used:
 
 ```kotlin
