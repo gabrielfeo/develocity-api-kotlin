@@ -16,10 +16,11 @@
  */
 
 @file:Repository("https://jitpack.io")
-@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.15.1")
+@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0")
 
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
+import com.gabrielfeo.gradle.enterprise.api.extension.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.time.*
@@ -58,7 +59,7 @@ fun <T> Flow<T>.printProgress(produceMsg: (i: Int, current: T) -> String): Flow<
 // Fetch builds from the API
 val builds: List<GradleAttributes> = runBlocking {
     val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
-    GradleEnterprise.api.getGradleAttributesFlow(since = startMilli)
+    GradleEnterpriseApi.buildsApi.getGradleAttributesFlow(since = startMilli)
         .filter(buildFilter)
         .printProgress { i, build ->
             val buildDate = Instant.ofEpochMilli(build.buildStartTime).atOffset(ZoneOffset.UTC)
