@@ -134,7 +134,7 @@ data class Config(
          */
         val cacheDir: File =
             env["GRADLE_ENTERPRISE_API_CACHE_DIR"]?.let(::File)
-                ?: File(System.getProperty("java.io.tmpdir"), "gradle-enterprise-api-kotlin-cache"),
+                ?: File(systemProperties["user.home"], ".gradle-enterprise-api-kotlin-cache"),
 
         /**
          * Max size of the HTTP cache. By default, uses environment variable
