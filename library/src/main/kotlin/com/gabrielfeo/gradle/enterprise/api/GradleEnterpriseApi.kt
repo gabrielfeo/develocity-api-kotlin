@@ -64,7 +64,7 @@ interface GradleEnterpriseApi {
 
 }
 
-private class RealGradleEnterpriseApi(
+internal class RealGradleEnterpriseApi(
     override val config: Config = Config(),
 ) : GradleEnterpriseApi {
 
@@ -80,10 +80,10 @@ private class RealGradleEnterpriseApi(
         )
     }
 
-    override val buildsApi: BuildsApi by lazy(retrofit::create)
-    override val buildCacheApi: BuildCacheApi by lazy(retrofit::create)
-    override val metaApi: MetaApi by lazy(retrofit::create)
-    override val testDistributionApi: TestDistributionApi by lazy(retrofit::create)
+    override val buildsApi: BuildsApi by lazy { retrofit.create() }
+    override val buildCacheApi: BuildCacheApi by lazy { retrofit.create() }
+    override val metaApi: MetaApi by lazy { retrofit.create() }
+    override val testDistributionApi: TestDistributionApi by lazy { retrofit.create() }
 
     override fun shutdown() {
         okHttpClient.run {
