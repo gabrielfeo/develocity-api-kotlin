@@ -1,0 +1,47 @@
+name: 'Publish library to Central'
+
+on:
+  push:
+    tags: ['*']
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        type: boolean
+        required: false
+  workflow_call:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        type: boolean
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: gradle publishLibraryPublicationToMavenCentralRepository
+        uses: ./.github/actions/build
+        with:
+          dry-run: ${{ inputs.dry_run }}
+          args: >-
+            publishLibraryPublicationToMavenCentralRepository
+            --rerun-tasks
+            '-Pversion=${{ github.ref_name }}'
+            '-Pmaven.central.username=${{ secrets.MAVEN_CENTRAL_USERNAME }}'
+            '-Pmaven.central.password=${{ secrets.MAVEN_CENTRAL_PASSWORD }}'
+            '-Psigning.password=${{ secrets.GPG_PASSWORD }}'
+            '-Psigning.secretKey=${{ secrets.GPG_SECRET_KEY }}'
+          artifact-name: 'outputs'
+          path-to-upload: |
+            library/build/*-api.yaml
+            library/build/generated/open-api-generator/**/*
+            library/build/publications/**/*
+            library/build/libs/**/*
