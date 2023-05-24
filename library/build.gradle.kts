@@ -11,6 +11,7 @@ plugins {
     `java-library`
     `java-test-fixtures`
     `maven-publish`
+    `signing`
 }
 
 val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
@@ -172,15 +173,6 @@ tasks.named<Jar>("javadocJar") {
     from(tasks.dokkaHtml)
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("library") {
-            artifactId = "gradle-enterprise-api-kotlin"
-            from(components["java"])
-        }
-    }
-}
-
 testing {
     suites {
         getByName<JvmTestSuite>("test") {
@@ -192,7 +184,6 @@ testing {
         }
         register<JvmTestSuite>("integrationTest") {
             dependencies {
-//                implementation(project())
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
             }
         }
@@ -228,4 +219,66 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("library") {
+            artifactId = "gradle-enterprise-api-kotlin"
+            from(components["java"])
+            pom {
+                name.set("Gradle Enterprise API Kotlin")
+                description.set("A library to use the Gradle Enterprise REST API in Kotlin")
+                url.set("https://github.com/gabrielfeo/gradle-enterprise-api-kotlin")
+                licenses {
+                    license {
+                        name.set("MIT")
+                        url.set("https://spdx.org/licenses/MIT.html")
+                        distribution.set("repo")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("gabrielfeo")
+                        name.set("Gabriel Feo")
+                        email.set("gabriel@gabrielfeo.com")
+                    }
+                }
+                scm {
+                    val basicUrl = "github.com/gabrielfeo/gradle-enterprise-api-kotlin"
+                    connection.set("scm:git:git://$basicUrl.git")
+                    developerConnection.set("scm:git:ssh://$basicUrl.git")
+                    url.set("https://$basicUrl/")
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "mavenCentral"
+            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            val isSnapshot = version.toString().endsWith("SNAPSHOT")
+            url = if (isSnapshot) snapshotsRepoUrl else releasesRepoUrl
+            authentication {
+                register<BasicAuthentication>("basic")
+            }
+            credentials {
+                username = project.properties["maven.central.username"] as String?
+                password = project.properties["maven.central.password"] as String?
+            }
+        }
+    }
+}
+
+fun isCI() = System.getenv("CI").toBoolean()
+
+signing {
+    sign(publishing.publications["library"])
+    if (isCI()) {
+        useInMemoryPgpKeys(
+            project.properties["signing.secretKey"] as String?,
+            project.properties["signing.password"] as String?,
+        )
+    }
 }
