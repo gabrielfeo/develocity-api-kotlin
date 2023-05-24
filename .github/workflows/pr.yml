@@ -79,6 +79,11 @@ jobs:
     with:
       dry_run: true
 
+  dry-run-publish-library:
+    uses: ./.github/workflows/publish-library.yml
+    with:
+      dry_run: true
+
   dry-run-update-api-spec:
     uses: ./.github/workflows/update-api-spec.yml
     with:

@@ -10,6 +10,10 @@ inputs:
   path-to-upload:
     description: "Path to upload as artifact"
     required: false
+  dry-run:
+    description: "Whether to --dry-run"
+    type: boolean
+    default: false
 runs:
   using: "composite"
   steps:
@@ -20,12 +24,18 @@ runs:
         java-version: 8
     - name: Validate Gradle wrapper JAR
       uses: gradle/wrapper-validation-action@v1.0.6
-    - name: Run Gradle
+    - name: Set up Gradle
       uses: gradle/gradle-build-action@v2.1.4
-      with:
-        arguments: ${{ inputs.args }}
+    - name: Run Gradle
+      shell: bash
+      run: |
+        if [[ "${{ inputs.dry-run }}" == "true" ]]; then
+          gradle --dry-run ${{ inputs.args }}
+        else
+          gradle ${{ inputs.args }}
+        fi
     - name: Upload
-      if: ${{ inputs.path-to-upload }}
+      if: ${{ inputs.path-to-upload && !inputs.dry-run }}
       uses: actions/upload-artifact@v3.0.0
       with:
         name: ${{ inputs.artifact-name }}
