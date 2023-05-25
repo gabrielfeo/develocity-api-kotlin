@@ -20,8 +20,8 @@ runs:
     - name: Set up Java
       uses: actions/setup-java@v2
       with:
-        distribution: temurin
-        java-version: 8
+        distribution: zulu
+        java-version: 20
     - name: Validate Gradle wrapper JAR
       uses: gradle/wrapper-validation-action@v1.0.6
     - name: Set up Gradle
