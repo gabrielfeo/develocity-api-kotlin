@@ -12,6 +12,12 @@ repositories {
     maven(url = "https://jitpack.io")
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
 dependencies {
     implementation("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0")
 }
