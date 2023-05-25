@@ -35,7 +35,7 @@ runs:
           gradle ${{ inputs.args }}
         fi
     - name: Upload
-      if: ${{ inputs.path-to-upload && !inputs.dry-run }}
+      if: ${{ inputs.path-to-upload && inputs.dry-run != true }}
       uses: actions/upload-artifact@v3.0.0
       with:
         name: ${{ inputs.artifact-name }}
