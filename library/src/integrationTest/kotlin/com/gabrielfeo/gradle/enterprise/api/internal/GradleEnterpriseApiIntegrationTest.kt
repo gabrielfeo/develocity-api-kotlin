@@ -11,19 +11,21 @@ class GradleEnterpriseApiIntegrationTest {
 
     @Test
     fun canFetchBuildsWithDefaultInstance() = runTest {
+        env = RealEnv
+        keychain = RealKeychain(RealSystemProperties)
         val builds = GradleEnterpriseApi.buildsApi.getBuilds(since = 0, maxBuilds = 1)
         assertEquals(1, builds.size)
         GradleEnterpriseApi.shutdown()
     }
 
     @Test
-    fun canBuildNewInstanceWithCodeConfiguration() = runTest {
+    fun canBuildNewInstanceWithPureCodeConfiguration() = runTest {
         env = FakeEnv()
         keychain = FakeKeychain()
         assertDoesNotThrow {
             val config = Config(
                 apiUrl = "https://google.com/api/",
-                apiToken = { "" }
+                apiToken = { "" },
             )
             GradleEnterpriseApi.newInstance(config)
         }

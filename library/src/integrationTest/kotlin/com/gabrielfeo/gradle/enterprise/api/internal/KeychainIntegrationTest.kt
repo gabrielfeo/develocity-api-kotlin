@@ -8,6 +8,8 @@ internal class KeychainIntegrationTest {
 
     @Test
     fun getApiToken() {
+        env = RealEnv
+        keychain = RealKeychain(RealSystemProperties)
         val result = keychain.get("gradle-enterprise-api-token")
         assertInstanceOf(KeychainResult.Success::class.java, result)
         val success = result as KeychainResult.Success
