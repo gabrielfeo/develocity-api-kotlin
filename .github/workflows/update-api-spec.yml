@@ -8,13 +8,13 @@ on:
       dry_run:
         description: 'Dry run'
         type: boolean
-        required: false
+        default: false
   workflow_call:
     inputs:
       dry_run:
         description: 'Dry run'
         type: boolean
-        required: true
+        default: false
 
 defaults:
   run:
@@ -34,7 +34,7 @@ jobs:
           fi
           rm new.txt || true
       - name: 'Create PR'
-        if: ${{ !inputs.dry_run && env.NEW_VERSION }}
+        if: ${{ inputs.dry_run != true && env.NEW_VERSION }}
         uses: peter-evans/create-pull-request@v5
         with:
           branch: "feature/api-spec-${{ env.NEW_VERSION }}"
