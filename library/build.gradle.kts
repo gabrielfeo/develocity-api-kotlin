@@ -177,6 +177,7 @@ tasks.named<Jar>("javadocJar") {
 testing {
     suites {
         getByName<JvmTestSuite>("test") {
+            useKotlinTest()
             dependencies {
                 implementation("com.squareup.okhttp3:mockwebserver:4.11.0")
                 implementation("com.squareup.okio:okio:3.3.0")
@@ -184,12 +185,10 @@ testing {
             }
         }
         register<JvmTestSuite>("integrationTest") {
+            useJUnitJupiter()
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
             }
-        }
-        withType<JvmTestSuite> {
-            useKotlinTest()
         }
     }
 }
@@ -198,7 +197,13 @@ kotlin {
     target {
         val main by compilations.getting
         val integrationTest by compilations.getting
+        val test by compilations.getting
+        val testFixtures by compilations.getting
+        test.associateWith(main)
+        test.associateWith(testFixtures)
         integrationTest.associateWith(main)
+        integrationTest.associateWith(testFixtures)
+        testFixtures.associateWith(main)
     }
 }
 
