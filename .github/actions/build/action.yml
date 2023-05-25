@@ -35,9 +35,9 @@ runs:
           gradle ${{ inputs.args }}
         fi
     - name: Upload
-      if: ${{ inputs.path-to-upload && inputs.dry-run != true }}
+      if: ${{ inputs.path-to-upload }}
       uses: actions/upload-artifact@v3.0.0
       with:
         name: ${{ inputs.artifact-name }}
         path: ${{ inputs.path-to-upload }}
-        if-no-files-found: error
+        if-no-files-found: warn
