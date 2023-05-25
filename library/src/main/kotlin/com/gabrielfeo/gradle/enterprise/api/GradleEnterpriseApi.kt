@@ -65,8 +65,12 @@ interface GradleEnterpriseApi {
 }
 
 internal class RealGradleEnterpriseApi(
-    override val config: Config = Config(),
+    customConfig: Config? = null,
 ) : GradleEnterpriseApi {
+
+    override val config by lazy {
+        customConfig ?: Config()
+    }
 
     private val okHttpClient by lazy {
         buildOkHttpClient(config = config)

@@ -188,7 +188,7 @@ testing {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
             }
         }
-        withType<JvmTestSuite> {
+        withType<JvmTestSuite>().configureEach {
             useKotlinTest()
         }
     }
@@ -198,7 +198,13 @@ kotlin {
     target {
         val main by compilations.getting
         val integrationTest by compilations.getting
+        val test by compilations.getting
+        val testFixtures by compilations.getting
+        test.associateWith(main)
+        test.associateWith(testFixtures)
         integrationTest.associateWith(main)
+        integrationTest.associateWith(testFixtures)
+        testFixtures.associateWith(main)
     }
 }
 
