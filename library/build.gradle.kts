@@ -177,7 +177,6 @@ tasks.named<Jar>("javadocJar") {
 testing {
     suites {
         getByName<JvmTestSuite>("test") {
-            useKotlinTest()
             dependencies {
                 implementation("com.squareup.okhttp3:mockwebserver:4.11.0")
                 implementation("com.squareup.okio:okio:3.3.0")
@@ -185,10 +184,12 @@ testing {
             }
         }
         register<JvmTestSuite>("integrationTest") {
-            useJUnitJupiter()
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
             }
+        }
+        withType<JvmTestSuite>().configureEach {
+            useKotlinTest()
         }
     }
 }

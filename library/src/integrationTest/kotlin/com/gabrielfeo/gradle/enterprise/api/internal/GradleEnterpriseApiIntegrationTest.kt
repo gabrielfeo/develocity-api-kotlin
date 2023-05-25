@@ -3,9 +3,9 @@ package com.gabrielfeo.gradle.enterprise.api.internal
 import com.gabrielfeo.gradle.enterprise.api.Config
 import com.gabrielfeo.gradle.enterprise.api.GradleEnterpriseApi
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
+import kotlin.test.assertEquals
+import kotlin.test.Test
 
 class GradleEnterpriseApiIntegrationTest {
 
