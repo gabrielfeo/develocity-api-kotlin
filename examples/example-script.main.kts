@@ -90,4 +90,4 @@ println(
 )
 
 // Shutdown to end OkHttp's thread pool earlier
-shutdown()
+GradleEnterpriseApi.shutdown()
