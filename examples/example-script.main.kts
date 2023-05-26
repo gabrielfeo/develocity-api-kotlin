@@ -36,12 +36,7 @@ val builds: List<GradleAttributes> = runBlocking {
     val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
     GradleEnterpriseApi.buildsApi.getGradleAttributesFlow(since = startMilli)
         .filter(buildFilter)
-        .onEach { build ->
-            val buildDate = Instant.ofEpochMilli(build.buildStartTime).atOffset(ZoneOffset.UTC)
-            print(String.format("\rFetching builds... (current date: %s)", buildDate))
-        }.onCompletion {
-            print('\n')
-        }.toList(LinkedList())
+        .toList(LinkedList())
 }
 
 // Process builds and count how many times each was invoked
