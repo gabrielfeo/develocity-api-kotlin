@@ -3,7 +3,7 @@
 [![Maven Central](https://img.shields.io/badge/Maven%20Central-0.16.2-blue)][14]
 [![Javadoc](https://img.shields.io/badge/Javadoc-0.16.2-orange)][7]
 
-A Kotlin library to access the [Gradle Enterprise API][1], easy to use from
+A Kotlin library to access the [Gradle Enterprise API][1], easy to use from:
 
 - [Jupyter notebooks with the Kotlin kernel][29]
 - [Kotlin scripts (`kts`)][27]
