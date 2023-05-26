@@ -4,10 +4,28 @@ import requests
 import re
 import fileinput
 import sys
-from read_current_api_spec_version import get_current_api_spec_version
 
 VERSIONS_URL = "https://docs.gradle.com/enterprise/api-manual/"
 LATEST_VERSION_REGEX = r'<a [^>]*href="ref/gradle-enterprise-([\d.]+)-api\.yaml">Specification</a>'
+
+
+def main(properties_file='gradle.properties'):
+    current = get_current_api_spec_version(properties_file)
+    latest = extract_latest_version()
+    if current == latest:
+        exit(1)
+    update_version(properties_file, latest)
+    print(latest)
+
+
+def get_current_api_spec_version(properties_file) -> str:
+    with open(properties_file, mode='r') as file:
+        for line in file.readlines():
+            if '=' not in line:
+                continue
+            k, v = line.strip().split('=', maxsplit=2)
+            if k == 'gradle.enterprise.version':
+                return v
 
 
 def extract_latest_version():
@@ -28,14 +46,5 @@ def update_version(properties_file, new_version):
         sys.stdout.write(line)
 
 
-def main(properties_file):
-    current = get_current_api_spec_version(properties_file)
-    latest = extract_latest_version()
-    if current == latest:
-        exit(1)
-    update_version(properties_file, latest)
-    print(latest)
-
-
 if __name__ == '__main__':
-    main(properties_file='gradle.properties')
+    main()
