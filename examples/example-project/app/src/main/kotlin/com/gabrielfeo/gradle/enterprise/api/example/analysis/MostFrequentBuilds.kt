@@ -33,9 +33,11 @@ suspend fun mostFrequentBuilds(
     val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
     val builds: List<GradleAttributes> = api.getGradleAttributesFlow(since = startMilli)
         .filter(buildFilter)
-        .printProgress { i, build ->
+        .onEach { build ->
             val buildDate = Instant.ofEpochMilli(build.buildStartTime).atOffset(ZoneOffset.UTC)
-            String.format("Fetched %09d builds, currently %s", i + 1, buildDate)
+            print(String.format("\rFetching builds... (current date: %s)", buildDate))
+        }.onCompletion {
+            print('\n')
         }.toList(LinkedList())
 
     // Process builds and count how many times each was invoked
@@ -60,31 +62,4 @@ suspend fun mostFrequentBuilds(
             |$table
         """.trimMargin()
     )
-}
-
-
-// A utility to print progress as builds are fetched. You may ignore this.
-@OptIn(DelicateCoroutinesApi::class)
-fun <T> Flow<T>.printProgress(produceMsg: (i: Int, current: T) -> String): Flow<T> {
-    var i = -1
-    var current: T? = null
-    fun printIt() {
-        val msg = current?.let { produceMsg(i, it) } ?: "Waiting for elements..."
-        print("\r$msg".padEnd(100))
-    }
-
-    val periodicPrinter = GlobalScope.launch {
-        while (true) {
-            printIt()
-            delay(500)
-        }
-    }
-    return onEach {
-        i++
-        current = it
-    }.onCompletion {
-        periodicPrinter.cancelAndJoin()
-        printIt()
-        println("\nEnd")
-    }
 }

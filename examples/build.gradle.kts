@@ -6,11 +6,11 @@ exampleTestTasks += tasks.register<Exec>("runExampleScript") {
     commandLine("kotlinc", "-script", file("example-script.main.kts"))
 }
 
-exampleTestTasks += tasks.register<GradleBuild>("checkExampleProject") {
+exampleTestTasks += tasks.register<GradleBuild>("runExampleProject") {
     group = "Verification"
-    description = "Checks examples/example-project as a standalone build"
+    description = "Runs examples/example-project as a standalone build"
     dir = file("example-project")
-    tasks = listOf("check")
+    tasks = listOf("run")
 }
 
 val notebooks = fileTree(file("example-notebooks")) {
@@ -21,7 +21,7 @@ exampleTestTasks += notebooks.map { notebook ->
     val buildDir = project.layout.buildDirectory.asFile.get()
     tasks.register<Exec>("run${notebook.nameWithoutExtension}Notebook") {
         group = "Application"
-        description = "Runs the '${notebook.name}' notebook"
+        description = "Runs the '${notebook.name}' notebook with 'jupyter nbconvert --execute'"
         commandLine(
             "jupyter", "nbconvert",
             "--execute",
@@ -32,8 +32,8 @@ exampleTestTasks += notebooks.map { notebook ->
     }
 }
 
-tasks.register("checkExamples") {
-    group = "Verification"
-    description = "Checks all examples"
+tasks.register("runExamples") {
+    group = "Application"
+    description = "Runs everything in 'examples' directory"
     dependsOn(exampleTestTasks)
 }
