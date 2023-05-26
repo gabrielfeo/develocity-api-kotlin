@@ -31,39 +31,12 @@ val buildFilter: (GradleAttributes) -> Boolean = { build ->
     "LOCAL" in build.tags
 }
 
-// A utility to print progress as builds are fetched. You may ignore this.
-fun <T> Flow<T>.printProgress(produceMsg: (i: Int, current: T) -> String): Flow<T> {
-    var i = -1
-    var current: T? = null
-    fun printIt() {
-        val msg = current?.let { produceMsg(i, it) } ?: "Waiting for elements..."
-        print("\r$msg".padEnd(100))
-    }
-    val periodicPrinter = GlobalScope.launch {
-        while (true) {
-            printIt()
-            delay(500)
-        }
-    }
-    return onEach {
-        i++
-        current = it
-    }.onCompletion {
-        periodicPrinter.cancelAndJoin()
-        printIt()
-        println("\nEnd")
-    }
-}
-
 // Fetch builds from the API
 val builds: List<GradleAttributes> = runBlocking {
     val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
     GradleEnterpriseApi.buildsApi.getGradleAttributesFlow(since = startMilli)
         .filter(buildFilter)
-        .printProgress { i, build ->
-            val buildDate = Instant.ofEpochMilli(build.buildStartTime).atOffset(ZoneOffset.UTC)
-            String.format("Fetched %09d builds, currently %s", i + 1, buildDate)
-        }.toList(LinkedList())
+        .toList(LinkedList())
 }
 
 // Process builds and count how many times each was invoked
@@ -89,5 +62,5 @@ println(
     """.trimMargin()
 )
 
-// Shutdown to end OkHttp's thread pool earlier
+// Shutdown to end background threads and allow script to exit earlier (see README)
 GradleEnterpriseApi.shutdown()
