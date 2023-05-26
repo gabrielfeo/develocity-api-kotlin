@@ -3,8 +3,11 @@
 [![Maven Central](https://img.shields.io/badge/Maven%20Central-0.16.2-blue)][14]
 [![Javadoc](https://img.shields.io/badge/Javadoc-0.16.2-orange)][7]
 
-A Kotlin library to access the [Gradle Enterprise API][1], easy to use from Kotlin
-scripts, projects or Jupyter notebooks:
+A Kotlin library to access the [Gradle Enterprise API][1], easy to use from
+
+- [Kotlin scripts (`kts`)][27]
+- [Kotlin projects][28]
+- [Jupyter notebooks with the Kotlin kernel][29]
 
 ```kotlin
 GradleEnterpriseApi.buildsApi.getBuilds(since = yesterdayMilli).forEach {
@@ -21,11 +24,8 @@ Set up once and use the library from anywhere in your machine:
   Enterprise instance.
   - Or a macOS keychain entry labeled `gradle-enterprise-api-token` (recommended).
 
-That's it! You can now use the library without any code configuration from:
-
-- [Kotlin scripts (`kts`)](./examples/example-script.main.kts)
-- [Kotlin projects](./examples/example-project)
-- [Jupyter notebooks with the Kotlin kernel](./examples/example-notebooks)
+That's it! You can now use the library without any code configuration from scripts, projects or 
+notebooks.
 
 ### Setup snippets
 
@@ -185,3 +185,6 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [24]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/get-gradle-attributes-flow.html
 [25]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/index.html
 [26]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/
+[27]: ./examples/example-script.main.kts
+[28]: ./examples/example-project
+[29]: https://nbviewer.org/github/gabrielfeo/gradle-enterprise-api-kotlin/blob/main/examples/example-notebooks/MostFrequentBuilds.ipynb
