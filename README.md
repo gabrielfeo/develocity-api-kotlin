@@ -5,9 +5,9 @@
 
 A Kotlin library to access the [Gradle Enterprise API][1], easy to use from
 
+- [Jupyter notebooks with the Kotlin kernel][29]
 - [Kotlin scripts (`kts`)][27]
 - [Kotlin projects][28]
-- [Jupyter notebooks with the Kotlin kernel][29]
 
 ```kotlin
 GradleEnterpriseApi.buildsApi.getBuilds(since = yesterdayMilli).forEach {
@@ -24,13 +24,23 @@ Set up once and use the library from anywhere in your machine:
   Enterprise instance.
   - Or a macOS keychain entry labeled `gradle-enterprise-api-token` (recommended).
 
-That's it! You can now use the library without any code configuration from scripts, projects or 
-notebooks.
+That's it! You can now use the library without any code configuration from notebooks, scripts or 
+projects.
 
 ### Setup snippets
 
 ℹ️ The library is now published to Maven Central under `com.gabrielfeo`. Maven Central is 
 recommended over JitPack.
+
+<details>
+  <summary>Add to a Jupyter notebook</summary>
+
+```
+%useLatestDescriptors
+%use gradle-enterprise-api-kotlin(version=0.16.2)
+```
+
+</details>
 
 <details>
   <summary>Add to a Kotlin script</summary>
@@ -48,16 +58,6 @@ recommended over JitPack.
 dependencies {
   implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:0.16.2")
 }
-```
-
-</details>
-
-<details>
-  <summary>Add to a Jupyter notebook</summary>
-
-```
-%useLatestDescriptors
-%use gradle-enterprise-api-kotlin(version=0.16.2)
 ```
 
 </details>
