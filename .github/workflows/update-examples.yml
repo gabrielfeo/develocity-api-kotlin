@@ -1,0 +1,32 @@
+name: 'Update examples'
+
+on:
+  push:
+    tags: [ '*' ]
+  workflow_call:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  update-api-spec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+      - name: 'Get versions'
+        run: |
+          old_version="$(git tag --sort=-v:refname | head -n 2 | tail -n 1)"
+          echo "OLD_VERSION=$old_version" >> $GITHUB_ENV
+          echo "NEW_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+      - name: 'Update version in all files'
+        run: ./.github/scripts/replace_string.py ./ "$OLD_VERSION" "$NEW_VERSION"
+      - name: 'Create PR'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch: "${{ env.UPDATE_BRANCH }}"
+          title: "Bump library version in examples to ${{ env.NEW_VERSION }}"
+          author: "github-actions <github-actions@github.com>"
+          committer: "github-actions <github-actions@github.com>"

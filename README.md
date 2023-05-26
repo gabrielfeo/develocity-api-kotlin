@@ -1,7 +1,7 @@
 # Gradle Enterprise API Kotlin
 
-[![Release](https://jitpack.io/v/gabrielfeo/gradle-enterprise-api-kotlin.svg)][14]
-[![Javadoc](https://img.shields.io/badge/javadoc-latest-orange)][7]
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.16.2-blue)][14]
+[![Javadoc](https://img.shields.io/badge/Javadoc-0.16.2-orange)][7]
 
 A Kotlin library to access the [Gradle Enterprise API][1], easy to use from Kotlin
 scripts, projects or Jupyter notebooks:
@@ -29,12 +29,14 @@ That's it! You can now use the library without any code configuration from:
 
 ### Setup snippets
 
+ℹ️ The library is now published to Maven Central under `com.gabrielfeo`. Maven Central is 
+recommended over JitPack.
+
 <details>
   <summary>Add to a Kotlin script</summary>
 
 ```kotlin
-@file:Repository("https://jitpack.io")
-@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0")
+@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:0.16.2")
 ```
 
 </details>
@@ -42,25 +44,9 @@ That's it! You can now use the library without any code configuration from:
 <details>
   <summary>Add to a Kotlin project</summary>
 
-Groovy
-
-```groovy
-repositories {
-  maven { url = 'https://jitpack.io' }
-}
-dependencies {
-  implementation 'com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0'
-}
-```
-
-Kotlin
-
 ```kotlin
-repositories {
-  maven(url = "https://jitpack.io")
-}
 dependencies {
-  implementation("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0")
+  implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:0.16.2")
 }
 ```
 
@@ -71,7 +57,7 @@ dependencies {
 
 ```
 %useLatestDescriptors
-%use gradle-enterprise-api-kotlin(version=0.16.0)
+%use gradle-enterprise-api-kotlin(version=0.16.2)
 ```
 
 </details>
@@ -186,7 +172,7 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [11]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/shutdown.html
 [12]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/-cache-config/index.html
-[14]: https://jitpack.io/#gabrielfeo/gradle-enterprise-api-kotlin
+[14]: https://central.sonatype.com/artifact/com.gabrielfeo/gradle-enterprise-api-kotlin/0.16.2
 [16]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/api-url.html
 [17]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/api-token.html
 [18]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/index.html

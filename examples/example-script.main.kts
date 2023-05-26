@@ -15,8 +15,7 @@
  *   legacy tests. We should suggest they run test instead, leaving check for CI to run."
  */
 
-@file:Repository("https://jitpack.io")
-@file:DependsOn("com.github.gabrielfeo:gradle-enterprise-api-kotlin:0.16.0")
+@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:0.16.2")
 
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
