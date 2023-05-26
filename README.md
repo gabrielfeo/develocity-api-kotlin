@@ -7,7 +7,7 @@ A Kotlin library to access the [Gradle Enterprise API][1], easy to use from Kotl
 scripts, projects or Jupyter notebooks:
 
 ```kotlin
-GradleEnterprise.buildsApi.getBuilds(since = yesterdayMilli).forEach {
+GradleEnterpriseApi.buildsApi.getBuilds(since = yesterdayMilli).forEach {
   println(it)
 }
 ```
@@ -73,6 +73,7 @@ interface GradleEnterpriseApi {
   val buildCacheApi: BuildCacheApi
   val metaApi: MetaApi
   val testDistributionApi: TestDistributionApi
+  // ...
 }
 ```
 
