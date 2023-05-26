@@ -52,3 +52,4 @@ jobs:
           author: "github-actions <github-actions@github.com>"
           committer: "github-actions <github-actions@github.com>"
           add-paths: "gradle.properties"
+          delete-branch: true
