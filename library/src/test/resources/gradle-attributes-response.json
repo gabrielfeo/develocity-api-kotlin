@@ -167,6 +167,7 @@
     "continueOnFailureEnabled": false,
     "daemonEnabled": true,
     "dryRunEnabled": false,
+    "excludedTasks": [],
     "fileSystemWatchingEnabled": true,
     "maxNumberOfGradleWorkers": 12,
     "offlineModeEnabled": false,
