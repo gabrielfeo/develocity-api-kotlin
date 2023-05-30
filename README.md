@@ -29,16 +29,16 @@ Set up once and use the library from anywhere in your machine:
   - Or a macOS keychain entry labeled `gradle-enterprise-api-token` (recommended).
   - <details>
 
-    <summary>How to get an API token</summary>
+      <summary>How to get an API token</summary>
 
-    The Gradle Enterprise user must have the “Export build data via the API” permission.
+      The Gradle Enterprise user must have the “Export build data via the API” permission.
 
-    1. Sign in to Gradle Enterprise
-    2. Go to "My settings" from the user menu in the top right-hand corner of the page
-    3. Go to "Access keys" from the sidebar
-    4. Click "Generate" on the right-hand side and copy the generated token.
+      1. Sign in to Gradle Enterprise
+      2. Go to "My settings" from the user menu in the top right-hand corner of the page
+      3. Go to "Access keys" from the sidebar
+      4. Click "Generate" on the right-hand side and copy the generated token.
 
-  </details>
+    </details>
 
 That's it! You can now use the library without any code configuration from notebooks, scripts or
 projects.
