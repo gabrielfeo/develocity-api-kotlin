@@ -7,7 +7,7 @@ exampleTestTasks += tasks.register<Exec>("runExampleScript") {
 }
 
 exampleTestTasks += tasks.register<GradleBuild>("runExampleProject") {
-    group = "Verification"
+    group = "Application"
     description = "Runs examples/example-project as a standalone build"
     dir = file("example-project")
     tasks = listOf("run")
@@ -32,7 +32,7 @@ exampleTestTasks += notebooks.map { notebook ->
     }
 }
 
-tasks.register("runExamples") {
+tasks.register("runAll") {
     group = "Application"
     description = "Runs everything in 'examples' directory"
     dependsOn(exampleTestTasks)

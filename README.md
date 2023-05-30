@@ -9,11 +9,15 @@ A Kotlin library to access the [Gradle Enterprise API][1], easy to use from:
 - [Kotlin scripts (`kts`)][27]
 - [Kotlin projects][28]
 
+Using the API is as easy as this:
+
 ```kotlin
 GradleEnterpriseApi.buildsApi.getBuilds(since = yesterdayMilli).forEach {
   println(it)
 }
 ```
+
+ The library takes care of caching under the hood (opt-in) and provides some convenience extensions.
 
 ## Setup
 
@@ -23,13 +27,25 @@ Set up once and use the library from anywhere in your machine:
 - [`GRADLE_ENTERPRISE_API_TOKEN`][17] environment variable: an API access token for the Gradle
   Enterprise instance.
   - Or a macOS keychain entry labeled `gradle-enterprise-api-token` (recommended).
+  - <details>
 
-That's it! You can now use the library without any code configuration from notebooks, scripts or 
+      <summary>How to get an API token</summary>
+
+      The Gradle Enterprise user must have the “Export build data via the API” permission.
+
+      1. Sign in to Gradle Enterprise
+      2. Go to "My settings" from the user menu in the top right-hand corner of the page
+      3. Go to "Access keys" from the sidebar
+      4. Click "Generate" on the right-hand side and copy the generated token.
+
+    </details>
+
+That's it! You can now use the library without any code configuration from notebooks, scripts or
 projects.
 
 ### Setup snippets
 
-ℹ️ The library is now published to Maven Central under `com.gabrielfeo`. Maven Central is 
+ℹ️ The library is now published to Maven Central under `com.gabrielfeo`. Maven Central is
 recommended over JitPack.
 
 <details>
