@@ -48,10 +48,6 @@ interface GradleEnterpriseApi {
      */
     fun shutdown()
 
-    /**
-     * The default, companion instance of the Gradle Enterprise API client. See
-     * [GradleEnterpriseApi].
-     */
     companion object {
 
         /**
