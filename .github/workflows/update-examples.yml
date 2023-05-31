@@ -11,7 +11,7 @@ defaults:
 
 jobs:
 
-  update-api-spec:
+  update-examples:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
