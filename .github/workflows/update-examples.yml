@@ -28,7 +28,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           base: 'main'
-          branch: "${{ env.UPDATE_BRANCH }}"
+          branch: "replace-${{ env.OLD_VERSION }}-${{ env.NEW_VERSION }}"
           title: "Bump library version in examples to ${{ env.NEW_VERSION }}"
           author: "github-actions <github-actions@github.com>"
           committer: "github-actions <github-actions@github.com>"
