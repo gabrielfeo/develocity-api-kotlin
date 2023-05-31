@@ -64,4 +64,4 @@ println(
 )
 
 // Shutdown to end background threads and allow script to exit earlier (see README)
-GradleEnterpriseApi.shutdown()
+api.shutdown()
