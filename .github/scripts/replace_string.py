@@ -2,6 +2,9 @@
 
 import argparse
 from pathlib import Path
+import sys
+import git
+
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -13,11 +16,20 @@ def main() -> None:
 
 
 def replace_string(path: Path, old_string: str, new_string: str) -> None:
+    repo = git.Repo(path, search_parent_directories=True)
     for file in path.glob('**/*'):
-        if file.is_file():
+        if not should_replace(repo, file):
+            continue
+        try:
             text = file.read_text()
             text = text.replace(old_string, new_string)
             file.write_text(text)
+        except UnicodeError as e:
+            print(f'Error processing file {file}:', e, file=sys.stderr)
+
+
+def should_replace(repo, file):
+    return file.is_file() and not repo.ignored(file) and file.parts[0] != '.git'
 
 
 if __name__ == "__main__":
