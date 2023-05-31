@@ -17,13 +17,17 @@ def main() -> None:
 
 def replace_string(path: Path, old_string: str, new_string: str) -> None:
     repo = git.Repo(path, search_parent_directories=True)
+    print(f'Replacing {old_string} for {new_string}...')
     for file in path.glob('**/*'):
         if not should_replace(repo, file):
             continue
         try:
             text = file.read_text()
+            if old_string not in text:
+                continue
             text = text.replace(old_string, new_string)
             file.write_text(text)
+            print(f'Replaced in file {file}')
         except UnicodeError as e:
             print(f'Error processing file {file}:', e, file=sys.stderr)
 
