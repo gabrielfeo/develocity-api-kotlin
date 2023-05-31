@@ -11,11 +11,13 @@ defaults:
 
 jobs:
 
-  update-api-spec:
+  update-examples:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - run: pip install -r .github/scripts/requirements.txt
       - name: 'Get versions'
         run: |
@@ -27,7 +29,8 @@ jobs:
       - name: 'Create PR'
         uses: peter-evans/create-pull-request@v5
         with:
-          branch: "${{ env.UPDATE_BRANCH }}"
+          base: 'main'
+          branch: "replace-${{ env.OLD_VERSION }}-${{ env.NEW_VERSION }}"
           title: "Bump library version in examples to ${{ env.NEW_VERSION }}"
           author: "github-actions <github-actions@github.com>"
           committer: "github-actions <github-actions@github.com>"
