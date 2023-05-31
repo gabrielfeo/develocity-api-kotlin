@@ -9,10 +9,9 @@ A Kotlin library to access the [Gradle Enterprise API][1], easy to use from:
 - [Kotlin scripts (`kts`)][27]
 - [Kotlin projects][28]
 
-Using the API is as easy as this:
-
 ```kotlin
-GradleEnterpriseApi.buildsApi.getBuilds(since = yesterdayMilli).forEach {
+val api = GradleEnterpriseApi.newInstance()
+api.buildsApi.getBuilds(since = yesterdayMilli).forEach {
   println(it)
 }
 ```
@@ -101,11 +100,13 @@ For example, [`BuildsApi`][20] contains all endpoints under `/api/builds/`:
 
 ### Calling the APIs
 
-For simple use cases, you may use the companion instance ([DefaultInstance][23]) directly, as if
-calling static methods:
+API methods are generated as suspend functions.
+For most cases like scripts and notebooks, simply use [runBlocking][30]:
 
 ```kotlin
-GradleEnterpriseApi.buildsApi.getBuilds(since = yesterdayMilli)
+runBlocking {
+  val builds: List<Build> = api.buildsApi.getBuilds(since = yesterdayMilli)
+}
 ```
 
 It's recommended to call [`GradleEnterpriseApi.shutdown()`][11] at the end of scripts to release
@@ -130,7 +131,7 @@ also takes care of paging under-the-hood, returning a [`Flow`][26] of all builds
 date, so you don't have to worry about the REST API's limit of 1000 builds per request:
 
 ```kotlin
-val builds = GradleEnterpriseApi.buildsApi.getGradleAttributesFlow(since = lastYear)
+val builds: Flow<GradleAttributes> = api.buildsApi.getGradleAttributesFlow(since = lastYear)
 builds.collect {
   // ...
 }
@@ -204,3 +205,4 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [27]: ./examples/example-script.main.kts
 [28]: ./examples/example-project
 [29]: https://nbviewer.org/github/gabrielfeo/gradle-enterprise-api-kotlin/blob/main/examples/example-notebooks/MostFrequentBuilds.ipynb
+[30]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html

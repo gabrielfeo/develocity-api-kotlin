@@ -32,9 +32,10 @@ val buildFilter: (GradleAttributes) -> Boolean = { build ->
 }
 
 // Fetch builds from the API
+val api = GradleEnterpriseApi.newInstance()
 val builds: List<GradleAttributes> = runBlocking {
     val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
-    GradleEnterpriseApi.buildsApi.getGradleAttributesFlow(since = startMilli)
+    api.buildsApi.getGradleAttributesFlow(since = startMilli)
         .filter(buildFilter)
         .toList(LinkedList())
 }
