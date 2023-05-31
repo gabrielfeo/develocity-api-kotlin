@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import unittest
+from unittest import mock
 from pathlib import Path
 from shutil import copytree
 from tempfile import TemporaryDirectory
@@ -10,7 +11,9 @@ TEST_RESOURCES = Path(__file__).parent / 'test_resources'
 
 class TestReplaceString(unittest.TestCase):
 
-    def test_replace_string(self):
+    @mock.patch('git.Repo')
+    def test_replace_string(self, repo):
+        repo.return_value.ignored.return_value = False
         old = '0.17.0'
         new = '0.17.1'
         files = ('README.md', 'build.gradle.kts', 'notebook.ipynb')

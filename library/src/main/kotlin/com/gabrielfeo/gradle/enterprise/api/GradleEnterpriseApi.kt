@@ -3,6 +3,7 @@ package com.gabrielfeo.gradle.enterprise.api
 import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
 import com.gabrielfeo.gradle.enterprise.api.internal.buildRetrofit
 import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.Serializer
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -15,15 +16,14 @@ import retrofit2.create
  * - [metaApi]
  * - [testDistributionApi]
  *
- * For simple use cases, you may use the companion instance ([DefaultInstance]) directly, as if
- * calling static methods:
+ * Create an instance with [newInstance]:
  *
  * ```kotlin
- * GradleEnterpriseApi.buildsApi.getBuilds(...)
+ * val api = GradleEnterpriseApi.newInstance()
+ * api.buildsApi.getBuilds(...)
  * ```
  *
- * However, if you need to change [config] at runtime or own the instance's lifecycle (e.g.
- * with an IoC container like Dagger), create a new instance:
+ * You may pass a default [Config], e.g. for sharing [OkHttpClient] resources:
  *
  * ```kotlin
  * val options = Options(clientBuilder = myOwnOkHttpClient.newBuilder())
@@ -48,10 +48,6 @@ interface GradleEnterpriseApi {
      */
     fun shutdown()
 
-    /**
-     * The default, companion instance of the Gradle Enterprise API client. See
-     * [GradleEnterpriseApi].
-     */
     companion object {
 
         /**

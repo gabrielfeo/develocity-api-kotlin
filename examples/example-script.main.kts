@@ -15,7 +15,7 @@
  *   legacy tests. We should suggest they run test instead, leaving check for CI to run."
  */
 
-@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:0.16.2")
+@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:0.17.0")
 
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
@@ -32,9 +32,10 @@ val buildFilter: (GradleAttributes) -> Boolean = { build ->
 }
 
 // Fetch builds from the API
+val api = GradleEnterpriseApi.newInstance()
 val builds: List<GradleAttributes> = runBlocking {
     val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
-    GradleEnterpriseApi.buildsApi.getGradleAttributesFlow(since = startMilli)
+    api.buildsApi.getGradleAttributesFlow(since = startMilli)
         .filter(buildFilter)
         .toList(LinkedList())
 }
