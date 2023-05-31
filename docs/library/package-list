@@ -398,8 +398,8 @@ $dokka.location:com.gabrielfeo.gradle.enterprise.api/Config/clientBuilder/#/Poin
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Config/debugLoggingEnabled/#/PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-config/debug-logging-enabled.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Config/maxConcurrentRequests/#/PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-config/max-concurrent-requests.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/Config/readTimeoutMillis/#/PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-config/read-timeout-millis.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi.DefaultInstance///PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/-default-instance/index.html
-$dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi.DefaultInstance/newInstance/#com.gabrielfeo.gradle.enterprise.api.Config/PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/-default-instance/new-instance.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi.Companion///PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/-companion/index.html
+$dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi.Companion/newInstance/#com.gabrielfeo.gradle.enterprise.api.Config/PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/-companion/new-instance.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi///PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/index.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi/buildCacheApi/#/PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/build-cache-api.html
 $dokka.location:com.gabrielfeo.gradle.enterprise.api/GradleEnterpriseApi/buildsApi/#/PointingToDeclaration/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/builds-api.html
