@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: gradle check
+      - name: gradle test
         uses: ./.github/actions/build
         with:
-          args: 'check compileIntegrationTestKotlin'
+          args: 'test compileIntegrationTestKotlin'
           # artifact-name: 'Test reports (${{matrix.runner}})'
           # path-to-upload: '**/build/reports/tests/**'
 

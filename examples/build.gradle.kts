@@ -1,3 +1,9 @@
+@file:Suppress("HasPlatformType")
+
+plugins {
+    base
+}
+
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
 
 exampleTestTasks += tasks.register<Exec>("runExampleScript") {
@@ -32,8 +38,12 @@ exampleTestTasks += notebooks.map { notebook ->
     }
 }
 
-tasks.register("runAll") {
+val runAll = tasks.register("runAll") {
     group = "Application"
     description = "Runs everything in 'examples' directory"
     dependsOn(exampleTestTasks)
+}
+
+tasks.named("check") {
+    dependsOn(runAll)
 }

@@ -208,6 +208,10 @@ kotlin {
     }
 }
 
+tasks.named("check") {
+    dependsOn("integrationTest")
+}
+
 java {
     consistentResolution {
         useRuntimeClasspathVersions()

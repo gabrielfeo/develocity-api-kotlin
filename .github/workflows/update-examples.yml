@@ -3,7 +3,7 @@ name: 'Update examples'
 on:
   push:
     tags: [ '*' ]
-  workflow_call:
+  workflow_dispatch:
 
 defaults:
   run:

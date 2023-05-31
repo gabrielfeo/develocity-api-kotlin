@@ -52,12 +52,12 @@ interface GradleEnterpriseApi {
      * The default, companion instance of the Gradle Enterprise API client. See
      * [GradleEnterpriseApi].
      */
-    companion object DefaultInstance : GradleEnterpriseApi by RealGradleEnterpriseApi() {
+    companion object {
 
         /**
-         * Create a new instance of `GradleEnterpriseApi` with new options.
+         * Create a new instance of `GradleEnterpriseApi` with a custom `Config`.
          */
-        fun newInstance(config: Config): GradleEnterpriseApi {
+        fun newInstance(config: Config = Config()): GradleEnterpriseApi {
             return RealGradleEnterpriseApi(config)
         }
     }
@@ -65,12 +65,8 @@ interface GradleEnterpriseApi {
 }
 
 internal class RealGradleEnterpriseApi(
-    customConfig: Config? = null,
+    override val config: Config,
 ) : GradleEnterpriseApi {
-
-    override val config by lazy {
-        customConfig ?: Config()
-    }
 
     private val okHttpClient by lazy {
         buildOkHttpClient(config = config)
