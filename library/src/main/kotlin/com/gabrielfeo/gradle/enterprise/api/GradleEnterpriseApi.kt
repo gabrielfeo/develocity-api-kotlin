@@ -52,14 +52,17 @@ interface GradleEnterpriseApi {
      * The default, companion instance of the Gradle Enterprise API client. See
      * [GradleEnterpriseApi].
      */
-    companion object DefaultInstance : GradleEnterpriseApi by RealGradleEnterpriseApi() {
+    companion object {
 
         /**
-         * Create a new instance of `GradleEnterpriseApi` with new options.
+         * Create a new instance of `GradleEnterpriseApi` with the default `Config`.
          */
-        fun newInstance(config: Config): GradleEnterpriseApi {
-            return RealGradleEnterpriseApi(config)
-        }
+        fun newInstance(): GradleEnterpriseApi = RealGradleEnterpriseApi()
+
+        /**
+         * Create a new instance of `GradleEnterpriseApi` with a custom `Config`.
+         */
+        fun newInstance(config: Config): GradleEnterpriseApi = RealGradleEnterpriseApi(config)
     }
 
 }
