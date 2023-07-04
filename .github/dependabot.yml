@@ -4,6 +4,22 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      okio:
+        patterns:
+          - "com.squareup.okio:*"
+      okhttp:
+        patterns:
+          - "com.squareup.okhttp3:*"
+      moshi:
+        patterns:
+          - "com.squareup.moshi:*"
+      coroutines:
+        patterns:
+          - "org.jetbrains.kotlinx:kotlinx-coroutines*"
+      retrofit:
+        patterns:
+          - "com.squareup.retrofit2:*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
