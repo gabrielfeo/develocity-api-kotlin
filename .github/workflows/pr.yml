@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: gradle test
         uses: ./.github/actions/build
         with:
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - run: pip install -r .github/scripts/requirements.txt
       - name: 'unittest discover'
         run: python3 -m unittest discover -bs .github/scripts
@@ -39,14 +39,14 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout PR ref
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: gradle openApiGenerate (PR ref)
         uses: ./.github/actions/build
         with:
           args: 'openApiGenerate'
       - run: mv ./library/build/generated/openapi-generator ./pr-ref-api
       - name: Checkout base ref
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: ./base-ref-checkout
           ref: ${{ github.base_ref }}
