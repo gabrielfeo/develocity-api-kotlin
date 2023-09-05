@@ -24,3 +24,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+  - package-ecosystem: "pip"
+    directory: "/.github/scripts/"
+    schedule:
+      interval: "weekly"
