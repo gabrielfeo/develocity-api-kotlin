@@ -1,7 +1,7 @@
 # Gradle Enterprise API Kotlin
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-0.17.0-blue)][14]
-[![Javadoc](https://img.shields.io/badge/Javadoc-0.17.0-orange)][7]
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-2023.1.0-blue)][14]
+[![Javadoc](https://img.shields.io/badge/Javadoc-2023.1.0-orange)][7]
 
 A Kotlin library to access the [Gradle Enterprise API][1], easy to use from:
 
@@ -52,7 +52,7 @@ recommended over JitPack.
 
 ```
 %useLatestDescriptors
-%use gradle-enterprise-api-kotlin(version=0.17.0)
+%use gradle-enterprise-api-kotlin(version=2023.1.0)
 ```
 
 </details>
@@ -61,7 +61,7 @@ recommended over JitPack.
   <summary>Add to a Kotlin script</summary>
 
 ```kotlin
-@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:0.17.0")
+@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.1.0")
 ```
 
 </details>
@@ -71,7 +71,7 @@ recommended over JitPack.
 
 ```kotlin
 dependencies {
-  implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:0.17.0")
+  implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.1.0")
 }
 ```
 
@@ -190,7 +190,7 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [11]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/shutdown.html
 [12]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/-cache-config/index.html
-[14]: https://central.sonatype.com/artifact/com.gabrielfeo/gradle-enterprise-api-kotlin/0.17.0
+[14]: https://central.sonatype.com/artifact/com.gabrielfeo/gradle-enterprise-api-kotlin/2023.1.0
 [16]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/api-url.html
 [17]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/api-token.html
 [18]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/index.html

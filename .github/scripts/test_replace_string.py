@@ -14,7 +14,7 @@ class TestReplaceString(unittest.TestCase):
     @mock.patch('git.Repo')
     def test_replace_string(self, repo):
         repo.return_value.ignored.return_value = False
-        old = '0.17.0'
+        old = '2023.1.0'
         new = '0.17.1'
         files = ('README.md', 'build.gradle.kts', 'notebook.ipynb')
         with TemporaryDirectory() as temp_dir:
