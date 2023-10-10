@@ -15,7 +15,7 @@
  *   legacy tests. We should suggest they run test instead, leaving check for CI to run."
  */
 
-@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:0.17.0")
+@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.1.0")
 
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
