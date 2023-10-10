@@ -10,6 +10,7 @@ exampleTestTasks += tasks.register<Exec>("runExampleScript") {
     group = "Application"
     description = "Runs the 'example-script.main.kts' script"
     commandLine("kotlinc", "-script", file("example-script.main.kts"))
+    environment("JAVA_OPTS", "-Xmx1g")
 }
 
 exampleTestTasks += tasks.register<GradleBuild>("runExampleProject") {

@@ -13,6 +13,8 @@
  *
  * - "Some are doing check builds locally, which we set up to trigger our notably slow
  *   legacy tests. We should suggest they run test instead, leaving check for CI to run."
+ *
+ * Run this with at least 1GB of heap to accomodate the fetched data: JAVA_OPTS=-Xmx1g
  */
 
 @file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.1.0")
