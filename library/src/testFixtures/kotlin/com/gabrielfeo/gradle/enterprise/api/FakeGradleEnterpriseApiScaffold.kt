@@ -1,6 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.model.*
+import retrofit2.http.Query
 
 /**
  * Scaffold for a fake `GradleEnterpriseApi` implementation with default methods throwing a
@@ -20,6 +21,7 @@ interface FakeBuildsApiScaffold : BuildsApi {
         reverse: Boolean?,
         maxBuilds: Int?,
         maxWaitSecs: Int?,
+        query: String?
     ): List<Build> {
         TODO("Not yet implemented")
     }

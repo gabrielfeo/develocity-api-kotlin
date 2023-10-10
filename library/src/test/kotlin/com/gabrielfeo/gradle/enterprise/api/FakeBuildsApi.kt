@@ -18,6 +18,7 @@ class FakeBuildsApi(
         reverse: Boolean?,
         maxBuilds: Int?,
         maxWaitSecs: Int?,
+        query: String?
     ): List<Build> {
         getBuildsCallCount.value++
         check((reverse ?: maxWaitSecs) == null)
