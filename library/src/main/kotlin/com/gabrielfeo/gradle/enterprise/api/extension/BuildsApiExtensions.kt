@@ -2,6 +2,7 @@
 
 package com.gabrielfeo.gradle.enterprise.api.extension
 
+import com.gabrielfeo.gradle.enterprise.api.Config
 import com.gabrielfeo.gradle.enterprise.api.BuildsApi
 import com.gabrielfeo.gradle.enterprise.api.internal.API_MAX_BUILDS
 import com.gabrielfeo.gradle.enterprise.api.internal.operator.pagedUntilLastBuild
@@ -17,15 +18,21 @@ import kotlinx.coroutines.flow.*
  * for queries of any size, as opposed to [BuildsApi.getBuilds] which is limited by the
  * API itself to 1000.
  *
- * - Will request from the API until results end or an error occurs.
- * - Use [Sequence.take] and similar functions to stop collecting early.
- * - A subset of `getBuilds` params are supported
+ * - Will request from the API until results end, collection stops or an error occurs.
+ * - Parameters same as [BuildsApi.getBuilds].
+ * - Using [query] is highly recommended for server-side filtering (equivalent to GE advanced
+ * query).
+ * - `maxBuilds` is the only unsupported parameter, because this Flow will instead fetch
+ * continously. Use [Flow.take] to stop collecting at a specific count.
  */
 fun BuildsApi.getBuildsFlow(
     since: Long = 0,
     sinceBuild: String? = null,
     fromInstant: Long? = null,
     fromBuild: String? = null,
+    query: String? = null,
+    reverse: Boolean? = null,
+    maxWaitSecs: Int? = null,
     buildsPerPage: Int = API_MAX_BUILDS,
 ): Flow<Build> {
     val api = this
@@ -35,6 +42,9 @@ fun BuildsApi.getBuildsFlow(
             sinceBuild = sinceBuild,
             fromInstant = fromInstant,
             fromBuild = fromBuild,
+            query = query,
+            reverse = reverse,
+            maxWaitSecs = maxWaitSecs,
             maxBuilds = buildsPerPage,
         )
         val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(api, buildsPerPage)
@@ -43,13 +53,18 @@ fun BuildsApi.getBuildsFlow(
 }
 
 /**
- * Gets [GradleAttributes] of all builds from a given date. Queries [BuildsApi.getBuilds]
- * first, since it's the only endpoint providing a timeline of builds, then maps each to
- * [BuildsApi.getGradleAttributes].
+ * Gets [GradleAttributes] of all builds from a given date. Queries [BuildsApi.getBuilds] first,
+ * the endpoint providing a timeline of builds, then maps each to [BuildsApi.getGradleAttributes].
  *
- * Don't expect client-side filtering to be efficient. Will request up to [Int.MAX_VALUE]
- * builds and their attributes concurrently and eagerly, with a buffer, in coroutines started in
- * [scope]. For other params, see [getBuildsFlow] and [BuildsApi.getBuilds].
+ * Instead of filtering builds downstream (e.g. using [Flow.filter]), prefer filtering server-side
+ * with the [query] parameter (same as [BuildsApi.getBuilds]).
+ *
+ * Will request up to [Int.MAX_VALUE] builds and their attributes concurrently and eagerly, with
+ * a buffer, in coroutines started in [scope]. For other params, see [getBuildsFlow] and
+ * [BuildsApi.getBuilds].
+ *
+ * Despite the amount of coroutines started (cheap), the number of underlying requests (not
+ * cheap) is still limited by [Config.maxConcurrentRequests].
  *
  * @param scope CoroutineScope in which to create coroutines. Defaults to [GlobalScope].
  */
@@ -59,13 +74,19 @@ fun BuildsApi.getGradleAttributesFlow(
     sinceBuild: String? = null,
     fromInstant: Long? = null,
     fromBuild: String? = null,
+    query: String? = null,
+    reverse: Boolean? = null,
+    maxWaitSecs: Int? = null,
     scope: CoroutineScope = GlobalScope,
 ): Flow<GradleAttributes> =
     getBuildsFlow(
         since = since,
         sinceBuild = sinceBuild,
         fromInstant = fromInstant,
-        fromBuild = fromBuild
+        fromBuild = fromBuild,
+        query = query,
+        reverse = reverse,
+        maxWaitSecs = maxWaitSecs,
     ).withGradleAttributes(scope, api = this).map { (_, attrs) ->
         attrs
     }
