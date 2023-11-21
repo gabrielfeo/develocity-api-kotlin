@@ -18,8 +18,9 @@ import kotlinx.coroutines.flow.*
  *
  * ### Buffering
  *
- * If [bufferSize] > 0, will request attributes lazily as builds are collected, else will request
- * eagerly and buffer up to [bufferSize] calls.
+ * If [bufferSize] > 0, will map builds eagerly and concurrently, buffering according to
+ * `bufferSize` (see [Flow.buffer]). If `bufferSize` <= 0, will map sequentially, same as
+ * `map { api.getGradleAttributes(it.id) }`.
  *
  * ### Concurrency
  *
