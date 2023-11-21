@@ -1,16 +1,22 @@
-package com.gabrielfeo.gradle.enterprise.api.internal.operator
+package com.gabrielfeo.gradle.enterprise.api.extension
 
 import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.withTimeoutOrNull
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class WithGradleAttributesTest {
+class MappingTest {
 
     private val api = FakeBuildsApi(
         builds = listOf(
@@ -23,7 +29,7 @@ class WithGradleAttributesTest {
     )
 
     @Test
-    fun `Pairs each build with its GradleAttributes`() = runTest {
+    fun `withGradleAttributes pairs each build with its GradleAttributes`() = runTest {
         val buildsToAttrs = api.builds.asFlow().withGradleAttributes(scope = this, api).toList()
         assertEquals(5, api.getGradleAttributesCallCount.value)
         assertEquals(5, buildsToAttrs.size)
@@ -33,7 +39,7 @@ class WithGradleAttributesTest {
     }
 
     @Test
-    fun `Fetches GradleAttributes for all builds eagerly`() = runTest {
+    fun `withGradleAttributes fetches GradleAttributes for all builds eagerly`() = runTest {
         backgroundScope.launch {
             api.builds.asFlow().withGradleAttributes(scope = this, api).collect {
                 // Make the first collect never complete, simulating a slow collector
