@@ -1,7 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api.internal.operator
 
 import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
-import com.gabrielfeo.gradle.enterprise.api.extension.mapToGradleAttributes
+import com.gabrielfeo.gradle.enterprise.api.extension.mapToGradleAttributesConcurrent
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -27,8 +27,8 @@ class MappingTest {
         get() = api.getGradleAttributesCallCount.value
 
     @Test
-    fun `mapToGradleAttributes maps builds in order`() = runTest {
-        val attrs = api.builds.asFlow().mapToGradleAttributes(api, scope = this).toList()
+    fun `mapToGradleAttributesConcurrent maps builds in order`() = runTest {
+        val attrs = api.builds.asFlow().mapToGradleAttributesConcurrent(api, scope = this).toList()
         assertEquals(5, callCount)
         assertEquals(5, attrs.size)
         attrs.indices.forEach { i ->
@@ -37,15 +37,15 @@ class MappingTest {
     }
 
     @Test
-    fun `mapToGradleAttributes(bufferSize=1), then GradleAttributes fetched eagerly`() =
+    fun `mapToGradleAttributesConcurrent(bufferSize=1), then GradleAttributes fetched eagerly`() =
         testWithNeverEndingCollector(bufferSize = 1, expectedRequests = 3)
 
     @Test
-    fun `mapToGradleAttributes(bufferSize=0), then GradleAttributes fetched lazily`() =
+    fun `mapToGradleAttributesConcurrent(bufferSize=0), then GradleAttributes fetched lazily`() =
         testWithNeverEndingCollector(bufferSize = 0, expectedRequests = 1)
 
     @Test
-    fun `mapToGradleAttributes(bufferSize=-1), then GradleAttributes fetched lazily`() =
+    fun `mapToGradleAttributesConcurrent(bufferSize=-1), then GradleAttributes fetched lazily`() =
         testWithNeverEndingCollector(bufferSize = -1, expectedRequests = 1)
 
     private fun testWithNeverEndingCollector(
@@ -53,7 +53,7 @@ class MappingTest {
         expectedRequests: Int,
     ) = runTest {
         backgroundScope.launch {
-            api.builds.asFlow().mapToGradleAttributes(api, scope = this, bufferSize)
+            api.builds.asFlow().mapToGradleAttributesConcurrent(api, scope = this, bufferSize)
                 .collect {
                     // Make the first collect never complete, simulating a slow collector
                     Job().join()

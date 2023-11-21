@@ -7,10 +7,14 @@ import kotlinx.coroutines.flow.*
 
 /**
  * Maps [Build]s ([BuildsApi.getBuilds]) to their [GradleAttributes]
- * ([BuildsApi.getGradleAttributes]).
+ * ([BuildsApi.getGradleAttributes]) concurrently.
  *
- * Instead of filtering builds downstream based on `GradleAttributes` (e.g. using [Flow.filter]),
- * prefer filtering server-side before mapping (see [BuildsApi.getBuilds]).
+ * This is a faster alternative to mapping sequentially, i.e.
+ * `map { api.getGradleAttributes(it.id) }`.
+ *
+ * Note: instead of filtering builds downstream based on `GradleAttributes` (e.g. using
+ * [Flow.filter]), prefer filtering server-side before mapping with a `query` (see
+ * [BuildsApi.getBuilds]).
  *
  * ### Buffering
  *
@@ -27,7 +31,7 @@ import kotlinx.coroutines.flow.*
  * @param bufferSize Buffer capacity (see [Flow.buffer])
  */
 @OptIn(DelicateCoroutinesApi::class)
-fun Flow<Build>.mapToGradleAttributes(
+fun Flow<Build>.mapToGradleAttributesConcurrent(
     api: BuildsApi,
     scope: CoroutineScope = GlobalScope,
     bufferSize: Int = Int.MAX_VALUE,

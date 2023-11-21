@@ -61,7 +61,7 @@ fun BuildsApi.getBuildsFlow(
  * ### Buffering
  *
  * Will request eagerly and buffer up to [Int.MAX_VALUE] calls. To set buffer size, use
- * [BuildsApi.getBuildsFlow] + [mapToGradleAttributes] instead.
+ * [BuildsApi.getBuildsFlow] + [mapToGradleAttributesConcurrent] instead.
  *
  * ### Concurrency
  *
@@ -72,13 +72,13 @@ fun BuildsApi.getBuildsFlow(
  * are started. Defaults to [GlobalScope].
  */
 @Deprecated(
-    "Use mapToGradleAttributes instead. This function will be removed in the next release.",
+    "Use mapToGradleAttributesConcurrent instead. This function will be removed in the next release.",
     replaceWith = ReplaceWith(
         "getBuildsFlow(since, sinceBuild, fromInstant, fromBuild, query, reverse, maxWaitSecs)" +
-            ".mapToGradleAttributes(api, scope)",
+            ".mapToGradleAttributesConcurrent(api, scope)",
         imports = [
             "com.gabrielfeo.gradle.enterprise.api.extension.getBuildsFlow",
-            "com.gabrielfeo.gradle.enterprise.api.extension.mapToGradleAttributes",
+            "com.gabrielfeo.gradle.enterprise.api.extension.mapToGradleAttributesConcurrent",
         ]
     ),
 )
@@ -101,4 +101,4 @@ fun BuildsApi.getGradleAttributesFlow(
         query = query,
         reverse = reverse,
         maxWaitSecs = maxWaitSecs,
-    ).mapToGradleAttributes(api = this, scope = scope)
+    ).mapToGradleAttributesConcurrent(api = this, scope = scope)
