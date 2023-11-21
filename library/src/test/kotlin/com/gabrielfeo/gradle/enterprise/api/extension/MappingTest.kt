@@ -27,7 +27,7 @@ class MappingTest {
         get() = api.getGradleAttributesCallCount.value
 
     @Test
-    fun `Maps each build to its GradleAttributes in order`() = runTest {
+    fun `mapToGradleAttributes maps builds in order`() = runTest {
         val attrs = api.builds.asFlow().mapToGradleAttributes(api, scope = this).toList()
         assertEquals(5, callCount)
         assertEquals(5, attrs.size)
@@ -37,20 +37,20 @@ class MappingTest {
     }
 
     @Test
-    fun `When bufferSize is 1, fetches GradleAttributes for builds eagerly`() =
-        testWithSlowCollector(bufferSize = 1, expectedCallsBeforeCollect = 3)
+    fun `mapToGradleAttributes(bufferSize=1), then GradleAttributes fetched eagerly`() =
+        testWithNeverEndingCollector(bufferSize = 1, expectedRequests = 3)
 
     @Test
-    fun `When bufferSize is 0, fetches GradleAttributes for builds lazily`() =
-        testWithSlowCollector(bufferSize = 0, expectedCallsBeforeCollect = 1)
+    fun `mapToGradleAttributes(bufferSize=0), then GradleAttributes fetched lazily`() =
+        testWithNeverEndingCollector(bufferSize = 0, expectedRequests = 1)
 
     @Test
-    fun `When bufferSize is -1, behavior same as 0`() =
-        testWithSlowCollector(bufferSize = -1, expectedCallsBeforeCollect = 1)
+    fun `mapToGradleAttributes(bufferSize=-1), then GradleAttributes fetched lazily`() =
+        testWithNeverEndingCollector(bufferSize = -1, expectedRequests = 1)
 
-    private fun testWithSlowCollector(
+    private fun testWithNeverEndingCollector(
         bufferSize: Int,
-        expectedCallsBeforeCollect: Int,
+        expectedRequests: Int,
     ) = runTest {
         backgroundScope.launch {
             api.builds.asFlow().mapToGradleAttributes(api, scope = this, bufferSize)
@@ -61,8 +61,8 @@ class MappingTest {
         }
         withTimeoutOrNull(2.seconds) {
             api.getGradleAttributesCallCount
-                .filter { it == expectedCallsBeforeCollect }
+                .filter { it == expectedRequests }
                 .first()
-        } ?: fail("Expected $expectedCallsBeforeCollect calls, got $callCount")
+        } ?: fail("Expected $expectedRequests calls, got $callCount")
     }
 }
