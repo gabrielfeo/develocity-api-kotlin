@@ -1,21 +1,16 @@
-package com.gabrielfeo.gradle.enterprise.api.extension
+package com.gabrielfeo.gradle.enterprise.api.internal.operator
 
 import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
+import com.gabrielfeo.gradle.enterprise.api.extension.mapToGradleAttributes
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withTimeoutOrNull
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.fail
 import kotlin.time.Duration.Companion.seconds
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class MappingTest {
 
     private val api = FakeBuildsApi(
@@ -28,28 +23,46 @@ class MappingTest {
         )
     )
 
+    private val callCount
+        get() = api.getGradleAttributesCallCount.value
+
     @Test
-    fun `withGradleAttributes pairs each build with its GradleAttributes`() = runTest {
-        val buildsToAttrs = api.builds.asFlow().withGradleAttributes(scope = this, api).toList()
-        assertEquals(5, api.getGradleAttributesCallCount.value)
-        assertEquals(5, buildsToAttrs.size)
-        buildsToAttrs.forEach { (build, attrs) ->
-            assertEquals(build.id, attrs.id)
+    fun `Maps each build to its GradleAttributes in order`() = runTest {
+        val attrs = api.builds.asFlow().mapToGradleAttributes(api, scope = this).toList()
+        assertEquals(5, callCount)
+        assertEquals(5, attrs.size)
+        attrs.indices.forEach { i ->
+            assertEquals(attrs[i].id, api.builds[i].id)
         }
     }
 
     @Test
-    fun `withGradleAttributes fetches GradleAttributes for all builds eagerly`() = runTest {
+    fun `When bufferSize is 1, fetches GradleAttributes for builds eagerly`() =
+        testWithSlowCollector(bufferSize = 1, expectedCallsBeforeCollect = 3)
+
+    @Test
+    fun `When bufferSize is 0, fetches GradleAttributes for builds lazily`() =
+        testWithSlowCollector(bufferSize = 0, expectedCallsBeforeCollect = 1)
+
+    @Test
+    fun `When bufferSize is -1, behavior same as 0`() =
+        testWithSlowCollector(bufferSize = -1, expectedCallsBeforeCollect = 1)
+
+    private fun testWithSlowCollector(
+        bufferSize: Int,
+        expectedCallsBeforeCollect: Int,
+    ) = runTest {
         backgroundScope.launch {
-            api.builds.asFlow().withGradleAttributes(scope = this, api).collect {
-                // Make the first collect never complete, simulating a slow collector
-                Job().join()
-            }
+            api.builds.asFlow().mapToGradleAttributes(api, scope = this, bufferSize)
+                .collect {
+                    // Make the first collect never complete, simulating a slow collector
+                    Job().join()
+                }
         }
-        // Expect 5 eager calls despite slow collector
         withTimeoutOrNull(2.seconds) {
-            api.getGradleAttributesCallCount.take(5).collect()
-        }
-        assertEquals(5, api.getGradleAttributesCallCount.value)
+            api.getGradleAttributesCallCount
+                .filter { it == expectedCallsBeforeCollect }
+                .first()
+        } ?: fail("Expected $expectedCallsBeforeCollect calls, got $callCount")
     }
 }
