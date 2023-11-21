@@ -6,7 +6,6 @@ import com.gabrielfeo.gradle.enterprise.api.Config
 import com.gabrielfeo.gradle.enterprise.api.BuildsApi
 import com.gabrielfeo.gradle.enterprise.api.internal.API_MAX_BUILDS
 import com.gabrielfeo.gradle.enterprise.api.internal.operator.pagedUntilLastBuild
-import com.gabrielfeo.gradle.enterprise.api.internal.operator.withGradleAttributes
 import com.gabrielfeo.gradle.enterprise.api.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi

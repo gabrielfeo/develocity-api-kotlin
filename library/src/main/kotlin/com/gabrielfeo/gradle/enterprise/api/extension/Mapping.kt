@@ -1,4 +1,4 @@
-package com.gabrielfeo.gradle.enterprise.api.internal.operator
+package com.gabrielfeo.gradle.enterprise.api.extension
 
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
