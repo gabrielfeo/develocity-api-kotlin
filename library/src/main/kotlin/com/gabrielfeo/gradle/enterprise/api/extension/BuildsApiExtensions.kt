@@ -56,15 +56,17 @@ fun BuildsApi.getBuildsFlow(
  * Gets [GradleAttributes] of all builds from a given date. Queries [BuildsApi.getBuilds] first,
  * the endpoint providing a timeline of builds, then maps each to [BuildsApi.getGradleAttributes].
  *
- * Instead of filtering builds downstream (e.g. using [Flow.filter]), prefer filtering server-side
- * with the [query] parameter (same as [BuildsApi.getBuilds]).
+ * Instead of filtering builds downstream based on `GradleAttributes` (e.g. using [Flow.filter]),
+ * prefer filtering server-side using a `query` (see [BuildsApi.getBuilds]).
  *
- * Will request up to [Int.MAX_VALUE] builds and their attributes concurrently and eagerly, with
- * a buffer, in coroutines started in [scope]. For other params, see [getBuildsFlow] and
- * [BuildsApi.getBuilds].
+ * ### Buffering
  *
- * Despite the amount of coroutines started (cheap), the number of underlying requests (not
- * cheap) is still limited by [Config.maxConcurrentRequests].
+ * Will request eagerly and buffer up to [Int.MAX_VALUE] calls.
+ *
+ * ### Concurrency
+ *
+ * Attributes are requested concurrently in coroutines started in [scope]. The number of
+ * concurrent requests underneath is still limited by [Config.maxConcurrentRequests].
  *
  * @param scope CoroutineScope in which to create coroutines. Defaults to [GlobalScope].
  */
