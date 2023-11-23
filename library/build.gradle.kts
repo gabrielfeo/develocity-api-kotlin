@@ -234,7 +234,7 @@ dependencies {
 
 publishing {
     publications {
-        create<MavenPublication>("library") {
+        fun MavenPublication.libraryPublication() {
             artifactId = "gradle-enterprise-api-kotlin"
             from(components["java"])
             pom {
@@ -263,6 +263,12 @@ publishing {
                 }
             }
         }
+        create<MavenPublication>("signedLibrary") {
+            libraryPublication()
+        }
+        create<MavenPublication>("unsignedLibrary") {
+            libraryPublication()
+        }
     }
     repositories {
         maven {
@@ -285,7 +291,7 @@ publishing {
 fun isCI() = System.getenv("CI").toBoolean()
 
 signing {
-    sign(publishing.publications["library"])
+    sign(publishing.publications["signedLibrary"])
     if (isCI()) {
         useInMemoryPgpKeys(
             project.properties["signing.secretKey"] as String?,

@@ -27,12 +27,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: gradle publishLibraryPublicationToMavenCentralRepository
+      - name: gradle publishSignedLibraryPublicationToMavenCentralRepository
         uses: ./.github/actions/build
         with:
           dry-run: ${{ inputs.dry_run }}
           args: >-
-            publishLibraryPublicationToMavenCentralRepository
+            publishSignedLibraryPublicationToMavenCentralRepository
             --rerun-tasks
             '-Pversion=${{ github.ref_name }}'
             '-Pmaven.central.username=${{ secrets.MAVEN_CENTRAL_USERNAME }}'
