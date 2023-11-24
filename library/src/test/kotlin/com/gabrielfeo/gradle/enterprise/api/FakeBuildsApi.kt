@@ -1,6 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.model.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class FakeBuildsApi(
@@ -45,6 +46,7 @@ class FakeBuildsApi(
         availabilityWaitTimeoutSecs: Int?,
     ): GradleAttributes {
         getGradleAttributesCallCount.value++
+        delay(kotlin.random.Random.nextInt(500).toLong())
         val attrs = readFromJsonResource<GradleAttributes>("gradle-attributes-response.json")
         return attrs.copy(id = id)
     }

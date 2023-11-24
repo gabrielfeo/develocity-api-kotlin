@@ -5,6 +5,7 @@ import com.gabrielfeo.gradle.enterprise.api.extension.mapConcurrent
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -53,19 +54,21 @@ class MappingTest {
     private fun testWithNeverEndingCollector(
         bufferSize: Int,
         expectedRequests: Int,
-    ) = runTest {
-        backgroundScope.launch {
-            api.builds.asFlow().mapConcurrent(bufferSize) {
+    ): Unit = runBlocking {
+        val collect = GlobalScope.launch(Dispatchers.Unconfined) {
+            api.builds.asFlow().mapConcurrent {
                 api.getGradleAttributes(it.id)
             }.collect {
-                    // Make the first collect never complete, simulating a slow collector
-                    Job().join()
-                }
+                // Make the first collect never complete, simulating a slow collector
+                Job().join()
+            }
         }
-        withTimeoutOrNull(2.seconds) {
+        val count = withTimeoutOrNull(2.seconds) {
             api.getGradleAttributesCallCount
                 .filter { it == expectedRequests }
                 .first()
-        } ?: fail("Expected $expectedRequests calls, got $callCount")
+        }
+        collect.cancel()
+        count ?: fail("Expected $expectedRequests calls, got $callCount")
     }
 }
