@@ -50,19 +50,27 @@ fun Flow<Build>.mapToGradleAttributesConcurrent(
         it.await()
     }
 }
+@JvmName("mapBuildsConcurrent")
+fun <R> Flow<Build>.mapConcurrent(
+    bufferSize: Int = Int.MAX_VALUE,
+    transform: suspend (Build) -> R,
+): Flow<R> = genericMapConcurrent(bufferSize, transform)
 
-@OptIn(DelicateCoroutinesApi::class)
-fun <T, R> Flow<T>.mapConcurrent(
-    scope: CoroutineScope = GlobalScope,
+@JvmName("mapGradleAttributesConcurrent")
+fun <R> Flow<GradleAttributes>.mapConcurrent(
+    bufferSize: Int = Int.MAX_VALUE,
+    transform: suspend (GradleAttributes) -> R,
+): Flow<R> = genericMapConcurrent(bufferSize, transform)
+
+internal fun <T, R> Flow<T>.genericMapConcurrent(
     bufferSize: Int = Int.MAX_VALUE,
     transform: suspend (T) -> R,
-): Flow<R> {
-    if (bufferSize < 1) {
-        return map(transform)
-    }
-    return map {
-        scope.async { transform(it) }
-    }.buffer(bufferSize).map {
-        it.await()
+): Flow<R> = flow {
+    coroutineScope {
+        map {
+            async { transform(it) }
+        }.buffer(bufferSize).collect {
+            emit(it.await())
+        }
     }
 }

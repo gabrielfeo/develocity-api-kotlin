@@ -1,7 +1,7 @@
 package com.gabrielfeo.gradle.enterprise.api.internal.operator
 
 import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
-import com.gabrielfeo.gradle.enterprise.api.extension.mapToGradleAttributesConcurrent
+import com.gabrielfeo.gradle.enterprise.api.extension.mapConcurrent
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -28,7 +28,9 @@ class MappingTest {
 
     @Test
     fun `mapToGradleAttributesConcurrent maps builds in order`() = runTest {
-        val attrs = api.builds.asFlow().mapToGradleAttributesConcurrent(api, scope = this).toList()
+        val attrs = api.builds.asFlow().mapConcurrent {
+            api.getGradleAttributes(it.id)
+        }.toList()
         assertEquals(5, callCount)
         assertEquals(5, attrs.size)
         attrs.indices.forEach { i ->
@@ -53,8 +55,9 @@ class MappingTest {
         expectedRequests: Int,
     ) = runTest {
         backgroundScope.launch {
-            api.builds.asFlow().mapToGradleAttributesConcurrent(api, scope = this, bufferSize)
-                .collect {
+            api.builds.asFlow().mapConcurrent(bufferSize) {
+                api.getGradleAttributes(it.id)
+            }.collect {
                     // Make the first collect never complete, simulating a slow collector
                     Job().join()
                 }
