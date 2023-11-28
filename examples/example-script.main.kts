@@ -17,7 +17,7 @@
  * Run this with at least 1GB of heap to accomodate the fetched data: JAVA_OPTS=-Xmx1g
  */
 
-@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.2.0")
+@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.3.0")
 
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
