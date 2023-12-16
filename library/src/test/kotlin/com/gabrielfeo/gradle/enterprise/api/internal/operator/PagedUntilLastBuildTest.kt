@@ -30,7 +30,7 @@ class PagedUntilLastBuildTest {
     fun `Pages and stops once API sends less than maxBuilds`() = runTest {
         val channel = Channel<Build>(Channel.RENDEZVOUS)
         flowOf(api.builds[0], api.builds[1])
-            .pagedUntilLastBuild(api, buildsPerPage = 4)
+            .pagedUntilLastBuild(api, query = null, buildsPerPage = 4)
             .onEach { channel.send(it) }
             .launchIn(this)
         assertEquals(api.builds[0], channel.receive())
@@ -51,7 +51,7 @@ class PagedUntilLastBuildTest {
     fun `Pages and stops once API sends empty list`() = runTest {
         val channel = Channel<Build>(Channel.RENDEZVOUS)
         flowOf(api.builds[0])
-            .pagedUntilLastBuild(api, buildsPerPage = 2)
+            .pagedUntilLastBuild(api, query = null, buildsPerPage = 2)
             .onEach { channel.send(it) }
             .launchIn(this)
         // should wait until original Flow is collected before requesting more builds
