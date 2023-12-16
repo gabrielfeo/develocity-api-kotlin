@@ -1,12 +1,9 @@
-package com.gabrielfeo.gradle.enterprise.api.internal
+package com.gabrielfeo.gradle.enterprise.api
 
-import com.gabrielfeo.gradle.enterprise.api.Config
-import com.gabrielfeo.gradle.enterprise.api.GradleEnterpriseApi
+import com.gabrielfeo.gradle.enterprise.api.internal.*
 import kotlinx.coroutines.test.runTest
-import okhttp3.HttpUrl.Companion.toHttpUrl
 import org.junit.jupiter.api.assertDoesNotThrow
-import kotlin.test.assertEquals
-import kotlin.test.Test
+import kotlin.test.*
 
 class GradleEnterpriseApiIntegrationTest {
 
