@@ -8,7 +8,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 
-class BuildsApiExtensionsTest {
+class BuildsApiExtensionsIntegrationTest {
 
     @Test
     fun getBuildsFlowUsesQueryInAllRequests() = runTest {

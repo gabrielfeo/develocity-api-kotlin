@@ -1,20 +1,18 @@
-package com.gabrielfeo.gradle.enterprise.api.internal.operator
+package com.gabrielfeo.gradle.enterprise.api.extension
 
 import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
 import com.gabrielfeo.gradle.enterprise.api.model.Build
 import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-@OptIn(ExperimentalCoroutinesApi::class)
-class PagedUntilLastBuildTest {
+class BuildsApiExtensionsTest {
 
     private val api = FakeBuildsApi(
         builds = listOf(
@@ -27,48 +25,42 @@ class PagedUntilLastBuildTest {
     )
 
     @Test
-    fun `Pages and stops once API sends less than maxBuilds`() = runTest {
+    fun `getBuildsFlow with low maxBuilds pages until empty response`() = runTest {
         val channel = Channel<Build>(Channel.RENDEZVOUS)
-        flowOf(api.builds[0], api.builds[1])
-            .pagedUntilLastBuild(api, query = null, buildsPerPage = 4)
+        api.getBuildsFlow(buildsPerPage = 2)
             .onEach { channel.send(it) }
             .launchIn(this)
+        // Collect page 1, expecting 1 request so far
         assertEquals(api.builds[0], channel.receive())
-        // should wait until original Flow is collected before requesting more builds
-        assertEquals(0, api.getBuildsCallCount.value)
-        assertEquals(api.builds[1], channel.receive())
-        // should request more now, after last of original Flow was collected
-        assertEquals(api.builds[2], channel.receive())
-        assertEquals(api.builds[3], channel.receive())
-        assertEquals(api.builds[4], channel.receive())
         assertEquals(1, api.getBuildsCallCount.value)
-        // should presume no more builds and complete, since maxBuilds=2 and only received 1
+        assertEquals(api.builds[1], channel.receive())
+        // Page 1 exhausted. Collect page 2 expecting new request
+        assertEquals(api.builds[2], channel.receive())
+        assertEquals(2, api.getBuildsCallCount.value)
+        assertEquals(api.builds[3], channel.receive())
+        // Page 2 exhausted. Collect page 3 expecting 2 new requests (last is empty)
+        assertEquals(api.builds[4], channel.receive())
         assertTrue(channel.tryReceive().isFailure)
+        assertEquals(4, api.getBuildsCallCount.value)
         channel.close()
     }
 
     @Test
-    fun `Pages and stops once API sends empty list`() = runTest {
+    fun `getBuildsFlow with high maxBuilds pages until empty response`() = runTest {
         val channel = Channel<Build>(Channel.RENDEZVOUS)
-        flowOf(api.builds[0])
-            .pagedUntilLastBuild(api, query = null, buildsPerPage = 2)
+        api.getBuildsFlow(buildsPerPage = api.builds.size)
             .onEach { channel.send(it) }
             .launchIn(this)
-        // should wait until original Flow is collected before requesting more builds
-        assertEquals(0, api.getBuildsCallCount.value)
+        // Collect page 1 (with all builds), expecting 1 request so far
         assertEquals(api.builds[0], channel.receive())
-        // should request more now, after last of original Flow was collected
-        assertEquals(api.builds[1], channel.receive())
-        // should wait until current page builds are collected
         assertEquals(1, api.getBuildsCallCount.value)
+        assertEquals(api.builds[1], channel.receive())
         assertEquals(api.builds[2], channel.receive())
         assertEquals(api.builds[3], channel.receive())
-        // should wait until current page builds are collected
-        assertEquals(2, api.getBuildsCallCount.value)
-        // should request more now
         assertEquals(api.builds[4], channel.receive())
-        // should presume no more builds and complete, since received no builds
+        // Page 1 exhausted. Expect no more builds, despite new request
         assertTrue(channel.tryReceive().isFailure)
+        assertEquals(2, api.getBuildsCallCount.value)
         channel.close()
     }
 }

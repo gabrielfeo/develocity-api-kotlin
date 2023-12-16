@@ -5,7 +5,6 @@ package com.gabrielfeo.gradle.enterprise.api.extension
 import com.gabrielfeo.gradle.enterprise.api.Config
 import com.gabrielfeo.gradle.enterprise.api.BuildsApi
 import com.gabrielfeo.gradle.enterprise.api.internal.API_MAX_BUILDS
-import com.gabrielfeo.gradle.enterprise.api.internal.operator.pagedUntilLastBuild
 import com.gabrielfeo.gradle.enterprise.api.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -25,7 +24,7 @@ import kotlinx.coroutines.flow.*
  * continously. Use [Flow.take] to stop collecting at a specific count.
  */
 fun BuildsApi.getBuildsFlow(
-    since: Long = 0,
+    since: Long? = null,
     sinceBuild: String? = null,
     fromInstant: Long? = null,
     fromBuild: String? = null,
@@ -34,9 +33,8 @@ fun BuildsApi.getBuildsFlow(
     maxWaitSecs: Int? = null,
     buildsPerPage: Int = API_MAX_BUILDS,
 ): Flow<Build> {
-    val api = this
     return flow {
-        val firstBuilds = getBuilds(
+        var builds = getBuilds(
             since = since,
             sinceBuild = sinceBuild,
             fromInstant = fromInstant,
@@ -46,8 +44,17 @@ fun BuildsApi.getBuildsFlow(
             maxWaitSecs = maxWaitSecs,
             maxBuilds = buildsPerPage,
         )
-        val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(api, query, buildsPerPage)
-        emitAll(pagedBuilds)
+        emitAll(builds.asFlow())
+        while (builds.isNotEmpty()) {
+            builds = getBuilds(
+                fromBuild = builds.last().id,
+                query = query,
+                reverse = reverse,
+                maxWaitSecs = maxWaitSecs,
+                maxBuilds = buildsPerPage,
+            )
+            emitAll(builds.asFlow())
+        }
     }
 }
 
