@@ -46,7 +46,7 @@ fun BuildsApi.getBuildsFlow(
             maxWaitSecs = maxWaitSecs,
             maxBuilds = buildsPerPage,
         )
-        val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(api, buildsPerPage)
+        val pagedBuilds = firstBuilds.asFlow().pagedUntilLastBuild(api, query, buildsPerPage)
         emitAll(pagedBuilds)
     }
 }

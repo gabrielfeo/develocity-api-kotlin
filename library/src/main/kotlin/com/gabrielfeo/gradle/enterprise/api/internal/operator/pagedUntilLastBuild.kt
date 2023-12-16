@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.*
  */
 internal fun Flow<Build>.pagedUntilLastBuild(
     api: BuildsApi,
+    query: String?,
     buildsPerPage: Int,
 ): Flow<Build> {
     val firstBuilds = this
@@ -22,7 +23,11 @@ internal fun Flow<Build>.pagedUntilLastBuild(
         if (lastBuildId.isEmpty()) {
             return@flow
         } else while (true) {
-            val builds = api.getBuilds(fromBuild = lastBuildId, maxBuilds = buildsPerPage)
+            val builds = api.getBuilds(
+                fromBuild = lastBuildId,
+                query = query,
+                maxBuilds = buildsPerPage,
+            )
             emitAll(builds.asFlow())
             when {
                 builds.isEmpty() || builds.size < buildsPerPage -> break

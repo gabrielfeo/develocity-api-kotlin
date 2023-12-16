@@ -1,16 +1,9 @@
 package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.internal.*
-import com.gabrielfeo.gradle.enterprise.api.internal.FakeKeychain
-import com.gabrielfeo.gradle.enterprise.api.internal.RealEnv
-import com.gabrielfeo.gradle.enterprise.api.internal.RealKeychain
-import com.gabrielfeo.gradle.enterprise.api.internal.RealSystemProperties
-import com.gabrielfeo.gradle.enterprise.api.internal.env
-import com.gabrielfeo.gradle.enterprise.api.internal.keychain
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.assertDoesNotThrow
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.*
 
 class GradleEnterpriseApiIntegrationTest {
 
