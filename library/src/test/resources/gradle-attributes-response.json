@@ -159,6 +159,12 @@
     "taskInputsFileCapturingEnabled": true,
     "testOutputCapturingEnabled": true
   },
+  "develocitySettings": {
+    "backgroundPublicationEnabled": true,
+    "buildOutputCapturingEnabled": true,
+    "taskInputsFileCapturingEnabled": true,
+    "testOutputCapturingEnabled": true
+  },
   "buildOptions": {
     "buildCacheEnabled": true,
     "configurationCacheEnabled": false,
