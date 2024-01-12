@@ -78,6 +78,18 @@ fun BuildsApi.getBuildsFlow(
  *
  * @param scope CoroutineScope in which to create coroutines. Defaults to [GlobalScope].
  */
+@Deprecated(
+    "Use `getBuildsFlow(models = listOf(BuildModelName.gradleAttributes))` instead. " +
+        "This function will be removed in the next release.",
+    replaceWith = ReplaceWith(
+        "getBuildsFlow(since, sinceBuild, fromInstant, fromBuild, query, reverse," +
+            "maxWaitSecs, models = listOf(BuildModelName.gradleAttributes))",
+        imports = [
+            "com.gabrielfeo.gradle.enterprise.api.extension.getBuildsFlow",
+            "com.gabrielfeo.gradle.enterprise.api.model.BuildModelName",
+        ]
+    ),
+)
 @OptIn(DelicateCoroutinesApi::class)
 fun BuildsApi.getGradleAttributesFlow(
     since: Long = 0,
