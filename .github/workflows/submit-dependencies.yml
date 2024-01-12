@@ -23,7 +23,7 @@ jobs:
       - name: Set up Gradle
         uses: ./.github/actions/build
       - name: Submit Gradle dependencies
-        uses: mikepenz/gradle-dependency-submission@v0.9.1
+        uses: mikepenz/gradle-dependency-submission@v0.9.2
         with:
           use-gradlew: false
           include-build-environment: true
