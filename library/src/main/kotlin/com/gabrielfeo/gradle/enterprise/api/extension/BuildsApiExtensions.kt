@@ -32,6 +32,7 @@ fun BuildsApi.getBuildsFlow(
     reverse: Boolean? = null,
     maxWaitSecs: Int? = null,
     buildsPerPage: Int = API_MAX_BUILDS,
+    models: List<BuildModelName>? = null,
 ): Flow<Build> {
     return flow {
         var builds = getBuilds(
@@ -43,6 +44,7 @@ fun BuildsApi.getBuildsFlow(
             reverse = reverse,
             maxWaitSecs = maxWaitSecs,
             maxBuilds = buildsPerPage,
+            models = models,
         )
         emitAll(builds.asFlow())
         while (builds.isNotEmpty()) {
@@ -86,6 +88,7 @@ fun BuildsApi.getGradleAttributesFlow(
     reverse: Boolean? = null,
     maxWaitSecs: Int? = null,
     scope: CoroutineScope = GlobalScope,
+    models: List<BuildModelName>? = null,
 ): Flow<GradleAttributes> =
     getBuildsFlow(
         since = since,
@@ -95,6 +98,7 @@ fun BuildsApi.getGradleAttributesFlow(
         query = query,
         reverse = reverse,
         maxWaitSecs = maxWaitSecs,
+        models = models,
     ).withGradleAttributes(scope, api = this).map { (_, attrs) ->
         attrs
     }
