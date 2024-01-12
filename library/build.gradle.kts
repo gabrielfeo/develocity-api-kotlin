@@ -124,6 +124,21 @@ tasks.openApiGenerate.configure {
             }
         }
     }
+    // Fix mapping of BuildModelName: gradle-attributes -> gradleAttributes
+    doLast {
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "match" to "Minus",
+                "replace" to "",
+                "flags" to "mg",
+            ) {
+                "fileset"(
+                    "dir" to srcDir,
+                    "includes" to "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
+                )
+            }
+        }
+    }
 }
 
 sourceSets {
