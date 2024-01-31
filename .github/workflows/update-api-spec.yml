@@ -44,7 +44,7 @@ jobs:
           fi
       - name: 'Create PR'
         if: ${{ inputs.dry_run != true && env.NEW_VERSION && !env.EXISTING_PR }}
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           branch: "${{ env.UPDATE_BRANCH }}"
           commit-message: "Bump GE API spec version to ${{ env.NEW_VERSION }}"
