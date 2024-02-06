@@ -5,6 +5,23 @@ plugins {
 }
 
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
+val snapshotTestingDir = project.layout.buildDirectory.dir("generated/snapshot-testing")
+
+fun copyScriptReplacingVersion(original: File, dest: File) {
+    val mavenLocalUrl = System.getenv("HOME") + "/.m2/repository"
+    dest.writer().buffered().use { writer ->
+        original.forEachLine { line ->
+            val edited = line.replace(
+                Regex("""@file:DependsOn\("com.gabrielfeo:gradle-enterprise-api-kotlin:.*"\)"""),
+                """
+                    @file:Repository("$mavenLocalUrl")
+                    @file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:SNAPSHOT")
+                """.trimIndent()
+            )
+            writer.appendLine(edited)
+        }
+    }
+}
 
 // Add tasks to run each example script
 val scripts = fileTree(file("example-scripts"))
@@ -14,8 +31,21 @@ exampleTestTasks += scripts.map { scriptFile ->
     val camelCaseName = scriptName.split("-").joinToString("") { it.capitalize() }
     tasks.register<Exec>("run${camelCaseName}Script") {
         group = "Application"
-        description = "Runs the '${scriptFile.name}' script"
-        commandLine("kotlinc", "-script", scriptFile.path)
+        description = """
+            Runs the '${scriptFile.name}' script using a local version of the library, built and
+            published to Maven Local.
+        """.trimIndent()
+        dependsOn(":library:publishUnsignedLibraryPublicationToMavenLocal")
+        val snapshotScriptFile = snapshotTestingDir.map { it.file(scriptFile.relativeTo(projectDir).path) }
+        inputs.file(scriptFile)
+        doFirst {
+            val testingDir = snapshotScriptFile.get().asFile.parentFile
+            testingDir.deleteRecursively()
+            testingDir.mkdirs()
+            copyScriptReplacingVersion(scriptFile, snapshotScriptFile.get().asFile)
+        }
+        argumentProviders.add(CommandLineArgumentProvider { listOf(snapshotScriptFile.get().asFile.path) })
+        commandLine("kotlinc", "-script")
         environment("JAVA_OPTS", "-Xmx1g")
     }
 }

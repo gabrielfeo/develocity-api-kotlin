@@ -232,36 +232,43 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 }
 
+fun MavenPublication.libraryPublication() {
+    artifactId = "gradle-enterprise-api-kotlin"
+    from(components["java"])
+    pom {
+        name.set("Gradle Enterprise API Kotlin")
+        description.set("A library to use the Gradle Enterprise REST API in Kotlin")
+        url.set("https://github.com/gabrielfeo/gradle-enterprise-api-kotlin")
+        licenses {
+            license {
+                name.set("MIT")
+                url.set("https://spdx.org/licenses/MIT.html")
+                distribution.set("repo")
+            }
+        }
+        developers {
+            developer {
+                id.set("gabrielfeo")
+                name.set("Gabriel Feo")
+                email.set("gabriel@gabrielfeo.com")
+            }
+        }
+        scm {
+            val basicUrl = "github.com/gabrielfeo/gradle-enterprise-api-kotlin"
+            connection.set("scm:git:git://$basicUrl.git")
+            developerConnection.set("scm:git:ssh://$basicUrl.git")
+            url.set("https://$basicUrl/")
+        }
+    }
+}
+
 publishing {
     publications {
         create<MavenPublication>("library") {
-            artifactId = "gradle-enterprise-api-kotlin"
-            from(components["java"])
-            pom {
-                name.set("Gradle Enterprise API Kotlin")
-                description.set("A library to use the Gradle Enterprise REST API in Kotlin")
-                url.set("https://github.com/gabrielfeo/gradle-enterprise-api-kotlin")
-                licenses {
-                    license {
-                        name.set("MIT")
-                        url.set("https://spdx.org/licenses/MIT.html")
-                        distribution.set("repo")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("gabrielfeo")
-                        name.set("Gabriel Feo")
-                        email.set("gabriel@gabrielfeo.com")
-                    }
-                }
-                scm {
-                    val basicUrl = "github.com/gabrielfeo/gradle-enterprise-api-kotlin"
-                    connection.set("scm:git:git://$basicUrl.git")
-                    developerConnection.set("scm:git:ssh://$basicUrl.git")
-                    url.set("https://$basicUrl/")
-                }
-            }
+            libraryPublication()
+        }
+        create<MavenPublication>("unsignedLibrary") {
+            libraryPublication()
         }
     }
     repositories {
