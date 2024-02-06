@@ -1,0 +1,17 @@
+{
+  "description": "This is an internal file used for testing the examples.",
+  "repositories": [
+    "{{HOME}}/.m2/repository"
+  ],
+  "properties": [
+    { "name": "version", "value": "ignored-to-test-with-SNAPSHOT" }
+  ],
+  "dependencies": [
+    "com.gabrielfeo:gradle-enterprise-api-kotlin:SNAPSHOT"
+  ],
+  "imports": [
+    "com.gabrielfeo.gradle.enterprise.api.*",
+    "com.gabrielfeo.gradle.enterprise.api.model.*",
+    "com.gabrielfeo.gradle.enterprise.api.extension.*"
+  ]
+}

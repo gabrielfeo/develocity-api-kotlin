@@ -16,3 +16,7 @@ java {
 dependencies {
     implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.3.1")
 }
+
+repositories {
+    mavenCentral()
+}

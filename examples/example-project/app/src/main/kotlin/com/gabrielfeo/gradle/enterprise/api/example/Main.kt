@@ -18,8 +18,11 @@ suspend fun main() {
         clientBuilder = clientBuilder,
     )
     val gradleEnterpriseApi = GradleEnterpriseApi.newInstance(newConfig)
-    runAllAnalysis(gradleEnterpriseApi)
-    gradleEnterpriseApi.shutdown()
+    try {
+        runAllAnalysis(gradleEnterpriseApi)
+    } finally {
+        gradleEnterpriseApi.shutdown()
+    }
 }
 
 private suspend fun runAllAnalysis(gradleEnterpriseApi: GradleEnterpriseApi) {

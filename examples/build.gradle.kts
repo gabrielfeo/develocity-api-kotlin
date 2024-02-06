@@ -6,9 +6,9 @@ plugins {
 
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
 val snapshotTestingDir = project.layout.buildDirectory.dir("generated/snapshot-testing")
+val mavenLocalUrl = System.getenv("HOME") + "/.m2/repository"
 
 fun copyScriptReplacingVersion(original: File, dest: File) {
-    val mavenLocalUrl = System.getenv("HOME") + "/.m2/repository"
     dest.writer().buffered().use { writer ->
         original.forEachLine { line ->
             val edited = line.replace(
@@ -50,12 +50,58 @@ exampleTestTasks += scripts.map { scriptFile ->
     }
 }
 
+fun copyProject(original: File, dest: File) {
+    val originalSource = fileTree(original) {
+        exclude("build", ".gradle")
+        filter { it.isFile }
+    }
+    // Delete dest and copy tree to dest
+    dest.deleteRecursively()
+    originalSource.files.forEach { file ->
+        val relativePath = file.relativeTo(original)
+        val destFile = dest.resolve(relativePath)
+        destFile.parentFile.mkdirs()
+        file.copyTo(destFile)
+    }
+}
+
+fun replaceVersionInProject(project: File) {
+    val buildscript = File(project, "app/build.gradle.kts")
+    buildscript.writeText(
+        buildscript.readText().replace(
+            Regex("""implementation\("com.gabrielfeo:gradle-enterprise-api-kotlin:.*"\)"""),
+            """
+                implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:SNAPSHOT")
+                repositories {
+                    exclusiveContent {
+                        forRepository {
+                            mavenLocal()
+                        }
+                        filter {
+                            includeModule("com.gabrielfeo", "gradle-enterprise-api-kotlin")
+                        }
+                    }
+                }
+            """.trimIndent()
+        )
+    )
+}
+
 // Add a task to run the example-project
 exampleTestTasks += tasks.register<GradleBuild>("runExampleProject") {
     group = "Application"
-    description = "Runs examples/example-project as a standalone build"
-    dir = file("example-project")
+    description = """
+        Runs examples/example-project as a standalone build with a local version of the library,
+        built and published to Maven Local.
+    """.trimIndent()
+    setDir(snapshotTestingDir.map { it.dir("example-project").asFile })
     tasks = listOf("run")
+    inputs.dir(file("example-project"))
+    dependsOn(":library:publishUnsignedLibraryPublicationToMavenLocal")
+    doFirst {
+        copyProject(file("example-project"), dir)
+        replaceVersionInProject(dir)
+    }
 }
 
 // Add tasks to run each example notebook
