@@ -14,5 +14,5 @@ java {
 }
 
 dependencies {
-    implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.3.1")
+    implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0-alpha01")
 }
