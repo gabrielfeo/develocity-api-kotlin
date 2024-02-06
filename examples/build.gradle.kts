@@ -5,18 +5,20 @@ plugins {
 }
 
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
+
 val snapshotTestingDir = project.layout.buildDirectory.dir("generated/snapshot-testing")
 val mavenLocalUrl = System.getenv("HOME") + "/.m2/repository"
+val scriptingSnapshotDirectives = """
+    @file:Repository("$mavenLocalUrl")
+    @file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:SNAPSHOT")
+""".trimIndent()
 
 fun copyScriptReplacingVersion(original: File, dest: File) {
     dest.writer().buffered().use { writer ->
         original.forEachLine { line ->
             val edited = line.replace(
                 Regex("""@file:DependsOn\("com.gabrielfeo:gradle-enterprise-api-kotlin:.*"\)"""),
-                """
-                    @file:Repository("$mavenLocalUrl")
-                    @file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:SNAPSHOT")
-                """.trimIndent()
+                scriptingSnapshotDirectives,
             )
             writer.appendLine(edited)
         }
@@ -104,6 +106,24 @@ exampleTestTasks += tasks.register<GradleBuild>("runExampleProject") {
     }
 }
 
+fun copyNotebookReplacingVersion(original: File, dest: File) {
+    dest.writer().buffered().use { writer ->
+        original.forEachLine { line ->
+            val directives = scriptingSnapshotDirectives + """
+                import com.gabrielfeo.gradle.enterprise.api.*
+                import com.gabrielfeo.gradle.enterprise.api.model.*
+                import com.gabrielfeo.gradle.enterprise.api.extension.*
+            """.trimIndent()
+            val edited = line.replace(
+                Regex(""""%use gradle-enterprise-api-kotlin.*?\\n""""),
+                // The notebook source is a JSON
+                directives.replace("\"", "\\\\\"").lines().joinToString(",\n") { """"$it\\n"""" },
+            )
+            writer.appendLine(edited)
+        }
+    }
+}
+
 // Add tasks to run each example notebook
 val notebooks = fileTree(file("example-notebooks")) {
     exclude(".ipynb_checkpoints")
@@ -113,12 +133,19 @@ exampleTestTasks += notebooks.map { notebook ->
     tasks.register<Exec>("run${notebook.nameWithoutExtension}Notebook") {
         group = "Application"
         description = "Runs the '${notebook.name}' notebook with 'jupyter nbconvert --execute'"
+        val snapshotNotebook = snapshotTestingDir.map { it.dir("notebooks").file(notebook.name).asFile }
+        inputs.file(notebook)
+        doFirst {
+            snapshotNotebook.get().parentFile.mkdirs()
+            snapshotNotebook.get().delete()
+            copyNotebookReplacingVersion(notebook, snapshotNotebook.get())
+        }
+        argumentProviders.add(CommandLineArgumentProvider { listOf(snapshotNotebook.get().path) })
         commandLine(
             "jupyter", "nbconvert",
             "--execute",
             "--to", "ipynb",
             "--output-dir=$buildDir",
-            notebook,
         )
     }
 }
