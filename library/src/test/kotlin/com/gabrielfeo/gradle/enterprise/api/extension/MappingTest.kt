@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class MappingTest {
 
     private val api = FakeBuildsApi(

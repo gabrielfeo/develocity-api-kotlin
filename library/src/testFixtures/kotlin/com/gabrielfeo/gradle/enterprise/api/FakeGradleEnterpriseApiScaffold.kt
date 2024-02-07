@@ -9,11 +9,7 @@ import retrofit2.http.Query
  */
 interface FakeBuildsApiScaffold : BuildsApi {
 
-    override suspend fun getBuild(
-        id: String,
-        models: List<BuildModelName>?,
-        availabilityWaitTimeoutSecs: Int?,
-    ): Build {
+    override suspend fun getBuild(id: String, availabilityWaitTimeoutSecs: Int?): Build {
         TODO("Not yet implemented")
     }
 
@@ -25,23 +21,8 @@ interface FakeBuildsApiScaffold : BuildsApi {
         reverse: Boolean?,
         maxBuilds: Int?,
         maxWaitSecs: Int?,
-        query: String?,
-        models: List<BuildModelName>?,
+        query: String?
     ): List<Build> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getGradleNetworkActivity(
-        id: String,
-        availabilityWaitTimeoutSecs: Int?,
-    ): GradleNetworkActivity {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getMavenDependencyResolution(
-        id: String,
-        availabilityWaitTimeoutSecs: Int?,
-    ): MavenDependencyResolution {
         TODO("Not yet implemented")
     }
 

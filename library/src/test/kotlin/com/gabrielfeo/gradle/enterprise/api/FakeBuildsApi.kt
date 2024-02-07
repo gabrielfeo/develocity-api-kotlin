@@ -2,7 +2,6 @@ package com.gabrielfeo.gradle.enterprise.api
 
 import com.gabrielfeo.gradle.enterprise.api.model.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import retrofit2.http.Query
 
 class FakeBuildsApi(
     val builds: List<Build>,
@@ -19,11 +18,10 @@ class FakeBuildsApi(
         reverse: Boolean?,
         maxBuilds: Int?,
         maxWaitSecs: Int?,
-        query: String?,
-        models: List<BuildModelName>?,
+        query: String?
     ): List<Build> {
         getBuildsCallCount.value++
-        check((reverse ?: maxWaitSecs ?: query ?: models) == null) { "Not supported" }
+        check((reverse ?: maxWaitSecs) == null)
         if ((fromBuild ?: sinceBuild) != null) {
             check((since ?: fromInstant) == null) { "Invalid request" }
         }
