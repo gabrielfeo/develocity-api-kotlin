@@ -6,10 +6,3 @@ plugins {
 
 val group by project.properties
 val artifact by project.properties
-
-project(":examples:example-project:app").configurations.configureEach {
-    resolutionStrategy.dependencySubstitution {
-        substitute(module("$group:$artifact"))
-            .using(project(":library"))
-    }
-}

@@ -4,8 +4,9 @@ plugins {
 }
 
 include(
-    ":library",
-    ":examples:example-project:app",
+    ":gradle-enterprise-api-kotlin",
+    ":examples",
+    ":examples:example-project",
 )
 
 dependencyResolutionManagement {
