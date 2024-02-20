@@ -179,7 +179,7 @@ testing {
         getByName<JvmTestSuite>("test") {
             dependencies {
                 implementation("com.squareup.okhttp3:mockwebserver:4.12.0")
-                implementation("com.squareup.okio:okio:3.7.0")
+                implementation("com.squareup.okio:okio:3.8.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
             }
         }
@@ -220,7 +220,7 @@ java {
 
 dependencies {
     constraints {
-        implementation("com.squareup.okio:okio:3.7.0")
+        implementation("com.squareup.okio:okio:3.8.0")
     }
     api("com.squareup.moshi:moshi:1.15.1")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
