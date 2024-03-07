@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.22" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.9.23" apply false
     id("org.jetbrains.dokka") version "1.9.10" apply false
     id("org.openapi.generator") version "7.2.0" apply false
 }
