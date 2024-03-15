@@ -1,0 +1,14 @@
+global:
+  hostname: ge.example.com
+  externalSSLTermination: true
+  externalPort: 8180
+
+authenticationBroker:
+  adminPassword:
+    value: "superS3cret!"
+  clientSecret:
+    value: "superS3cret!"
+
+ingress:
+  ssl:
+    enabled: false

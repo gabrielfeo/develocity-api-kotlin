@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# cd to develocity-test-instance directory
+cd "$(dirname "${BASH_SOURCE[0]}")/../.."
+
+ln -Fs "$(realpath ./.colima/develocity)" "$HOME/.colima/"
+colima start develocity

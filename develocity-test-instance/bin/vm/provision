@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+section() {
+  DIVIDER="----------------------------------------"
+  echo -e "$DIVIDER\n$1\n$DIVIDER"
+}
+
+section "apt-get update"
+sudo apt-get update
+
+section "Install useful packages"
+sudo apt-get install -y \
+  fish \
+  vim
+
+section "Install Helm"
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+helm version
+
+section "Set KUBECONFIG"
+fish -c "set -Ux KUBECONFIG /etc/rancher/k3s/k3s.yaml"
+echo "export KUBECONFIG=/etc/rancher/k3s/k3s.yaml" >> ~/.bashrc

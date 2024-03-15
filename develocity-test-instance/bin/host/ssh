@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+ssh -t colima-develocity \
+  -F =(colima ssh-config develocity)\
+  "cd '$(pwd)'; ${@:-bash}"

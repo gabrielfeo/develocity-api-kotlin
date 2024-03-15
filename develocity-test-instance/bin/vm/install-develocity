@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+abs_src_dir="$(dirname "${BASH_SOURCE[0]}")/../.."
+
+helm install \
+  --create-namespace --namespace develocity \
+  ge-standalone \
+  gradle/gradle-enterprise-standalone \
+  --values "$abs_src_dir/values.yaml" \
+  --set-file "global.license.file=$abs_src_dir/develocity.license"

@@ -1,0 +1,410 @@
+#
+# Global options relating to Develocity as a whole rather than a specific subsystem.
+#
+
+global:
+
+
+#
+# Public URL
+#
+
+  hostname: ge.example.com     # Hostname used to access the web interface by web browsers, etc. Required.
+  externalSSLTermination: true # If we are using HTTPS but not with termination in the built-in ingress or proxy. Default false.
+  externalPort: 8180           # Set to specify the external port the installation is available on. Only required if differs from `ingress.port.http(s)`.
+
+
+#
+# Develocity license settings
+#
+# Exactly one of these options must be set.
+#
+# If performing an online (ie not airgapped) installation that pulls images from the Gradle image registry,
+# and you are setting the license via global.license.secretName, you will also need to set an imagePullSecret
+# with the license in dockerconfigjson form. If setting the license via global.license.file, the image pull
+# secret is generated automatically.
+#
+
+  # license:
+  #   file: ABCD1234                        # Full license file content as a multiline string or Base64 data part of the license. Can also be set using --set-file global.license.file=/path/to/file
+  #   secretName: my-example-license-secret # Name of Secret that contains the license. License should be in the "license" key in the secret.
+
+
+#
+# Image pull settings
+#
+# For airgap installations, the registry and an image pull secret that can pull from that registry are required.
+#
+
+  image:
+    registry: registry.example.com/gradle-enterprise # Registry to pull images from. Default registry.gradle.com/gradle-enterprise
+    imagePullSecret: my-example-image-pull-secret    #
+    tag: some-custom-tag                             # Tag to pull. Default is the Develocity version.
+    imagePullPolicy: Always                          # Default IfNotPresent.
+
+
+#
+# Storage settings
+#
+# By default Develocity will store data under /opt/gradle.
+# This base directory can be configured, and separate directories for backups and logs can also be set.
+#
+
+  storage:
+    directory: /mnt/big-volume/ge           # Default /opt/gradle
+    logs:
+      directory: /var/log/gradle-enterprise # Default (global.storage.directory)/logs
+    backup:
+      directory: /mnt/vol2/ge-backups       # Default (global.storage.directory)/backups
+
+#
+# Unattended installation
+#
+# These cover auto-configuring aspects of Develocity that are controlled by the Administration section of the application.
+# Contact Gradle Support for assistance with unattended installation.
+# WARNING: Making changes to the unattended configuration will *overwrite* any configuration changes made in the user interface.
+# See https://docs.gradle.com/enterprise/helm-admin/current/#unattended_configuration for details.
+#
+
+  unattended:
+   key: oijqefoijqOIQJFoijefoiqjfoij  # Encryption key for secrets in the configuration, if any. Default none.
+   configuration:
+      version: 9
+      advanced:
+        app:
+          heapMemory: 4608
+          offHeapMemory: 1024
+          params: {}
+          scanPayloadCacheSize: 2048
+        appBackgroundProcessor:
+          heapMemory: 3584
+          offHeapMemory: 1024
+          params: {}
+        buildCacheNode:
+          heapMemory: 1024
+          offHeapMemory: 768
+          params: {}
+        distributionBroker:
+          heapMemory: 1024
+          offHeapMemory: 768
+          params: {}
+      auth:
+        anonymousPermissions:
+        - viewScan
+        - publishScan
+        external: null
+        projects:
+          acceptAnonymousProjects: true
+          enabled: false
+        roles:
+          admin:
+            assignToNewExternalUsers: false
+            description: Administer Develocity
+            displayName: Administrator
+            identityProviderAttributeValue: null
+            permissions:
+            - administerGe
+            - administerProjects
+            - administerCache
+            - generateSupportBundle
+          ci-agent:
+            assignToNewExternalUsers: false
+            description: Use Develocity for CI builds
+            displayName: CI Agent
+            identityProviderAttributeValue: null
+            permissions:
+            - publishScan
+            - testDistribution
+            - predictiveTestSelection
+            - readCache
+            - writeCache
+            - accessAllDataWithOrWithoutAssociatedProject
+            - accessDataWithoutAssociatedProject
+          developer:
+            assignToNewExternalUsers: false
+            description: Use Develocity
+            displayName: Developer
+            identityProviderAttributeValue: null
+            permissions:
+            - viewScan
+            - publishScan
+            - testDistribution
+            - predictiveTestSelection
+            - readCache
+            - readCacheWriteCas
+        scim:
+          enabled: false
+          token: null
+        timeouts:
+          accessTokenLifespan: 10
+          ssoSessionIdleTimeout: 5760
+          ssoSessionMaxLifespan: 43200
+      backups: null
+      buildCache:
+        allowUntrustedNodeSsl: false
+        storageSize: 10000
+      buildScans:
+        diskSpaceMonitoring:
+          autoDeleteWhileFreeSpaceLessThanPercentage: null
+          rejectIncomingWhileFreeSpaceLessThanPercentage: null
+          sendWarningEmailWhenFreeSpaceLessThanPercentage: null
+        incomingStorageType: null
+        keepDays: null
+      dailyMaintenanceTime: 04:00
+      email: null
+      helpContact:
+        email: null
+        name: null
+      legacyObjectStorage:
+        provider: null
+      network: null
+
+      systemPassword: [SYSTEM_PASSWORD_VALUE]
+#
+#
+# Not all settings need to be set when providing an unattended config. The following example shows how to only configure an HTTP proxy:
+#
+  unattended:
+   key: oijqefoijqOIQJFoijefoiqjfoij  # Encryption key for secrets in the configuration, if any. Default none.
+   configuration:
+      version: 9
+      network:
+        additionalTrust:                          # Default none.
+        proxy:
+          protocol: https                         # Default http
+          host: proxy.gradle.com
+          port: 8080                              # Default 80
+          excludedHosts:                          # Default empty
+            - some.external
+            - '*.internal'
+          auth:                                   # Default none
+            username: user
+            password: "FEIpqflj265QEFq2efq54e"
+
+      systemPassword: [SYSTEM_PASSWORD_VALUE]
+
+#
+# Database section
+#
+# By default, Develocity will store data in an embedded database.
+# To connect to a user-managed database, configure connection details here.
+#
+
+database:
+  location: user-managed # Default "embedded"
+
+
+#
+# Embedded database resources and storage
+#
+# If using the embedded database, its resources can be configured here.
+#
+
+  storage:
+    data:
+      capacity: 500Gi # Default 250Gi
+    backup:
+      capacity: 750Gi # Default 250Gi
+
+
+#
+# User-managed database connection details
+#
+# Connection details can be set here directly or specified by a ConfigMap.
+#
+
+  connection:
+    # configMapName: my-example-database-connection-config-map
+    # # OR
+    host: db.example.com                         # Required for user-managed database if connection secret not provided.
+    port: 5555                                   # Default 5432
+    databaseName: example_gradle_enterprise_prod # Required for user-managed database if connection secret not provided.
+    params: "?ssl=false"                         # No default.
+
+
+#
+# User-managed database credentials
+#
+# Credentials details can be set here directly or specified by secrets.
+#
+# Typically only a superuser account credential is required - Develocity can then create other
+# necessary accounts and schemas for the app automatically.
+#
+# It is also possible to instead set up the database using a script and only configure the more restricted
+# application account credentials here.
+#
+
+  credentials:
+
+    superuser:
+      # secretName: my-example-db-superuser-secret
+      # # OR
+      username: postgres
+      password: "superS3cret!"
+
+    # # OR
+    # app:
+    #   secretName: my-example-db-app-secret
+    #   # OR
+    #   password: "superS3cret!"
+    # migrator:
+    #   secretName: my-example-db-migrator-secret
+    #   # OR
+    #   password: "superS3cret!"
+
+
+#
+# End database section
+#
+
+#
+# Ingress section
+#
+# Develocity creates an Ingress to route traffic.
+#
+
+ingress:
+
+#
+# Ingress SSL settings
+#
+# By default, the generated Ingress will have HTTPS support and use self-signed SSL certificates.
+# Both of these can be changed. Certificates can be set directly here, set using
+# --set-file ingress.ssl.key=keyfile --set-file ingress.ssl.cert=certfile
+# or set in a Secret.
+#
+
+  ssl:
+    enabled: false # Default true except if `global.externalSSLTermination: true`
+    # # OR
+    # key: |
+    #   -----BEGIN RSA PRIVATE KEY-----
+    #   MIIEpQIBAAKCAQEA4qV8JlqDMi7y85Ykq8dn7uIsi609D6KuFtlc+UvNYjatz0+u
+    #   ...
+    #   G7tI0qQ6F20e5R4tPpEDKCFZykyvgGMhfLzsvVlrgaVW8QbVK4YWNtQ=
+    #   -----END RSA PRIVATE KEY-----
+    # cert: |
+    #   -----BEGIN CERTIFICATE-----
+    #   MIIDKjCCAhKgAwIBAgIRAPNTIHf6/oUuzMKm3ffGNOgwDQYJKoZIhvcNAQELBQAw
+    #   ..
+    #   z+P5RmRxU/kaaFB+Vuw1pRezbaAtZNorVgXnBwrdseY4zLGyhAcGcR9v+VtCiQ==
+    #   -----END CERTIFICATE-----
+    # # OR
+    # secretName: my-example-ingress-ssl-cert-secret
+
+
+#
+# Ingress TCP ports
+#
+# The ports that the application accepts traffic on can be altered from the default of 443 (or 80 if
+# accepting plain HTTP):
+#
+
+  port:
+    http: 8080  # default 80
+    https: 8443 # default 443
+
+
+#
+# End ingress section
+#
+
+#
+# Build cache node section
+
+buildCacheNode:
+  buildCacheBuiltin:
+    # secretName: my-example-build-cache-builtin-secret # Being the key build.cache.builtin.secret
+    #   # OR
+    value: "superS3cret!"
+
+#
+# End build cache node section
+#
+
+#
+# Authentication broker section
+#
+authenticationBroker:
+  adminPassword:
+    # secretName: my-example-admin-password-secret # Being the key keycloak.admin.password
+    #   # OR
+    value: "superS3cret!"
+  clientSecret:
+    # secretName: my-example-client-secret-secret # Being the key keycloak.client.secret
+    #   # OR
+    value: "superS3cret!"
+
+#
+# End authentication broker section
+
+
+objectStorage:
+  type: "disabled" # Supported values: `disabled`, `embedded`, `s3`, `googleCloud`, `azure`. By default `embedded`.
+
+  # embedded:
+  #   credentials:
+  #     app:
+  #       # secretName: "my-embedded-app-credentials-secret"
+  #       #   # OR
+  #       password: "my-embedded-app-password"
+  #     migrator:
+  #       # secretName: "my-embedded-migrator-credentials-secret"
+  #       # # OR
+  #       password: "my-embedded-migrator-password"
+  #     superuser:
+  #       # secretName: "my-embedded-superuser-credentials-secret"
+  #       # # OR
+  #       password: "my-embedded-superuser-password"
+  #   resources:
+  #     requests:
+  #       cpu: 1            # Default 1
+  #       memory: 1Gi       # Default 1Gi
+  #     limits:
+  #       cpu: 2            # Default 2
+  #       memory: 2Gi       # Default 2Gi
+  #   storage:
+  #     data:
+  #       capacity: 10Gi    # Default 10Gi
+
+  # s3:
+  #   bucket: "my-s3-bucket"
+  #   region: "my-s3-region"
+  #     # OR
+  #   endpoint: "my-s3-endpoint"
+  #   credentials:
+  #     secretName: "my-s3-credentials-secret"
+  #       # OR
+  #     source: "configuration"
+  #     accessKey: "my-s3-access-key"
+  #     secretKey: "my-s3-secret-key"
+  #       # OR
+  #     source: "environment"
+  #   advancedParams: # List of advanced parameters
+
+  # googleCloud:
+  #   bucket: "my-google-cloud-bucket"
+  #   credentials:
+  #     secretName: "my-google-cloud-credentials-secret"
+  #     # OR
+  #     source: "configuration"
+  #     accessKey: "my-google-cloud-access-key"
+  #     secretKey: "my-google-cloud-secret-key"
+  #   advancedParams: # List of advanced parameters
+
+  # azure:
+  #   container: "my-azure-container"
+  #   credentials:
+  #     secretName: "my-azure-credentials-secret"
+  #     # OR
+  #     source: "connectionString"
+  #     connectionString: "my-azure-connectionString"
+  #     # OR
+  #     source: "sas"
+  #     sas: "my-azure-sas"
+  #     endpoint: "my-azure-endpoint"
+  #   advancedParams: # List of advanced parameters
+
+#
+# End monitoring section
+#
