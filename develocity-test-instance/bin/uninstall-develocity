@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+helm uninstall \
+  --kubeconfig "$HOME/.lima/develocity/copied-from-guest/kubeconfig.yaml" \
+  -n develocity \
+  ge-standalone

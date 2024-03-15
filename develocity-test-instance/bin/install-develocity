@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# cd to develocity-test-instance directory
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+helm install \
+  --kubeconfig "$HOME/.lima/develocity/copied-from-guest/kubeconfig.yaml" \
+  --create-namespace --namespace develocity \
+  ge-standalone \
+  gradle/gradle-enterprise-standalone \
+  --values "./values.yaml" \
+  --set-file "global.license.file=./develocity.license"
