@@ -1,6 +1,7 @@
 .gradle
 out
 !*/src/**/out
+develocity-test-instance/bin/*.jar
 
 build
 !.github/actions/build

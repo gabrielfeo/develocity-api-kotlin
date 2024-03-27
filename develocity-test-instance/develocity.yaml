@@ -30,12 +30,15 @@ images:
   arch: "aarch64"
 
 memory: 16GiB
-vmType: "vz"
+arch: x86_64
+mountType: "9p"
 
-mountType: "virtiofs"
 mounts:
 - location: "~"
   writable: true
+
+networks:
+  - lima: shared
 
 # containerd is managed by k3s, not by Lima, so the values are set to false here.
 containerd:
@@ -103,7 +106,7 @@ probes:
 
 copyToHost:
 - guest: "/etc/rancher/k3s/k3s.yaml"
-  host: "{{.Dir}}/copied-from-guest/kubeconfig.yaml"
+  host: "{{.Dir}}/kubeconfig.yaml"
   deleteOnStop: true
 - guest: "/etc/provision.log"
   host: "{{.Dir}}/provision.log"
@@ -112,7 +115,7 @@ copyToHost:
 message: |
   To run `kubectl` on the host (assumes kubectl is installed), run the following commands:
   ------
-  export KUBECONFIG="{{.Dir}}/copied-from-guest/kubeconfig.yaml"
+  export KUBECONFIG="{{.Dir}}/kubeconfig.yaml"
   kubectl ...
   ------
   See provisioning logs in {{.Dir}}/provision.log

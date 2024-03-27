@@ -5,4 +5,11 @@ set -euo pipefail
 # cd to develocity-test-instance directory
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-limactl --tty=false start ./develocity.yaml
+sudo brew services start socket_vmnet
+
+target='./develocity.yaml'
+if limactl list -f yaml | grep 'name: develocity' > /dev/null; then
+  # Start existing instance
+  target='develocity'
+fi
+limactl --tty=false start "$target"

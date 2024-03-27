@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+JAR_URL="https://docs.gradle.com/enterprise/admin-cli/develocityctl-jar/develocityctl-1.9.jar"
+JAR_PATH="bin/develocityctl-1.9.jar"
+
+if [ ! -f "$JAR_PATH" ]; then
+  echo "Downloading develocityctl..."
+  curl "$JAR_URL" --output "$JAR_PATH"
+fi
+
+java -jar "$JAR_PATH" $@

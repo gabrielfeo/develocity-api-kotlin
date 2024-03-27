@@ -5,7 +5,7 @@ set -euo pipefail
 # cd to develocity-test-instance directory
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-helm install \
+helm upgrade \
   --create-namespace --namespace develocity \
   ge-standalone \
   gradle/gradle-enterprise-standalone \

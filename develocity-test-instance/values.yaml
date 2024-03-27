@@ -1,7 +1,12 @@
+# yaml-language-server: $schema=./.reference/gradle-enterprise-config-schema-9.json
+
 global:
   hostname: ge.example.com
   externalSSLTermination: true
   externalPort: 8180
+  unattended:
+    configuration:
+      systemPassword: "password"
 
 authenticationBroker:
   adminPassword:
@@ -10,5 +15,6 @@ authenticationBroker:
     value: "superS3cret!"
 
 ingress:
+  enabled: true
   ssl:
     enabled: false
