@@ -20,10 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up Gradle
-        uses: ./.github/actions/build
       - name: Submit Gradle dependencies
-        uses: gradle/actions/gradle-dependency-submission@v3
+        uses: gradle/actions/dependency-submission@v3
         with:
           dependency-graph: 'generate-and-submit'
         env:
