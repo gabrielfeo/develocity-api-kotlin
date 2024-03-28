@@ -54,6 +54,7 @@ fun BuildsApi.getBuildsFlow(
                 reverse = reverse,
                 maxWaitSecs = maxWaitSecs,
                 maxBuilds = buildsPerPage,
+                models = models,
             )
             emitAll(builds.asFlow())
         }

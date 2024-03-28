@@ -227,6 +227,10 @@ tasks.named("check") {
     dependsOn("integrationTest")
 }
 
+tasks.named<Test>("integrationTest") {
+    jvmArgs("-Xmx512m")
+}
+
 java {
     consistentResolution {
         useRuntimeClasspathVersions()
