@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Assertions.*
 import kotlin.test.AfterTest
 import kotlin.time.Duration.Companion.minutes
 
-private val timeout = 2.minutes
-
 class BuildsApiExtensionsIntegrationTest {
 
     init {
@@ -30,7 +28,7 @@ class BuildsApiExtensionsIntegrationTest {
     }
 
     @Test
-    fun getBuildsFlowPreservesParamsAcrossRequests() = runTest(timeout = timeout) {
+    fun getBuildsFlowPreservesParamsAcrossRequests() = runTest(timeout = 3.minutes) {
         api.buildsApi.getBuildsFlow(
             since = 0,
             query = "user:*",
@@ -45,13 +43,13 @@ class BuildsApiExtensionsIntegrationTest {
     }
 
     @Test
-    fun getBuildsFlowReplacesSinceForFromBuildAfterFirstRequest() = runTest(timeout = timeout) {
+    fun getBuildsFlowReplacesSinceForFromBuildAfterFirstRequest() = runTest {
         api.buildsApi.getBuildsFlow(since = 1).take(2000).collect()
         assertReplacedForFromBuildAfterFirstRequest(param = "since" to "1")
     }
 
     @Test
-    fun getBuildsFlowReplacesFromInstantForFromBuildAfterFirstRequest() = runTest(timeout = timeout) {
+    fun getBuildsFlowReplacesFromInstantForFromBuildAfterFirstRequest() = runTest {
         api.buildsApi.getBuildsFlow(fromInstant = 1).take(2000).collect()
         assertReplacedForFromBuildAfterFirstRequest(param = "fromInstant" to "1")
     }
