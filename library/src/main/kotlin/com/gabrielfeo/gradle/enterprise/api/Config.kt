@@ -193,17 +193,6 @@ data class Config(
 }
 
 internal fun requireEnvOrKeychainToken(debugLoggingEnabled: Boolean): String {
-    if (systemProperties["os.name"] == "Mac OS X") {
-        when (val result = keychain.get("gradle-enterprise-api-token")) {
-            is KeychainResult.Success -> return result.token
-            is KeychainResult.Error -> {
-                if (debugLoggingEnabled) {
-                    val logger = Logger.getGlobal()
-                    logger.info("Failed to get key from keychain (${result.description})")
-                }
-            }
-        }
-    }
     return env["GRADLE_ENTERPRISE_API_TOKEN"]
         ?: error("GRADLE_ENTERPRISE_API_TOKEN is required")
 }
