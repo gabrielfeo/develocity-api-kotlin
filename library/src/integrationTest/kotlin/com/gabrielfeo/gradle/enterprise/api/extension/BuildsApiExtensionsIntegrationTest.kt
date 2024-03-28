@@ -34,11 +34,13 @@ class BuildsApiExtensionsIntegrationTest {
         api.buildsApi.getBuildsFlow(
             since = 0,
             query = "user:*",
-            models = listOf(BuildModelName.gradleAttributes)
+            models = listOf(BuildModelName.gradleAttributes),
+            reverse = true,
         ).take(2000).collect()
         recorder.requests.forEach {
             assertUrlParam(it, "query", "user:*")
             assertUrlParam(it, "models", "gradle-attributes")
+            assertUrlParam(it, "reverse", "true")
         }
     }
 
