@@ -195,12 +195,12 @@ testing {
             dependencies {
                 implementation("com.squareup.okhttp3:mockwebserver:4.12.0")
                 implementation("com.squareup.okio:okio:3.7.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
             }
         }
         register<JvmTestSuite>("integrationTest") {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
             }
         }
         withType<JvmTestSuite>().configureEach {
@@ -248,7 +248,7 @@ dependencies {
     api("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
 }
 
 publishing {
