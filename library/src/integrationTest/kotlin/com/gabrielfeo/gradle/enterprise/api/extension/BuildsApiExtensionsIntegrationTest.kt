@@ -10,7 +10,6 @@ import okhttp3.Request
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
 import kotlin.time.Duration.Companion.minutes
 
 private val timeout = 2.minutes
@@ -45,18 +44,25 @@ class BuildsApiExtensionsIntegrationTest {
 
     @Test
     fun getBuildsFlowReplacesSinceForFromBuildAfterFirstRequest() = runTest(timeout = timeout) {
-        api.buildsApi.getBuildsFlow(
-            since = 0,
-            query = "user:*",
-            models = listOf(BuildModelName.gradleAttributes)
-        ).take(2000).collect()
+        api.buildsApi.getBuildsFlow(since = 1).take(2000).collect()
+        assertReplacedForFromBuildAfterFirstRequest(param = "since" to "1")
+    }
+
+    @Test
+    fun getBuildsFlowReplacesFromInstantForFromBuildAfterFirstRequest() = runTest(timeout = timeout) {
+        api.buildsApi.getBuildsFlow(fromInstant = 1).take(2000).collect()
+        assertReplacedForFromBuildAfterFirstRequest(param = "fromInstant" to "1")
+    }
+
+    private fun assertReplacedForFromBuildAfterFirstRequest(param: Pair<String, String>) {
         with(recorder.requests) {
+            val (key, value) = param
             first().let {
-                assertUrlParam(it, "since", "0")
+                assertUrlParam(it, key, value)
                 assertUrlParam(it, "fromBuild", null)
             }
             (this - first()).forEach {
-                assertUrlParam(it, "since", null)
+                assertUrlParam(it, key, null)
                 assertUrlParamNotNull(it, "fromBuild")
             }
         }
