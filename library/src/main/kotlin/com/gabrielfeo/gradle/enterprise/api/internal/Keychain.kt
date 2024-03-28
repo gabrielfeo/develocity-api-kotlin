@@ -26,9 +26,15 @@ internal class RealKeychain(
         if (status != 0) {
             return KeychainResult.Error("exit $status")
         }
+        println(KEYCHAIN_DEPRECATION_WARNING)
         val token = process.inputStream.bufferedReader().use {
             it.readText().trim()
         }
         return KeychainResult.Success(token)
     }
 }
+
+private const val KEYCHAIN_DEPRECATION_WARNING =
+    "WARNING: passing token via macOS keychain is deprecated. Please pass it as the " +
+        "GRADLE_ENTERPRISE_API_TOKEN environment variable instead. Keychain support will be " +
+        "removed in the next release. See release notes for details and alternatives."
