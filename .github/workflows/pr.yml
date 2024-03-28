@@ -33,25 +33,6 @@ jobs:
   readme-links-test:
     uses: ./.github/workflows/test-readme-links.yml
 
-  dependency-submission:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Generate and submit dependency graph
-        uses: gradle/actions/dependency-submission@v3
-
-  dependency-review:
-    needs: dependency-submission
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Perform dependency review
-        uses: actions/dependency-review-action@v3
-        with:
-          comment-summary-in-pr: on-failure
-
   generated-api-diff:
     runs-on: ubuntu-latest
     permissions:
