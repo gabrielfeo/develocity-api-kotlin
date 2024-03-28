@@ -32,6 +32,7 @@ fun BuildsApi.getBuildsFlow(
     reverse: Boolean? = null,
     maxWaitSecs: Int? = null,
     buildsPerPage: Int = API_MAX_BUILDS,
+    models: List<BuildModelName>? = null,
 ): Flow<Build> {
     return flow {
         var builds = getBuilds(
@@ -43,6 +44,7 @@ fun BuildsApi.getBuildsFlow(
             reverse = reverse,
             maxWaitSecs = maxWaitSecs,
             maxBuilds = buildsPerPage,
+            models = models,
         )
         emitAll(builds.asFlow())
         while (builds.isNotEmpty()) {
@@ -76,6 +78,18 @@ fun BuildsApi.getBuildsFlow(
  *
  * @param scope CoroutineScope in which to create coroutines. Defaults to [GlobalScope].
  */
+@Deprecated(
+    "Use `getBuildsFlow(models = listOf(BuildModelName.gradleAttributes))` instead. " +
+        "This function will be removed in the next release.",
+    replaceWith = ReplaceWith(
+        "getBuildsFlow(since, sinceBuild, fromInstant, fromBuild, query, reverse," +
+            "maxWaitSecs, models = listOf(BuildModelName.gradleAttributes))",
+        imports = [
+            "com.gabrielfeo.gradle.enterprise.api.extension.getBuildsFlow",
+            "com.gabrielfeo.gradle.enterprise.api.model.BuildModelName",
+        ]
+    ),
+)
 @OptIn(DelicateCoroutinesApi::class)
 fun BuildsApi.getGradleAttributesFlow(
     since: Long = 0,
@@ -86,6 +100,7 @@ fun BuildsApi.getGradleAttributesFlow(
     reverse: Boolean? = null,
     maxWaitSecs: Int? = null,
     scope: CoroutineScope = GlobalScope,
+    models: List<BuildModelName>? = null,
 ): Flow<GradleAttributes> =
     getBuildsFlow(
         since = since,
@@ -95,6 +110,7 @@ fun BuildsApi.getGradleAttributesFlow(
         query = query,
         reverse = reverse,
         maxWaitSecs = maxWaitSecs,
+        models = models,
     ).withGradleAttributes(scope, api = this).map { (_, attrs) ->
         attrs
     }
