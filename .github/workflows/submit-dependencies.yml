@@ -23,10 +23,8 @@ jobs:
       - name: Set up Gradle
         uses: ./.github/actions/build
       - name: Submit Gradle dependencies
-        uses: mikepenz/gradle-dependency-submission@v0.9.2
+        uses: gradle/actions/gradle-dependency-submission@v3
         with:
-          use-gradlew: false
-          include-build-environment: true
-          gradle-build-configuration-mapping: |
-            :library|compileClasspath
-            :library|runtimeClasspath
+          dependency-graph: 'generate-and-submit'
+        env:
+          DEPENDENCY_GRAPH_EXCLUDE_CONFIGURATIONS: '.*[Tt]est(Compile|Runtime)Classpath'
