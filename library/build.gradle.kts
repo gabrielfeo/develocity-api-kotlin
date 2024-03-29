@@ -245,9 +245,9 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
     api("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    api("com.squareup.retrofit2:retrofit:2.10.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.10.0")
-    implementation("com.squareup.retrofit2:converter-scalars:2.10.0")
+    api("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
 }
 
