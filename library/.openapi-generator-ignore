@@ -6,4 +6,5 @@ build/generated/openapi-generator/docs/*
 build/generated/openapi-generator/src/main/AndroidManifest.xml
 build/generated/openapi-generator/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/internal/infrastructure/ApiClient.kt
 build/generated/openapi-generator/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/GradleEnterpriseApi.kt
+build/generated/openapi-generator/src/main/kotlin/com/gabrielfeo/gradle/enterprise/api/DevelocityApi.kt
 build/generated/openapi-generator/src/test/**/*
