@@ -17,7 +17,7 @@
  * Run this with at least 1GB of heap to accomodate the fetched data: JAVA_OPTS=-Xmx1g
  */
 
-@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.3.1")
+@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0-alpha03")
 
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
@@ -36,10 +36,13 @@ val buildFilter: (GradleAttributes) -> Boolean = { build ->
 // Fetch builds from the API
 val api = GradleEnterpriseApi.newInstance()
 val builds: List<GradleAttributes> = runBlocking {
-    val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
-    api.buildsApi.getGradleAttributesFlow(since = startMilli)
-        .filter(buildFilter)
-        .toList(LinkedList())
+    api.buildsApi.getBuildsFlow(
+        fromInstant = 0,
+        query = """buildStartTime<-7d tag:local buildOutcome:failed""",
+        models = listOf(BuildModelName.gradleAttributes),
+    ).map {
+        it.models!!.gradleAttributes!!.model!!
+    }.toList(LinkedList())
 }
 
 // Process builds and count how many times each was invoked
