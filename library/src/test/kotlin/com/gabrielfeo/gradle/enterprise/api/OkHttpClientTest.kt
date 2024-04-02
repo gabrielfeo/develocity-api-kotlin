@@ -41,24 +41,6 @@ class OkHttpClientTest {
     }
 
     @Test
-    fun `Given debug logging and cache enabled, adds logging interceptors`() {
-        val client = buildClient(
-            "GRADLE_ENTERPRISE_API_DEBUG_LOGGING" to "true",
-            "GRADLE_ENTERPRISE_API_CACHE_ENABLED" to "true",
-        )
-        assertTrue(client.interceptors.any { it is CacheHitLoggingInterceptor })
-    }
-
-    @Test
-    fun `Given debug logging disabled, doesn't add logging interceptors`() {
-        val client = buildClient(
-            "GRADLE_ENTERPRISE_API_DEBUG_LOGGING" to "false",
-            "GRADLE_ENTERPRISE_API_CACHE_ENABLED" to "true",
-        )
-        assertTrue(client.interceptors.none { it is CacheHitLoggingInterceptor })
-    }
-
-    @Test
     fun `Given cache enabled, configures caching`() {
         val client = buildClient("GRADLE_ENTERPRISE_API_CACHE_ENABLED" to "true")
         assertTrue(client.networkInterceptors.any { it is CacheEnforcingInterceptor })
@@ -96,6 +78,6 @@ class OkHttpClientTest {
             null -> Config()
             else -> Config(clientBuilder = clientBuilder)
         }
-        return buildOkHttpClient(config)
+        return buildOkHttpClient(config, RealLoggerFactory(config))
     }
 }
