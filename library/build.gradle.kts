@@ -14,7 +14,7 @@ plugins {
     signing
 }
 
-val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
+val repoUrl = "https://github.com/gabrielfeo/develocity-api-kotlin"
 
 java {
     withSourcesJar()
@@ -83,9 +83,9 @@ dependencies {
 }
 
 fun libraryPom() = Action<MavenPom> {
-    name.set("Gradle Enterprise API Kotlin")
-    description.set("A library to use the Gradle Enterprise REST API in Kotlin")
-    url.set("https://github.com/gabrielfeo/gradle-enterprise-api-kotlin")
+    name.set("Develocity API Kotlin")
+    description.set("A library to use the Develocity API in Kotlin")
+    url.set(repoUrl)
     licenses {
         license {
             name.set("MIT")
@@ -101,7 +101,7 @@ fun libraryPom() = Action<MavenPom> {
         }
     }
     scm {
-        val basicUrl = "github.com/gabrielfeo/gradle-enterprise-api-kotlin"
+        val basicUrl = repoUrl.substringAfter("://")
         connection.set("scm:git:git://$basicUrl.git")
         developerConnection.set("scm:git:ssh://$basicUrl.git")
         url.set("https://$basicUrl/")
