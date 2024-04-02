@@ -65,16 +65,17 @@ dependencies {
 ## Usage
 
 The [`GradleEnterpriseApi`][9] interface represents the Gradle Enterprise REST API. It contains
-the 6 APIs exactly as listed in the [REST API Manual][5]:
+all the APIs exactly as listed in the [REST API Manual][5]:
 
 ```kotlin
 interface GradleEnterpriseApi {
   val buildsApi: BuildsApi
-  val buildCacheApi: BuildCacheApi
-  val projectsApi: projectsApi
   val testsApi: TestsApi
+  val buildCacheApi: BuildCacheApi
+  val projectsApi: ProjectsApi
   val metaApi: MetaApi
   val testDistributionApi: TestDistributionApi
+  val authApi: AuthApi
   // ...
 }
 ```
