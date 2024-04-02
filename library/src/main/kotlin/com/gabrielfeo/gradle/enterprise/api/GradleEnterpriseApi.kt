@@ -1,5 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api
 
+import com.gabrielfeo.gradle.enterprise.api.internal.RealLoggerFactory
 import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
 import com.gabrielfeo.gradle.enterprise.api.internal.buildRetrofit
 import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.Serializer
@@ -67,7 +68,7 @@ internal class RealGradleEnterpriseApi(
 ) : GradleEnterpriseApi {
 
     private val okHttpClient by lazy {
-        buildOkHttpClient(config = config)
+        buildOkHttpClient(config = config, RealLoggerFactory(config))
     }
 
     private val retrofit: Retrofit by lazy {

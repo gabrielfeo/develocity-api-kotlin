@@ -1,6 +1,14 @@
 package com.gabrielfeo.gradle.enterprise.api.internal
 
-internal var keychain: Keychain = RealKeychain(systemProperties)
+import com.gabrielfeo.gradle.enterprise.api.Config
+import org.slf4j.Logger
+
+internal var keychain: Keychain = RealKeychain(
+    systemProperties,
+    // Setting level via env will work, via code won't. Not worth fixing, since keychain will
+    // be removed soon.
+    RealLoggerFactory(Config()).newLogger(RealKeychain::class),
+)
 
 internal interface Keychain {
     fun get(entry: String): KeychainResult
@@ -13,6 +21,7 @@ internal sealed interface KeychainResult {
 
 internal class RealKeychain(
     private val systemProperties: SystemProperties,
+    private val logger: Logger,
 ) : Keychain {
     override fun get(
         entry: String,
@@ -23,6 +32,7 @@ internal class RealKeychain(
             "security", "find-generic-password", "-w", "-a", login, "-s", entry
         ).start()
         val status = process.waitFor()
+        logger.debug("Keychain exit status: $status)")
         if (status != 0) {
             return KeychainResult.Error("exit $status")
         }

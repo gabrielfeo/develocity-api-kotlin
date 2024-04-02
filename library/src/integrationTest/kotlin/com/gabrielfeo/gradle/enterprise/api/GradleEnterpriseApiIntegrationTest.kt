@@ -16,7 +16,11 @@ class GradleEnterpriseApiIntegrationTest {
     fun canFetchBuildsWithDefaultConfig() = runTest {
         env = RealEnv
         keychain = RealKeychain(RealSystemProperties)
-        val api = GradleEnterpriseApi.newInstance()
+        val api = GradleEnterpriseApi.newInstance(
+            config = Config(
+                cacheConfig = Config.CacheConfig(cacheEnabled = false)
+            )
+        )
         val builds = api.buildsApi.getBuilds(
             since = 0,
             maxBuilds = 5,

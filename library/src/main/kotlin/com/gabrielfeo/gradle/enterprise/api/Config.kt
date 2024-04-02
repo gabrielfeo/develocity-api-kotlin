@@ -1,10 +1,10 @@
 package com.gabrielfeo.gradle.enterprise.api
 
+import com.gabrielfeo.gradle.enterprise.api.Config.CacheConfig
 import com.gabrielfeo.gradle.enterprise.api.internal.*
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import java.io.File
-import java.util.logging.Logger
 import kotlin.time.Duration.Companion.days
 
 /**
@@ -14,11 +14,14 @@ import kotlin.time.Duration.Companion.days
 data class Config(
 
     /**
-     * Enables debug logging from the library. All logging is output to stderr. By default, uses
-     * environment variable `GRADLE_ENTERPRISE_API_DEBUG_LOGGING` or `false`.
+     * Forces a log level for internal library classes. By default, the library includes
+     * logback-classic with logging disabled, aimed at notebook and script usage. Logging may be
+     * enabled for troubleshooting by changing log level to "INFO", "DEBUG", etc.
+     *
+     * To use different SLF4J bindings, simply exclude the logback dependency.
      */
-    val debugLoggingEnabled: Boolean =
-        env["GRADLE_ENTERPRISE_API_DEBUG_LOGGING"].toBoolean(),
+    val logLevel: String? =
+        env["GRADLE_ENTERPRISE_API_LOG_LEVEL"],
 
     /**
      * Provides the URL of a Gradle Enterprise API instance REST API. By default, uses
@@ -33,7 +36,7 @@ data class Config(
      * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_API_TOKEN`.
      */
     val apiToken: () -> String = {
-        requireEnvOrKeychainToken(debugLoggingEnabled = debugLoggingEnabled)
+        requireEnvOrKeychainToken()
     },
 
     /**
@@ -192,16 +195,11 @@ data class Config(
     )
 }
 
-internal fun requireEnvOrKeychainToken(debugLoggingEnabled: Boolean): String {
+internal fun requireEnvOrKeychainToken(): String {
     if (systemProperties["os.name"] == "Mac OS X") {
         when (val result = keychain.get("gradle-enterprise-api-token")) {
             is KeychainResult.Success -> return result.token
-            is KeychainResult.Error -> {
-                if (debugLoggingEnabled) {
-                    val logger = Logger.getGlobal()
-                    logger.info("Failed to get key from keychain (${result.description})")
-                }
-            }
+            is KeychainResult.Error -> {}
         }
     }
     return env["GRADLE_ENTERPRISE_API_TOKEN"]

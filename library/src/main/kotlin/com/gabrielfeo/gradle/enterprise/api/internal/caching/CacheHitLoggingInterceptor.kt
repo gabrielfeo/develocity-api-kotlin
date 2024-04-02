@@ -2,11 +2,11 @@ package com.gabrielfeo.gradle.enterprise.api.internal.caching
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.util.logging.Level
-import java.util.logging.Logger
+import org.slf4j.Logger
+
 
 internal class CacheHitLoggingInterceptor(
-    private val logger: Logger = Logger.getGlobal(),
+    private val logger: Logger,
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -14,7 +14,7 @@ internal class CacheHitLoggingInterceptor(
         val response = chain.proceed(chain.request())
         val wasHit = with(response) { cacheResponse != null && networkResponse == null }
         val hitOrMiss = if (wasHit) "hit" else "miss"
-        logger.log(Level.INFO, "Cache $hitOrMiss: $url")
+        logger.debug("Cache {}: {}", hitOrMiss, url)
         return response
     }
 }

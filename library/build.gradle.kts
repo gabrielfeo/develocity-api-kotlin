@@ -153,7 +153,7 @@ java {
     withSourcesJar()
     withJavadocJar()
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(11))
         vendor.set(JvmVendorSpec.AZUL)
     }
 }
@@ -170,7 +170,7 @@ tasks.withType<DokkaTask>().configureEach {
             remoteUrl.set(URL("$repoUrl/blob/$version/src/main/kotlin"))
             remoteLineSuffix.set("#L")
         }
-        jdkVersion.set(8)
+        jdkVersion.set(11)
         suppressGeneratedFiles.set(false)
         documentedVisibilities.set(setOf(PUBLIC))
         perPackageOption {
@@ -230,6 +230,7 @@ tasks.named("check") {
 
 tasks.named<Test>("integrationTest") {
     jvmArgs("-Xmx512m")
+    environment("GRADLE_ENTERPRISE_API_LOG_LEVEL", "DEBUG")
 }
 
 java {
@@ -250,6 +251,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    implementation("org.slf4j:slf4j-api:2.0.11")
+    implementation("ch.qos.logback:logback-classic:1.4.14")
 }
 
 publishing {
