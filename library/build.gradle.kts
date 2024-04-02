@@ -201,6 +201,7 @@ testing {
         register<JvmTestSuite>("integrationTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+                implementation("com.google.guava:guava:33.1.0-jre")
             }
         }
         withType<JvmTestSuite>().configureEach {
