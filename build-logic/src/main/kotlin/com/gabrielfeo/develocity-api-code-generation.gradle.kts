@@ -11,7 +11,11 @@ plugins {
 val localSpecPath = providers.gradleProperty("localSpecPath")
 val remoteSpecUrl = providers.gradleProperty("remoteSpecUrl").orElse(
     providers.gradleProperty("gradle.enterprise.version").map { geVersion ->
-        val specName = "gradle-enterprise-$geVersion-api.yaml"
+        val majorVersion = geVersion.substringBefore('.').toInt()
+        val specName = when {
+            majorVersion <= 2023 -> "gradle-enterprise-$geVersion-api.yaml"
+            else -> "develocity-$geVersion-api.yaml"
+        }
         "https://docs.gradle.com/enterprise/api-manual/ref/$specName"
     }
 )
@@ -47,6 +51,7 @@ openApiGenerate {
     invokerPackage.set("com.gabrielfeo.gradle.enterprise.api.internal")
     additionalProperties.put("library", "jvm-retrofit2")
     additionalProperties.put("useCoroutines", true)
+    cleanupOutput.set(true)
 }
 
 val postProcessGeneratedApi by tasks.registering(PostProcessGeneratedApi::class) {
