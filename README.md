@@ -1,7 +1,7 @@
 # Gradle Enterprise API Kotlin
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2023.3.1-blue)][14]
-[![Javadoc](https://img.shields.io/badge/Javadoc-2023.3.1-orange)][7]
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-2023.4.0-blue)][14]
+[![Javadoc](https://img.shields.io/badge/Javadoc-2023.4.0-orange)][7]
 
 A Kotlin library to access the [Gradle Enterprise API][1], easy to use from:
 
@@ -11,7 +11,7 @@ A Kotlin library to access the [Gradle Enterprise API][1], easy to use from:
 
 ```kotlin
 val api = GradleEnterpriseApi.newInstance()
-api.buildsApi.getBuilds(since = yesterdayMilli).forEach {
+api.buildsApi.getBuildsFlow(fromInstant = 0, query = "buildStartTime<-1d").forEach {
   println(it)
 }
 ```
@@ -20,27 +20,12 @@ api.buildsApi.getBuilds(since = yesterdayMilli).forEach {
 
 ## Setup
 
-Set up once and use the library from anywhere in your machine:
+Set up environment variables and use the library from any notebook, script or project:
 
-- [`GRADLE_ENTERPRISE_API_URL`][16] environment variable: the URL of your Gradle Enterprise instance
-- [`GRADLE_ENTERPRISE_API_TOKEN`][17] environment variable: an API access token for the Gradle
-  Enterprise instance.
-  - Or a macOS keychain entry labeled `gradle-enterprise-api-token` (recommended).
-  - <details>
-
-      <summary>How to get an API token</summary>
-
-      The Gradle Enterprise user must have the “Export build data via the API” permission.
-
-      1. Sign in to Gradle Enterprise
-      2. Go to "My settings" from the user menu in the top right-hand corner of the page
-      3. Go to "Access keys" from the sidebar
-      4. Click "Generate" on the right-hand side and copy the generated token.
-
-    </details>
-
-That's it! You can now use the library without any code configuration from notebooks, scripts or
-projects.
+- [`GRADLE_ENTERPRISE_API_URL`][16]: the URL of your Gradle Enterprise instance
+- [`GRADLE_ENTERPRISE_API_TOKEN`][17]: an [access key][31] for the Gradle Enterprise instance
+- [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12] (optional, off by default): enables caching for some
+  requests (see [caveats][13])
 
 ### Setup snippets
 
@@ -52,7 +37,7 @@ recommended over JitPack.
 
 ```
 %useLatestDescriptors
-%use gradle-enterprise-api-kotlin(version=2023.3.1)
+%use gradle-enterprise-api-kotlin(version=2023.4.0)
 ```
 
 </details>
@@ -61,7 +46,7 @@ recommended over JitPack.
   <summary>Add to a Kotlin script</summary>
 
 ```kotlin
-@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.3.1")
+@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0")
 ```
 
 </details>
@@ -71,7 +56,7 @@ recommended over JitPack.
 
 ```kotlin
 dependencies {
-  implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.3.1")
+  implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0")
 }
 ```
 
@@ -80,12 +65,14 @@ dependencies {
 ## Usage
 
 The [`GradleEnterpriseApi`][9] interface represents the Gradle Enterprise REST API. It contains
-the 4 APIs exactly as listed in the [REST API Manual][5]:
+the 6 APIs exactly as listed in the [REST API Manual][5]:
 
 ```kotlin
 interface GradleEnterpriseApi {
   val buildsApi: BuildsApi
   val buildCacheApi: BuildCacheApi
+  val projectsApi: projectsApi
+  val testsApi: TestsApi
   val metaApi: MetaApi
   val testDistributionApi: TestDistributionApi
   // ...
@@ -105,13 +92,9 @@ For most cases like scripts and notebooks, simply use [runBlocking][30]:
 
 ```kotlin
 runBlocking {
-  val builds: List<Build> = api.buildsApi.getBuilds(since = yesterdayMilli)
+  val builds: List<Build> = api.buildsApi.getBuilds(fromInstant = 0, query = "...")
 }
 ```
-
-It's recommended to call [`GradleEnterpriseApi.shutdown()`][11] at the end of scripts to release
-resources and let the program exit. Otherwise, it'll keep running for an extra ~60s after code
-finishes, as an [expected behavior of OkHttp][4].
 
 ### Caching
 
@@ -124,18 +107,47 @@ off by default. Enable by simply setting [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`]
 Explore the library's convenience extensions:
 [`com.gabrielfeo.gradle.enterprise.api.extension`][25].
 
-What you'll probably use the most is [`getGradleAttributesFlow`][24], which will call
-`/api/builds` to get the list of build IDs since a given date and join each with
-`/api/builds/{id}/gradle-attributes`, which contains tags and custom values on each build. It
-also takes care of paging under-the-hood, returning a [`Flow`][26] of all builds since the given
-date, so you don't have to worry about the REST API's limit of 1000 builds per request:
+By default, the API's most common endpoint, `/api/builds`, is paginated. The library provides a
+[`getBuildsFlow`][24] extension to handle paging under-the-hood and yield all builds as you collect
+them:
 
 ```kotlin
-val builds: Flow<GradleAttributes> = api.buildsApi.getGradleAttributesFlow(since = lastYear)
+val builds: Flow<Build> = api.buildsApi.getBuildsFlow(fromInstant = 0, query = "...")
 builds.collect {
   // ...
 }
 ```
+
+### Shutdown
+
+By default, the library keeps some of its resources (like threads) alive until idle, in
+case they're needed again. This is an optimization of [OkHttp][4]. If you're working on a notebook
+or have a long-living program that fetches builds continuosly, no shutdown is needed.
+
+```kotlin
+val api = GradleEnterpriseApi.newInstance()
+while (true) {
+  delay(2.minutes)
+  processNewBuilds(api.buildsApi.getBuildsFlow(query = "..."))
+  // Don't worry about shutdown
+}
+```
+
+In other cases (i.e. fetching some builds and exiting), you might want to call
+[`GradleEnterpriseApi.shutdown()`][11] so that the program exits immediately:
+
+```kotlin
+val api = GradleEnterpriseApi.newInstance()
+printMetrics(api.buildsApi.getBuildsFlow(query = "..."))
+// Call shutdown if you expect the program to exit now
+api.shutdown()
+```
+
+### Working samples
+
+- [Jupyter notebooks with the Kotlin kernel][29]
+- [Kotlin scripts (`kts`)][27]
+- [Kotlin projects][28]
 
 ## Documentation
 
@@ -148,7 +160,7 @@ from the same OpenAPI spec.
 ## Optional setup
 
 Creating a custom [`Config`][8] allows you to change library settings via code instead of
-environment variables. It also lets you share resource between the library's `OkHttpClient` and
+environment variables. It also lets you share resources between the library's `OkHttpClient` and
 your own. For example:
 
 ```kotlin
@@ -158,19 +170,17 @@ val config = Config(
   clientBuilder = existingClient.newBuilder(),
 )
 val api = GradleEnterpriseApi.newInstance(config)
-api.buildsApi.getBuilds(since = yesterdayMilli)
+api.buildsApi.getBuilds(fromInstant = yesterdayMilli)
 ```
 
 See the [`Config`][8] documentation for more.
 
 ## More info
 
-- Currently built for Gradle Enterprise `2022.4`, but should work fine with previous and
-  future versions. The library will be updated regularly for new API versions.
 - Use JDK 8 or 14+ to run, if you want to avoid the ["illegal reflective access" warning about
   Retrofit][3]
 - All classes live in these packages. If you need to make small edits to scripts where there's
-  no auto-complete, wildcard imports can be used:
+  no auto-complete, wildcard imports can be used (in notebooks, they're added automatically):
 
 ```kotlin
 import com.gabrielfeo.gradle.enterprise.api.*
@@ -190,7 +200,7 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [11]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/shutdown.html
 [12]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/-cache-config/index.html
-[14]: https://central.sonatype.com/artifact/com.gabrielfeo/gradle-enterprise-api-kotlin/2023.3.1
+[14]: https://central.sonatype.com/artifact/com.gabrielfeo/gradle-enterprise-api-kotlin/2023.4.0
 [16]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/api-url.html
 [17]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/api-token.html
 [18]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/index.html
@@ -199,10 +209,12 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [21]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/get-builds.html
 [22]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/get-gradle-attributes.html
 [23]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/-default-instance/index.html
-[24]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/get-gradle-attributes-flow.html
+[24]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/get-builds-flow.html
 [25]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/index.html
 [26]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/
 [27]: ./examples/example-script.main.kts
 [28]: ./examples/example-project
 [29]: https://nbviewer.org/github/gabrielfeo/gradle-enterprise-api-kotlin/blob/main/examples/example-notebooks/MostFrequentBuilds.ipynb
 [30]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html
+[31]: ./docs/AccessKeys.md
+[32]: ./examples
