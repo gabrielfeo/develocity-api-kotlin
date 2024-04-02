@@ -41,8 +41,12 @@ def update_version(properties_file, new_version):
     for line in fileinput.input(properties_file, inplace=True):
         if '=' in line:
             k, v = line.strip().split('=', maxsplit=2)
+            # Update target API spec version
             if k == 'gradle.enterprise.version':
                 line = f"{k}={new_version}\n"
+            # Update library version
+            if k == 'version':
+                line = f"{k}={new_version}.0\n"
         sys.stdout.write(line)
 
 
