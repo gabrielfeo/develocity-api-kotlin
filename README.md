@@ -209,7 +209,7 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [21]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/get-builds.html
 [22]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/get-gradle-attributes.html
 [23]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/-default-instance/index.html
-[24]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/get-gradle-attributes-flow.html
+[24]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/get-builds-flow.html
 [25]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/index.html
 [26]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/
 [27]: ./examples/example-script.main.kts
