@@ -82,34 +82,55 @@ dependencies {
     integrationTestImplementation("com.google.guava:guava:33.1.0-jre")
 }
 
+fun libraryPom() = Action<MavenPom> {
+    name.set("Gradle Enterprise API Kotlin")
+    description.set("A library to use the Gradle Enterprise REST API in Kotlin")
+    url.set("https://github.com/gabrielfeo/gradle-enterprise-api-kotlin")
+    licenses {
+        license {
+            name.set("MIT")
+            url.set("https://spdx.org/licenses/MIT.html")
+            distribution.set("repo")
+        }
+    }
+    developers {
+        developer {
+            id.set("gabrielfeo")
+            name.set("Gabriel Feo")
+            email.set("gabriel@gabrielfeo.com")
+        }
+    }
+    scm {
+        val basicUrl = "github.com/gabrielfeo/gradle-enterprise-api-kotlin"
+        connection.set("scm:git:git://$basicUrl.git")
+        developerConnection.set("scm:git:ssh://$basicUrl.git")
+        url.set("https://$basicUrl/")
+    }
+}
+
 publishing {
     publications {
-        create<MavenPublication>("library") {
-            artifactId = "gradle-enterprise-api-kotlin"
+        create<MavenPublication>("develocityApiKotlin") {
+            artifactId = "develocity-api-kotlin"
             from(components["java"])
+            pom(libraryPom())
+        }
+        // For occasional maven local publishing
+        create<MavenPublication>("unsignedDevelocityApiKotlin") {
+            artifactId = "develocity-api-kotlin"
+            from(components["java"])
+            pom(libraryPom())
+        }
+        create<MavenPublication>("relocation") {
             pom {
-                name.set("Gradle Enterprise API Kotlin")
-                description.set("A library to use the Gradle Enterprise REST API in Kotlin")
-                url.set("https://github.com/gabrielfeo/gradle-enterprise-api-kotlin")
-                licenses {
-                    license {
-                        name.set("MIT")
-                        url.set("https://spdx.org/licenses/MIT.html")
-                        distribution.set("repo")
+                groupId = project.group.toString()
+                artifactId = "gradle-enterprise-api-kotlin"
+                distributionManagement {
+                    relocation {
+                        groupId = project.group.toString()
+                        artifactId = "develocity-api-kotlin"
+                        message = "artifactId has been changed. Part of the rename to Develocity."
                     }
-                }
-                developers {
-                    developer {
-                        id.set("gabrielfeo")
-                        name.set("Gabriel Feo")
-                        email.set("gabriel@gabrielfeo.com")
-                    }
-                }
-                scm {
-                    val basicUrl = "github.com/gabrielfeo/gradle-enterprise-api-kotlin"
-                    connection.set("scm:git:git://$basicUrl.git")
-                    developerConnection.set("scm:git:ssh://$basicUrl.git")
-                    url.set("https://$basicUrl/")
                 }
             }
         }
@@ -135,7 +156,7 @@ publishing {
 fun isCI() = System.getenv("CI").toBoolean()
 
 signing {
-    sign(publishing.publications["library"])
+    sign(publishing.publications["develocityApiKotlin"])
     if (isCI()) {
         useInMemoryPgpKeys(
             project.properties["signing.secretKey"] as String?,
