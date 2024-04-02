@@ -23,21 +23,8 @@ api.buildsApi.getBuilds(since = yesterdayMilli).forEach {
 Set up once and use the library from anywhere in your machine:
 
 - [`GRADLE_ENTERPRISE_API_URL`][16] environment variable: the URL of your Gradle Enterprise instance
-- [`GRADLE_ENTERPRISE_API_TOKEN`][17] environment variable: an API access token for the Gradle
-  Enterprise instance.
-  - Or a macOS keychain entry labeled `gradle-enterprise-api-token` (recommended).
-  - <details>
-
-      <summary>How to get an API token</summary>
-
-      The Gradle Enterprise user must have the “Export build data via the API” permission.
-
-      1. Sign in to Gradle Enterprise
-      2. Go to "My settings" from the user menu in the top right-hand corner of the page
-      3. Go to "Access keys" from the sidebar
-      4. Click "Generate" on the right-hand side and copy the generated token.
-
-    </details>
+- [`GRADLE_ENTERPRISE_API_TOKEN`][17] environment variable: an [access key][31] for the Gradle
+  Enterprise instance
 
 That's it! You can now use the library without any code configuration from notebooks, scripts or
 projects.
@@ -80,12 +67,14 @@ dependencies {
 ## Usage
 
 The [`GradleEnterpriseApi`][9] interface represents the Gradle Enterprise REST API. It contains
-the 4 APIs exactly as listed in the [REST API Manual][5]:
+the 5 APIs exactly as listed in the [REST API Manual][5]:
 
 ```kotlin
 interface GradleEnterpriseApi {
   val buildsApi: BuildsApi
   val buildCacheApi: BuildCacheApi
+  val projectsApi: projectsApi
+  val testsApi: TestsApi
   val metaApi: MetaApi
   val testDistributionApi: TestDistributionApi
   // ...
@@ -148,7 +137,7 @@ from the same OpenAPI spec.
 ## Optional setup
 
 Creating a custom [`Config`][8] allows you to change library settings via code instead of
-environment variables. It also lets you share resource between the library's `OkHttpClient` and
+environment variables. It also lets you share resources between the library's `OkHttpClient` and
 your own. For example:
 
 ```kotlin
@@ -206,3 +195,4 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [28]: ./examples/example-project
 [29]: https://nbviewer.org/github/gabrielfeo/gradle-enterprise-api-kotlin/blob/main/examples/example-notebooks/MostFrequentBuilds.ipynb
 [30]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html
+[31]: ./docs/AccessKeys.md
