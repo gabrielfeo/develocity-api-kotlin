@@ -8,7 +8,7 @@ internal class KeychainIntegrationTest {
     @Test
     fun getApiToken() {
         env = RealEnv
-        keychain = RealKeychain(RealSystemProperties)
+        keychain = realKeychain()
         val result = keychain.get("gradle-enterprise-api-token")
         assertIs<KeychainResult.Success>(result)
         assertFalse(result.token.isNullOrBlank(), "Keychain returned null or blank")

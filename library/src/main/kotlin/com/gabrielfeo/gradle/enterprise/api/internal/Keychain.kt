@@ -3,8 +3,9 @@ package com.gabrielfeo.gradle.enterprise.api.internal
 import com.gabrielfeo.gradle.enterprise.api.Config
 import org.slf4j.Logger
 
-internal var keychain: Keychain = RealKeychain(
-    systemProperties,
+internal var keychain: Keychain = realKeychain()
+internal fun realKeychain() = RealKeychain(
+    RealSystemProperties,
     // Setting level via env will work, via code won't. Not worth fixing, since keychain will
     // be removed soon.
     RealLoggerFactory(Config()).newLogger(RealKeychain::class),

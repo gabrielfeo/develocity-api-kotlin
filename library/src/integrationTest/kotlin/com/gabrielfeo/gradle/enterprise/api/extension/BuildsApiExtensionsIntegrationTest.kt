@@ -16,7 +16,7 @@ class BuildsApiExtensionsIntegrationTest {
 
     init {
         env = RealEnv
-        keychain = RealKeychain(RealSystemProperties)
+        keychain = realKeychain()
     }
 
     private val recorder = RequestRecorder()
