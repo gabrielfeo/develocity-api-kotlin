@@ -11,7 +11,7 @@ A Kotlin library to access the [Gradle Enterprise API][1], easy to use from:
 
 ```kotlin
 val api = GradleEnterpriseApi.newInstance()
-api.buildsApi.getBuilds(since = yesterdayMilli).forEach {
+api.buildsApi.getBuildsFlow(fromInstant = 0, query = "buildStartTime<-1d").forEach {
   println(it)
 }
 ```
@@ -20,15 +20,12 @@ api.buildsApi.getBuilds(since = yesterdayMilli).forEach {
 
 ## Setup
 
-Set up environment variables and use the library from anywhere in your machine:
+Set up environment variables and use the library from any notebook, script or project:
 
 - [`GRADLE_ENTERPRISE_API_URL`][16]: the URL of your Gradle Enterprise instance
 - [`GRADLE_ENTERPRISE_API_TOKEN`][17]: an [access key][31] for the Gradle Enterprise instance
 - [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12] (optional, off by default): enables caching for some
   requests (see [caveats][13])
-
-That's it! You can now use the library without any code configuration from notebooks, scripts or
-projects.
 
 ### Setup snippets
 
@@ -183,7 +180,7 @@ See the [`Config`][8] documentation for more.
 - Use JDK 8 or 14+ to run, if you want to avoid the ["illegal reflective access" warning about
   Retrofit][3]
 - All classes live in these packages. If you need to make small edits to scripts where there's
-  no auto-complete, wildcard imports can be used:
+  no auto-complete, wildcard imports can be used (in notebooks, they're added automatically):
 
 ```kotlin
 import com.gabrielfeo.gradle.enterprise.api.*
