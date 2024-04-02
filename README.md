@@ -20,11 +20,12 @@ api.buildsApi.getBuilds(since = yesterdayMilli).forEach {
 
 ## Setup
 
-Set up once and use the library from anywhere in your machine:
+Set up environment variables and use the library from anywhere in your machine:
 
-- [`GRADLE_ENTERPRISE_API_URL`][16] environment variable: the URL of your Gradle Enterprise instance
-- [`GRADLE_ENTERPRISE_API_TOKEN`][17] environment variable: an [access key][31] for the Gradle
-  Enterprise instance
+- [`GRADLE_ENTERPRISE_API_URL`][16]: the URL of your Gradle Enterprise instance
+- [`GRADLE_ENTERPRISE_API_TOKEN`][17]: an [access key][31] for the Gradle Enterprise instance
+- [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12] (optional, off by default): enables caching for some
+  requests (see [caveats][13])
 
 That's it! You can now use the library without any code configuration from notebooks, scripts or
 projects.
@@ -145,6 +146,12 @@ printMetrics(api.buildsApi.getBuildsFlow(query = "..."))
 api.shutdown()
 ```
 
+### Working samples
+
+- [Jupyter notebooks with the Kotlin kernel][29]
+- [Kotlin scripts (`kts`)][27]
+- [Kotlin projects][28]
+
 ## Documentation
 
 [![Javadoc](https://img.shields.io/badge/javadoc-latest-orange)][7]
@@ -213,3 +220,4 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [29]: https://nbviewer.org/github/gabrielfeo/gradle-enterprise-api-kotlin/blob/main/examples/example-notebooks/MostFrequentBuilds.ipynb
 [30]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html
 [31]: ./docs/AccessKeys.md
+[32]: ./examples
