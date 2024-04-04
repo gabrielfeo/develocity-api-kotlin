@@ -52,7 +52,6 @@ tasks.named<Jar>("javadocJar") {
 }
 
 tasks.named<Test>("integrationTest") {
-    jvmArgs("-Xmx512m")
     environment("GRADLE_ENTERPRISE_API_LOG_LEVEL", "DEBUG")
 }
 
