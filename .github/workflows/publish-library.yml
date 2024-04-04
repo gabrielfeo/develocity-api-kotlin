@@ -44,6 +44,6 @@ jobs:
           artifact-name: 'outputs'
           path-to-upload: |
             library/build/*-api.yaml
-            library/build/generated/open-api-generator/**/*
+            library/build/generated/openapi-generator/**/*
             library/build/publications/**/*
             library/build/libs/**/*
