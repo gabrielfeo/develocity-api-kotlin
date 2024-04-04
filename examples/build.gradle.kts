@@ -4,10 +4,7 @@ plugins {
     base
 }
 
-// Configure from root project so we don't pollute the example buildscript
-// TODO Remove once the project version is set in source. Sub becomes implicit
-//  if GAV is an exact match, but today version=SNAPSHOT (real one currently
-//  only set in git tag)
+// Cross-configure so we don't pollute the example buildscript
 project("example-project").configurations.configureEach {
     resolutionStrategy.dependencySubstitution {
         substitute(module("com.gabrielfeo:gradle-enterprise-api-kotlin"))

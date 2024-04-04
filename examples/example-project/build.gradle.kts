@@ -1,5 +1,6 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm")
+    // in your project, replace for id("org.jetbrains.kotlin.jvm")
+    id("com.gabrielfeo.kotlin-jvm-library")
     application
 }
 
@@ -14,5 +15,5 @@ java {
 }
 
 dependencies {
-    implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4")
+    implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0")
 }
