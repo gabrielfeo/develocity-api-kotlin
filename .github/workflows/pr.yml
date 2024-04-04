@@ -53,8 +53,8 @@ jobs:
       - name: gradle openApiGenerate (base ref)
         uses: ./.github/actions/build
         with:
-          args: '-p ./base-ref-checkout openApiGenerate postProcessGeneratedApi'
-      - run: mv ./base-ref-checkout/library/build/post-processed-api ./base-ref-api
+          args: '-p ./base-ref-checkout openApiGenerate'
+      - run: mv ./base-ref-checkout/library/build/generated/openapi-generator ./base-ref-api
       - name: Diff generated APIs
         run: |
           echo -e '### Generated API diff\n\n```diff' > comment.md
