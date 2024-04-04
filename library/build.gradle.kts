@@ -5,13 +5,13 @@ import org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
-    id("org.jetbrains.kotlin.jvm")
+    id("com.gabrielfeo.kotlin-jvm-library")
+    id("com.gabrielfeo.test-suites")
     id("org.jetbrains.dokka")
     id("org.openapi.generator")
     `java-library`
-    `java-test-fixtures`
     `maven-publish`
-    `signing`
+    signing
 }
 
 val repoUrl = "https://github.com/gabrielfeo/gradle-enterprise-api-kotlin"
@@ -158,11 +158,6 @@ java {
     }
 }
 
-components.getByName<AdhocComponentWithVariants>("java").apply {
-    withVariantsFromConfiguration(configurations["testFixturesApiElements"]) { skip() }
-    withVariantsFromConfiguration(configurations["testFixturesRuntimeElements"]) { skip() }
-}
-
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.all {
         sourceLink {
@@ -187,45 +182,6 @@ tasks.withType<DokkaTask>().configureEach {
 
 tasks.named<Jar>("javadocJar") {
     from(tasks.dokkaHtml)
-}
-
-testing {
-    suites {
-        getByName<JvmTestSuite>("test") {
-            dependencies {
-                implementation("com.squareup.okhttp3:mockwebserver:4.12.0")
-                implementation("com.squareup.okio:okio:3.9.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
-            }
-        }
-        register<JvmTestSuite>("integrationTest") {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
-                implementation("com.google.guava:guava:33.1.0-jre")
-            }
-        }
-        withType<JvmTestSuite>().configureEach {
-            useKotlinTest()
-        }
-    }
-}
-
-kotlin {
-    target {
-        val main by compilations.getting
-        val integrationTest by compilations.getting
-        val test by compilations.getting
-        val testFixtures by compilations.getting
-        test.associateWith(main)
-        test.associateWith(testFixtures)
-        integrationTest.associateWith(main)
-        integrationTest.associateWith(testFixtures)
-        testFixtures.associateWith(main)
-    }
-}
-
-tasks.named("check") {
-    dependsOn("integrationTest")
 }
 
 tasks.named<Test>("integrationTest") {
@@ -253,6 +209,11 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     implementation("org.slf4j:slf4j-api:2.0.11")
     implementation("ch.qos.logback:logback-classic:1.4.14")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    testImplementation("com.squareup.okio:okio:3.9.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    integrationTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    integrationTestImplementation("com.google.guava:guava:33.1.0-jre")
 }
 
 publishing {
