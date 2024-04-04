@@ -1,6 +1,5 @@
 plugins {
     id("org.jetbrains.dokka") version "1.9.20" apply false
-    id("org.openapi.generator") version "7.3.0" apply false
 }
 
 val group by project.properties
