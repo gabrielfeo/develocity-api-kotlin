@@ -35,7 +35,7 @@ openApiGenerate {
         else -> downloadApiSpec.map { it.outputs.files.first().absolutePath }
     }
     inputSpec.set(spec)
-    val generateDir = project.layout.buildDirectory.file("generated/openapi-generator")
+    val generateDir = project.layout.buildDirectory.file("generated-api")
     outputDir.set(generateDir.map { it.asFile.absolutePath })
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
     ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
