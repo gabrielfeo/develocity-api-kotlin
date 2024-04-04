@@ -43,7 +43,7 @@ jobs:
       - name: gradle openApiGenerate (PR ref)
         uses: ./.github/actions/build
         with:
-          args: 'openApiGenerate'
+          args: 'openApiGenerate postProcessGeneratedApi'
       - run: mv ./library/build/post-processed-api ./pr-ref-api
       - name: Checkout base ref
         uses: actions/checkout@v4
@@ -53,7 +53,7 @@ jobs:
       - name: gradle openApiGenerate (base ref)
         uses: ./.github/actions/build
         with:
-          args: '-p ./base-ref-checkout openApiGenerate'
+          args: '-p ./base-ref-checkout openApiGenerate postProcessGeneratedApi'
       - run: mv ./base-ref-checkout/library/build/post-processed-api ./base-ref-api
       - name: Diff generated APIs
         run: |
