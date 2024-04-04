@@ -5,12 +5,13 @@ import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
 import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import java.time.Duration
-import java.util.logging.Level
-import java.util.logging.Logger
+import org.slf4j.Logger
 
 /**
  * Base instance just so that multiple created [Config]s will share resources by default.
@@ -24,13 +25,14 @@ internal val basicOkHttpClient by lazy {
  */
 internal fun buildOkHttpClient(
     config: Config,
+    loggerFactory: LoggerFactory,
 ) = with(config.clientBuilder) {
     readTimeout(Duration.ofMillis(config.readTimeoutMillis))
     if (config.cacheConfig.cacheEnabled) {
-        cache(buildCache(config))
+        cache(buildCache(config, loggerFactory))
     }
-    addInterceptors(config)
-    addNetworkInterceptors(config)
+    addInterceptors(config, loggerFactory)
+    addNetworkInterceptors(config, loggerFactory)
     build().apply {
         config.maxConcurrentRequests?.let {
             dispatcher.maxRequests = it
@@ -39,31 +41,44 @@ internal fun buildOkHttpClient(
     }
 }
 
-private fun OkHttpClient.Builder.addInterceptors(config: Config) {
-    if (config.debugLoggingEnabled && config.cacheConfig.cacheEnabled) {
-        addInterceptor(CacheHitLoggingInterceptor())
+private fun OkHttpClient.Builder.addInterceptors(
+    config: Config,
+    loggerFactory: LoggerFactory,
+) {
+    if (config.cacheConfig.cacheEnabled) {
+        val logger = loggerFactory.newLogger(CacheHitLoggingInterceptor::class)
+        addInterceptor(CacheHitLoggingInterceptor(logger))
     }
 }
 
-private fun OkHttpClient.Builder.addNetworkInterceptors(config: Config) {
+private fun OkHttpClient.Builder.addNetworkInterceptors(
+    config: Config,
+    loggerFactory: LoggerFactory,
+) {
     if (config.cacheConfig.cacheEnabled) {
         addNetworkInterceptor(buildCacheEnforcingInterceptor(config))
     }
-    if (config.debugLoggingEnabled) {
-        addNetworkInterceptor(HttpLoggingInterceptor().apply { level = BODY })
+    val httpLogger = loggerFactory.newLogger(HttpLoggingInterceptor::class)
+    getHttpLoggingInterceptorForLogger(httpLogger)?.let {
+        addNetworkInterceptor(it)
     }
     addNetworkInterceptor(HttpBearerAuth("bearer", config.apiToken()))
 }
 
+private fun getHttpLoggingInterceptorForLogger(logger: Logger): Interceptor? = when {
+    logger.isDebugEnabled -> HttpLoggingInterceptor(logger = logger::debug).apply { level = BASIC }
+    logger.isTraceEnabled -> HttpLoggingInterceptor(logger = logger::debug).apply { level = BODY }
+    else -> null
+}
+
 internal fun buildCache(
-    config: Config
+    config: Config,
+    loggerFactory: LoggerFactory,
 ): Cache {
     val cacheDir = config.cacheConfig.cacheDir
     val maxSize = config.cacheConfig.maxCacheSize
-    if (config.debugLoggingEnabled) {
-        val logger = Logger.getGlobal()
-        logger.log(Level.INFO, "HTTP cache dir: $cacheDir (max ${maxSize}B)")
-    }
+    val logger = loggerFactory.newLogger(Cache::class)
+    logger.debug("HTTP cache dir: {} (max {}B)", cacheDir, maxSize)
     return Cache(cacheDir, maxSize)
 }
 

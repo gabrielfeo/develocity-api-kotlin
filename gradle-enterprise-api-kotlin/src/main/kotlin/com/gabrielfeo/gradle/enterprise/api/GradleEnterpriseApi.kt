@@ -1,5 +1,6 @@
 package com.gabrielfeo.gradle.enterprise.api
 
+import com.gabrielfeo.gradle.enterprise.api.internal.RealLoggerFactory
 import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
 import com.gabrielfeo.gradle.enterprise.api.internal.buildRetrofit
 import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.Serializer
@@ -35,6 +36,8 @@ interface GradleEnterpriseApi {
 
     val buildsApi: BuildsApi
     val buildCacheApi: BuildCacheApi
+    val projectsApi: ProjectsApi
+    val testsApi: TestsApi
     val metaApi: MetaApi
     val testDistributionApi: TestDistributionApi
 
@@ -65,7 +68,7 @@ internal class RealGradleEnterpriseApi(
 ) : GradleEnterpriseApi {
 
     private val okHttpClient by lazy {
-        buildOkHttpClient(config = config)
+        buildOkHttpClient(config = config, RealLoggerFactory(config))
     }
 
     private val retrofit: Retrofit by lazy {
@@ -78,6 +81,8 @@ internal class RealGradleEnterpriseApi(
 
     override val buildsApi: BuildsApi by lazy { retrofit.create() }
     override val buildCacheApi: BuildCacheApi by lazy { retrofit.create() }
+    override val projectsApi: ProjectsApi by lazy { retrofit.create() }
+    override val testsApi: TestsApi by lazy { retrofit.create() }
     override val metaApi: MetaApi by lazy { retrofit.create() }
     override val testDistributionApi: TestDistributionApi by lazy { retrofit.create() }
 

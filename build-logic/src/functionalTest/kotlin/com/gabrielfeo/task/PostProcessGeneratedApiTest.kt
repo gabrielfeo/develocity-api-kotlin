@@ -1,0 +1,180 @@
+package com.gabrielfeo.task
+
+import org.gradle.testkit.runner.GradleRunner
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import java.io.File
+
+class PostProcessGeneratedApiTest {
+
+    // Prefer over TempDir to inspect files after tests when troubleshooting
+    private val tempDir: File = File("./build/test-workdir/")
+
+    @BeforeEach
+    fun setup() {
+        tempDir.deleteRecursively()
+        tempDir.mkdirs()
+    }
+
+    /**
+     * - Fixes missing model imports by replacing all with a wildcard (OpenAPITools/openapi-generator#14871)
+     * - Replaces return types of Response<X> for X, for more idiomatic usage with coroutines
+     * - Adds @JvmSuppressWildcards to avoid square/retrofit#3275
+     */
+    @Test
+    fun apiInterfacePostProcessing() = testPostProcessing(
+        inputPath = "com/gabrielfeo/gradle/enterprise/api/BuildsApi.kt",
+        inputContent = """
+            package com.gabrielfeo.gradle.enterprise.api
+            
+            import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.CollectionFormats.*
+            import retrofit2.http.*
+            import retrofit2.Response
+            import okhttp3.RequestBody
+            import com.squareup.moshi.Json
+            
+            import com.gabrielfeo.gradle.enterprise.api.model.ApiProblem
+            import com.gabrielfeo.gradle.enterprise.api.model.Build
+            import com.gabrielfeo.gradle.enterprise.api.model.BuildModelQuery
+            import com.gabrielfeo.gradle.enterprise.api.model.BuildQuery
+            import com.gabrielfeo.gradle.enterprise.api.model.BuildsQuery
+            import com.gabrielfeo.gradle.enterprise.api.model.GradleAttributes
+            import com.gabrielfeo.gradle.enterprise.api.model.GradleBuildCachePerformance
+            import com.gabrielfeo.gradle.enterprise.api.model.GradleNetworkActivity
+            import com.gabrielfeo.gradle.enterprise.api.model.GradleProject
+            import com.gabrielfeo.gradle.enterprise.api.model.MavenAttributes
+            import com.gabrielfeo.gradle.enterprise.api.model.MavenBuildCachePerformance
+            import com.gabrielfeo.gradle.enterprise.api.model.MavenDependencyResolution
+            import com.gabrielfeo.gradle.enterprise.api.model.MavenModule
+            
+            interface BuildsApi {
+                /**
+                 * Get the common attributes of a Build Scan.
+                 * The contained attributes are build tool agnostic.
+                 * Responses:
+                 *  - 200: The common attributes of a Build Scan.
+                 *  - 400: The request cannot be fulfilled due to a problem.
+                 *  - 404: The referenced resource either does not exist or the permissions to know about it are missing.
+                 *  - 500: The server encountered an unexpected error.
+                 *  - 503: The server is not ready to handle the request.
+                 *
+                 * @param id The Build Scan ID.
+                 * @param models The list of build models to return in the response for each build. If not provided, no models are returned.  (optional)
+                 * @param availabilityWaitTimeoutSecs The time in seconds the server should wait for ingestion before returning a wait timeout response. (optional)
+                 * @return [Build]
+                 */
+                @GET("api/builds/{id}")
+                suspend fun getBuild(@Path("id") id: kotlin.String, @Query("models") models: kotlin.collections.List<BuildModelName>? = null, @Query("availabilityWaitTimeoutSecs") availabilityWaitTimeoutSecs: kotlin.Int? = null): Response<Build>
+        """.trimIndent(),
+        outputPath = "com/gabrielfeo/gradle/enterprise/api/BuildsApi.kt",
+        outputContent = """
+            package com.gabrielfeo.gradle.enterprise.api
+            
+            import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.CollectionFormats.*
+            import retrofit2.http.*
+            import retrofit2.Response
+            import okhttp3.RequestBody
+            import com.squareup.moshi.Json
+            
+            import com.gabrielfeo.gradle.enterprise.api.model.*
+            
+            @JvmSuppressWildcards
+            interface BuildsApi {
+                /**
+                 * Get the common attributes of a Build Scan.
+                 * The contained attributes are build tool agnostic.
+                 * Responses:
+                 *  - 200: The common attributes of a Build Scan.
+                 *  - 400: The request cannot be fulfilled due to a problem.
+                 *  - 404: The referenced resource either does not exist or the permissions to know about it are missing.
+                 *  - 500: The server encountered an unexpected error.
+                 *  - 503: The server is not ready to handle the request.
+                 *
+                 * @param id The Build Scan ID.
+                 * @param models The list of build models to return in the response for each build. If not provided, no models are returned.  (optional)
+                 * @param availabilityWaitTimeoutSecs The time in seconds the server should wait for ingestion before returning a wait timeout response. (optional)
+                 * @return [Build]
+                 */
+                @GET("api/builds/{id}")
+                suspend fun getBuild(@Path("id") id: kotlin.String, @Query("models") models: kotlin.collections.List<BuildModelName>? = null, @Query("availabilityWaitTimeoutSecs") availabilityWaitTimeoutSecs: kotlin.Int? = null): Build
+        """.trimIndent(),
+    )
+
+    /**
+     * - Fixes enum case names: gradleMinusAttributes -> gradleAttributes
+     */
+    @Test
+    fun buildModelNameEnumPostProcessing() = testPostProcessing(
+        inputPath = "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
+        inputContent = """
+            @JsonClass(generateAdapter = false)
+            enum class BuildModelName(val value: kotlin.String) {
+            
+                @Json(name = "gradle-attributes")
+                gradleMinusAttributes("gradle-attributes"),
+            
+                @Json(name = "gradle-build-cache-performance")
+                gradleMinusBuildMinusCacheMinusPerformance("gradle-build-cache-performance"),
+        """.trimIndent(),
+        outputPath = "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
+        outputContent = """
+            @JsonClass(generateAdapter = false)
+            enum class BuildModelName(val value: kotlin.String) {
+            
+                @Json(name = "gradle-attributes")
+                gradleAttributes("gradle-attributes"),
+            
+                @Json(name = "gradle-build-cache-performance")
+                gradleBuildCachePerformance("gradle-build-cache-performance"),
+        """.trimIndent(),
+    )
+
+    private fun testPostProcessing(
+        inputPath: String,
+        inputContent: String,
+        outputPath: String,
+        outputContent: String,
+    ) {
+        val inputDir = File(tempDir, "input").also { it.mkdirs() }
+        val outputDir = File(tempDir, "output").also { it.mkdirs() }
+        File(inputDir, inputPath).apply {
+            parentFile.mkdirs()
+            writeText(inputContent)
+        }
+        val projectDir = writeTestProject(inputDir, outputDir)
+        runBuild(projectDir, listOf("postProcessGeneratedApi", "--stacktrace"))
+        assertEquals(outputContent, File(outputDir, outputPath).readText())
+    }
+
+    @Suppress("SameParameterValue")
+    private fun runBuild(projectDir: File, args: List<String>) {
+        GradleRunner.create()
+            .withProjectDir(projectDir)
+            .withPluginClasspath()
+            .withArguments(args)
+            .build()
+    }
+
+    private fun writeTestProject(inputDir: File, outputDir: File): File {
+        val projectDir = File(tempDir, "project").also { it.mkdirs() }
+        File(projectDir, "settings.gradle").writeText("")
+        File(projectDir, "build.gradle").writeText(
+            // language=groovy
+            """
+                import com.gabrielfeo.task.PostProcessGeneratedApi
+                
+                plugins {
+                    id("com.gabrielfeo.no-op")
+                }
+                
+                tasks.register("postProcessGeneratedApi", PostProcessGeneratedApi) {
+                    originalFiles = new File("${inputDir.absolutePath}")
+                    modelsPackage = "com.gabrielfeo.gradle.enterprise.api.model"
+                    postProcessedFiles = new File("${outputDir.absolutePath}")
+                }
+            """.trimIndent()
+        )
+        return projectDir
+    }
+}

@@ -9,10 +9,10 @@ application {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(11))
     }
 }
 
 dependencies {
-    implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.3.1")
+    implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4")
 }

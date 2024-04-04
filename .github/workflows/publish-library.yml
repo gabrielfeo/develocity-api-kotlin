@@ -27,6 +27,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Verify that version property matches tag
+        if: ${{ inputs.dry_run != true }}
+        run: grep -qP '^version=${{ github.ref_name }}$' gradle.properties
       - name: gradle publishLibraryPublicationToMavenCentralRepository
         uses: ./.github/actions/build
         with:
@@ -34,7 +37,6 @@ jobs:
           args: >-
             publishLibraryPublicationToMavenCentralRepository
             --rerun-tasks
-            '-Pversion=${{ github.ref_name }}'
             '-Pmaven.central.username=${{ secrets.MAVEN_CENTRAL_USERNAME }}'
             '-Pmaven.central.password=${{ secrets.MAVEN_CENTRAL_PASSWORD }}'
             '-Psigning.password=${{ secrets.GPG_PASSWORD }}'
@@ -42,6 +44,6 @@ jobs:
           artifact-name: 'outputs'
           path-to-upload: |
             library/build/*-api.yaml
-            library/build/generated/open-api-generator/**/*
+            library/build/post-processed-api/**/*
             library/build/publications/**/*
             library/build/libs/**/*

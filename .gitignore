@@ -8,6 +8,7 @@ build
 !*/*/src/**/build
 .ipynb_checkpoints
 
+.venv
 __pycache__
 
 **/.log

@@ -3,9 +3,7 @@ package com.gabrielfeo.gradle.enterprise.api.example.analysis
 import com.gabrielfeo.gradle.enterprise.api.*
 import com.gabrielfeo.gradle.enterprise.api.extension.*
 import com.gabrielfeo.gradle.enterprise.api.model.*
-import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import java.time.*
 import java.util.LinkedList
 
 /**
@@ -24,16 +22,16 @@ import java.util.LinkedList
  */
 suspend fun mostFrequentBuilds(
     api: BuildsApi,
-    startDate: LocalDate = LocalDate.now().minusWeeks(1),
-    buildFilter: (GradleAttributes) -> Boolean = { build ->
-        "LOCAL" in build.tags
-    },
+    startTime: String = "-7d",
 ) {
     // Fetch builds from the API
-    val startMilli = startDate.atStartOfDay(ZoneId.of("UTC")).toInstant().toEpochMilli()
-    val builds: List<GradleAttributes> = api.getGradleAttributesFlow(since = startMilli)
-        .filter(buildFilter)
-        .toList(LinkedList())
+    val builds: List<GradleAttributes> = api.getBuildsFlow(
+        fromInstant = 0,
+        query = """buildStartTime<$startTime tag:local buildOutcome:failed""",
+        models = listOf(BuildModelName.gradleAttributes),
+    ).map {
+        it.models!!.gradleAttributes!!.model!!
+    }.toList(LinkedList())
 
     // Process builds and count how many times each was invoked
     val buildCounts = builds.groupBy { build ->
