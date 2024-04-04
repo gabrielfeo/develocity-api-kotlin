@@ -1,4 +1,5 @@
 build/generated/openapi-generator/*
+build/generated/openapi-generator/.*
 build/generated/openapi-generator/.github/*
 build/generated/openapi-generator/api/*
 build/generated/openapi-generator/gradle/**/*
