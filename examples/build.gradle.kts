@@ -7,7 +7,7 @@ plugins {
 // Cross-configure so we don't pollute the example buildscript
 project("example-project").configurations.configureEach {
     resolutionStrategy.dependencySubstitution {
-        substitute(module("com.gabrielfeo:gradle-enterprise-api-kotlin"))
+        substitute(module("com.gabrielfeo:develocity-api-kotlin"))
             .using(project(":library"))
     }
 }

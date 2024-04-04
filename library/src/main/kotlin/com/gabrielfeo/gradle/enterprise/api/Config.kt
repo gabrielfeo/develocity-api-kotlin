@@ -133,11 +133,11 @@ data class Config(
 
         /**
          * HTTP cache location. By default, uses environment variable `GRADLE_ENTERPRISE_API_CACHE_DIR`
-         * or the system temporary folder (`java.io.tmpdir` / gradle-enterprise-api-kotlin-cache).
+         * or the system temporary folder (`java.io.tmpdir` / develocity-api-kotlin-cache).
          */
         val cacheDir: File =
             env["GRADLE_ENTERPRISE_API_CACHE_DIR"]?.let(::File)
-                ?: File(systemProperties["user.home"], ".gradle-enterprise-api-kotlin-cache"),
+                ?: File(systemProperties["user.home"], ".develocity-api-kotlin-cache"),
 
         /**
          * Max size of the HTTP cache. By default, uses environment variable
