@@ -212,7 +212,7 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [24]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/get-builds-flow.html
 [25]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/index.html
 [26]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/
-[27]: ./examples/example-script.main.kts
+[27]: ./examples/example-scripts/example-script.main.kts
 [28]: ./examples/example-project
 [29]: https://nbviewer.org/github/gabrielfeo/gradle-enterprise-api-kotlin/blob/main/examples/example-notebooks/MostFrequentBuilds.ipynb
 [30]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html

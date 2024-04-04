@@ -4,20 +4,27 @@ plugins {
     base
 }
 
+// Cross-configure so we don't pollute the example buildscript
+project("example-project").configurations.configureEach {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("com.gabrielfeo:gradle-enterprise-api-kotlin"))
+            .using(project(":library"))
+    }
+}
+
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
 
 exampleTestTasks += tasks.register<Exec>("runExampleScript") {
     group = "Application"
-    description = "Runs the 'example-script.main.kts' script"
-    commandLine("kotlinc", "-script", file("example-script.main.kts"))
+    description = "Runs the './example-scripts/example-script.main.kts' script"
+    commandLine("kotlinc", "-script", file("./example-scripts/example-script.main.kts"))
     environment("JAVA_OPTS", "-Xmx1g")
 }
 
-exampleTestTasks += tasks.register<GradleBuild>("runExampleProject") {
+exampleTestTasks += tasks.register("runExampleProject") {
     group = "Application"
-    description = "Runs examples/example-project as a standalone build"
-    dir = file("example-project")
-    tasks = listOf("run")
+    description = "Runs examples/example-project"
+    dependsOn(":examples:example-project:run")
 }
 
 val notebooks = fileTree(file("example-notebooks")) {

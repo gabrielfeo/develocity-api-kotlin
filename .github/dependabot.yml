@@ -20,10 +20,6 @@ updates:
       retrofit:
         patterns:
           - "com.squareup.retrofit2:*"
-  - package-ecosystem: "gradle"
-    directory: "/examples/example-project/"
-    schedule:
-      interval: "daily"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
