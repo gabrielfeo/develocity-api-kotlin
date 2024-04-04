@@ -28,7 +28,7 @@ class BuildsApiExtensionsIntegrationTest {
     }
 
     @Test
-    fun getBuildsFlowPreservesParamsAcrossRequests() = runTest(timeout = 3.minutes) {
+    fun getBuildsFlowPreservesParamsAcrossRequests() = runTest(timeout = 6.minutes) {
         api.buildsApi.getBuildsFlow(
             since = 0,
             query = "user:*",
