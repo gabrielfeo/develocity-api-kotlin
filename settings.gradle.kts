@@ -8,7 +8,7 @@ plugins {
 }
 
 include(
-    ":gradle-enterprise-api-kotlin",
+    ":library",
     ":examples",
     ":examples:example-project",
 )

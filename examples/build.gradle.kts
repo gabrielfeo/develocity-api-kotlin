@@ -8,7 +8,7 @@ plugins {
 project("example-project").configurations.configureEach {
     resolutionStrategy.dependencySubstitution {
         substitute(module("com.gabrielfeo:gradle-enterprise-api-kotlin"))
-            .using(project(":gradle-enterprise-api-kotlin"))
+            .using(project(":library"))
     }
 }
 
