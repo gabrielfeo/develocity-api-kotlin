@@ -52,7 +52,7 @@ openApiGenerate {
 val postProcessGeneratedApi by tasks.registering(PostProcessGeneratedApi::class) {
     val generatedSrc = tasks.openApiGenerate
         .flatMap { it.outputDir }
-        .map { File(it, "src/main/kotlin") }
+        .map { File(it) }
     originalFiles.convention(project.layout.dir(generatedSrc))
     postProcessedFiles.convention(project.layout.buildDirectory.dir("post-processed-api"))
     modelsPackage.convention(tasks.openApiGenerate.flatMap { it.modelPackage })

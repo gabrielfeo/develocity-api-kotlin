@@ -32,7 +32,7 @@ abstract class PostProcessGeneratedApi @Inject constructor(
             into(postProcessedFiles)
         }
         postProcess(
-            srcDir = postProcessedFiles.get().asFile,
+            srcDir = postProcessedFiles.get().dir("src/main/kotlin").asFile,
             modelsPackage = modelsPackage.get()
         )
     }
