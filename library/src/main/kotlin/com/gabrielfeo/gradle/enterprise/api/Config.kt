@@ -24,7 +24,7 @@ data class Config(
         env["GRADLE_ENTERPRISE_API_LOG_LEVEL"],
 
     /**
-     * Provides the URL of a Gradle Enterprise API instance REST API. By default, uses
+     * Provides the URL of a Develocity API instance REST API. By default, uses
      * environment variable `GRADLE_ENTERPRISE_API_URL`. Must end with `/api/`.
      */
     val apiUrl: String =
@@ -32,7 +32,7 @@ data class Config(
             ?: error("GRADLE_ENTERPRISE_API_URL is required"),
 
     /**
-     * Provides the access token for a Gradle Enterprise API instance. By default, uses keychain entry
+     * Provides the access token for a Develocity API instance. By default, uses keychain entry
      * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_API_TOKEN`.
      */
     val apiToken: () -> String = {
@@ -66,7 +66,7 @@ data class Config(
     /**
      * Timeout for reading an API response, used for [OkHttpClient.readTimeoutMillis].
      * By default, uses environment variable `GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS`
-     * or 60_000. Keep in mind that GE API responses can be big and slow to send depending on
+     * or 60_000. Keep in mind that Develocity API responses can be big and slow to send depending on
      * the endpoint.
      */
     val readTimeoutMillis: Long =
@@ -81,7 +81,7 @@ data class Config(
 ) {
 
     /**
-     * HTTP cache is off by default, but can speed up requests significantly. The Gradle Enterprise
+     * HTTP cache is off by default, but can speed up requests significantly. The Develocity
      * API disallows HTTP caching, but this library forcefully enables it by overwriting
      * cache-related headers in API responses. Enable with [cacheEnabled].
      *
@@ -101,12 +101,12 @@ data class Config(
      * all depends on whether it was matched by [shortTermCacheUrlPattern] or
      * [longTermCacheUrlPattern].
      *
-     * Whenever GE is upgraded, cache should be [clear]ed.
+     * Whenever Develocity is upgraded, cache should be [clear]ed.
      *
      * ### Caveats
      *
      * While not encouraged by the API, caching shouldn't have any major downsides other than a
-     * time gap for certain queries, or having to reset cache when GE is upgraded.
+     * time gap for certain queries, or having to reset cache when Develocity is upgraded.
      *
      * #### Time gap
      *
@@ -115,10 +115,10 @@ data class Config(
      * included in the query until the cache is invalidated 24h later. If that's a problem,
      * caching can be disabled for this `/api/builds` by changing [shortTermCacheUrlPattern].
      *
-     * #### GE upgrades
+     * #### Develocity upgrades
      *
-     * When GE is upgraded, any API response can change. New data might be available in API
-     * endpoints such as `/api/build/{id}/gradle-attributes`. Thus, whenever the GE version
+     * When Develocity is upgraded, any API response can change. New data might be available in API
+     * endpoints such as `/api/build/{id}/gradle-attributes`. Thus, whenever the Develocity version
      * itself is upgraded, cache should be [clear]ed.
      */
     @Suppress("MemberVisibilityCanBePrivate")

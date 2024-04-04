@@ -34,7 +34,7 @@ val buildFilter: (GradleAttributes) -> Boolean = { build ->
 }
 
 // Fetch builds from the API
-val api = GradleEnterpriseApi.newInstance()
+val api = DevelocityApi.newInstance()
 val builds: List<GradleAttributes> = runBlocking {
     api.buildsApi.getBuildsFlow(
         fromInstant = 0,

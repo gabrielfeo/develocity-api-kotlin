@@ -72,7 +72,7 @@ class BuildsApiExtensionsIntegrationTest {
     }
 
     private fun buildApi(recorder: RequestRecorder) =
-        GradleEnterpriseApi.newInstance(
+        DevelocityApi.newInstance(
             config = Config(
                 clientBuilder = recorder.clientBuilder(),
                 cacheConfig = Config.CacheConfig(cacheEnabled = false),

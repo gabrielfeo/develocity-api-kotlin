@@ -11,7 +11,7 @@ import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class GradleEnterpriseApiExtensionsTest {
+class DevelocityApiExtensionsTest {
 
     private val api = FakeBuildsApi(
         builds = listOf(

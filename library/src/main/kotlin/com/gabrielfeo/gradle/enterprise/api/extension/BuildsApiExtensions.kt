@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.*
  *
  * - Will request from the API until results end, collection stops or an error occurs.
  * - Parameters same as [BuildsApi.getBuilds].
- * - Using [query] is highly recommended for server-side filtering (equivalent to GE advanced
+ * - Using [query] is highly recommended for server-side filtering (equivalent to Develocity advanced
  * query).
  * - `maxBuilds` is the only unsupported parameter, because this Flow will instead fetch
  * continously. Use [Flow.take] to stop collecting at a specific count.

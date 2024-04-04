@@ -6,7 +6,7 @@ import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 import kotlin.test.assertContains
 
-class GradleEnterpriseApiTest {
+class DevelocityApiTest {
 
     @Test
     fun `Fails eagerly if no API URL`() {
@@ -14,7 +14,7 @@ class GradleEnterpriseApiTest {
         keychain = FakeKeychain()
         systemProperties = FakeSystemProperties.linux
         val error = assertThrows<Exception> {
-            GradleEnterpriseApi.newInstance(Config())
+            DevelocityApi.newInstance(Config())
         }
         error.assertRootMessageContains("GRADLE_ENTERPRISE_API_URL")
     }
@@ -25,7 +25,7 @@ class GradleEnterpriseApiTest {
         keychain = FakeKeychain()
         systemProperties = FakeSystemProperties.linux
         val api = assertDoesNotThrow {
-            GradleEnterpriseApi.newInstance(Config())
+            DevelocityApi.newInstance(Config())
         }
         val error = assertThrows<Exception> {
             api.buildsApi.toString()

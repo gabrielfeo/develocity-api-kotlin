@@ -38,7 +38,7 @@ abstract class PostProcessGeneratedApi @Inject constructor(
     }
 
     private fun postProcess(srcDir: File, modelsPackage: String) {
-        // Replace Response<X> with X in every method return type of GradleEnterpriseApi.kt
+        // Replace Response<X> with X in every method return type of DevelocityApi.kt
         ant.withGroovyBuilder {
             "replaceregexp"(
                 "match" to ": Response<(.*?)>$",
