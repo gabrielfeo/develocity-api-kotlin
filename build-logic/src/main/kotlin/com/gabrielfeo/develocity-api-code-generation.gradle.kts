@@ -1,5 +1,6 @@
 package com.gabrielfeo
 
+import com.gabrielfeo.task.PostProcessGeneratedApi
 import org.gradle.kotlin.dsl.*
 
 plugins {
@@ -35,8 +36,9 @@ openApiGenerate {
         else -> downloadApiSpec.map { it.outputs.files.first().absolutePath }
     }
     inputSpec.set(spec)
-    val generateDir = project.layout.buildDirectory.file("generated/openapi-generator")
-    outputDir.set(generateDir.map { it.asFile.absolutePath })
+    val generateDir = project.layout.buildDirectory.dir("generated-api")
+        .map { it.asFile.absolutePath }
+    outputDir.set(generateDir)
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
     ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
     apiPackage.set("com.gabrielfeo.gradle.enterprise.api")
@@ -47,95 +49,19 @@ openApiGenerate {
     additionalProperties.put("useCoroutines", true)
 }
 
-tasks.openApiGenerate {
-    val srcDir = File(outputDir.get(), "src/main/kotlin")
-    doFirst {
-        logger.info("Using API spec ${inputSpec.get()}")
-    }
-    // Replace Response<X> with X in every method return type of GradleEnterpriseApi.kt
-    doLast {
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to ": Response<(.*?)>$",
-                "replace" to """: \1""",
-                "flags" to "gm",
-            ) {
-                "fileset"(
-                    "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/gradle/enterprise/api/*Api.kt",
-                )
-            }
-        }
-    }
-    // Add @JvmSuppressWildcards to avoid square/retrofit#3275
-    doLast {
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to "interface",
-                "replace" to """
-                    @JvmSuppressWildcards
-                    interface
-                """.trimIndent(),
-                "flags" to "m",
-            ) {
-                "fileset"(
-                    "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/gradle/enterprise/api/*Api.kt",
-                )
-            }
-        }
-    }
-    // Workaround for properties generated with `arrayListOf(null,null)` as default value
-    doLast {
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to """arrayListOf\(null,null\)""",
-                "replace" to """emptyList()""",
-                "flags" to "gm",
-            ) {
-                "fileset"(
-                    "dir" to srcDir
-                )
-            }
-        }
-    }
-    // Workaround for missing imports of exploded queries
-    doLast {
-        val modelPackage = openApiGenerate.modelPackage.get()
-        val modelPackagePattern = modelPackage.replace(".", "\\.")
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to """(?:import $modelPackagePattern.[.\w]+\s)+""",
-                "replace" to "import $modelPackage.*\n",
-                "flags" to "m",
-            ) {
-                "fileset"(
-                    "dir" to srcDir
-                )
-            }
-        }
-    }
-    // Fix mapping of BuildModelName: gradle-attributes -> gradleAttributes
-    doLast {
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to "Minus",
-                "replace" to "",
-                "flags" to "mg",
-            ) {
-                "fileset"(
-                    "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
-                )
-            }
-        }
-    }
+val postProcessGeneratedApi by tasks.registering(PostProcessGeneratedApi::class) {
+    val generatedSrc = tasks.openApiGenerate
+        .flatMap { it.outputDir }
+        .map { File(it) }
+    originalFiles.convention(project.layout.dir(generatedSrc))
+    postProcessedFiles.convention(project.layout.buildDirectory.dir("post-processed-api"))
+    modelsPackage.convention(tasks.openApiGenerate.flatMap { it.modelPackage })
 }
 
 sourceSets {
     main {
         java {
-            srcDir(tasks.openApiGenerate)
+            srcDir(postProcessGeneratedApi)
         }
     }
 }
