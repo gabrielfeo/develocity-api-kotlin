@@ -34,6 +34,7 @@ import retrofit2.create
  */
 interface GradleEnterpriseApi {
 
+    val authApi: AuthApi
     val buildsApi: BuildsApi
     val buildCacheApi: BuildCacheApi
     val projectsApi: ProjectsApi
@@ -79,6 +80,7 @@ internal class RealGradleEnterpriseApi(
         )
     }
 
+    override val authApi: AuthApi by lazy { retrofit.create() }
     override val buildsApi: BuildsApi by lazy { retrofit.create() }
     override val buildCacheApi: BuildCacheApi by lazy { retrofit.create() }
     override val projectsApi: ProjectsApi by lazy { retrofit.create() }

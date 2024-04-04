@@ -33,6 +33,7 @@ fun BuildsApi.getBuildsFlow(
     maxWaitSecs: Int? = null,
     buildsPerPage: Int = API_MAX_BUILDS,
     models: List<BuildModelName>? = null,
+    allModels: Boolean? = false,
 ): Flow<Build> {
     return flow {
         var builds = getBuilds(
@@ -45,6 +46,7 @@ fun BuildsApi.getBuildsFlow(
             maxWaitSecs = maxWaitSecs,
             maxBuilds = buildsPerPage,
             models = models,
+            allModels = allModels,
         )
         emitAll(builds.asFlow())
         while (builds.isNotEmpty()) {
@@ -55,6 +57,7 @@ fun BuildsApi.getBuildsFlow(
                 maxWaitSecs = maxWaitSecs,
                 maxBuilds = buildsPerPage,
                 models = models,
+                allModels = allModels,
             )
             emitAll(builds.asFlow())
         }

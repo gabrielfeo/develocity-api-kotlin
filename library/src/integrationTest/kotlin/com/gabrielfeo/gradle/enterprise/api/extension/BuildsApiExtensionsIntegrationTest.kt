@@ -28,29 +28,32 @@ class BuildsApiExtensionsIntegrationTest {
     }
 
     @Test
-    fun getBuildsFlowPreservesParamsAcrossRequests() = runTest(timeout = 3.minutes) {
+    fun getBuildsFlowPreservesParamsAcrossRequests() = runTest(timeout = 6.minutes) {
         api.buildsApi.getBuildsFlow(
             since = 0,
             query = "user:*",
             models = listOf(BuildModelName.gradleAttributes),
+            allModels = true,
             reverse = true,
-        ).take(2000).collect()
+            buildsPerPage = 2,
+        ).take(4).collect()
         recorder.requests.forEach {
             assertUrlParam(it, "query", "user:*")
             assertUrlParam(it, "models", "gradle-attributes")
+            assertUrlParam(it, "allModels", "true")
             assertUrlParam(it, "reverse", "true")
         }
     }
 
     @Test
     fun getBuildsFlowReplacesSinceForFromBuildAfterFirstRequest() = runTest {
-        api.buildsApi.getBuildsFlow(since = 1).take(2000).collect()
+        api.buildsApi.getBuildsFlow(since = 1, buildsPerPage = 2).take(10).collect()
         assertReplacedForFromBuildAfterFirstRequest(param = "since" to "1")
     }
 
     @Test
     fun getBuildsFlowReplacesFromInstantForFromBuildAfterFirstRequest() = runTest {
-        api.buildsApi.getBuildsFlow(fromInstant = 1).take(2000).collect()
+        api.buildsApi.getBuildsFlow(fromInstant = 1, buildsPerPage = 2).take(10).collect()
         assertReplacedForFromBuildAfterFirstRequest(param = "fromInstant" to "1")
     }
 

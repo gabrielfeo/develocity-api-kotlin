@@ -12,6 +12,7 @@ interface FakeBuildsApiScaffold : BuildsApi {
     override suspend fun getBuild(
         id: String,
         models: List<BuildModelName>?,
+        allModels: Boolean?,
         availabilityWaitTimeoutSecs: Int?,
     ): Build {
         TODO("Not yet implemented")
@@ -27,28 +28,19 @@ interface FakeBuildsApiScaffold : BuildsApi {
         maxWaitSecs: Int?,
         query: String?,
         models: List<BuildModelName>?,
+        allModels: Boolean?,
     ): List<Build> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getGradleNetworkActivity(
+    override suspend fun getGradleArtifactTransformExecutions(
         id: String,
         availabilityWaitTimeoutSecs: Int?,
-    ): GradleNetworkActivity {
+    ): GradleArtifactTransformExecutions {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMavenDependencyResolution(
-        id: String,
-        availabilityWaitTimeoutSecs: Int?,
-    ): MavenDependencyResolution {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getGradleAttributes(
-        id: String,
-        availabilityWaitTimeoutSecs: Int?,
-    ): GradleAttributes {
+    override suspend fun getGradleAttributes(id: String, availabilityWaitTimeoutSecs: Int?): GradleAttributes {
         TODO("Not yet implemented")
     }
 
@@ -59,17 +51,22 @@ interface FakeBuildsApiScaffold : BuildsApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getGradleProjects(
-        id: String,
-        availabilityWaitTimeoutSecs: Int?,
-    ): List<GradleProject> {
+    override suspend fun getGradleDeprecations(id: String, availabilityWaitTimeoutSecs: Int?): GradleDeprecations {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMavenAttributes(
+    override suspend fun getGradleNetworkActivity(
         id: String,
         availabilityWaitTimeoutSecs: Int?,
-    ): MavenAttributes {
+    ): GradleNetworkActivity {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getGradleProjects(id: String, availabilityWaitTimeoutSecs: Int?): List<GradleProject> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenAttributes(id: String, availabilityWaitTimeoutSecs: Int?): MavenAttributes {
         TODO("Not yet implemented")
     }
 
@@ -80,10 +77,14 @@ interface FakeBuildsApiScaffold : BuildsApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMavenModules(
+    override suspend fun getMavenDependencyResolution(
         id: String,
         availabilityWaitTimeoutSecs: Int?,
-    ): List<MavenModule> {
+    ): MavenDependencyResolution {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenModules(id: String, availabilityWaitTimeoutSecs: Int?): List<MavenModule> {
         TODO("Not yet implemented")
     }
 }

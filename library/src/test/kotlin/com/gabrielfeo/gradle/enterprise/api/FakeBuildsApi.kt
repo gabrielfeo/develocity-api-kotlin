@@ -21,6 +21,7 @@ class FakeBuildsApi(
         maxWaitSecs: Int?,
         query: String?,
         models: List<BuildModelName>?,
+        allModels: Boolean?,
     ): List<Build> {
         getBuildsCallCount.value++
         check((reverse ?: maxWaitSecs ?: query ?: models) == null) { "Not supported" }
