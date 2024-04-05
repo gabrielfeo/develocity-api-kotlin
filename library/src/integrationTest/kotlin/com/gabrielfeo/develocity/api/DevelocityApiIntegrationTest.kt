@@ -15,7 +15,6 @@ class DevelocityApiIntegrationTest {
     @Test
     fun canFetchBuildsWithDefaultConfig() = runTest {
         env = RealEnv
-        keychain = realKeychain()
         val api = DevelocityApi.newInstance(
             config = Config(
                 cacheConfig = Config.CacheConfig(cacheEnabled = false)
@@ -33,7 +32,6 @@ class DevelocityApiIntegrationTest {
     @Test
     fun canBuildNewInstanceWithPureCodeConfiguration() = runTest {
         env = FakeEnv()
-        keychain = FakeKeychain()
         assertDoesNotThrow {
             val config = Config(
                 apiUrl = "https://google.com/api/",

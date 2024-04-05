@@ -32,8 +32,6 @@ class RetrofitTest {
         if ("DEVELOCITY_API_TOKEN" !in fakeEnv)
             fakeEnv["DEVELOCITY_API_TOKEN"] = "example-token"
         env = fakeEnv
-        systemProperties = FakeSystemProperties.macOs
-        keychain = FakeKeychain()
         val config = Config()
         return buildRetrofit(
             config = config,
