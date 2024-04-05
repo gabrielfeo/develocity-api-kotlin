@@ -7,7 +7,7 @@ class CacheConfigTest {
 
     @BeforeTest
     fun before() {
-        env = FakeEnv("GRADLE_ENTERPRISE_API_URL" to "https://example.com/api/")
+        env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
         systemProperties = FakeSystemProperties.macOs
         keychain = FakeKeychain()
     }

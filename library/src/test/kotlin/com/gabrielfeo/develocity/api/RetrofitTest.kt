@@ -10,7 +10,7 @@ class RetrofitTest {
     @Test
     fun `Sets instance URL from options, stripping api segment`() {
         val retrofit = buildRetrofit(
-            "GRADLE_ENTERPRISE_API_URL" to "https://example.com/api/",
+            "DEVELOCITY_API_URL" to "https://example.com/api/",
         )
         // That's what generated classes expect
         assertEquals("https://example.com/", retrofit.baseUrl().toString())
@@ -20,7 +20,7 @@ class RetrofitTest {
     fun `Rejects invalid URL`() {
         assertFails {
             buildRetrofit(
-                "GRADLE_ENTERPRISE_API_URL" to "https://example.com/",
+                "DEVELOCITY_API_URL" to "https://example.com/",
             )
         }
     }
@@ -29,8 +29,8 @@ class RetrofitTest {
         vararg envVars: Pair<String, String?>,
     ): Retrofit {
         val fakeEnv = FakeEnv(*envVars)
-        if ("GRADLE_ENTERPRISE_API_TOKEN" !in fakeEnv)
-            fakeEnv["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
+        if ("DEVELOCITY_API_TOKEN" !in fakeEnv)
+            fakeEnv["DEVELOCITY_API_TOKEN"] = "example-token"
         env = fakeEnv
         systemProperties = FakeSystemProperties.macOs
         keychain = FakeKeychain()
