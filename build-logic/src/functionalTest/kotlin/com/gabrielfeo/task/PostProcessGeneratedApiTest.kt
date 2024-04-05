@@ -24,7 +24,7 @@ class PostProcessGeneratedApiTest {
      */
     @Test
     fun apiInterfacePostProcessing() = testPostProcessing(
-        inputPath = "com/gabrielfeo/gradle/enterprise/api/BuildsApi.kt",
+        inputPath = "com/gabrielfeo/develocity/api/BuildsApi.kt",
         inputContent = """
             package com.gabrielfeo.develocity.api
 
@@ -67,7 +67,7 @@ class PostProcessGeneratedApiTest {
                 @GET("api/builds/{id}")
                 suspend fun getBuild(@Path("id") id: kotlin.String, @Query("models") models: kotlin.collections.List<BuildModelName>? = null, @Query("availabilityWaitTimeoutSecs") availabilityWaitTimeoutSecs: kotlin.Int? = null): Response<Build>
         """.trimIndent(),
-        outputPath = "com/gabrielfeo/gradle/enterprise/api/BuildsApi.kt",
+        outputPath = "com/gabrielfeo/develocity/api/BuildsApi.kt",
         outputContent = """
             package com.gabrielfeo.develocity.api
 
@@ -106,7 +106,7 @@ class PostProcessGeneratedApiTest {
      */
     @Test
     fun buildModelNameEnumPostProcessing() = testPostProcessing(
-        inputPath = "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
+        inputPath = "com/gabrielfeo/develocity/api/model/BuildModelName.kt",
         inputContent = """
             @JsonClass(generateAdapter = false)
             enum class BuildModelName(val value: kotlin.String) {
@@ -117,7 +117,7 @@ class PostProcessGeneratedApiTest {
                 @Json(name = "gradle-build-cache-performance")
                 gradleMinusBuildMinusCacheMinusPerformance("gradle-build-cache-performance"),
         """.trimIndent(),
-        outputPath = "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
+        outputPath = "com/gabrielfeo/develocity/api/model/BuildModelName.kt",
         outputContent = """
             @JsonClass(generateAdapter = false)
             enum class BuildModelName(val value: kotlin.String) {
