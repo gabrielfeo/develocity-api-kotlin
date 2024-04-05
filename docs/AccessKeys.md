@@ -1,6 +1,6 @@
 # Access key / API token
 
-[All API requests require authentication][1]. Provide a valid access key of your Gradle Enterprise instance as the `GRADLE_ENTERPRISE_API_TOKEN` environment variable.
+[All API requests require authentication][1]. Provide a valid access key of your Gradle Enterprise instance as the `DEVELOCITY_API_TOKEN` environment variable.
 
 ## How to get an access key
 
@@ -8,7 +8,7 @@
 2. Go to "My settings" from the user menu in the top right-hand corner of the page
 3. Go to "Access keys" from the sidebar
 4. Click "Generate" on the right-hand side
-5. Set key as the `GRADLE_ENTERPRISE_API_TOKEN` environment variable when using the library
+5. Set key as the `DEVELOCITY_API_TOKEN` environment variable when using the library
 
 ## Migrating from macOS keychain support
 
@@ -22,9 +22,9 @@ If you used the key from keychain and need a drop-in replacement:
 echo 'alias ge-api-token="security find-generic-password -w -a "$LOGNAME" -s gradle-enterprise-api-kotlin"' >> ~/.zshrc
 
 # Retrieve it to the environment variable before running the program
-GRADLE_ENTERPRISE_API_TOKEN="$(ge-api-token)" ./my-script.main.kts
-GRADLE_ENTERPRISE_API_TOKEN="$(ge-api-token)" jupyter lab
-GRADLE_ENTERPRISE_API_TOKEN="$(ge-api-token)" idea my-project
+DEVELOCITY_API_TOKEN="$(ge-api-token)" ./my-script.main.kts
+DEVELOCITY_API_TOKEN="$(ge-api-token)" jupyter lab
+DEVELOCITY_API_TOKEN="$(ge-api-token)" idea my-project
 ```
 
 [1]: https://docs.gradle.com/enterprise/api-manual/#access_control

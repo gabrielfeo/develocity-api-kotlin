@@ -22,9 +22,9 @@ api.buildsApi.getBuildsFlow(fromInstant = 0, query = "buildStartTime<-1d").forEa
 
 Set up environment variables and use the library from any notebook, script or project:
 
-- [`GRADLE_ENTERPRISE_API_URL`][16]: the URL of your Develocity instance
-- [`GRADLE_ENTERPRISE_API_TOKEN`][17]: an [access key][31] for the Develocity instance
-- [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12] (optional, off by default): enables caching for some
+- [`DEVELOCITY_API_URL`][16]: the URL of your Develocity instance
+- [`DEVELOCITY_API_TOKEN`][17]: an [access key][31] for the Develocity instance
+- [`DEVELOCITY_API_CACHE_ENABLED`][12] (optional, off by default): enables caching for some
   requests (see [caveats][13])
 
 ### Setup snippets
@@ -100,7 +100,7 @@ runBlocking {
 ### Caching
 
 HTTP caching is available, which can speed up queries significantly, but is
-off by default. Enable by simply setting [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12] to `true`. See
+off by default. Enable by simply setting [`DEVELOCITY_API_CACHE_ENABLED`][12] to `true`. See
 [`CacheConfig`][13] for caveats.
 
 ### Extensions
