@@ -8,7 +8,7 @@ from unittest import mock
 
 TEST_RESOURCES = Path(__file__).parent / 'test_resources'
 TEST_API_MANUAL_HTML = TEST_RESOURCES / 'api_manual.html'
-LATEST_VERSION = '2023.1'  # Same as HTML
+LATEST_VERSION = '2024.1'  # Same as HTML
 
 
 class TestCheckForNewApiSpec(unittest.TestCase):
