@@ -47,8 +47,8 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           branch: "${{ env.UPDATE_BRANCH }}"
-          commit-message: "Bump GE API spec version to ${{ env.NEW_VERSION }}"
-          title: "Bump GE API spec version to ${{ env.NEW_VERSION }}"
+          commit-message: "Bump Develocity API spec version to ${{ env.NEW_VERSION }}"
+          title: "Bump Develocity API spec version to ${{ env.NEW_VERSION }}"
           body: "https://docs.gradle.com/enterprise/api-manual/#release_history"
           author: "github-actions <github-actions@github.com>"
           committer: "github-actions <github-actions@github.com>"

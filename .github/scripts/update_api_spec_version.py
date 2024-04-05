@@ -6,7 +6,7 @@ import fileinput
 import sys
 
 VERSIONS_URL = "https://docs.gradle.com/enterprise/api-manual/"
-LATEST_VERSION_REGEX = r'<a [^>]*href="ref/gradle-enterprise-([\d.]+)-api\.yaml">Specification</a>'
+LATEST_VERSION_REGEX = r'<a [^>]*href="ref/develocity-([\d.]+)-api\.yaml">Specification</a>'
 
 
 def main(properties_file='gradle.properties'):
