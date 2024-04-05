@@ -12,6 +12,7 @@ plugins {
     `java-library`
     `maven-publish`
     signing
+    kotlin("jupyter.api") version "0.12.0-181"
 }
 
 val repoUrl = "https://github.com/gabrielfeo/develocity-api-kotlin"
@@ -45,6 +46,12 @@ tasks.withType<DokkaTask>().configureEach {
         externalDocumentationLink("https://square.github.io/moshi/1.x/moshi/")
         externalDocumentationLink("https://square.github.io/moshi/1.x/moshi-kotlin/")
     }
+}
+
+tasks.processJupyterApiResources {
+    libraryProducers = listOf(
+        "com.gabrielfeo.develocity.api.internal.jupyter.DevelocityApiJupyterIntegration",
+    )
 }
 
 tasks.named<Jar>("javadocJar") {
