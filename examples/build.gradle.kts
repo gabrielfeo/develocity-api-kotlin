@@ -1,7 +1,11 @@
 @file:Suppress("HasPlatformType")
 
+import com.gabrielfeo.task.ForceNotebooksToUseSnapshot
+
+
 plugins {
     base
+    id("com.gabrielfeo.examples-testing")
 }
 
 // Cross-configure so we don't pollute the example buildscript
@@ -13,48 +17,15 @@ project("example-project").configurations.configureEach {
 }
 
 val originalScripts = fileTree(file("example-scripts"))
-val originalNotebooks = fileTree(file("example-notebooks")) {
-    exclude(".ipynb_checkpoints")
-}
 
-val useDeclaredVersion = providers.gradleProperty("useDeclaredVersion").orNull.toBoolean()
-val version = providers.gradleProperty("version").get()
-
-val mavenLocalUrl = System.getenv("HOME") + "/.m2/repository"
-val scriptingSnapshotDirectives = """
-    @file:Repository("$mavenLocalUrl")
-    @file:DependsOn("com.gabrielfeo:develocity-api-kotlin:SNAPSHOT")
-""".trimIndent()
+val useDeclaredVersion = providers.gradleProperty("useDeclaredVersion")
+    .map { it.toBoolean() }
+    .orElse(false)
 
 // TODO scripts
 val scripts = originalScripts
-val notebooks = if (useDeclaredVersion) {
-    originalNotebooks
-} else {
-    val newNotebooks = project.layout.buildDirectory.dir("modified-notebooks").get().asFile
-    newNotebooks.deleteRecursively()
-    copy {
-        from(file("jupyter-maven-local-descriptor.json"))
-        into(newNotebooks)
-        filter { l ->
-            when {
-                "{{HOME}}" in l -> l.replace("{{HOME}}", System.getProperty("user.home"))
-                "{{VERSION}}" in l -> l.replace("{{VERSION}}", version)
-                else -> l
-            }
-        }
-    }
-    val newDescriptor = newNotebooks.resolve("jupyter-maven-local-descriptor.json")
-    copy {
-        from(originalNotebooks)
-        into(newNotebooks)
-        filter { l ->
-            if ("%use develocity-api-kotlin" in l) l.replace("%use develocity-api-kotlin", "%use @$newDescriptor")
-                .replace("(version=2023.4.0)", "")
-            else l
-        }
-    }
-    fileTree(newNotebooks)
+val notebooks = fileTree("example-notebooks") {
+    exclude(".ipynb_checkpoints")
 }
 
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
@@ -91,20 +62,36 @@ val createPythonVenv by tasks.registering(Exec::class) {
 }
 
 exampleTestTasks += notebooks.map { notebook ->
-    val buildDir = project.layout.buildDirectory.asFile.get()
-    tasks.register<Exec>("run${notebook.nameWithoutExtension}Notebook") {
+    val notebookName = notebook.nameWithoutExtension
+    val force = tasks.register("force${notebookName}ToSnapshot", ForceNotebooksToUseSnapshot::class) {
+        originalNotebook.set(notebook)
+        modifiedNotebook.set(project.layout.buildDirectory.file("modified/${notebook.name}"))
+        version.set(providers.gradleProperty("version"))
+        dependsOn(":library:publishUnsignedDevelocityApiKotlinPublicationToMavenLocal")
+    }
+    tasks.register<Exec>("run${notebookName}NotebookWithSnapshot") {
         group = "Application"
-        description = "Runs the '${notebook.name}' notebook with 'jupyter nbconvert --execute'"
+        description = "Runs '${notebook.name}' with 'jupyter nbconvert --execute' with snapshot code"
         val venv = venvDir.get()
         dependsOn(createPythonVenv)
         commandLine(
             "bash", "-c",
             "source $venv/bin/activate "
-                + "&& jupyter nbconvert --execute --to ipynb --output-dir='$buildDir' '$notebook'"
+                + "&& jupyter nbconvert --execute --to ipynb "
+                + project.layout.buildDirectory.map { "--output-dir=${it.asFile} " }
+                + force.map { it.modifiedNotebook.get().asFile }
         )
-        if (!useDeclaredVersion) {
-            dependsOn(":library:publishUnsignedDevelocityApiKotlinPublicationToMavenLocal")
-        }
+    }
+    tasks.register<Exec>("run${notebookName}Notebook") {
+        group = "Application"
+        description = "Runs '${notebook.name}' with 'jupyter nbconvert --execute'"
+        commandLine(
+            "jupyter", "nbconvert",
+            "--execute",
+            "--to", "ipynb",
+            project.layout.buildDirectory.map { "--output-dir=${it.asFile}" },
+            notebook,
+        )
     }
 }
 
