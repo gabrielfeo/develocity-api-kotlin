@@ -12,6 +12,7 @@ plugins {
     `java-library`
     `maven-publish`
     signing
+    kotlin("jupyter.api") version "0.12.0-181"
 }
 
 val repoUrl = "https://github.com/gabrielfeo/develocity-api-kotlin"
@@ -47,6 +48,12 @@ tasks.withType<DokkaTask>().configureEach {
     }
 }
 
+tasks.processJupyterApiResources {
+    libraryProducers = listOf(
+        "com.gabrielfeo.develocity.api.internal.jupyter.DevelocityApiJupyterIntegration",
+    )
+}
+
 tasks.named<Jar>("javadocJar") {
     from(tasks.dokkaHtml)
 }
@@ -80,6 +87,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
     integrationTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
     integrationTestImplementation("com.google.guava:guava:33.1.0-jre")
+    integrationTestImplementation("org.jetbrains.kotlinx:kotlin-jupyter-test-kit:0.12.0-181")
 }
 
 fun libraryPom() = Action<MavenPom> {
