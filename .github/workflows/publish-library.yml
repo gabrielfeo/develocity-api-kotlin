@@ -30,12 +30,13 @@ jobs:
       - name: Verify that version property matches tag
         if: ${{ inputs.dry_run != true }}
         run: grep -qP '^version=${{ github.ref_name }}$' gradle.properties
-      - name: gradle publishLibraryPublicationToMavenCentralRepository
+      - name: gradle publish
         uses: ./.github/actions/build
         with:
           dry-run: ${{ inputs.dry_run }}
           args: >-
-            publishLibraryPublicationToMavenCentralRepository
+            publishDevelocityApiKotlinPublicationToMavenCentralRepository
+            publishRelocationPublicationToMavenCentralRepository
             --rerun-tasks
             '-Pmaven.central.username=${{ secrets.MAVEN_CENTRAL_USERNAME }}'
             '-Pmaven.central.password=${{ secrets.MAVEN_CENTRAL_PASSWORD }}'
