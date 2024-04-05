@@ -1,11 +1,11 @@
 @file:Suppress("unused")
 
-package com.gabrielfeo.gradle.enterprise.api.extension
+package com.gabrielfeo.develocity.api.extension
 
-import com.gabrielfeo.gradle.enterprise.api.Config
-import com.gabrielfeo.gradle.enterprise.api.BuildsApi
-import com.gabrielfeo.gradle.enterprise.api.internal.API_MAX_BUILDS
-import com.gabrielfeo.gradle.enterprise.api.model.*
+import com.gabrielfeo.develocity.api.Config
+import com.gabrielfeo.develocity.api.BuildsApi
+import com.gabrielfeo.develocity.api.internal.API_MAX_BUILDS
+import com.gabrielfeo.develocity.api.model.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -89,8 +89,8 @@ fun BuildsApi.getBuildsFlow(
         "getBuildsFlow(since, sinceBuild, fromInstant, fromBuild, query, reverse," +
             "maxWaitSecs, models = listOf(BuildModelName.gradleAttributes))",
         imports = [
-            "com.gabrielfeo.gradle.enterprise.api.extension.getBuildsFlow",
-            "com.gabrielfeo.gradle.enterprise.api.model.BuildModelName",
+            "com.gabrielfeo.develocity.api.extension.getBuildsFlow",
+            "com.gabrielfeo.develocity.api.model.BuildModelName",
         ]
     ),
 )

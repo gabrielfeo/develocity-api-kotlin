@@ -1,7 +1,7 @@
-package com.gabrielfeo.gradle.enterprise.api.extension
+package com.gabrielfeo.develocity.api.extension
 
-import com.gabrielfeo.gradle.enterprise.api.*
-import com.gabrielfeo.gradle.enterprise.api.model.*
+import com.gabrielfeo.develocity.api.*
+import com.gabrielfeo.develocity.api.model.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 

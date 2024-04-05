@@ -1,8 +1,8 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.extension.getBuildsFlow
-import com.gabrielfeo.gradle.enterprise.api.extension.getGradleAttributesFlow
-import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
+import com.gabrielfeo.develocity.api.extension.getBuildsFlow
+import com.gabrielfeo.develocity.api.extension.getGradleAttributesFlow
+import com.gabrielfeo.develocity.api.model.FakeBuild
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest

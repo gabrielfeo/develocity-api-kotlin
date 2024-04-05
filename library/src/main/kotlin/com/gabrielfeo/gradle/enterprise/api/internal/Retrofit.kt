@@ -1,6 +1,6 @@
-package com.gabrielfeo.gradle.enterprise.api.internal
+package com.gabrielfeo.develocity.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.Config
+import com.gabrielfeo.develocity.api.Config
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

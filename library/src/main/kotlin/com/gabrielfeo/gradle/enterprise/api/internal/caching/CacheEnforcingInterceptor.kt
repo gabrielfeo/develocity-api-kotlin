@@ -1,4 +1,4 @@
-package com.gabrielfeo.gradle.enterprise.api.internal.caching
+package com.gabrielfeo.develocity.api.internal.caching
 
 import okhttp3.Interceptor
 import okhttp3.Request

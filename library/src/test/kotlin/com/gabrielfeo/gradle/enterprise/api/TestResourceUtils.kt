@@ -1,6 +1,6 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.Serializer
+import com.gabrielfeo.develocity.api.internal.infrastructure.Serializer
 import com.squareup.moshi.adapter
 import okio.buffer
 import okio.source

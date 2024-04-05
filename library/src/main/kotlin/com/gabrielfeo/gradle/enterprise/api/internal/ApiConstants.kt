@@ -1,4 +1,4 @@
-package com.gabrielfeo.gradle.enterprise.api.internal
+package com.gabrielfeo.develocity.api.internal
 
 /**
  * Undocumented max value of `/api/builds?maxBuilds`. Last checked in 2022.4.

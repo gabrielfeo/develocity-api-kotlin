@@ -1,6 +1,6 @@
-package com.gabrielfeo.gradle.enterprise.api.internal
+package com.gabrielfeo.develocity.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.Config
+import com.gabrielfeo.develocity.api.Config
 import org.slf4j.Logger
 
 internal var keychain: Keychain = realKeychain()

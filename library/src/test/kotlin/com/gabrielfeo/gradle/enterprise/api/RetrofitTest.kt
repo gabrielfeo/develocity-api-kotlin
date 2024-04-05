@@ -1,6 +1,6 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.*
+import com.gabrielfeo.develocity.api.internal.*
 import com.squareup.moshi.Moshi
 import retrofit2.Retrofit
 import kotlin.test.*

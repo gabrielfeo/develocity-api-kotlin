@@ -19,9 +19,9 @@
 
 @file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
 
-import com.gabrielfeo.gradle.enterprise.api.*
-import com.gabrielfeo.gradle.enterprise.api.model.*
-import com.gabrielfeo.gradle.enterprise.api.extension.*
+import com.gabrielfeo.develocity.api.*
+import com.gabrielfeo.develocity.api.model.*
+import com.gabrielfeo.develocity.api.extension.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.time.*

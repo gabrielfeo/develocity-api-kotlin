@@ -1,9 +1,9 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.RealLoggerFactory
-import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
-import com.gabrielfeo.gradle.enterprise.api.internal.buildRetrofit
-import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.Serializer
+import com.gabrielfeo.develocity.api.internal.RealLoggerFactory
+import com.gabrielfeo.develocity.api.internal.buildOkHttpClient
+import com.gabrielfeo.develocity.api.internal.buildRetrofit
+import com.gabrielfeo.develocity.api.internal.infrastructure.Serializer
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.create

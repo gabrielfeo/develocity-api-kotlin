@@ -1,7 +1,7 @@
-package com.gabrielfeo.gradle.enterprise.api.model
+package com.gabrielfeo.develocity.api.model
 
-import com.gabrielfeo.gradle.enterprise.api.extension.contains
-import com.gabrielfeo.gradle.enterprise.api.extension.get
+import com.gabrielfeo.develocity.api.extension.contains
+import com.gabrielfeo.develocity.api.extension.get
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

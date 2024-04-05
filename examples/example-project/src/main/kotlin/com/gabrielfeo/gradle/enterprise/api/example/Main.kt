@@ -1,8 +1,8 @@
-package com.gabrielfeo.gradle.enterprise.api.example
+package com.gabrielfeo.develocity.api.example
 
-import com.gabrielfeo.gradle.enterprise.api.Config
-import com.gabrielfeo.gradle.enterprise.api.DevelocityApi
-import com.gabrielfeo.gradle.enterprise.api.example.analysis.mostFrequentBuilds
+import com.gabrielfeo.develocity.api.Config
+import com.gabrielfeo.develocity.api.DevelocityApi
+import com.gabrielfeo.develocity.api.example.analysis.mostFrequentBuilds
 import okhttp3.OkHttpClient
 
 /*

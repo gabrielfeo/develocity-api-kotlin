@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set("com.gabrielfeo.gradle.enterprise.api.example.MainKt")
+    mainClass.set("com.gabrielfeo.develocity.api.example.MainKt")
 }
 
 java {

@@ -1,6 +1,6 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.*
+import com.gabrielfeo.develocity.api.internal.*
 import com.google.common.reflect.ClassPath
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -55,7 +55,7 @@ class DevelocityApiIntegrationTest {
 
     private fun getGeneratedApiTypes(): List<String> {
         val cp = ClassPath.from(this::class.java.classLoader)
-        return cp.getTopLevelClasses("com.gabrielfeo.gradle.enterprise.api")
+        return cp.getTopLevelClasses("com.gabrielfeo.develocity.api")
             .filter { it.simpleName.endsWith("Api") }
             .filter { !it.simpleName.endsWith("DevelocityApi") }
             .map { it.name }

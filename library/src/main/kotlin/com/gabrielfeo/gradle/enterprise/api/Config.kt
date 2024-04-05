@@ -1,7 +1,7 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.Config.CacheConfig
-import com.gabrielfeo.gradle.enterprise.api.internal.*
+import com.gabrielfeo.develocity.api.Config.CacheConfig
+import com.gabrielfeo.develocity.api.internal.*
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import java.io.File
