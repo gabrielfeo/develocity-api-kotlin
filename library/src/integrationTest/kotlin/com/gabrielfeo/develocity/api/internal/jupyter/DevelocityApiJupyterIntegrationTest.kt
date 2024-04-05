@@ -1,39 +1,28 @@
 package com.gabrielfeo.develocity.api.internal.jupyter
 
-import com.gabrielfeo.develocity.api.DevelocityApi
 import com.google.common.reflect.ClassPath
 import com.google.common.reflect.ClassPath.ClassInfo
-import kotlinx.coroutines.test.runTest
 import org.intellij.lang.annotations.Language
 import org.jetbrains.kotlinx.jupyter.api.Code
 import org.jetbrains.kotlinx.jupyter.testkit.JupyterReplTestCase
 import kotlin.reflect.KVisibility
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.javaType
 import kotlin.test.Test
 
 @ExperimentalStdlibApi
 class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
 
     @Test
-    fun `imports main package`() = assertSucceeds("""
-        DevelocityApi::class
-        Config::class
-    """)
-
-    @Test
-    fun `imports models package`() = assertSucceeds("""
-        Build::class
-        GradleAttributes::class
-    """)
-
-    @Test
-    fun `imports extensions package`() = assertSucceeds("""
+    fun `imports all extensions`() = assertSucceeds("""
+        com.gabrielfeo.develocity.api.BuildsApi::getGradleAttributesFlow
         com.gabrielfeo.develocity.api.BuildsApi::getBuildsFlow
+
+        val attrs = emptyList<com.gabrielfeo.develocity.api.model.BuildAttributesValue>()
+        "custom value name" in attrs
+        attrs["custom value name"]
     """)
 
     @Test
-    fun `imports all library classes`() {
+    fun `imports all public classes`() {
         val classes = allPublicClassesRecursive("com.gabrielfeo.develocity.api")
         val references = classes.joinToString("\n") { "${it.name}::class" }
         println("Running code:\n$references")
