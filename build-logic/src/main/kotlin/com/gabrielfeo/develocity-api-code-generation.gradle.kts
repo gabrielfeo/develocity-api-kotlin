@@ -10,7 +10,7 @@ plugins {
 
 val localSpecPath = providers.gradleProperty("localSpecPath")
 val remoteSpecUrl = providers.gradleProperty("remoteSpecUrl").orElse(
-    providers.gradleProperty("gradle.enterprise.version").map { geVersion ->
+    providers.gradleProperty("develocity.version").map { geVersion ->
         val majorVersion = geVersion.substringBefore('.').toInt()
         val specName = when {
             majorVersion <= 2023 -> "gradle-enterprise-$geVersion-api.yaml"

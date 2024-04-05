@@ -34,12 +34,12 @@ class TestCheckForNewApiSpec(unittest.TestCase):
 
     def assert_properties_version(self, file, version):
         with open(file.name) as file:
-            expected = f"gradle.enterprise.version={version}\nversion={version}.0\n1=2\n"
+            expected = f"develocity.version={version}\nversion={version}.0\n1=2\n"
             self.assertEqual(file.read(), expected)
 
     def properties_file(self, version):
         file = NamedTemporaryFile()
-        content = f"gradle.enterprise.version={version}\nversion={version}.0\n1=2\n"
+        content = f"develocity.version={version}\nversion={version}.0\n1=2\n"
         file.write(content.encode())
         file.flush()
         return file
