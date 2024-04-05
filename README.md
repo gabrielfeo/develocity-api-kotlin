@@ -3,6 +3,8 @@
 [![Maven Central](https://img.shields.io/badge/Maven%20Central-2024.1.0-blue)][14]
 [![Javadoc](https://img.shields.io/badge/Javadoc-2024.1.0-orange)][7]
 
+(formerly `gradle-enterprise-api-kotlin`)
+
 A Kotlin library to access the [Develocity API][1], easy to use from:
 
 - [Jupyter notebooks with the Kotlin kernel][29]
@@ -16,7 +18,7 @@ api.buildsApi.getBuildsFlow(fromInstant = 0, query = "buildStartTime<-1d").forEa
 }
 ```
 
- The library takes care of caching under the hood (opt-in) and provides some convenience extensions.
+The library takes care of caching under the hood (opt-in) and provides some convenience extensions.
 
 ## Setup
 
@@ -28,9 +30,6 @@ Set up environment variables and use the library from any notebook, script or pr
   requests (see [caveats][13])
 
 ### Setup snippets
-
-ℹ️ The library is now published to Maven Central under `com.gabrielfeo`. Maven Central is
-recommended over JitPack.
 
 <details>
   <summary>Add to a Jupyter notebook</summary>
@@ -201,7 +200,7 @@ import com.gabrielfeo.develocity.api.model.extension.*
 [11]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-develocity-api/shutdown.html
 [12]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/index.html
-[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2024.1.0
+[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2023.4.0
 [16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-url.html
 [17]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-token.html
 [18]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
