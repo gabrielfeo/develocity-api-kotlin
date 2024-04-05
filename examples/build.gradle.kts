@@ -12,13 +12,60 @@ project("example-project").configurations.configureEach {
     }
 }
 
+val originalScripts = fileTree(file("example-scripts"))
+val originalNotebooks = fileTree(file("example-notebooks")) {
+    exclude(".ipynb_checkpoints")
+}
+
+val useDeclaredVersion = providers.gradleProperty("useDeclaredVersion").orNull.toBoolean()
+val version = providers.gradleProperty("version").get()
+
+val mavenLocalUrl = System.getenv("HOME") + "/.m2/repository"
+val scriptingSnapshotDirectives = """
+    @file:Repository("$mavenLocalUrl")
+    @file:DependsOn("com.gabrielfeo:develocity-api-kotlin:SNAPSHOT")
+""".trimIndent()
+
+// TODO scripts
+val scripts = originalScripts
+val notebooks = if (useDeclaredVersion) {
+    originalNotebooks
+} else {
+    val newNotebooks = project.layout.buildDirectory.dir("modified-notebooks").get().asFile
+    newNotebooks.deleteRecursively()
+    copy {
+        from(file("jupyter-maven-local-descriptor.json"))
+        into(newNotebooks)
+        filter { l ->
+            when {
+                "{{HOME}}" in l -> l.replace("{{HOME}}", System.getProperty("user.home"))
+                "{{VERSION}}" in l -> l.replace("{{VERSION}}", version)
+                else -> l
+            }
+        }
+    }
+    val newDescriptor = newNotebooks.resolve("jupyter-maven-local-descriptor.json")
+    copy {
+        from(originalNotebooks)
+        into(newNotebooks)
+        filter { l ->
+            if ("%use develocity-api-kotlin" in l) l.replace("%use develocity-api-kotlin", "%use @$newDescriptor")
+                .replace("(version=2023.4.0)", "")
+            else l
+        }
+    }
+    fileTree(newNotebooks)
+}
+
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
 
-exampleTestTasks += tasks.register<Exec>("runExampleScript") {
-    group = "Application"
-    description = "Runs the './example-scripts/example-script.main.kts' script"
-    commandLine("kotlinc", "-script", file("./example-scripts/example-script.main.kts"))
-    environment("JAVA_OPTS", "-Xmx1g")
+exampleTestTasks += scripts.map { script ->
+    tasks.register<Exec>("runExampleScript") {
+        group = "Application"
+        description = "Runs the './example-scripts/${script.name}' script"
+        commandLine("kotlinc", "-script", script)
+        environment("JAVA_OPTS", "-Xmx1g")
+    }
 }
 
 exampleTestTasks += tasks.register("runExampleProject") {
@@ -55,6 +102,9 @@ exampleTestTasks += notebooks.map { notebook ->
             "source $venv/bin/activate "
                 + "&& jupyter nbconvert --execute --to ipynb --output-dir='$buildDir' '$notebook'"
         )
+        if (!useDeclaredVersion) {
+            dependsOn(":library:publishUnsignedDevelocityApiKotlinPublicationToMavenLocal")
+        }
     }
 }
 
