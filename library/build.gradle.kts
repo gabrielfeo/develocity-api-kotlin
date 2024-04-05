@@ -87,6 +87,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
     integrationTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
     integrationTestImplementation("com.google.guava:guava:33.1.0-jre")
+    integrationTestImplementation("org.jetbrains.kotlinx:kotlin-jupyter-test-kit:0.12.0-181")
 }
 
 fun libraryPom() = Action<MavenPom> {
