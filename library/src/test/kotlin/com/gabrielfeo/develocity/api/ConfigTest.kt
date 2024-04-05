@@ -9,8 +9,6 @@ class ConfigTest {
     @BeforeTest
     fun before() {
         env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
-        systemProperties = FakeSystemProperties.macOs
-        keychain = FakeKeychain()
     }
 
     @Test
@@ -28,42 +26,16 @@ class ConfigTest {
     }
 
     @Test
-    fun `Given macOS and keychain token, keychain token used`() {
-        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
-        keychain = FakeKeychain("gradle-enterprise-api-token" to "foo")
-        assertEquals("foo", Config().apiToken())
-    }
-
-    @Test
-    fun `Given macOS but no keychain token, env token used`() {
-        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
-        assertEquals("bar", Config().apiToken())
-    }
-
-    @Test
-    fun `Given Linux, keychain never tried and env token used`() {
-        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
-        keychain = object : Keychain {
-            override fun get(entry: String) =
-                error("Error: Tried to access macOS keychain in Linux")
-        }
-        systemProperties = FakeSystemProperties.linux
-        assertEquals("bar", Config().apiToken())
-    }
-
-    @Test
-    fun `Given macOS and no token anywhere, error`() {
+    fun `Given no token, error`() {
         assertFails {
             Config().apiToken()
         }
     }
 
     @Test
-    fun `Given Linux and no env token, fails`() {
-        systemProperties = FakeSystemProperties.linux
-        assertFails {
-            Config().apiToken()
-        }
+    fun `Given token set in env, apiToken is env token`() {
+        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
+        assertEquals("bar", Config().apiToken())
     }
 
     @Test

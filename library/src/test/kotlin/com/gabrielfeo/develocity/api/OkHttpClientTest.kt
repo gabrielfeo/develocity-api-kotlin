@@ -1,7 +1,6 @@
 package com.gabrielfeo.develocity.api
 
 import com.gabrielfeo.develocity.api.internal.*
-import com.gabrielfeo.develocity.api.internal.FakeKeychain
 import com.gabrielfeo.develocity.api.internal.auth.HttpBearerAuth
 import com.gabrielfeo.develocity.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.develocity.api.internal.caching.CacheHitLoggingInterceptor
@@ -72,8 +71,6 @@ class OkHttpClientTest {
         if ("DEVELOCITY_API_URL" !in fakeEnv)
             fakeEnv["DEVELOCITY_API_URL"] = "example-url"
         env = fakeEnv
-        systemProperties = FakeSystemProperties.macOs
-        keychain = FakeKeychain()
         val config = when (clientBuilder) {
             null -> Config()
             else -> Config(clientBuilder = clientBuilder)

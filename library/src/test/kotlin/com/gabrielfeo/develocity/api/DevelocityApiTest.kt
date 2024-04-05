@@ -11,8 +11,6 @@ class DevelocityApiTest {
     @Test
     fun `Fails eagerly if no API URL`() {
         env = FakeEnv()
-        keychain = FakeKeychain()
-        systemProperties = FakeSystemProperties.linux
         val error = assertThrows<Exception> {
             DevelocityApi.newInstance(Config())
         }
@@ -22,8 +20,6 @@ class DevelocityApiTest {
     @Test
     fun `Fails lazily if no API token`() {
         env = FakeEnv("DEVELOCITY_API_URL" to "example-url")
-        keychain = FakeKeychain()
-        systemProperties = FakeSystemProperties.linux
         val api = assertDoesNotThrow {
             DevelocityApi.newInstance(Config())
         }

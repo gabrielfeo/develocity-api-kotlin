@@ -32,11 +32,12 @@ data class Config(
             ?: error("DEVELOCITY_API_URL is required"),
 
     /**
-     * Provides the access token for a Develocity API instance. By default, uses keychain entry
-     * `gradle-enterprise-api-token` or environment variable `DEVELOCITY_API_TOKEN`.
+     * Provides the access token for a Develocity API instance. By default, uses environment
+     * variable `DEVELOCITY_API_TOKEN`.
      */
     val apiToken: () -> String = {
-        requireEnvOrKeychainToken()
+        env["DEVELOCITY_API_TOKEN"]
+            ?: error("DEVELOCITY_API_TOKEN is required")
     },
 
     /**
@@ -193,15 +194,4 @@ data class Config(
             env["DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE"]?.toLong()
                 ?: 1.days.inWholeSeconds,
     )
-}
-
-internal fun requireEnvOrKeychainToken(): String {
-    if (systemProperties["os.name"] == "Mac OS X") {
-        when (val result = keychain.get("gradle-enterprise-api-token")) {
-            is KeychainResult.Success -> return result.token
-            is KeychainResult.Error -> {}
-        }
-    }
-    return env["DEVELOCITY_API_TOKEN"]
-        ?: error("DEVELOCITY_API_TOKEN is required")
 }
