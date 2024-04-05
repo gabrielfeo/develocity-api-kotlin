@@ -52,7 +52,7 @@ tasks.named<Jar>("javadocJar") {
 }
 
 tasks.named<Test>("integrationTest") {
-    environment("GRADLE_ENTERPRISE_API_LOG_LEVEL", "DEBUG")
+    environment("DEVELOCITY_API_LOG_LEVEL", "DEBUG")
 }
 
 java {

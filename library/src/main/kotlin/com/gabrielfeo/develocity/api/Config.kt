@@ -21,19 +21,19 @@ data class Config(
      * To use different SLF4J bindings, simply exclude the logback dependency.
      */
     val logLevel: String? =
-        env["GRADLE_ENTERPRISE_API_LOG_LEVEL"],
+        env["DEVELOCITY_API_LOG_LEVEL"],
 
     /**
      * Provides the URL of a Develocity API instance REST API. By default, uses
-     * environment variable `GRADLE_ENTERPRISE_API_URL`. Must end with `/api/`.
+     * environment variable `DEVELOCITY_API_URL`. Must end with `/api/`.
      */
     val apiUrl: String =
-        env["GRADLE_ENTERPRISE_API_URL"]
-            ?: error("GRADLE_ENTERPRISE_API_URL is required"),
+        env["DEVELOCITY_API_URL"]
+            ?: error("DEVELOCITY_API_URL is required"),
 
     /**
      * Provides the access token for a Develocity API instance. By default, uses keychain entry
-     * `gradle-enterprise-api-token` or environment variable `GRADLE_ENTERPRISE_API_TOKEN`.
+     * `gradle-enterprise-api-token` or environment variable `DEVELOCITY_API_TOKEN`.
      */
     val apiToken: () -> String = {
         requireEnvOrKeychainToken()
@@ -53,7 +53,7 @@ data class Config(
 
     /**
      * Maximum amount of concurrent requests allowed. Further requests will be queued. By default,
-     * uses environment variable `GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS` or 5 (OkHttp's
+     * uses environment variable `DEVELOCITY_API_MAX_CONCURRENT_REQUESTS` or 5 (OkHttp's
      * default value of [Dispatcher.maxRequestsPerHost]).
      *
      * If set, will set [Dispatcher.maxRequests] and [Dispatcher.maxRequestsPerHost] of the
@@ -61,16 +61,16 @@ data class Config(
      * if any.
      */
     val maxConcurrentRequests: Int? =
-        env["GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS"]?.toInt(),
+        env["DEVELOCITY_API_MAX_CONCURRENT_REQUESTS"]?.toInt(),
 
     /**
      * Timeout for reading an API response, used for [OkHttpClient.readTimeoutMillis].
-     * By default, uses environment variable `GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS`
+     * By default, uses environment variable `DEVELOCITY_API_READ_TIMEOUT_MILLIS`
      * or 60_000. Keep in mind that Develocity API responses can be big and slow to send depending on
      * the endpoint.
      */
     val readTimeoutMillis: Long =
-        env["GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS"]?.toLong()
+        env["DEVELOCITY_API_READ_TIMEOUT_MILLIS"]?.toLong()
             ?: 60_000L,
 
     /**
@@ -126,30 +126,30 @@ data class Config(
 
         /**
          * Whether caching is enabled. By default, uses environment variable
-         * `GRADLE_ENTERPRISE_API_CACHE_ENABLED` or `false`.
+         * `DEVELOCITY_API_CACHE_ENABLED` or `false`.
          */
         val cacheEnabled: Boolean =
-            env["GRADLE_ENTERPRISE_API_CACHE_ENABLED"].toBoolean(),
+            env["DEVELOCITY_API_CACHE_ENABLED"].toBoolean(),
 
         /**
-         * HTTP cache location. By default, uses environment variable `GRADLE_ENTERPRISE_API_CACHE_DIR`
+         * HTTP cache location. By default, uses environment variable `DEVELOCITY_API_CACHE_DIR`
          * or the system temporary folder (`java.io.tmpdir` / develocity-api-kotlin-cache).
          */
         val cacheDir: File =
-            env["GRADLE_ENTERPRISE_API_CACHE_DIR"]?.let(::File)
+            env["DEVELOCITY_API_CACHE_DIR"]?.let(::File)
                 ?: File(systemProperties["user.home"], ".develocity-api-kotlin-cache"),
 
         /**
          * Max size of the HTTP cache. By default, uses environment variable
-         * `GRADLE_ENTERPRISE_API_MAX_CACHE_SIZE` or ~1 GB.
+         * `DEVELOCITY_API_MAX_CACHE_SIZE` or ~1 GB.
          */
-        val maxCacheSize: Long = env["GRADLE_ENTERPRISE_API_MAX_CACHE_SIZE"]?.toLong()
+        val maxCacheSize: Long = env["DEVELOCITY_API_MAX_CACHE_SIZE"]?.toLong()
             ?: 1_000_000_000L,
 
         /**
          * Regex pattern to match API URLs that are OK to store long-term in the HTTP cache, up to
          * [longTermCacheMaxAge] (1y by default, max value). By default, uses environment variable
-         * `GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN` or a pattern matching:
+         * `DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN` or a pattern matching:
          * - {host}/api/builds/{id}/gradle-attributes
          * - {host}/api/builds/{id}/maven-attributes
          * - {host}/api/builds/{id}/gradle-build-cache-performance
@@ -158,7 +158,7 @@ data class Config(
          * Use `|` to define multiple patterns in one, e.g. `.*gradle-attributes|.*test-distribution`.
          */
         val longTermCacheUrlPattern: Regex =
-            env["GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_URL_PATTERN"]?.toRegex()
+            env["DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN"]?.toRegex()
                 ?: Regex(
                     """
                     .*/api/builds/[\d\w]+/(?:gradle|maven)-(?:attributes|build-cache-performance)
@@ -167,30 +167,30 @@ data class Config(
 
         /**
          * Max age in seconds for URLs to be cached long-term (matched by [longTermCacheUrlPattern]).
-         * By default, uses environment variable `GRADLE_ENTERPRISE_API_LONG_TERM_CACHE_MAX_AGE` or 1 year.
+         * By default, uses environment variable `DEVELOCITY_API_LONG_TERM_CACHE_MAX_AGE` or 1 year.
          */
         val longTermCacheMaxAge: Long =
-            env["GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE"]?.toLong()
+            env["DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE"]?.toLong()
                 ?: 365.days.inWholeSeconds,
 
         /**
          * Regex pattern to match API URLs that are OK to store short-term in the HTTP cache, up to
          * [shortTermCacheMaxAge] (1d by default). By default, uses environment variable
-         * `GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_URL_PATTERN` or a pattern matching:
+         * `DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN` or a pattern matching:
          * - {host}/api/builds
          *
          * Use `|` to define multiple patterns in one, e.g. `.*gradle-attributes|.*test-distribution`.
          */
         val shortTermCacheUrlPattern: Regex =
-            env["GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_URL_PATTERN"]?.toRegex()
+            env["DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN"]?.toRegex()
                 ?: """.*/builds(?:\?.*|\Z)""".toRegex(),
 
         /**
          * Max age in seconds for URLs to be cached short-term (matched by [shortTermCacheUrlPattern]).
-         * By default, uses environment variable `GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE` or 1 day.
+         * By default, uses environment variable `DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE` or 1 day.
          */
         val shortTermCacheMaxAge: Long =
-            env["GRADLE_ENTERPRISE_API_SHORT_TERM_CACHE_MAX_AGE"]?.toLong()
+            env["DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE"]?.toLong()
                 ?: 1.days.inWholeSeconds,
     )
 }
@@ -202,6 +202,6 @@ internal fun requireEnvOrKeychainToken(): String {
             is KeychainResult.Error -> {}
         }
     }
-    return env["GRADLE_ENTERPRISE_API_TOKEN"]
-        ?: error("GRADLE_ENTERPRISE_API_TOKEN is required")
+    return env["DEVELOCITY_API_TOKEN"]
+        ?: error("DEVELOCITY_API_TOKEN is required")
 }

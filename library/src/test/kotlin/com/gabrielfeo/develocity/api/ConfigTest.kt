@@ -8,7 +8,7 @@ class ConfigTest {
 
     @BeforeTest
     fun before() {
-        env = FakeEnv("GRADLE_ENTERPRISE_API_URL" to "https://example.com/api/")
+        env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
         systemProperties = FakeSystemProperties.macOs
         keychain = FakeKeychain()
     }
@@ -23,26 +23,26 @@ class ConfigTest {
 
     @Test
     fun `Given URL set in env, apiUrl is env URL`() {
-        (env as FakeEnv)["GRADLE_ENTERPRISE_API_URL"] = "https://example.com/api/"
+        (env as FakeEnv)["DEVELOCITY_API_URL"] = "https://example.com/api/"
         assertEquals("https://example.com/api/", Config().apiUrl)
     }
 
     @Test
     fun `Given macOS and keychain token, keychain token used`() {
-        (env as FakeEnv)["GRADLE_ENTERPRISE_API_TOKEN"] = "bar"
+        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
         keychain = FakeKeychain("gradle-enterprise-api-token" to "foo")
         assertEquals("foo", Config().apiToken())
     }
 
     @Test
     fun `Given macOS but no keychain token, env token used`() {
-        (env as FakeEnv)["GRADLE_ENTERPRISE_API_TOKEN"] = "bar"
+        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
         assertEquals("bar", Config().apiToken())
     }
 
     @Test
     fun `Given Linux, keychain never tried and env token used`() {
-        (env as FakeEnv)["GRADLE_ENTERPRISE_API_TOKEN"] = "bar"
+        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
         keychain = object : Keychain {
             override fun get(entry: String) =
                 error("Error: Tried to access macOS keychain in Linux")
@@ -68,7 +68,7 @@ class ConfigTest {
 
     @Test
     fun `maxConcurrentRequests accepts int`() {
-        (env as FakeEnv)["GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS"] = "1"
+        (env as FakeEnv)["DEVELOCITY_API_MAX_CONCURRENT_REQUESTS"] = "1"
         assertDoesNotThrow {
             Config().maxConcurrentRequests
         }
@@ -76,7 +76,7 @@ class ConfigTest {
 
     @Test
     fun `Given timeout set in env, readTimeoutMillis returns env value`() {
-        (env as FakeEnv)["GRADLE_ENTERPRISE_API_READ_TIMEOUT_MILLIS"] = "100000"
+        (env as FakeEnv)["DEVELOCITY_API_READ_TIMEOUT_MILLIS"] = "100000"
         assertEquals(100_000L, Config().readTimeoutMillis)
     }
 }

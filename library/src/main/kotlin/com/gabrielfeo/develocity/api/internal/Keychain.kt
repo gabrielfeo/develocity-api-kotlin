@@ -47,5 +47,5 @@ internal class RealKeychain(
 
 private const val KEYCHAIN_DEPRECATION_WARNING =
     "WARNING: passing token via macOS keychain is deprecated. Please pass it as the " +
-        "GRADLE_ENTERPRISE_API_TOKEN environment variable instead. Keychain support will be " +
+        "DEVELOCITY_API_TOKEN environment variable instead. Keychain support will be " +
         "removed in the next release. See release notes for details and alternatives."

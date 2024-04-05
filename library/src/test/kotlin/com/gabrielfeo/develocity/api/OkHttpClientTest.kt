@@ -20,7 +20,7 @@ class OkHttpClientTest {
     @Test
     fun `Given maxConcurrentRequests, sets values in Dispatcher`() {
         val client = buildClient(
-            "GRADLE_ENTERPRISE_API_MAX_CONCURRENT_REQUESTS" to "123"
+            "DEVELOCITY_API_MAX_CONCURRENT_REQUESTS" to "123"
         )
         assertEquals(123, client.dispatcher.maxRequests)
         assertEquals(123, client.dispatcher.maxRequestsPerHost)
@@ -42,14 +42,14 @@ class OkHttpClientTest {
 
     @Test
     fun `Given cache enabled, configures caching`() {
-        val client = buildClient("GRADLE_ENTERPRISE_API_CACHE_ENABLED" to "true")
+        val client = buildClient("DEVELOCITY_API_CACHE_ENABLED" to "true")
         assertTrue(client.networkInterceptors.any { it is CacheEnforcingInterceptor })
         assertNotNull(client.cache)
     }
 
     @Test
     fun `Given cache disabled, no caching or cache logging`() {
-        val client = buildClient("GRADLE_ENTERPRISE_API_CACHE_ENABLED" to "false")
+        val client = buildClient("DEVELOCITY_API_CACHE_ENABLED" to "false")
         assertTrue(client.networkInterceptors.none { it is CacheEnforcingInterceptor })
         assertTrue(client.interceptors.none { it is CacheHitLoggingInterceptor })
         assertNull(client.cache)
@@ -67,10 +67,10 @@ class OkHttpClientTest {
         clientBuilder: OkHttpClient.Builder? = null,
     ): OkHttpClient {
         val fakeEnv = FakeEnv(*envVars)
-        if ("GRADLE_ENTERPRISE_API_TOKEN" !in fakeEnv)
-            fakeEnv["GRADLE_ENTERPRISE_API_TOKEN"] = "example-token"
-        if ("GRADLE_ENTERPRISE_API_URL" !in fakeEnv)
-            fakeEnv["GRADLE_ENTERPRISE_API_URL"] = "example-url"
+        if ("DEVELOCITY_API_TOKEN" !in fakeEnv)
+            fakeEnv["DEVELOCITY_API_TOKEN"] = "example-token"
+        if ("DEVELOCITY_API_URL" !in fakeEnv)
+            fakeEnv["DEVELOCITY_API_URL"] = "example-url"
         env = fakeEnv
         systemProperties = FakeSystemProperties.macOs
         keychain = FakeKeychain()

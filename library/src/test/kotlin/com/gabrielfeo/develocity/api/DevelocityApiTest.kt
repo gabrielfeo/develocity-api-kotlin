@@ -16,12 +16,12 @@ class DevelocityApiTest {
         val error = assertThrows<Exception> {
             DevelocityApi.newInstance(Config())
         }
-        error.assertRootMessageContains("GRADLE_ENTERPRISE_API_URL")
+        error.assertRootMessageContains("DEVELOCITY_API_URL")
     }
 
     @Test
     fun `Fails lazily if no API token`() {
-        env = FakeEnv("GRADLE_ENTERPRISE_API_URL" to "example-url")
+        env = FakeEnv("DEVELOCITY_API_URL" to "example-url")
         keychain = FakeKeychain()
         systemProperties = FakeSystemProperties.linux
         val api = assertDoesNotThrow {
@@ -30,7 +30,7 @@ class DevelocityApiTest {
         val error = assertThrows<Exception> {
             api.buildsApi.toString()
         }
-        error.assertRootMessageContains("GRADLE_ENTERPRISE_API_TOKEN")
+        error.assertRootMessageContains("DEVELOCITY_API_TOKEN")
     }
 
     private fun Throwable.assertRootMessageContains(text: String) {
