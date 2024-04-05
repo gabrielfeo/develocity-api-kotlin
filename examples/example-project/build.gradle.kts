@@ -15,5 +15,5 @@ java {
 }
 
 dependencies {
-    implementation("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
+    implementation("com.gabrielfeo:develocity-api-kotlin:2024.1.0")
 }

@@ -1,7 +1,9 @@
 # Develocity API Kotlin
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2023.4.0-blue)][14]
-[![Javadoc](https://img.shields.io/badge/Javadoc-2023.4.0-orange)][7]
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-2024.1.0-blue)][14]
+[![Javadoc](https://img.shields.io/badge/Javadoc-2024.1.0-orange)][7]
+
+(formerly `gradle-enterprise-api-kotlin`)
 
 A Kotlin library to access the [Develocity API][1], easy to use from:
 
@@ -16,7 +18,7 @@ api.buildsApi.getBuildsFlow(fromInstant = 0, query = "buildStartTime<-1d").forEa
 }
 ```
 
- The library takes care of caching under the hood (opt-in) and provides some convenience extensions.
+The library takes care of caching under the hood (opt-in) and provides some convenience extensions.
 
 ## Setup
 
@@ -29,15 +31,12 @@ Set up environment variables and use the library from any notebook, script or pr
 
 ### Setup snippets
 
-ℹ️ The library is now published to Maven Central under `com.gabrielfeo`. Maven Central is
-recommended over JitPack.
-
 <details>
   <summary>Add to a Jupyter notebook</summary>
 
 ```
 %useLatestDescriptors
-%use develocity-api-kotlin(version=2023.4.0)
+%use develocity-api-kotlin(version=2024.1.0)
 ```
 
 </details>
@@ -46,7 +45,7 @@ recommended over JitPack.
   <summary>Add to a Kotlin script</summary>
 
 ```kotlin
-@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
+@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.1.0")
 ```
 
 </details>
@@ -56,7 +55,7 @@ recommended over JitPack.
 
 ```kotlin
 dependencies {
-  implementation("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
+  implementation("com.gabrielfeo:develocity-api-kotlin:2024.1.0")
 }
 ```
 
