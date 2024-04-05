@@ -17,7 +17,7 @@
  * Run this with at least 1GB of heap to accomodate the fetched data: JAVA_OPTS=-Xmx1g
  */
 
-@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
+@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.1.0")
 
 import com.gabrielfeo.develocity.api.*
 import com.gabrielfeo.develocity.api.model.*
