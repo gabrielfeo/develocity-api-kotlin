@@ -24,30 +24,30 @@ class PostProcessGeneratedApiTest {
      */
     @Test
     fun apiInterfacePostProcessing() = testPostProcessing(
-        inputPath = "com/gabrielfeo/gradle/enterprise/api/BuildsApi.kt",
+        inputPath = "com/gabrielfeo/develocity/api/BuildsApi.kt",
         inputContent = """
-            package com.gabrielfeo.gradle.enterprise.api
-            
-            import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.CollectionFormats.*
+            package com.gabrielfeo.develocity.api
+
+            import com.gabrielfeo.develocity.api.internal.infrastructure.CollectionFormats.*
             import retrofit2.http.*
             import retrofit2.Response
             import okhttp3.RequestBody
             import com.squareup.moshi.Json
-            
-            import com.gabrielfeo.gradle.enterprise.api.model.ApiProblem
-            import com.gabrielfeo.gradle.enterprise.api.model.Build
-            import com.gabrielfeo.gradle.enterprise.api.model.BuildModelQuery
-            import com.gabrielfeo.gradle.enterprise.api.model.BuildQuery
-            import com.gabrielfeo.gradle.enterprise.api.model.BuildsQuery
-            import com.gabrielfeo.gradle.enterprise.api.model.GradleAttributes
-            import com.gabrielfeo.gradle.enterprise.api.model.GradleBuildCachePerformance
-            import com.gabrielfeo.gradle.enterprise.api.model.GradleNetworkActivity
-            import com.gabrielfeo.gradle.enterprise.api.model.GradleProject
-            import com.gabrielfeo.gradle.enterprise.api.model.MavenAttributes
-            import com.gabrielfeo.gradle.enterprise.api.model.MavenBuildCachePerformance
-            import com.gabrielfeo.gradle.enterprise.api.model.MavenDependencyResolution
-            import com.gabrielfeo.gradle.enterprise.api.model.MavenModule
-            
+
+            import com.gabrielfeo.develocity.api.model.ApiProblem
+            import com.gabrielfeo.develocity.api.model.Build
+            import com.gabrielfeo.develocity.api.model.BuildModelQuery
+            import com.gabrielfeo.develocity.api.model.BuildQuery
+            import com.gabrielfeo.develocity.api.model.BuildsQuery
+            import com.gabrielfeo.develocity.api.model.GradleAttributes
+            import com.gabrielfeo.develocity.api.model.GradleBuildCachePerformance
+            import com.gabrielfeo.develocity.api.model.GradleNetworkActivity
+            import com.gabrielfeo.develocity.api.model.GradleProject
+            import com.gabrielfeo.develocity.api.model.MavenAttributes
+            import com.gabrielfeo.develocity.api.model.MavenBuildCachePerformance
+            import com.gabrielfeo.develocity.api.model.MavenDependencyResolution
+            import com.gabrielfeo.develocity.api.model.MavenModule
+
             interface BuildsApi {
                 /**
                  * Get the common attributes of a Build Scan.
@@ -67,18 +67,18 @@ class PostProcessGeneratedApiTest {
                 @GET("api/builds/{id}")
                 suspend fun getBuild(@Path("id") id: kotlin.String, @Query("models") models: kotlin.collections.List<BuildModelName>? = null, @Query("availabilityWaitTimeoutSecs") availabilityWaitTimeoutSecs: kotlin.Int? = null): Response<Build>
         """.trimIndent(),
-        outputPath = "com/gabrielfeo/gradle/enterprise/api/BuildsApi.kt",
+        outputPath = "com/gabrielfeo/develocity/api/BuildsApi.kt",
         outputContent = """
-            package com.gabrielfeo.gradle.enterprise.api
-            
-            import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.CollectionFormats.*
+            package com.gabrielfeo.develocity.api
+
+            import com.gabrielfeo.develocity.api.internal.infrastructure.CollectionFormats.*
             import retrofit2.http.*
             import retrofit2.Response
             import okhttp3.RequestBody
             import com.squareup.moshi.Json
-            
-            import com.gabrielfeo.gradle.enterprise.api.model.*
-            
+
+            import com.gabrielfeo.develocity.api.model.*
+
             @JvmSuppressWildcards
             interface BuildsApi {
                 /**
@@ -106,25 +106,25 @@ class PostProcessGeneratedApiTest {
      */
     @Test
     fun buildModelNameEnumPostProcessing() = testPostProcessing(
-        inputPath = "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
+        inputPath = "com/gabrielfeo/develocity/api/model/BuildModelName.kt",
         inputContent = """
             @JsonClass(generateAdapter = false)
             enum class BuildModelName(val value: kotlin.String) {
-            
+
                 @Json(name = "gradle-attributes")
                 gradleMinusAttributes("gradle-attributes"),
-            
+
                 @Json(name = "gradle-build-cache-performance")
                 gradleMinusBuildMinusCacheMinusPerformance("gradle-build-cache-performance"),
         """.trimIndent(),
-        outputPath = "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
+        outputPath = "com/gabrielfeo/develocity/api/model/BuildModelName.kt",
         outputContent = """
             @JsonClass(generateAdapter = false)
             enum class BuildModelName(val value: kotlin.String) {
-            
+
                 @Json(name = "gradle-attributes")
                 gradleAttributes("gradle-attributes"),
-            
+
                 @Json(name = "gradle-build-cache-performance")
                 gradleBuildCachePerformance("gradle-build-cache-performance"),
         """.trimIndent(),
@@ -163,14 +163,14 @@ class PostProcessGeneratedApiTest {
             // language=groovy
             """
                 import com.gabrielfeo.task.PostProcessGeneratedApi
-                
+
                 plugins {
                     id("com.gabrielfeo.no-op")
                 }
-                
+
                 tasks.register("postProcessGeneratedApi", PostProcessGeneratedApi) {
                     originalFiles = new File("${inputDir.absolutePath}")
-                    modelsPackage = "com.gabrielfeo.gradle.enterprise.api.model"
+                    modelsPackage = "com.gabrielfeo.develocity.api.model"
                     postProcessedFiles = new File("${outputDir.absolutePath}")
                 }
             """.trimIndent()

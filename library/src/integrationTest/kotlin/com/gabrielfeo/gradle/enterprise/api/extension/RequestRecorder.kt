@@ -1,4 +1,4 @@
-package com.gabrielfeo.gradle.enterprise.api.extension
+package com.gabrielfeo.develocity.api.extension
 
 import okhttp3.OkHttpClient
 import okhttp3.Request

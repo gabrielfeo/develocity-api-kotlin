@@ -10,7 +10,7 @@ plugins {
 
 val localSpecPath = providers.gradleProperty("localSpecPath")
 val remoteSpecUrl = providers.gradleProperty("remoteSpecUrl").orElse(
-    providers.gradleProperty("gradle.enterprise.version").map { geVersion ->
+    providers.gradleProperty("develocity.version").map { geVersion ->
         val majorVersion = geVersion.substringBefore('.').toInt()
         val specName = when {
             majorVersion <= 2023 -> "gradle-enterprise-$geVersion-api.yaml"
@@ -45,10 +45,10 @@ openApiGenerate {
     outputDir.set(generateDir)
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
     ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
-    apiPackage.set("com.gabrielfeo.gradle.enterprise.api")
-    modelPackage.set("com.gabrielfeo.gradle.enterprise.api.model")
-    packageName.set("com.gabrielfeo.gradle.enterprise.api.internal")
-    invokerPackage.set("com.gabrielfeo.gradle.enterprise.api.internal")
+    apiPackage.set("com.gabrielfeo.develocity.api")
+    modelPackage.set("com.gabrielfeo.develocity.api.model")
+    packageName.set("com.gabrielfeo.develocity.api.internal")
+    invokerPackage.set("com.gabrielfeo.develocity.api.internal")
     additionalProperties.put("library", "jvm-retrofit2")
     additionalProperties.put("useCoroutines", true)
     cleanupOutput.set(true)

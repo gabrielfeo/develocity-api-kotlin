@@ -1,6 +1,6 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.*
+import com.gabrielfeo.develocity.api.internal.*
 import com.google.common.reflect.ClassPath
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -10,13 +10,13 @@ import kotlin.reflect.javaType
 import kotlin.test.*
 
 @OptIn(ExperimentalStdlibApi::class)
-class GradleEnterpriseApiIntegrationTest {
+class DevelocityApiIntegrationTest {
 
     @Test
     fun canFetchBuildsWithDefaultConfig() = runTest {
         env = RealEnv
         keychain = realKeychain()
-        val api = GradleEnterpriseApi.newInstance(
+        val api = DevelocityApi.newInstance(
             config = Config(
                 cacheConfig = Config.CacheConfig(cacheEnabled = false)
             )
@@ -39,7 +39,7 @@ class GradleEnterpriseApiIntegrationTest {
                 apiUrl = "https://google.com/api/",
                 apiToken = { "" },
             )
-            GradleEnterpriseApi.newInstance(config)
+            DevelocityApi.newInstance(config)
         }
     }
 
@@ -49,19 +49,19 @@ class GradleEnterpriseApiIntegrationTest {
         val mainApiInterfaceProperties = getMainApiInterfaceProperties()
         generatedApiTypes.forEach {
             mainApiInterfaceProperties.singleOrNull { type -> type == it }
-                ?: fail("No property in GradleEnterpriseApi for $it")
+                ?: fail("No property in DevelocityApi for $it")
         }
     }
 
     private fun getGeneratedApiTypes(): List<String> {
         val cp = ClassPath.from(this::class.java.classLoader)
-        return cp.getTopLevelClasses("com.gabrielfeo.gradle.enterprise.api")
+        return cp.getTopLevelClasses("com.gabrielfeo.develocity.api")
             .filter { it.simpleName.endsWith("Api") }
-            .filter { !it.simpleName.endsWith("GradleEnterpriseApi") }
+            .filter { !it.simpleName.endsWith("DevelocityApi") }
             .map { it.name }
     }
 
-    private fun getMainApiInterfaceProperties() = GradleEnterpriseApi::class.memberProperties
+    private fun getMainApiInterfaceProperties() = DevelocityApi::class.memberProperties
         .filter { it.visibility == PUBLIC }
         .map { it.returnType.javaType.typeName }
 }

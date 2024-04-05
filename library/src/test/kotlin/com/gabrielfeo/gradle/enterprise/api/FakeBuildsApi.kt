@@ -1,6 +1,6 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.model.*
+import com.gabrielfeo.develocity.api.model.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import retrofit2.http.Query
 

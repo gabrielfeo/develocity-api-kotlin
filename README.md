@@ -1,16 +1,16 @@
-# Gradle Enterprise API Kotlin
+# Develocity API Kotlin
 
 [![Maven Central](https://img.shields.io/badge/Maven%20Central-2023.4.0-blue)][14]
 [![Javadoc](https://img.shields.io/badge/Javadoc-2023.4.0-orange)][7]
 
-A Kotlin library to access the [Gradle Enterprise API][1], easy to use from:
+A Kotlin library to access the [Develocity API][1], easy to use from:
 
 - [Jupyter notebooks with the Kotlin kernel][29]
 - [Kotlin scripts (`kts`)][27]
 - [Kotlin projects][28]
 
 ```kotlin
-val api = GradleEnterpriseApi.newInstance()
+val api = DevelocityApi.newInstance()
 api.buildsApi.getBuildsFlow(fromInstant = 0, query = "buildStartTime<-1d").forEach {
   println(it)
 }
@@ -22,8 +22,8 @@ api.buildsApi.getBuildsFlow(fromInstant = 0, query = "buildStartTime<-1d").forEa
 
 Set up environment variables and use the library from any notebook, script or project:
 
-- [`GRADLE_ENTERPRISE_API_URL`][16]: the URL of your Gradle Enterprise instance
-- [`GRADLE_ENTERPRISE_API_TOKEN`][17]: an [access key][31] for the Gradle Enterprise instance
+- [`GRADLE_ENTERPRISE_API_URL`][16]: the URL of your Develocity instance
+- [`GRADLE_ENTERPRISE_API_TOKEN`][17]: an [access key][31] for the Develocity instance
 - [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`][12] (optional, off by default): enables caching for some
   requests (see [caveats][13])
 
@@ -37,7 +37,7 @@ recommended over JitPack.
 
 ```
 %useLatestDescriptors
-%use gradle-enterprise-api-kotlin(version=2023.4.0)
+%use develocity-api-kotlin(version=2023.4.0)
 ```
 
 </details>
@@ -46,7 +46,7 @@ recommended over JitPack.
   <summary>Add to a Kotlin script</summary>
 
 ```kotlin
-@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0")
+@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
 ```
 
 </details>
@@ -56,7 +56,7 @@ recommended over JitPack.
 
 ```kotlin
 dependencies {
-  implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0")
+  implementation("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
 }
 ```
 
@@ -64,11 +64,11 @@ dependencies {
 
 ## Usage
 
-The [`GradleEnterpriseApi`][9] interface represents the Gradle Enterprise REST API. It contains
+The [`DevelocityApi`][9] interface represents the Develocity REST API. It contains
 all the APIs exactly as listed in the [REST API Manual][5]:
 
 ```kotlin
-interface GradleEnterpriseApi {
+interface DevelocityApi {
   val buildsApi: BuildsApi
   val testsApi: TestsApi
   val buildCacheApi: BuildCacheApi
@@ -106,7 +106,7 @@ off by default. Enable by simply setting [`GRADLE_ENTERPRISE_API_CACHE_ENABLED`]
 ### Extensions
 
 Explore the library's convenience extensions:
-[`com.gabrielfeo.gradle.enterprise.api.extension`][25].
+[`com.gabrielfeo.develocity.api.extension`][25].
 
 By default, the API's most common endpoint, `/api/builds`, is paginated. The library provides a
 [`getBuildsFlow`][24] extension to handle paging under-the-hood and yield all builds as you collect
@@ -126,7 +126,7 @@ case they're needed again. This is an optimization of [OkHttp][4]. If you're wor
 or have a long-living program that fetches builds continuosly, no shutdown is needed.
 
 ```kotlin
-val api = GradleEnterpriseApi.newInstance()
+val api = DevelocityApi.newInstance()
 while (true) {
   delay(2.minutes)
   processNewBuilds(api.buildsApi.getBuildsFlow(query = "..."))
@@ -135,10 +135,10 @@ while (true) {
 ```
 
 In other cases (i.e. fetching some builds and exiting), you might want to call
-[`GradleEnterpriseApi.shutdown()`][11] so that the program exits immediately:
+[`DevelocityApi.shutdown()`][11] so that the program exits immediately:
 
 ```kotlin
-val api = GradleEnterpriseApi.newInstance()
+val api = DevelocityApi.newInstance()
 printMetrics(api.buildsApi.getBuildsFlow(query = "..."))
 // Call shutdown if you expect the program to exit now
 api.shutdown()
@@ -170,7 +170,7 @@ val config = Config(
   apiToken = { vault.getGeApiToken() },
   clientBuilder = existingClient.newBuilder(),
 )
-val api = GradleEnterpriseApi.newInstance(config)
+val api = DevelocityApi.newInstance(config)
 api.buildsApi.getBuilds(fromInstant = yesterdayMilli)
 ```
 
@@ -184,9 +184,9 @@ See the [`Config`][8] documentation for more.
   no auto-complete, wildcard imports can be used (in notebooks, they're added automatically):
 
 ```kotlin
-import com.gabrielfeo.gradle.enterprise.api.*
-import com.gabrielfeo.gradle.enterprise.api.model.*
-import com.gabrielfeo.gradle.enterprise.api.model.extension.*
+import com.gabrielfeo.develocity.api.*
+import com.gabrielfeo.develocity.api.model.*
+import com.gabrielfeo.develocity.api.model.extension.*
 ```
 
 [1]: https://docs.gradle.com/enterprise/api-manual/
@@ -195,27 +195,27 @@ import com.gabrielfeo.gradle.enterprise.api.model.extension.*
 [4]: https://github.com/square/retrofit/issues/3144#issuecomment-508300518
 [5]: https://docs.gradle.com/enterprise/api-manual/ref/2022.4.html
 [6]: https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc
-[7]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/
-[8]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/index.html
-[9]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/
-[11]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/shutdown.html
-[12]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/-cache-config/cache-enabled.html
-[13]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/-cache-config/index.html
-[14]: https://central.sonatype.com/artifact/com.gabrielfeo/gradle-enterprise-api-kotlin/2023.4.0
-[16]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/api-url.html
-[17]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-config/api-token.html
-[18]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/index.html
-[19]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.model/-gradle-attributes/index.html
-[20]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/index.html
-[21]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/get-builds.html
-[22]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-builds-api/get-gradle-attributes.html
-[23]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api/-gradle-enterprise-api/-default-instance/index.html
-[24]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/get-builds-flow.html
-[25]: https://gabrielfeo.github.io/gradle-enterprise-api-kotlin/library/com.gabrielfeo.gradle.enterprise.api.extension/index.html
+[7]: https://gabrielfeo.github.io/develocity-api-kotlin/
+[8]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/index.html
+[9]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-develocity-api/
+[11]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-develocity-api/shutdown.html
+[12]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-enabled.html
+[13]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/index.html
+[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2023.4.0
+[16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-url.html
+[17]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-token.html
+[18]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
+[19]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api.model/-gradle-attributes/index.html
+[20]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
+[21]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/get-builds.html
+[22]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/get-gradle-attributes.html
+[23]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-develocity-api/-default-instance/index.html
+[24]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api.extension/get-builds-flow.html
+[25]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api.extension/index.html
 [26]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/
 [27]: ./examples/example-scripts/example-script.main.kts
 [28]: ./examples/example-project
-[29]: https://nbviewer.org/github/gabrielfeo/gradle-enterprise-api-kotlin/blob/main/examples/example-notebooks/MostFrequentBuilds.ipynb
+[29]: https://nbviewer.org/github/gabrielfeo/develocity-api-kotlin/blob/main/examples/example-notebooks/MostFrequentBuilds.ipynb
 [30]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html
 [31]: ./docs/AccessKeys.md
 [32]: ./examples

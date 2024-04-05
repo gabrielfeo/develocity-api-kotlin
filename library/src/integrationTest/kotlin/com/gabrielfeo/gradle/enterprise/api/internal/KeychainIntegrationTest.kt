@@ -1,6 +1,6 @@
-package com.gabrielfeo.gradle.enterprise.api.internal
+package com.gabrielfeo.develocity.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.internal.keychain
+import com.gabrielfeo.develocity.api.internal.keychain
 import kotlin.test.*
 
 internal class KeychainIntegrationTest {

@@ -1,8 +1,8 @@
-package com.gabrielfeo.gradle.enterprise.api.example.analysis
+package com.gabrielfeo.develocity.api.example.analysis
 
-import com.gabrielfeo.gradle.enterprise.api.*
-import com.gabrielfeo.gradle.enterprise.api.extension.*
-import com.gabrielfeo.gradle.enterprise.api.model.*
+import com.gabrielfeo.develocity.api.*
+import com.gabrielfeo.develocity.api.extension.*
+import com.gabrielfeo.develocity.api.model.*
 import kotlinx.coroutines.flow.*
 import java.util.LinkedList
 

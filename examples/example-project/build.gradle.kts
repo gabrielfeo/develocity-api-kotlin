@@ -5,7 +5,7 @@ plugins {
 }
 
 application {
-    mainClass.set("com.gabrielfeo.gradle.enterprise.api.example.MainKt")
+    mainClass.set("com.gabrielfeo.develocity.api.example.MainKt")
 }
 
 java {
@@ -15,5 +15,5 @@ java {
 }
 
 dependencies {
-    implementation("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0")
+    implementation("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
 }

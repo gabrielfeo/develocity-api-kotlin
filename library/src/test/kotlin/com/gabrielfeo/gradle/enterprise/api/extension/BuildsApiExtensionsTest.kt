@@ -1,8 +1,8 @@
-package com.gabrielfeo.gradle.enterprise.api.extension
+package com.gabrielfeo.develocity.api.extension
 
-import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
-import com.gabrielfeo.gradle.enterprise.api.model.Build
-import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
+import com.gabrielfeo.develocity.api.FakeBuildsApi
+import com.gabrielfeo.develocity.api.model.Build
+import com.gabrielfeo.develocity.api.model.FakeBuild
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

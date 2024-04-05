@@ -1,10 +1,10 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.model.*
+import com.gabrielfeo.develocity.api.model.*
 import retrofit2.http.Query
 
 /**
- * Scaffold for a fake `GradleEnterpriseApi` implementation with default methods throwing a
+ * Scaffold for a fake `DevelocityApi` implementation with default methods throwing a
  * [NotImplementedError]. Extend this interface and override methods to fake behavior as needed.
  */
 interface FakeBuildsApiScaffold : BuildsApi {

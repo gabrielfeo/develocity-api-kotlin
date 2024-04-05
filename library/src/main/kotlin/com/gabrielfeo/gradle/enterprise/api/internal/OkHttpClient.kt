@@ -1,9 +1,9 @@
-package com.gabrielfeo.gradle.enterprise.api.internal
+package com.gabrielfeo.develocity.api.internal
 
-import com.gabrielfeo.gradle.enterprise.api.Config
-import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
-import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
-import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
+import com.gabrielfeo.develocity.api.Config
+import com.gabrielfeo.develocity.api.internal.auth.HttpBearerAuth
+import com.gabrielfeo.develocity.api.internal.caching.CacheEnforcingInterceptor
+import com.gabrielfeo.develocity.api.internal.caching.CacheHitLoggingInterceptor
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

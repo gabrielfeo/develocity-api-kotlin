@@ -1,4 +1,4 @@
-package com.gabrielfeo.gradle.enterprise.api.internal
+package com.gabrielfeo.develocity.api.internal
 
 internal class FakeKeychain(
     vararg entries: Pair<String, String>,

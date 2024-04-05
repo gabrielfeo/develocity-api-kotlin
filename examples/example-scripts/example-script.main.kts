@@ -17,11 +17,11 @@
  * Run this with at least 1GB of heap to accomodate the fetched data: JAVA_OPTS=-Xmx1g
  */
 
-@file:DependsOn("com.gabrielfeo:gradle-enterprise-api-kotlin:2023.4.0")
+@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2023.4.0")
 
-import com.gabrielfeo.gradle.enterprise.api.*
-import com.gabrielfeo.gradle.enterprise.api.model.*
-import com.gabrielfeo.gradle.enterprise.api.extension.*
+import com.gabrielfeo.develocity.api.*
+import com.gabrielfeo.develocity.api.model.*
+import com.gabrielfeo.develocity.api.extension.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import java.time.*
@@ -34,7 +34,7 @@ val buildFilter: (GradleAttributes) -> Boolean = { build ->
 }
 
 // Fetch builds from the API
-val api = GradleEnterpriseApi.newInstance()
+val api = DevelocityApi.newInstance()
 val builds: List<GradleAttributes> = runBlocking {
     api.buildsApi.getBuildsFlow(
         fromInstant = 0,

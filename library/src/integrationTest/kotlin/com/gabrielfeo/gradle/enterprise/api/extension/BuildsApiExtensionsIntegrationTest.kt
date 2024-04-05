@@ -1,8 +1,8 @@
-package com.gabrielfeo.gradle.enterprise.api.extension
+package com.gabrielfeo.develocity.api.extension
 
-import com.gabrielfeo.gradle.enterprise.api.*
-import com.gabrielfeo.gradle.enterprise.api.internal.*
-import com.gabrielfeo.gradle.enterprise.api.model.BuildModelName
+import com.gabrielfeo.develocity.api.*
+import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.model.BuildModelName
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.test.runTest
@@ -72,7 +72,7 @@ class BuildsApiExtensionsIntegrationTest {
     }
 
     private fun buildApi(recorder: RequestRecorder) =
-        GradleEnterpriseApi.newInstance(
+        DevelocityApi.newInstance(
             config = Config(
                 clientBuilder = recorder.clientBuilder(),
                 cacheConfig = Config.CacheConfig(cacheEnabled = false),

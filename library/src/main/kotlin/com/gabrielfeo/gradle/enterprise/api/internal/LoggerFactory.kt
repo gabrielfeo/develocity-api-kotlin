@@ -1,7 +1,7 @@
-package com.gabrielfeo.gradle.enterprise.api.internal
+package com.gabrielfeo.develocity.api.internal
 
 import ch.qos.logback.classic.Level
-import com.gabrielfeo.gradle.enterprise.api.Config
+import com.gabrielfeo.develocity.api.Config
 import org.slf4j.Logger
 import kotlin.reflect.KClass
 

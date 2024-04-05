@@ -1,7 +1,7 @@
-package com.gabrielfeo.gradle.enterprise.api.extension
+package com.gabrielfeo.develocity.api.extension
 
-import com.gabrielfeo.gradle.enterprise.api.FakeBuildsApi
-import com.gabrielfeo.gradle.enterprise.api.model.FakeBuild
+import com.gabrielfeo.develocity.api.FakeBuildsApi
+import com.gabrielfeo.develocity.api.model.FakeBuild
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.asFlow

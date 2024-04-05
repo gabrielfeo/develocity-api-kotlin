@@ -1,16 +1,16 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.RealLoggerFactory
-import com.gabrielfeo.gradle.enterprise.api.internal.buildOkHttpClient
-import com.gabrielfeo.gradle.enterprise.api.internal.buildRetrofit
-import com.gabrielfeo.gradle.enterprise.api.internal.infrastructure.Serializer
+import com.gabrielfeo.develocity.api.internal.RealLoggerFactory
+import com.gabrielfeo.develocity.api.internal.buildOkHttpClient
+import com.gabrielfeo.develocity.api.internal.buildRetrofit
+import com.gabrielfeo.develocity.api.internal.infrastructure.Serializer
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.create
 
 /**
- * Gradle Enterprise API client. API endpoints are grouped exactly as in the
- * [Gradle Enterprise API Manual](https://docs.gradle.com/enterprise/api-manual/#reference_documentation):
+ * Develocity API client. API endpoints are grouped exactly as in the
+ * [Develocity API Manual](https://docs.gradle.com/enterprise/api-manual/#reference_documentation):
  *
  * - [buildsApi]
  * - [buildCacheApi]
@@ -20,7 +20,7 @@ import retrofit2.create
  * Create an instance with [newInstance]:
  *
  * ```kotlin
- * val api = GradleEnterpriseApi.newInstance()
+ * val api = DevelocityApi.newInstance()
  * api.buildsApi.getBuilds(...)
  * ```
  *
@@ -28,11 +28,11 @@ import retrofit2.create
  *
  * ```kotlin
  * val options = Options(clientBuilder = myOwnOkHttpClient.newBuilder())
- * val api = GradleEnterpriseApi.newInstance(options)
+ * val api = DevelocityApi.newInstance(options)
  * api.buildsApi.getBuilds(...)
  * ```
  */
-interface GradleEnterpriseApi {
+interface DevelocityApi {
 
     val authApi: AuthApi
     val buildsApi: BuildsApi
@@ -55,18 +55,18 @@ interface GradleEnterpriseApi {
     companion object {
 
         /**
-         * Create a new instance of `GradleEnterpriseApi` with a custom `Config`.
+         * Create a new instance of `DevelocityApi` with a custom `Config`.
          */
-        fun newInstance(config: Config = Config()): GradleEnterpriseApi {
-            return RealGradleEnterpriseApi(config)
+        fun newInstance(config: Config = Config()): DevelocityApi {
+            return RealDevelocityApi(config)
         }
     }
 
 }
 
-internal class RealGradleEnterpriseApi(
+internal class RealDevelocityApi(
     override val config: Config,
-) : GradleEnterpriseApi {
+) : DevelocityApi {
 
     private val okHttpClient by lazy {
         buildOkHttpClient(config = config, RealLoggerFactory(config))

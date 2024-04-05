@@ -24,7 +24,7 @@ def get_current_api_spec_version(properties_file) -> str:
             if '=' not in line:
                 continue
             k, v = line.strip().split('=', maxsplit=2)
-            if k == 'gradle.enterprise.version':
+            if k == 'develocity.version':
                 return v
 
 
@@ -42,7 +42,7 @@ def update_version(properties_file, new_version):
         if '=' in line:
             k, v = line.strip().split('=', maxsplit=2)
             # Update target API spec version
-            if k == 'gradle.enterprise.version':
+            if k == 'develocity.version':
                 line = f"{k}={new_version}\n"
             # Update library version
             if k == 'version':

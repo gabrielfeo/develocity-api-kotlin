@@ -1,10 +1,10 @@
-package com.gabrielfeo.gradle.enterprise.api
+package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.gradle.enterprise.api.internal.*
-import com.gabrielfeo.gradle.enterprise.api.internal.FakeKeychain
-import com.gabrielfeo.gradle.enterprise.api.internal.auth.HttpBearerAuth
-import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheEnforcingInterceptor
-import com.gabrielfeo.gradle.enterprise.api.internal.caching.CacheHitLoggingInterceptor
+import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.internal.FakeKeychain
+import com.gabrielfeo.develocity.api.internal.auth.HttpBearerAuth
+import com.gabrielfeo.develocity.api.internal.caching.CacheEnforcingInterceptor
+import com.gabrielfeo.develocity.api.internal.caching.CacheHitLoggingInterceptor
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import kotlin.test.*

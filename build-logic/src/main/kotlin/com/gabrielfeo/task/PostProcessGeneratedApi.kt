@@ -38,7 +38,7 @@ abstract class PostProcessGeneratedApi @Inject constructor(
     }
 
     private fun postProcess(srcDir: File, modelsPackage: String) {
-        // Replace Response<X> with X in every method return type of GradleEnterpriseApi.kt
+        // Replace Response<X> with X in every method return type of DevelocityApi.kt
         ant.withGroovyBuilder {
             "replaceregexp"(
                 "match" to ": Response<(.*?)>$",
@@ -47,7 +47,7 @@ abstract class PostProcessGeneratedApi @Inject constructor(
             ) {
                 "fileset"(
                     "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/gradle/enterprise/api/*Api.kt",
+                    "includes" to "com/gabrielfeo/develocity/api/*Api.kt",
                 )
             }
         }
@@ -63,7 +63,7 @@ abstract class PostProcessGeneratedApi @Inject constructor(
             ) {
                 "fileset"(
                     "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/gradle/enterprise/api/*Api.kt",
+                    "includes" to "com/gabrielfeo/develocity/api/*Api.kt",
                 )
             }
         }
@@ -91,7 +91,7 @@ abstract class PostProcessGeneratedApi @Inject constructor(
             ) {
                 "fileset"(
                     "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/gradle/enterprise/api/model/BuildModelName.kt",
+                    "includes" to "com/gabrielfeo/develocity/api/model/BuildModelName.kt",
                 )
             }
         }
