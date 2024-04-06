@@ -13,11 +13,16 @@ class RealLoggerFactory(
 ) : LoggerFactory {
 
     override fun newLogger(cls: KClass<*>): Logger {
-        if (System.getProperty(SIMPLE_LOGGER_LOG_LEVEL) == null) {
-            System.setProperty(SIMPLE_LOGGER_LOG_LEVEL, config.logLevel ?: "off")
-        }
+        setLogLevel()
         return org.slf4j.LoggerFactory.getLogger(cls.java)
+    }
+
+    private fun setLogLevel() {
+        if (System.getProperty(SIMPLE_LOGGER_LOG_LEVEL) != null) {
+            return
+        }
+        System.setProperty(SIMPLE_LOGGER_LOG_LEVEL, config.logLevel)
     }
 }
 
-private const val SIMPLE_LOGGER_LOG_LEVEL = "org.slf4j.simpleLogger.defaultLogLevel"
+internal const val SIMPLE_LOGGER_LOG_LEVEL = "org.slf4j.simpleLogger.defaultLogLevel"
