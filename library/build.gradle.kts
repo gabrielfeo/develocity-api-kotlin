@@ -8,55 +8,16 @@ plugins {
     id("com.gabrielfeo.kotlin-jvm-library")
     id("com.gabrielfeo.develocity-api-code-generation")
     id("com.gabrielfeo.test-suites")
-    id("org.jetbrains.dokka")
     `java-library`
     `maven-publish`
     signing
     kotlin("jupyter.api") version "0.12.0-181"
 }
 
-val repoUrl = "https://github.com/gabrielfeo/develocity-api-kotlin"
-
-java {
-    withSourcesJar()
-    withJavadocJar()
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-        vendor.set(JvmVendorSpec.AZUL)
-    }
-}
-
-tasks.withType<DokkaTask>().configureEach {
-    dokkaSourceSets.register("main") {
-        sourceRoot("src/main/kotlin")
-        sourceLink {
-            localDirectory.set(file("src/main/kotlin"))
-            remoteUrl.set(URL("$repoUrl/blob/$version/src/main/kotlin"))
-            remoteLineSuffix.set("#L")
-        }
-        jdkVersion.set(11)
-        suppressGeneratedFiles.set(false)
-        documentedVisibilities.set(setOf(PUBLIC))
-        perPackageOption {
-            matchingRegex.set(""".*\.internal.*""")
-            suppress.set(true)
-        }
-        externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
-        externalDocumentationLink("https://square.github.io/okhttp/4.x/okhttp/")
-        externalDocumentationLink("https://square.github.io/retrofit/2.x/retrofit/")
-        externalDocumentationLink("https://square.github.io/moshi/1.x/moshi/")
-        externalDocumentationLink("https://square.github.io/moshi/1.x/moshi-kotlin/")
-    }
-}
-
 tasks.processJupyterApiResources {
     libraryProducers = listOf(
         "com.gabrielfeo.develocity.api.internal.jupyter.DevelocityApiJupyterIntegration",
     )
-}
-
-tasks.named<Jar>("javadocJar") {
-    from(tasks.dokkaHtml)
 }
 
 tasks.named<Test>("integrationTest") {
@@ -94,6 +55,7 @@ dependencies {
 val libraryPom = Action<MavenPom> {
     name.set("Develocity API Kotlin")
     description.set("A library to use the Develocity API in Kotlin")
+    val repoUrl = providers.gradleProperty("repo.url")
     url.set(repoUrl)
     licenses {
         license {
@@ -110,10 +72,10 @@ val libraryPom = Action<MavenPom> {
         }
     }
     scm {
-        val basicUrl = repoUrl.substringAfter("://")
-        connection.set("scm:git:git://$basicUrl.git")
-        developerConnection.set("scm:git:ssh://$basicUrl.git")
-        url.set("https://$basicUrl/")
+        val basicUrl = repoUrl.map { it.substringAfter("://") }
+        connection.set(basicUrl.map { "scm:git:git://$it.git" })
+        developerConnection.set(basicUrl.map { "scm:git:ssh://$it.git" })
+        url.set(basicUrl.map { "https://$it/" })
     }
 }
 
