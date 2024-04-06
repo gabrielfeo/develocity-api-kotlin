@@ -1,0 +1,41 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.gabrielfeo.develocity.api.extension////PointingToDeclaration/library/com.gabrielfeo.develocity.api.extension/index.html
+$dokka.location:com.gabrielfeo.develocity.api.extension//contains/kotlin.collections.List[[Error type: Unresolved type for BuildAttributesValue]]#kotlin.String/PointingToDeclaration/library/com.gabrielfeo.develocity.api.extension/contains.html
+$dokka.location:com.gabrielfeo.develocity.api.extension//get/kotlin.collections.List[[Error type: Unresolved type for BuildAttributesValue]]#kotlin.String/PointingToDeclaration/library/com.gabrielfeo.develocity.api.extension/get.html
+$dokka.location:com.gabrielfeo.develocity.api.extension//getBuildsFlow/[Error type: Unresolved type for BuildsApi]#kotlin.Long?#kotlin.String?#kotlin.Long?#kotlin.String?#kotlin.String?#kotlin.Boolean?#kotlin.Int?#kotlin.Int#kotlin.collections.List[[Error type: Unresolved type for BuildModelName]]?#kotlin.Boolean?/PointingToDeclaration/library/com.gabrielfeo.develocity.api.extension/get-builds-flow.html
+$dokka.location:com.gabrielfeo.develocity.api.extension//getGradleAttributesFlow/[Error type: Unresolved type for BuildsApi]#kotlin.Long#kotlin.String?#kotlin.Long?#kotlin.String?#kotlin.String?#kotlin.Boolean?#kotlin.Int?#[Error type: Unresolved type for CoroutineScope]#kotlin.collections.List[[Error type: Unresolved type for BuildModelName]]?/PointingToDeclaration/library/com.gabrielfeo.develocity.api.extension/get-gradle-attributes-flow.html
+$dokka.location:com.gabrielfeo.develocity.api////PointingToDeclaration/library/com.gabrielfeo.develocity.api/index.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig///PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/index.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/CacheConfig/#kotlin.Boolean#java.io.File#kotlin.Long#[Error type: Unresolved type for Regex]#kotlin.Long#[Error type: Unresolved type for Regex]#kotlin.Long/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/-cache-config.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/cacheDir/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-dir.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/cacheEnabled/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-enabled.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/longTermCacheMaxAge/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/long-term-cache-max-age.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/longTermCacheUrlPattern/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/long-term-cache-url-pattern.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/maxCacheSize/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/max-cache-size.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/shortTermCacheMaxAge/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/short-term-cache-max-age.html
+$dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/shortTermCacheUrlPattern/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/short-term-cache-url-pattern.html
+$dokka.location:com.gabrielfeo.develocity.api/Config///PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/index.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/Config/#kotlin.String?#kotlin.String#kotlin.Function0[kotlin.String]#[Error type: Unresolved type for OkHttpClient.Builder]#kotlin.Int?#kotlin.Long#com.gabrielfeo.develocity.api.Config.CacheConfig/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-config.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/apiToken/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/api-token.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/apiUrl/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/api-url.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/cacheConfig/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/cache-config.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/clientBuilder/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/client-builder.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/logLevel/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/log-level.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/maxConcurrentRequests/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/max-concurrent-requests.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/readTimeoutMillis/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/read-timeout-millis.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi.Companion///PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/-companion/index.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi.Companion/newInstance/#com.gabrielfeo.develocity.api.Config/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/-companion/new-instance.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi///PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/index.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/authApi/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/auth-api.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/buildCacheApi/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/build-cache-api.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/buildsApi/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/builds-api.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/config/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/config.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/metaApi/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/meta-api.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/projectsApi/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/projects-api.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/shutdown/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/shutdown.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/testDistributionApi/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/test-distribution-api.html
+$dokka.location:com.gabrielfeo.develocity.api/DevelocityApi/testsApi/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-develocity-api/tests-api.html
+com.gabrielfeo.develocity.api
+com.gabrielfeo.develocity.api.extension
+
