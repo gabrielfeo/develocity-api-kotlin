@@ -43,7 +43,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     implementation("org.slf4j:slf4j-api:2.0.11")
-    implementation("ch.qos.logback:logback-classic:1.4.14")
+    runtimeOnly("ch.qos.logback:logback-classic:1.4.14")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
     testImplementation("com.squareup.okio:okio:3.9.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
