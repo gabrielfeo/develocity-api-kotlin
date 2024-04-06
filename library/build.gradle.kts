@@ -164,7 +164,10 @@ publishing {
 fun isCI() = System.getenv("CI").toBoolean()
 
 signing {
-    sign(publishing.publications["develocityApiKotlin"])
+    sign(
+        publishing.publications["develocityApiKotlin"],
+        publishing.publications["relocation"],
+    )
     if (isCI()) {
         useInMemoryPgpKeys(
             project.properties["signing.secretKey"] as String?,
