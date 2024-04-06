@@ -66,8 +66,8 @@ private fun OkHttpClient.Builder.addNetworkInterceptors(
 }
 
 private fun getHttpLoggingInterceptorForLogger(logger: Logger): Interceptor? = when {
-    logger.isDebugEnabled -> HttpLoggingInterceptor(logger = logger::debug).apply { level = BASIC }
     logger.isTraceEnabled -> HttpLoggingInterceptor(logger = logger::debug).apply { level = BODY }
+    logger.isDebugEnabled -> HttpLoggingInterceptor(logger = logger::debug).apply { level = BASIC }
     else -> null
 }
 
