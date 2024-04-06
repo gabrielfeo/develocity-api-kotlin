@@ -45,10 +45,10 @@
                     </a>
             </div>
             <div class="library-version">
-2024.1.0            </div>
+gaf/fix-javadoc-missing-generated-api            </div>
         </div>
         <div class="filter-section" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":library:dokkaHtml/main">main</button>
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":library:dokkaHtml/main">jvm</button>
         </div>
     </div>
     <div class="navigation-controls">
@@ -61,46 +61,46 @@
                 <div class="sidebar--inner" id="sideMenu"></div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="classlike" id="content" pageIds="library::com.gabrielfeo.develocity.api/Config.CacheConfig///PointingToDeclaration//16556466">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="library::com.gabrielfeo.develocity.api/Config.CacheConfig///PointingToDeclaration//-1951329584">
   <div class="breadcrumbs"><a href="../../../../index.html">library</a><span class="delimiter">/</span><a href="../../index.html">com.gabrielfeo.develocity.api</a><span class="delimiter">/</span><a href="../index.html">Config</a><span class="delimiter">/</span><span class="current">CacheConfig</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Cache</span><wbr></wbr><span><span>Config</span></span></h1>
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">CacheConfig</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cacheEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_CACHE_ENABLED&quot;].toBoolean()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cacheDir<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html">File</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_CACHE_DIR&quot;]?.let(::File)
                 ?: File(systemProperties[&quot;user.home&quot;], &quot;.develocity-api-kotlin-cache&quot;)<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxCacheSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CACHE_SIZE&quot;]?.toLong()
-            ?: 1_000_000_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>longTermCacheUrlPattern<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
+            ?: 1_000_000_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>longTermCacheUrlPattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
                 ?: Regex(
                     &quot;&quot;&quot;
                     .*/api/builds/[\d\w]+/(?:gradle|maven)-(?:attributes|build-cache-performance)
                 &quot;&quot;&quot;.trimIndent()
                 )<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>longTermCacheMaxAge<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE&quot;]?.toLong()
-                ?: 365.days.inWholeSeconds<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shortTermCacheUrlPattern<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
+                ?: 365.days.inWholeSeconds<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shortTermCacheUrlPattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
                 ?: &quot;&quot;&quot;.*/builds(?:\?.*|\Z)&quot;&quot;&quot;.toRegex()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shortTermCacheMaxAge<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE&quot;]?.toLong()
-                ?: 1.days.inWholeSeconds</span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/develocity-api-kotlin/blob/2024.1.0/src/main/kotlin/com/gabrielfeo/develocity/api/Config.kt#L126">source</a>)</span></span></div><p class="paragraph">HTTP cache is off by default, but can speed up requests significantly. The Develocity API disallows HTTP caching, but this library forcefully enables it by overwriting cache-related headers in API responses. Enable with <a href="cache-enabled.html">cacheEnabled</a>.</p><p class="paragraph">Responses can be:</p><ul><li><p class="paragraph">cached short-term: default max-age of 1 day</p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds</code></p></li><li><p class="paragraph">cached long-term: default max-age of 1 year</p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/gradle-attributes</code></p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/maven-attributes</code></p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/gradle-build-cache-performance</code></p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/maven-build-cache-performance</code></p></li><li><p class="paragraph">not cached</p></li><li><p class="paragraph">all other paths</p></li></ul><p class="paragraph">Whether a response is cached short-term, long-term or not cached at all depends on whether it was matched by <a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a> or <a href="long-term-cache-url-pattern.html">longTermCacheUrlPattern</a>.</p><p class="paragraph">Whenever Develocity is upgraded, cache should be cleared.</p><h3 class="">Caveats</h3><p class="paragraph">While not encouraged by the API, caching shouldn't have any major downsides other than a time gap for certain queries, or having to reset cache when Develocity is upgraded.</p><h4 class="">Time gap</h4><p class="paragraph"><code class="lang-kotlin">/api/builds</code> responses always change as new builds are uploaded. Caching this path short-term (default 1 day) means new builds uploaded after the cached response won't be included in the query until the cache is invalidated 24h later. If that's a problem, caching can be disabled for this <code class="lang-kotlin">/api/builds</code> by changing <a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a>.</p><h4 class="">Develocity upgrades</h4><p class="paragraph">When Develocity is upgraded, any API response can change. New data might be available in API endpoints such as <code class="lang-kotlin">/api/build/{id}/gradle-attributes</code>. Thus, whenever the Develocity version itself is upgraded, cache should be cleared.</p></div></div>
+                ?: 1.days.inWholeSeconds</span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/develocity-api-kotlin/blob/gaf/fix-javadoc-missing-generated-api/src/main/kotlin/com/gabrielfeo/develocity/api/Config.kt#L126">source</a>)</span></span></div><p class="paragraph">HTTP cache is off by default, but can speed up requests significantly. The Develocity API disallows HTTP caching, but this library forcefully enables it by overwriting cache-related headers in API responses. Enable with <a href="cache-enabled.html">cacheEnabled</a>.</p><p class="paragraph">Responses can be:</p><ul><li><p class="paragraph">cached short-term: default max-age of 1 day</p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds</code></p></li><li><p class="paragraph">cached long-term: default max-age of 1 year</p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/gradle-attributes</code></p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/maven-attributes</code></p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/gradle-build-cache-performance</code></p></li><li><p class="paragraph"><code class="lang-kotlin">/api/builds/{id}/maven-build-cache-performance</code></p></li><li><p class="paragraph">not cached</p></li><li><p class="paragraph">all other paths</p></li></ul><p class="paragraph">Whether a response is cached short-term, long-term or not cached at all depends on whether it was matched by <a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a> or <a href="long-term-cache-url-pattern.html">longTermCacheUrlPattern</a>.</p><p class="paragraph">Whenever Develocity is upgraded, cache should be <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html">clear</a>ed.</p><h3 class="">Caveats</h3><p class="paragraph">While not encouraged by the API, caching shouldn't have any major downsides other than a time gap for certain queries, or having to reset cache when Develocity is upgraded.</p><h4 class="">Time gap</h4><p class="paragraph"><code class="lang-kotlin">/api/builds</code> responses always change as new builds are uploaded. Caching this path short-term (default 1 day) means new builds uploaded after the cached response won't be included in the query until the cache is invalidated 24h later. If that's a problem, caching can be disabled for this <code class="lang-kotlin">/api/builds</code> by changing <a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a>.</p><h4 class="">Develocity upgrades</h4><p class="paragraph">When Develocity is upgraded, any API response can change. New data might be available in API endpoints such as <code class="lang-kotlin">/api/build/{id}/gradle-attributes</code>. Thus, whenever the Develocity version itself is upgraded, cache should be <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/index.html">clear</a>ed.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="">Constructors</h2>
-        <div class="table"><a data-name="-122791578%2FConstructors%2F16556466" anchor-label="CacheConfig" id="-122791578%2FConstructors%2F16556466" data-filterable-set=":library:dokkaHtml/main"></a>
+        <div class="table"><a data-name="-634940690%2FConstructors%2F-1951329584" anchor-label="CacheConfig" id="-634940690%2FConstructors%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-cache-config.html"><span>Cache</span><wbr></wbr><span><span>Config</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-122791578%2FConstructors%2F16556466"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-634940690%2FConstructors%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cacheEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_CACHE_ENABLED&quot;].toBoolean()<span class="token punctuation">, </span></span><span class="parameter ">cacheDir<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html">File</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_CACHE_DIR&quot;]?.let(::File)
                 ?: File(systemProperties[&quot;user.home&quot;], &quot;.develocity-api-kotlin-cache&quot;)<span class="token punctuation">, </span></span><span class="parameter ">maxCacheSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CACHE_SIZE&quot;]?.toLong()
-            ?: 1_000_000_000L<span class="token punctuation">, </span></span><span class="parameter ">longTermCacheUrlPattern<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
+            ?: 1_000_000_000L<span class="token punctuation">, </span></span><span class="parameter ">longTermCacheUrlPattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
                 ?: Regex(
                     &quot;&quot;&quot;
                     .*/api/builds/[\d\w]+/(?:gradle|maven)-(?:attributes|build-cache-performance)
                 &quot;&quot;&quot;.trimIndent()
                 )<span class="token punctuation">, </span></span><span class="parameter ">longTermCacheMaxAge<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE&quot;]?.toLong()
-                ?: 365.days.inWholeSeconds<span class="token punctuation">, </span></span><span class="parameter ">shortTermCacheUrlPattern<span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
+                ?: 365.days.inWholeSeconds<span class="token punctuation">, </span></span><span class="parameter ">shortTermCacheUrlPattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
                 ?: &quot;&quot;&quot;.*/builds(?:\?.*|\Z)&quot;&quot;&quot;.toRegex()<span class="token punctuation">, </span></span><span class="parameter ">shortTermCacheMaxAge<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE&quot;]?.toLong()
                 ?: 1.days.inWholeSeconds</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
@@ -111,12 +111,12 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="">Properties</h2>
-        <div class="table"><a data-name="1044032329%2FProperties%2F16556466" anchor-label="cacheDir" id="1044032329%2FProperties%2F16556466" data-filterable-set=":library:dokkaHtml/main"></a>
+        <div class="table"><a data-name="1044032329%2FProperties%2F-1951329584" anchor-label="cacheDir" id="1044032329%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="cache-dir.html"><span>cache</span><wbr></wbr><span><span>Dir</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1044032329%2FProperties%2F16556466"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1044032329%2FProperties%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -126,12 +126,12 @@
               </div>
             </div>
           </div>
-<a data-name="1660777109%2FProperties%2F16556466" anchor-label="cacheEnabled" id="1660777109%2FProperties%2F16556466" data-filterable-set=":library:dokkaHtml/main"></a>
+<a data-name="1660777109%2FProperties%2F-1951329584" anchor-label="cacheEnabled" id="1660777109%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="cache-enabled.html"><span>cache</span><wbr></wbr><span><span>Enabled</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1660777109%2FProperties%2F16556466"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1660777109%2FProperties%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -141,12 +141,12 @@
               </div>
             </div>
           </div>
-<a data-name="395733297%2FProperties%2F16556466" anchor-label="longTermCacheMaxAge" id="395733297%2FProperties%2F16556466" data-filterable-set=":library:dokkaHtml/main"></a>
+<a data-name="395733297%2FProperties%2F-1951329584" anchor-label="longTermCacheMaxAge" id="395733297%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="long-term-cache-max-age.html"><span>long</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Max</span><wbr></wbr><span><span>Age</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="395733297%2FProperties%2F16556466"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="395733297%2FProperties%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -156,27 +156,27 @@
               </div>
             </div>
           </div>
-<a data-name="-629703093%2FProperties%2F16556466" anchor-label="longTermCacheUrlPattern" id="-629703093%2FProperties%2F16556466" data-filterable-set=":library:dokkaHtml/main"></a>
+<a data-name="-629703093%2FProperties%2F-1951329584" anchor-label="longTermCacheUrlPattern" id="-629703093%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="long-term-cache-url-pattern.html"><span>long</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Url</span><wbr></wbr><span><span>Pattern</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-629703093%2FProperties%2F16556466"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-629703093%2FProperties%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="long-term-cache-url-pattern.html">longTermCacheUrlPattern</a><span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Regex pattern to match API URLs that are OK to store long-term in the HTTP cache, up to <a href="long-term-cache-max-age.html">longTermCacheMaxAge</a> (1y by default, max value). By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN</code> or a pattern matching:</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="long-term-cache-url-pattern.html">longTermCacheUrlPattern</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a></div><div class="brief "><p class="paragraph">Regex pattern to match API URLs that are OK to store long-term in the HTTP cache, up to <a href="long-term-cache-max-age.html">longTermCacheMaxAge</a> (1y by default, max value). By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN</code> or a pattern matching:</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1130309035%2FProperties%2F16556466" anchor-label="maxCacheSize" id="-1130309035%2FProperties%2F16556466" data-filterable-set=":library:dokkaHtml/main"></a>
+<a data-name="-1130309035%2FProperties%2F-1951329584" anchor-label="maxCacheSize" id="-1130309035%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="max-cache-size.html"><span>max</span><wbr></wbr><span>Cache</span><wbr></wbr><span><span>Size</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1130309035%2FProperties%2F16556466"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1130309035%2FProperties%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -186,12 +186,12 @@
               </div>
             </div>
           </div>
-<a data-name="1925211839%2FProperties%2F16556466" anchor-label="shortTermCacheMaxAge" id="1925211839%2FProperties%2F16556466" data-filterable-set=":library:dokkaHtml/main"></a>
+<a data-name="1925211839%2FProperties%2F-1951329584" anchor-label="shortTermCacheMaxAge" id="1925211839%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="short-term-cache-max-age.html"><span>short</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Max</span><wbr></wbr><span><span>Age</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1925211839%2FProperties%2F16556466"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1925211839%2FProperties%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
@@ -201,17 +201,17 @@
               </div>
             </div>
           </div>
-<a data-name="1848378585%2FProperties%2F16556466" anchor-label="shortTermCacheUrlPattern" id="1848378585%2FProperties%2F16556466" data-filterable-set=":library:dokkaHtml/main"></a>
+<a data-name="1848378585%2FProperties%2F-1951329584" anchor-label="shortTermCacheUrlPattern" id="1848378585%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="short-term-cache-url-pattern.html"><span>short</span><wbr></wbr><span>Term</span><wbr></wbr><span>Cache</span><wbr></wbr><span>Url</span><wbr></wbr><span><span>Pattern</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1848378585%2FProperties%2F16556466"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1848378585%2FProperties%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a><span class="token operator">: </span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span></div><div class="brief "><p class="paragraph">Regex pattern to match API URLs that are OK to store short-term in the HTTP cache, up to <a href="short-term-cache-max-age.html">shortTermCacheMaxAge</a> (1d by default). By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN</code> or a pattern matching:</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="short-term-cache-url-pattern.html">shortTermCacheUrlPattern</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a></div><div class="brief "><p class="paragraph">Regex pattern to match API URLs that are OK to store short-term in the HTTP cache, up to <a href="short-term-cache-max-age.html">shortTermCacheMaxAge</a> (1d by default). By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN</code> or a pattern matching:</p></div></div></div>
                 </div>
               </div>
             </div>
