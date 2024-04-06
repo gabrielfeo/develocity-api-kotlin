@@ -27,7 +27,8 @@ java {
 }
 
 tasks.withType<DokkaTask>().configureEach {
-    dokkaSourceSets.all {
+    dokkaSourceSets.register("main") {
+        sourceRoot("src/main/kotlin")
         sourceLink {
             localDirectory.set(file("src/main/kotlin"))
             remoteUrl.set(URL("$repoUrl/blob/$version/src/main/kotlin"))
