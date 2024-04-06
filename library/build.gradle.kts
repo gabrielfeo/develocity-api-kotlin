@@ -11,7 +11,7 @@ plugins {
     `java-library`
     `maven-publish`
     signing
-    kotlin("jupyter.api") version "0.12.0-181"
+    kotlin("jupyter.api") version "0.12.0-184"
 }
 
 tasks.processJupyterApiResources {
