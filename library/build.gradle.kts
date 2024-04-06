@@ -27,7 +27,8 @@ java {
 }
 
 tasks.withType<DokkaTask>().configureEach {
-    dokkaSourceSets.all {
+    dokkaSourceSets.register("main") {
+        sourceRoot("src/main/kotlin")
         sourceLink {
             localDirectory.set(file("src/main/kotlin"))
             remoteUrl.set(URL("$repoUrl/blob/$version/src/main/kotlin"))
@@ -90,7 +91,7 @@ dependencies {
     integrationTestImplementation("org.jetbrains.kotlinx:kotlin-jupyter-test-kit:0.12.0-181")
 }
 
-fun libraryPom() = Action<MavenPom> {
+val libraryPom = Action<MavenPom> {
     name.set("Develocity API Kotlin")
     description.set("A library to use the Develocity API in Kotlin")
     url.set(repoUrl)
@@ -121,18 +122,18 @@ publishing {
         create<MavenPublication>("develocityApiKotlin") {
             artifactId = "develocity-api-kotlin"
             from(components["java"])
-            pom(libraryPom())
+            pom(libraryPom)
         }
         // For occasional maven local publishing
         create<MavenPublication>("unsignedDevelocityApiKotlin") {
             artifactId = "develocity-api-kotlin"
             from(components["java"])
-            pom(libraryPom())
+            pom(libraryPom)
         }
         create<MavenPublication>("relocation") {
+            artifactId = "gradle-enterprise-api-kotlin"
             pom {
-                groupId = project.group.toString()
-                artifactId = "gradle-enterprise-api-kotlin"
+                libraryPom(this)
                 distributionManagement {
                     relocation {
                         groupId = project.group.toString()
@@ -164,7 +165,10 @@ publishing {
 fun isCI() = System.getenv("CI").toBoolean()
 
 signing {
-    sign(publishing.publications["develocityApiKotlin"])
+    sign(
+        publishing.publications["develocityApiKotlin"],
+        publishing.publications["relocation"],
+    )
     if (isCI()) {
         useInMemoryPgpKeys(
             project.properties["signing.secretKey"] as String?,
