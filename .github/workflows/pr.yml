@@ -76,11 +76,6 @@ jobs:
           body-file: 'comment.md'
           edit-mode: replace
 
-  dry-run-publish-javadoc:
-    uses: ./.github/workflows/publish-javadoc.yml
-    with:
-      dry_run: true
-
   dry-run-publish-library:
     uses: ./.github/workflows/publish-library.yml
     with:
