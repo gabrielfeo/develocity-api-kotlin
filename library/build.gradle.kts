@@ -90,7 +90,7 @@ dependencies {
     integrationTestImplementation("org.jetbrains.kotlinx:kotlin-jupyter-test-kit:0.12.0-181")
 }
 
-fun libraryPom() = Action<MavenPom> {
+val libraryPom = Action<MavenPom> {
     name.set("Develocity API Kotlin")
     description.set("A library to use the Develocity API in Kotlin")
     url.set(repoUrl)
@@ -121,18 +121,18 @@ publishing {
         create<MavenPublication>("develocityApiKotlin") {
             artifactId = "develocity-api-kotlin"
             from(components["java"])
-            pom(libraryPom())
+            pom(libraryPom)
         }
         // For occasional maven local publishing
         create<MavenPublication>("unsignedDevelocityApiKotlin") {
             artifactId = "develocity-api-kotlin"
             from(components["java"])
-            pom(libraryPom())
+            pom(libraryPom)
         }
         create<MavenPublication>("relocation") {
+            artifactId = "gradle-enterprise-api-kotlin"
             pom {
-                groupId = project.group.toString()
-                artifactId = "gradle-enterprise-api-kotlin"
+                libraryPom(this)
                 distributionManagement {
                     relocation {
                         groupId = project.group.toString()
