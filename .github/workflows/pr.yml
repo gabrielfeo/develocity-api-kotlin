@@ -30,9 +30,8 @@ jobs:
       - name: 'unittest discover'
         run: python3 -m unittest discover -bs .github/scripts
 
-  # TODO Re-enable once rename is done (too many dead links until new javadoc is published)
-  # readme-links-test:
-  #   uses: ./.github/workflows/test-readme-links.yml
+  readme-links-test:
+    uses: ./.github/workflows/test-readme-links.yml
 
   generated-api-diff:
     runs-on: ubuntu-latest
