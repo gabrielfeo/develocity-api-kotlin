@@ -1,0 +1,66 @@
+name: 'Publish javadoc'
+
+on:
+  push:
+    tags: ['*']
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      dry_run:
+        description: 'Dry run'
+        type: boolean
+        default: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  build-javadoc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build javadoc
+        uses: ./.github/actions/build
+        with:
+          args: >-
+            dokkaHtml
+            '-Pversion=${{ github.ref_name }}'
+          artifact-name: 'docs'
+          path-to-upload: "library/build/dokka/html/**/*"
+
+  publish-javadoc:
+    needs: [build-javadoc]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+      - name: Delete current javadoc
+        run: rm -rf docs
+      - name: Download new javadoc
+        uses: actions/download-artifact@v4
+        with:
+          path: ./
+      - name: Commit
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add docs
+          git commit --allow-empty -m "Add ${{ github.ref_name }} javadoc"
+      - name: Push
+        run: |
+          if [[ "${{ inputs.dry_run }}" == 'true' ]]; then
+            args=' --dry-run'
+          fi
+          git push $args
