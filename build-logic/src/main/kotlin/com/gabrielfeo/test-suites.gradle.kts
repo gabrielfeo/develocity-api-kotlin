@@ -34,7 +34,7 @@ kotlin {
 }
 
 // TODO Unapply test-fixtures and delete the source set, since we're not publishing it?
-components.getByName<AdhocComponentWithVariants>("java").apply {
+components.named<AdhocComponentWithVariants>("java") {
     withVariantsFromConfiguration(configurations["testFixturesApiElements"]) { skip() }
     withVariantsFromConfiguration(configurations["testFixturesRuntimeElements"]) { skip() }
 }

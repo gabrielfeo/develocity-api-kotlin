@@ -81,18 +81,18 @@ val libraryPom = Action<MavenPom> {
 
 publishing {
     publications {
-        create<MavenPublication>("develocityApiKotlin") {
+        register<MavenPublication>("develocityApiKotlin") {
             artifactId = "develocity-api-kotlin"
             from(components["java"])
             pom(libraryPom)
         }
         // For occasional maven local publishing
-        create<MavenPublication>("unsignedDevelocityApiKotlin") {
+        register<MavenPublication>("unsignedDevelocityApiKotlin") {
             artifactId = "develocity-api-kotlin"
             from(components["java"])
             pom(libraryPom)
         }
-        create<MavenPublication>("relocation") {
+        register<MavenPublication>("relocation") {
             artifactId = "gradle-enterprise-api-kotlin"
             pom {
                 libraryPom(this)
@@ -127,10 +127,10 @@ publishing {
 fun isCI() = System.getenv("CI").toBoolean()
 
 signing {
-    sign(
-        publishing.publications["develocityApiKotlin"],
-        publishing.publications["relocation"],
-    )
+    val signedPublications = publishing.publications.matching {
+        !it.name.contains("unsigned", ignoreCase = true)
+    }
+    sign(signedPublications)
     if (isCI()) {
         useInMemoryPgpKeys(
             project.properties["signing.secretKey"] as String?,
