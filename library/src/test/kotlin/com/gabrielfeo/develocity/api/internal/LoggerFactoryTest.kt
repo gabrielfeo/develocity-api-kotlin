@@ -23,7 +23,7 @@ class LoggerFactoryTest {
     }
 
     @Test
-    fun `simple-logger property unchanged if already set`() {
+    fun `Pre-existing defaultLogLevel is honored`() {
         val loggerFactory = RealLoggerFactory(Config(logLevel = "bar"))
         System.setProperty(SIMPLE_LOGGER_LOG_LEVEL, "foo")
         loggerFactory.newLogger(LoggerFactoryTest::class)
@@ -31,7 +31,7 @@ class LoggerFactoryTest {
     }
 
     @Test
-    fun `newLogger should return a logger with the correct log level`() {
+    fun `Logging can be set from config`() {
         val loggerFactory = RealLoggerFactory(Config(logLevel = "foo"))
         loggerFactory.newLogger(LoggerFactoryTest::class)
         assertEquals("foo", System.getProperty(SIMPLE_LOGGER_LOG_LEVEL))
