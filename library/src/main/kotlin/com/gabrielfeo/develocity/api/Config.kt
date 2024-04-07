@@ -14,11 +14,10 @@ import kotlin.time.Duration.Companion.days
 data class Config(
 
     /**
-     * Changes the log level for internal library classes, such as the HTTP client. By default,
-     * logging is disabled.
-     *
-     * Internally sets 'org.slf4j.simpleLogger.defaultLogLevel' to the chosen log level. If that
-     * property is already set, this setting is ignored.
+     * Changes the default log level for library classes, such as the HTTP client. By default,
+     * log level is the value of
+     * [org.slf4j.simpleLogger.defaultLogLevel](https://www.slf4j.org/api/org/slf4j/simple/SimpleLogger.html)
+     * system property or `"off"`.
      *
      * Possible values:
      * - "off" (default)
