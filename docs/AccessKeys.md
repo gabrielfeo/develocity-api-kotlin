@@ -14,7 +14,7 @@ as the `DEVELOCITY_API_TOKEN` environment variable.
 ## Migrating from macOS keychain support
 
 This library used to support storing the key in the macOS keychain as `gradle-enterprise-api-kotlin`.
-This feature was deprecated in 2023.4.0, then removed in 2024.1.0. You may use the method of your choice
+This feature was deprecated in 2023.4.0, then removed in 2024.1.1. You may use the method of your choice
 (secret managers, password manager CLIs, etc.) to store and retrieve the key to an environment.
 
 If you used the key from keychain and need a drop-in replacement:
