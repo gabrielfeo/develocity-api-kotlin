@@ -1,6 +1,5 @@
 package com.gabrielfeo.develocity.api.internal
 
-import ch.qos.logback.classic.Level
 import com.gabrielfeo.develocity.api.Config
 import org.slf4j.Logger
 import kotlin.reflect.KClass
@@ -14,9 +13,16 @@ class RealLoggerFactory(
 ) : LoggerFactory {
 
     override fun newLogger(cls: KClass<*>): Logger {
-        val impl = org.slf4j.LoggerFactory.getLogger(cls.java) as ch.qos.logback.classic.Logger
-        return impl.apply {
-            level = Level.valueOf(config.logLevel)
+        setLogLevel()
+        return org.slf4j.LoggerFactory.getLogger(cls.java)
+    }
+
+    private fun setLogLevel() {
+        if (System.getProperty(SIMPLE_LOGGER_LOG_LEVEL) != null) {
+            return
         }
+        System.setProperty(SIMPLE_LOGGER_LOG_LEVEL, config.logLevel)
     }
 }
+
+internal const val SIMPLE_LOGGER_LOG_LEVEL = "org.slf4j.simpleLogger.defaultLogLevel"

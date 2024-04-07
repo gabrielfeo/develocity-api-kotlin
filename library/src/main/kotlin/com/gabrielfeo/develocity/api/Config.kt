@@ -14,14 +14,23 @@ import kotlin.time.Duration.Companion.days
 data class Config(
 
     /**
-     * Forces a log level for internal library classes. By default, the library includes
-     * logback-classic with logging disabled, aimed at notebook and script usage. Logging may be
-     * enabled for troubleshooting by changing log level to "INFO", "DEBUG", etc.
+     * Changes the default log level for library classes, such as the HTTP client. By default,
+     * log level is the value of
+     * [org.slf4j.simpleLogger.defaultLogLevel](https://www.slf4j.org/api/org/slf4j/simple/SimpleLogger.html)
+     * system property or `"off"`.
      *
-     * To use different SLF4J bindings, simply exclude the logback dependency.
+     * Possible values:
+     * - "off" (default)
+     * - "error"
+     * - "warn"
+     * - "info"
+     * - "debug" (logs HTTP traffic: URLs and status codes only)
+     * - "trace" (logs HTTP traffic: full request and response including body, excluding
+     *   authorization header)
      */
-    val logLevel: String? =
-        env["DEVELOCITY_API_LOG_LEVEL"],
+    val logLevel: String =
+        env["DEVELOCITY_API_LOG_LEVEL"]
+            ?: "off",
 
     /**
      * Provides the URL of a Develocity API instance REST API. By default, uses
