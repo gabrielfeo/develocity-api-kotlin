@@ -192,7 +192,7 @@ import com.gabrielfeo.develocity.api.model.extension.*
 [2]: https://square.github.io/retrofit/
 [3]: https://github.com/square/retrofit/issues/3448
 [4]: https://github.com/square/retrofit/issues/3144#issuecomment-508300518
-[5]: https://docs.gradle.com/enterprise/api-manual/ref/2022.4.html
+[5]: https://docs.gradle.com/enterprise/api-manual/ref/2024.1.html
 [6]: https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc
 [7]: https://gabrielfeo.github.io/develocity-api-kotlin/
 [8]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/index.html
@@ -200,7 +200,7 @@ import com.gabrielfeo.develocity.api.model.extension.*
 [11]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-develocity-api/shutdown.html
 [12]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/index.html
-[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2023.4.0
+[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2024.1.1
 [16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-url.html
 [17]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-token.html
 [18]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
