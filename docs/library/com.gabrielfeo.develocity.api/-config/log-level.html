@@ -45,7 +45,7 @@
                     </a>
             </div>
             <div class="library-version">
-2024.1.0            </div>
+2024.1.1            </div>
         </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":library:dokkaHtml/main">jvm</button>
@@ -66,7 +66,7 @@
   <div class="cover ">
     <h1 class="cover"><span>log</span><wbr></wbr><span><span>Level</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="log-level.html">logLevel</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/develocity-api-kotlin/blob/2024.1.0/src/main/kotlin/com/gabrielfeo/develocity/api/Config.kt#L23">source</a>)</span></span></div><p class="paragraph">Forces a log level for internal library classes. By default, the library includes logback-classic with logging disabled, aimed at notebook and script usage. Logging may be enabled for troubleshooting by changing log level to &quot;INFO&quot;, &quot;DEBUG&quot;, etc.</p><p class="paragraph">To use different SLF4J bindings, simply exclude the logback dependency.</p></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="log-level.html">logLevel</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/develocity-api-kotlin/blob/2024.1.1/src/main/kotlin/com/gabrielfeo/develocity/api/Config.kt#L31">source</a>)</span></span></div><p class="paragraph">Changes the default log level for library classes, such as the HTTP client. By default, log level is the value of <a href="https://www.slf4j.org/api/org/slf4j/simple/SimpleLogger.html">org.slf4j.simpleLogger.defaultLogLevel</a> system property or <code class="lang-kotlin">&quot;off&quot;</code>.</p><p class="paragraph">Possible values:</p><ul><li><p class="paragraph">&quot;off&quot; (default)</p></li><li><p class="paragraph">&quot;error&quot;</p></li><li><p class="paragraph">&quot;warn&quot;</p></li><li><p class="paragraph">&quot;info&quot;</p></li><li><p class="paragraph">&quot;debug&quot; (logs HTTP traffic: URLs and status codes only)</p></li><li><p class="paragraph">&quot;trace&quot; (logs HTTP traffic: full request and response including body, excluding authorization header)</p></li></ul></div></div>
 </div>
       <div class="footer">
         <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span

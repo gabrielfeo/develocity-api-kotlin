@@ -801,7 +801,7 @@ $dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/maxCacheSize/#/
 $dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/shortTermCacheMaxAge/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/short-term-cache-max-age.html
 $dokka.location:com.gabrielfeo.develocity.api/Config.CacheConfig/shortTermCacheUrlPattern/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-cache-config/short-term-cache-url-pattern.html
 $dokka.location:com.gabrielfeo.develocity.api/Config///PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/index.html
-$dokka.location:com.gabrielfeo.develocity.api/Config/Config/#kotlin.String?#kotlin.String#kotlin.Function0[kotlin.String]#okhttp3.OkHttpClient.Builder#kotlin.Int?#kotlin.Long#com.gabrielfeo.develocity.api.Config.CacheConfig/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-config.html
+$dokka.location:com.gabrielfeo.develocity.api/Config/Config/#kotlin.String#kotlin.String#kotlin.Function0[kotlin.String]#okhttp3.OkHttpClient.Builder#kotlin.Int?#kotlin.Long#com.gabrielfeo.develocity.api.Config.CacheConfig/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/-config.html
 $dokka.location:com.gabrielfeo.develocity.api/Config/apiToken/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/api-token.html
 $dokka.location:com.gabrielfeo.develocity.api/Config/apiUrl/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/api-url.html
 $dokka.location:com.gabrielfeo.develocity.api/Config/cacheConfig/#/PointingToDeclaration/library/com.gabrielfeo.develocity.api/-config/cache-config.html
