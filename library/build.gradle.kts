@@ -11,7 +11,7 @@ plugins {
     `java-library`
     `maven-publish`
     signing
-    kotlin("jupyter.api") version "0.12.0-181"
+    alias(libs.plugins.kotlin.jupyter)
 }
 
 tasks.processJupyterApiResources {
@@ -32,24 +32,24 @@ java {
 
 dependencies {
     constraints {
-        implementation("com.squareup.okio:okio:3.9.0")
+        implementation(libs.okio)
     }
-    api("com.squareup.moshi:moshi:1.15.1")
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
-    api("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    api("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
-    implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
-    implementation("org.slf4j:slf4j-api:2.0.12")
-    runtimeOnly("org.slf4j:slf4j-simple:2.0.12")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
-    testImplementation("com.squareup.okio:okio:3.9.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
-    integrationTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
-    integrationTestImplementation("com.google.guava:guava:33.1.0-jre")
-    integrationTestImplementation("org.jetbrains.kotlinx:kotlin-jupyter-test-kit:0.12.0-181")
+    api(libs.moshi)
+    implementation(libs.moshi.kotlin)
+    api(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+    api(libs.retrofit)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.retrofit.converter.scalars)
+    api(libs.kotlin.coroutines)
+    implementation(libs.slf4j.api)
+    runtimeOnly(libs.slf4j.simple)
+    testImplementation(libs.okhttp.mockwebserver)
+    testImplementation(libs.okio)
+    testImplementation(libs.kotlin.coroutines.test)
+    integrationTestImplementation(libs.kotlin.coroutines.test)
+    integrationTestImplementation(libs.guava)
+    integrationTestImplementation(libs.kotlin.jupyter.testkit)
 }
 
 val libraryPom = Action<MavenPom> {
