@@ -1,0 +1,35 @@
+[versions]
+kotlin = "1.9.23"
+dokka = "1.9.20"
+openapi-generator = "7.4.0"
+jupyter = "0.12.0-181"
+okio = "3.9.0"
+moshi = "1.15.1"
+okhttp = "4.12.0"
+retrofit = "2.11.0"
+kotlin-coroutines = "1.8.0"
+slf4j = "2.0.12"
+guava = "33.1.0-jre"
+
+[libraries]
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+retrofit-converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofit" }
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
+kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutines" }
+kotlin-jupyter-testkit = { module = "org.jetbrains.kotlinx:kotlin-jupyter-test-kit", version.ref = "jupyter" }
+kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+dokka-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
+openapi-generator-plugin = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapi-generator" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+
+[plugins]
+kotlin-jupyter = { id = "org.jetbrains.kotlin.jupyter.api", version.ref = "jupyter" }
