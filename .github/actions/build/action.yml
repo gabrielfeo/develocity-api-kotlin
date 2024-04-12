@@ -25,14 +25,16 @@ runs:
     - name: Validate Gradle wrapper JAR
       uses: gradle/wrapper-validation-action@v2.1.3
     - name: Set up Gradle
-      uses: gradle/gradle-build-action@v2.12.0
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        add-job-summary-as-pr-comment: 'on-failure'
     - name: Run Gradle
       shell: bash
       run: |
         if [[ "${{ inputs.dry-run }}" == "true" ]]; then
-          gradle --dry-run ${{ inputs.args }}
+          ./gradlew --dry-run ${{ inputs.args }}
         else
-          gradle ${{ inputs.args }}
+          ./gradlew ${{ inputs.args }}
         fi
     - name: Upload
       if: ${{ inputs.path-to-upload }}
