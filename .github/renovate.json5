@@ -6,9 +6,9 @@
   "ignorePaths": [
     "**/test_resources/**",
   ],
-  "dependencyDashboard": "false",
+  "dependencyDashboard": false,
   "branchConcurrentLimit": 0,
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
-  "rebaseWhen": "always",
+  "rebaseWhen": "behind-base-branch",
 }
