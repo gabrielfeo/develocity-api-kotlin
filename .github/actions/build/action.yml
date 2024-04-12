@@ -23,7 +23,7 @@ runs:
         distribution: zulu
         java-version: 21
     - name: Validate Gradle wrapper JAR
-      uses: gradle/wrapper-validation-action@v2.1.3
+      uses: gradle/actions/wrapper-validation@v3
     - name: Set up Gradle
       uses: gradle/actions/setup-gradle@v3
       with:
