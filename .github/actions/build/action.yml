@@ -22,11 +22,10 @@ runs:
       with:
         distribution: zulu
         java-version: 21
-    - name: Validate Gradle wrapper JAR
-      uses: gradle/actions/wrapper-validation@v3
     - name: Set up Gradle
       uses: gradle/actions/setup-gradle@v3
       with:
+        validate-wrappers: true
         add-job-summary-as-pr-comment: 'on-failure'
     - name: Run Gradle
       shell: bash
