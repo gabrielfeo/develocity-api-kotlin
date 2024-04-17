@@ -11,7 +11,7 @@ plugins {
 }
 
 val repoUrl: Provider<String> = providers.gradleProperty("repo.url")
-
+error("test error")
 java {
     withSourcesJar()
     withJavadocJar()
