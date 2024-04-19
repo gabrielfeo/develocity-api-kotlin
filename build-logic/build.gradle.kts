@@ -16,6 +16,10 @@ gradlePlugin {
     testSourceSets(sourceSets["functionalTest"])
 }
 
+tasks.named("check") {
+    dependsOn(tasks.withType<Test>())
+}
+
 dependencies {
     implementation(libs.kotlin.plugin)
     implementation(libs.dokka.plugin)
