@@ -48,6 +48,8 @@ class PostProcessGeneratedApiTest {
             import com.gabrielfeo.develocity.api.model.MavenDependencyResolution
             import com.gabrielfeo.develocity.api.model.MavenModule
 
+            import com.gabrielfeo.develocity.api.model.*
+
             interface BuildsApi {
                 /**
                  * Get the common attributes of a Build Scan.
@@ -76,6 +78,20 @@ class PostProcessGeneratedApiTest {
             import retrofit2.Response
             import okhttp3.RequestBody
             import com.squareup.moshi.Json
+
+            import com.gabrielfeo.develocity.api.model.ApiProblem
+            import com.gabrielfeo.develocity.api.model.Build
+            import com.gabrielfeo.develocity.api.model.BuildModelQuery
+            import com.gabrielfeo.develocity.api.model.BuildQuery
+            import com.gabrielfeo.develocity.api.model.BuildsQuery
+            import com.gabrielfeo.develocity.api.model.GradleAttributes
+            import com.gabrielfeo.develocity.api.model.GradleBuildCachePerformance
+            import com.gabrielfeo.develocity.api.model.GradleNetworkActivity
+            import com.gabrielfeo.develocity.api.model.GradleProject
+            import com.gabrielfeo.develocity.api.model.MavenAttributes
+            import com.gabrielfeo.develocity.api.model.MavenBuildCachePerformance
+            import com.gabrielfeo.develocity.api.model.MavenDependencyResolution
+            import com.gabrielfeo.develocity.api.model.MavenModule
 
             import com.gabrielfeo.develocity.api.model.*
 
