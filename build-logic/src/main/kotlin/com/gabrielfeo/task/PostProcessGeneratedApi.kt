@@ -3,7 +3,6 @@ package com.gabrielfeo.task
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileSystemOperations
-import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.withGroovyBuilder
 import java.io.File
@@ -18,9 +17,6 @@ abstract class PostProcessGeneratedApi @Inject constructor(
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val originalFiles: DirectoryProperty
 
-    @get:Input
-    abstract val modelsPackage: Property<String>
-
     @get:OutputDirectory
     abstract val postProcessedFiles: DirectoryProperty
 
@@ -33,11 +29,10 @@ abstract class PostProcessGeneratedApi @Inject constructor(
         }
         postProcess(
             srcDir = postProcessedFiles.get().dir("src/main/kotlin").asFile,
-            modelsPackage = modelsPackage.get()
         )
     }
 
-    private fun postProcess(srcDir: File, modelsPackage: String) {
+    private fun postProcess(srcDir: File) {
         // Replace Response<X> with X in every method return type of DevelocityApi.kt
         ant.withGroovyBuilder {
             "replaceregexp"(

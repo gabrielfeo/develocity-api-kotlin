@@ -61,7 +61,6 @@ val postProcessGeneratedApi by tasks.registering(PostProcessGeneratedApi::class)
         .map { File(it) }
     originalFiles.convention(project.layout.dir(generatedSrc))
     postProcessedFiles.convention(project.layout.buildDirectory.dir("post-processed-api"))
-    modelsPackage.convention(tasks.openApiGenerate.flatMap { it.modelPackage })
 }
 
 sourceSets {
