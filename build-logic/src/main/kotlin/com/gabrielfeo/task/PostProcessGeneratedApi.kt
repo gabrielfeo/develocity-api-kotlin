@@ -67,21 +67,6 @@ abstract class PostProcessGeneratedApi @Inject constructor(
                 )
             }
         }
-        // Workaround for missing imports of exploded queries
-        val escapedModelPackage = modelsPackage.replace(".", "\\.")
-        val lastModelImportInFilePattern = """(?:import $escapedModelPackage.[.\w]+\s)+"""
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to lastModelImportInFilePattern,
-                // Import all models instead: current + missing ones
-                "replace" to "import $modelsPackage.*\n",
-                "flags" to "m",
-            ) {
-                "fileset"(
-                    "dir" to srcDir
-                )
-            }
-        }
         // Fix mapping of BuildModelName: gradle-attributes -> gradleAttributes
         ant.withGroovyBuilder {
             "replaceregexp"(
