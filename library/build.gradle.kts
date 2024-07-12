@@ -7,6 +7,10 @@ plugins {
     alias(libs.plugins.kotlin.jupyter)
 }
 
+group = properties["library.group"]
+artifactId = properties["library.artifact"]
+version = properties["library.version"]
+
 tasks.processJupyterApiResources {
     libraryProducers = listOf(
         "com.gabrielfeo.develocity.api.internal.jupyter.DevelocityApiJupyterIntegration",

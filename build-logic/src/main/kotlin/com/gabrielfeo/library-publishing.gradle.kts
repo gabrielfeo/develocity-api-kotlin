@@ -7,8 +7,8 @@ plugins {
 }
 
 val libraryPom = Action<MavenPom> {
-    name.set("Develocity API Kotlin")
-    description.set("A library to use the Develocity API in Kotlin")
+    name.set(providers.gradleProperty("library.pom.name"))
+    description.set(providers.gradleProperty("library.pom.description"))
     val repoUrl = providers.gradleProperty("repo.url")
     url.set(repoUrl)
     licenses {
@@ -20,9 +20,9 @@ val libraryPom = Action<MavenPom> {
     }
     developers {
         developer {
-            id.set("gabrielfeo")
-            name.set("Gabriel Feo")
-            email.set("gabriel@gabrielfeo.com")
+            id.set(providers.gradleProperty("library.pom.developer.id"))
+            name.set(providers.gradleProperty("library.pom.developer.name"))
+            email.set(providers.gradleProperty("library.pom.developer.email"))
         }
     }
     scm {
@@ -36,24 +36,24 @@ val libraryPom = Action<MavenPom> {
 publishing {
     publications {
         register<MavenPublication>("develocityApiKotlin") {
-            artifactId = "develocity-api-kotlin"
+            artifactId = properties["library.artifact"]
             from(components["java"])
             pom(libraryPom)
         }
         // For occasional maven local publishing
         register<MavenPublication>("unsignedDevelocityApiKotlin") {
-            artifactId = "develocity-api-kotlin"
+            artifactId = providers.gradleProperty("library.artifact")
             from(components["java"])
             pom(libraryPom)
         }
         register<MavenPublication>("relocation") {
-            artifactId = "gradle-enterprise-api-kotlin"
+            artifactId = providers.gradleProperty("library.artifact.old")
             pom {
                 libraryPom(this)
                 distributionManagement {
                     relocation {
-                        groupId = project.group.toString()
-                        artifactId = "develocity-api-kotlin"
+                        groupId = providers.gradleProperty("library.group")
+                        artifactId = providers.gradleProperty("library.artifact")
                         message = "artifactId has been changed. Part of the rename to Develocity."
                     }
                 }
