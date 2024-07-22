@@ -12,7 +12,7 @@
   "prHourlyLimit": 0,
   "rebaseWhen": "behind-base-branch",
   // Remove configDescription from PR body
-  "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}"
+  "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
   "packageRules": [
     {
       "matchPackageNames": ["com.gradle.develocity"],
