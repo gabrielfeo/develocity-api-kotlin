@@ -11,5 +11,12 @@
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "rebaseWhen": "behind-base-branch",
+  // Remove configDescription from PR body
   "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}"
+  "packageRules": [
+    {
+      "matchPackageNames": ["com.gradle.develocity"],
+      "prBodyNotes": "https://docs.gradle.com/develocity/gradle-plugin/current#release_history"
+    },
+  ],
 }
