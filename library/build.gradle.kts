@@ -44,6 +44,7 @@ dependencies {
     api(libs.kotlin.coroutines)
     implementation(libs.slf4j.api)
     runtimeOnly(libs.slf4j.simple)
+    compileOnly(libs.kotlin.jupyter.api)
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.okio)
     testImplementation(libs.kotlin.coroutines.test)

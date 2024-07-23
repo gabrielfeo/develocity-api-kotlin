@@ -14,9 +14,21 @@
   // Remove configDescription from PR body
   "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
   "packageRules": [
+    // Add a changelog link to Develocity plugin PRs
     {
       "matchPackageNames": ["com.gradle.develocity"],
       "prBodyNotes": "https://docs.gradle.com/develocity/gradle-plugin/current#release_history"
+    },
+    // Group Kotlin/Jupyter artifact bumps
+    {
+      "matchPackageNames": [
+        "kotlin-jupyter-test-kit",
+        "kotlin-jupyter-api",
+        "org.jetbrains.kotlin.jupyter.api",
+        "kotlin-jupyter-api-gradle-plugin",
+      ],
+      "groupName": "Kotlin/Jupyter",
+      "groupSlug": "kotlin-jupyter",
     },
   ],
 }
