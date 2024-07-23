@@ -16,12 +16,12 @@
   "packageRules": [
     // Add a changelog link to Develocity plugin PRs
     {
-      "matchPackageNames": ["com.gradle.develocity"],
+      "matchDepNames": ["com.gradle.develocity"],
       "prBodyNotes": "https://docs.gradle.com/develocity/gradle-plugin/current#release_history"
     },
     // Group Kotlin/Jupyter artifact bumps
     {
-      "matchPackageNames": [
+      "matchDepNames": [
         "kotlin-jupyter-test-kit",
         "kotlin-jupyter-api",
         "org.jetbrains.kotlin.jupyter.api",
