@@ -17,7 +17,7 @@
     // Add a changelog link to Develocity plugin PRs
     {
       "matchDepNames": ["com.gradle.develocity"],
-      "prBodyNotes": "https://docs.gradle.com/develocity/gradle-plugin/current#release_history"
+      "prBodyNotes": ["https://docs.gradle.com/develocity/gradle-plugin/current#release_history"],
     },
     // Group Kotlin/Jupyter artifact bumps
     {
