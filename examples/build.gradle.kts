@@ -27,8 +27,20 @@ exampleTestTasks += tasks.register("runExampleProject") {
     dependsOn(":examples:example-project:run")
 }
 
-val notebooks = fileTree(file("example-notebooks")) {
-    exclude(".ipynb_checkpoints")
+val notebooksDir = file("example-notebooks")
+val notebooks = fileTree(notebooksDir) { include("*.ipynb") }
+val venvDir = project.layout.buildDirectory.asFile.map { File(it, "venv") }
+
+val createPythonVenv by tasks.registering(Exec::class) {
+    val requirements = File(notebooksDir, "requirements.txt")
+    val venv = venvDir.get()
+    commandLine(
+        "bash", "-c",
+        "python3 -m venv --upgrade-deps $venv "
+            + "&& source $venv/bin/activate "
+            + "&& pip install --upgrade pip"
+            + "&& pip install -r $requirements"
+    )
 }
 
 exampleTestTasks += notebooks.map { notebook ->
@@ -36,12 +48,12 @@ exampleTestTasks += notebooks.map { notebook ->
     tasks.register<Exec>("run${notebook.nameWithoutExtension}Notebook") {
         group = "Application"
         description = "Runs the '${notebook.name}' notebook with 'jupyter nbconvert --execute'"
+        val venv = venvDir.get()
+        dependsOn(createPythonVenv)
         commandLine(
-            "jupyter", "nbconvert",
-            "--execute",
-            "--to", "ipynb",
-            "--output-dir=$buildDir",
-            notebook,
+            "bash", "-c",
+            "source $venv/bin/activate "
+                + "&& jupyter nbconvert --execute --to ipynb --output-dir='$buildDir' '$notebook'"
         )
     }
 }
