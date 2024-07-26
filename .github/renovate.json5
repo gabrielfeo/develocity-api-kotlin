@@ -22,10 +22,11 @@
     // Group Kotlin/Jupyter artifact bumps
     {
       "matchDepNames": [
-        "kotlin-jupyter-test-kit",
-        "kotlin-jupyter-api",
+        "org.jetbrains.kotlinx:kotlin-jupyter-test-kit",
+        "org.jetbrains.kotlinx:kotlin-jupyter-api",
+        // Two possible names for the plugin (GAV or plugin ID)
+        "org.jetbrains.kotlinx:kotlin-jupyter-api-gradle-plugin",
         "org.jetbrains.kotlin.jupyter.api",
-        "kotlin-jupyter-api-gradle-plugin",
       ],
       "groupName": "Kotlin/Jupyter",
       "groupSlug": "kotlin-jupyter",
