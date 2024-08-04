@@ -21,6 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Submit Gradle dependencies
-        uses: gradle/actions/dependency-submission@v3
+        uses: gradle/actions/dependency-submission@v4
         env:
           DEPENDENCY_GRAPH_EXCLUDE_CONFIGURATIONS: '.*[Tt]est(Compile|Runtime)Classpath'
