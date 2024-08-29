@@ -12,8 +12,6 @@ class FakeBuildsApi(
     val getGradleAttributesCallCount = MutableStateFlow(0)
 
     override suspend fun getBuilds(
-        since: Long?,
-        sinceBuild: String?,
         fromInstant: Long?,
         fromBuild: String?,
         reverse: Boolean?,
@@ -22,6 +20,8 @@ class FakeBuildsApi(
         query: String?,
         models: List<BuildModelName>?,
         allModels: Boolean?,
+        since: Long?,
+        sinceBuild: String?,
     ): List<Build> {
         getBuildsCallCount.value++
         check((reverse ?: maxWaitSecs ?: query ?: models) == null) { "Not supported" }

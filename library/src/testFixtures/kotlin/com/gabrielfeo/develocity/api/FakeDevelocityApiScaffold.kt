@@ -18,9 +18,21 @@ interface FakeBuildsApiScaffold : BuildsApi {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getBazelAttributes(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): BazelAttributes {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getBazelCriticalPath(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): BazelCriticalPath {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getBuilds(
-        since: Long?,
-        sinceBuild: String?,
         fromInstant: Long?,
         fromBuild: String?,
         reverse: Boolean?,
@@ -29,7 +41,58 @@ interface FakeBuildsApiScaffold : BuildsApi {
         query: String?,
         models: List<BuildModelName>?,
         allModels: Boolean?,
+        since: Long?,
+        sinceBuild: String?,
     ): List<Build> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getGradleBuildProfileOverview(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): GradleBuildProfileOverview {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getGradleConfigurationCache(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): GradleConfigurationCache {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getGradlePlugins(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): GradlePlugins {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getGradleResourceUsage(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): GradleResourceUsage {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenBuildProfileOverview(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): MavenBuildProfileOverview {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenPlugins(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): MavenPlugins {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenResourceUsage(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): MavenResourceUsage {
         TODO("Not yet implemented")
     }
 
