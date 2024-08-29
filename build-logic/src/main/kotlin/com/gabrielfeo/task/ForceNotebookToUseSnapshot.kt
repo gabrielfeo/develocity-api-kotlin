@@ -22,11 +22,12 @@ abstract class ForceNotebooksToUseSnapshot @Inject constructor(
 
     @TaskAction
     fun doWork() {
-        val notebook = modifiedNotebook.get().asFile
-        val newDescriptor = writeMavenLocalDescriptor(dir = notebook.parentFile)
+        val modifiedDir = modifiedNotebook.asFile.get().parentFile
+        val newDescriptor = writeMavenLocalDescriptor(dir = modifiedDir)
         fs.copy {
             from(originalNotebook)
-            into(notebook.parentFile)
+            into(modifiedDir)
+            rename { "output.ipynb" }
             filter { l ->
                 if ("%use develocity-api-kotlin" in l) l
                     .replace("%use develocity-api-kotlin", "%use @$newDescriptor")

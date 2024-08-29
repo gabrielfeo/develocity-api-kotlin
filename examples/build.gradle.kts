@@ -24,9 +24,6 @@ val useDeclaredVersion = providers.gradleProperty("useDeclaredVersion")
 
 // TODO scripts
 val scripts = originalScripts
-val notebooks = fileTree("example-notebooks") {
-    exclude(".ipynb_checkpoints")
-}
 
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
 
