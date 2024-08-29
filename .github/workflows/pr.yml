@@ -58,8 +58,9 @@ jobs:
       - run: mv ./base-ref-checkout/library/build/post-processed-api ./base-ref-api
       - name: Diff generated APIs
         run: |
+          diff -ur ./base-ref-api ./pr-ref-api | tee generated-api.patch || true
           echo -e '### Generated API diff\n\n```diff' > comment.md
-          diff -ur ./base-ref-api ./pr-ref-api | tee -a comment.md || true
+          cat generated-api.patch >> comment.md
           echo -e '```' >> comment.md
       - name: Find existing comment
         uses: peter-evans/find-comment@v3
@@ -75,6 +76,14 @@ jobs:
           comment-id: ${{ steps.find-comment.outputs.comment-id }}
           body-file: 'comment.md'
           edit-mode: replace
+      # Upload patch as PR artifact with short expiration
+      - name: Upload generated-api.patch
+        uses: actions/upload-artifact@v2
+        with:
+          name: generated-api.patch
+          path: generated-api.patch
+          retention-days: 7
+
 
   dry-run-publish-javadoc:
     uses: ./.github/workflows/publish-javadoc.yml
