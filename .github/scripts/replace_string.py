@@ -26,16 +26,24 @@ def replace_string(path: Path, old: str, new: str) -> None:
             continue
         try:
             text = file.read_text()
-            text = re.sub(
-                rf'''https://img\.shields\.io/badge/(.+?)-{_badge_version(old)}-(\w+)''',
-                f'''https://img.shields.io/badge/\1-{_badge_version(new)}-\3''',
-                text
-            )
-            text = re.sub(rf'(?!https://img\.shields\.io/badge/){old}', new, text)
+            text = _replace_badge_versions(text, old, new)
+            text = _replace_non_badge_versions(text, old, new)
             file.write_text(text)
             print(f'Replaced in file {file}')
         except UnicodeError as e:
             print(f'Error processing file {file}:', e, file=sys.stderr)
+
+
+def _replace_badge_versions(text: str, old: str, new: str) -> str:
+    return re.sub(
+        rf'''https://img\.shields\.io/badge/(.+?)-{_badge_version(old)}-(\w+)''',
+        f'''https://img.shields.io/badge/\1-{_badge_version(new)}-\3''',
+        text
+    )
+
+
+def _replace_non_badge_versions(text: str, old: str, new: str) -> str:
+    return re.sub(rf'(?!https://img\.shields\.io/badge/){old}', new, text)
 
 
 def _badge_version(version: str) -> str:
