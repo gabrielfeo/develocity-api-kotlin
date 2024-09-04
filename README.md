@@ -1,7 +1,7 @@
 # Develocity API Kotlin
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2024.2.0-alpha01-blue)][14]
-[![Javadoc](https://img.shields.io/badge/Javadoc-2024.2.0-alpha01-orange)][7]
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-2024.2.0--alpha01-blue)][14]
+[![Javadoc](https://img.shields.io/badge/Javadoc-2024.2.0--alpha01-orange)][7]
 
 (formerly `gradle-enterprise-api-kotlin`)
 
