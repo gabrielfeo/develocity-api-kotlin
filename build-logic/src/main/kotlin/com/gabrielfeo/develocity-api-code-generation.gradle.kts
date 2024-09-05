@@ -51,7 +51,6 @@ openApiGenerate {
     invokerPackage.set("com.gabrielfeo.develocity.api.internal")
     additionalProperties.put("library", "jvm-retrofit2")
     additionalProperties.put("useCoroutines", true)
-    additionalProperties.put("enumPropertyNaming", "camelCase")
     cleanupOutput.set(true)
 }
 
