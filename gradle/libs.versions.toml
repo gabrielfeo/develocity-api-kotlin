@@ -10,6 +10,7 @@ moshi = "1.15.1"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 kotlin-coroutines = "1.8.1"
+kotlin-binary-compatibility-validator = "0.16.3"
 slf4j = "2.0.16"
 guava = "33.3.0-jre"
 
@@ -27,6 +28,7 @@ kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", 
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutines" }
 kotlin-jupyter-api = { module = "org.jetbrains.kotlinx:kotlin-jupyter-api", version.ref = "jupyter-api" }
 kotlin-jupyter-testkit = { module = "org.jetbrains.kotlinx:kotlin-jupyter-test-kit", version.ref = "jupyter-testkit" }
+kotlin-binary-compatibility-validator-plugin = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "kotlin-binary-compatibility-validator" }
 kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 dokka-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 openapi-generator-plugin = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapi-generator" }
