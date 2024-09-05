@@ -3,9 +3,11 @@ package com.gabrielfeo.develocity.api.internal
 internal var systemProperties: SystemProperties = RealSystemProperties
 
 internal interface SystemProperties {
-    operator fun get(name: String): String?
+    val userHome: String?
+    val logLevel: String?
 }
 
 internal object RealSystemProperties : SystemProperties {
-    override fun get(name: String): String? = System.getProperty(name)
+    override val userHome: String? = System.getProperty("user.home")
+    override val logLevel: String? = System.getProperty(RealLoggerFactory.LOG_LEVEL_SYSTEM_PROPERTY)
 }
