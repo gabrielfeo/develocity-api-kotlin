@@ -80,5 +80,30 @@ abstract class PostProcessGeneratedApi @Inject constructor(
                 )
             }
         }
+        // Fix mapping of GradleConfigurationCacheResult.Outcome: hIT -> hit
+        val file = "com/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult.kt"
+        replaceAll("hIT", "hit", dir = srcDir, includes = file)
+        replaceAll("mISS", "miss", dir = srcDir, includes = file)
+        replaceAll("fAILED", "failed", dir = srcDir, includes = file)
+    }
+
+    private fun replaceAll(
+        match: String,
+        replace: String,
+        dir: File,
+        includes: String,
+    ) {
+        ant.withGroovyBuilder {
+            "replaceregexp"(
+                "match" to match,
+                "replace" to replace,
+                "flags" to "mg",
+            ) {
+                "fileset"(
+                    "dir" to dir,
+                    "includes" to includes,
+                )
+            }
+        }
     }
 }

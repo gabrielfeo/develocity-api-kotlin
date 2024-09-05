@@ -146,6 +146,43 @@ class PostProcessGeneratedApiTest {
         """.trimIndent(),
     )
 
+    /**
+     * Fixes enum case names: hIT -> hit (gabrielfeo/develocity-api-kotlin#282).
+     *
+     * Occurs when API spec enum name is uppercase and generator enumPropertyNaming is camelCase.
+     */
+    @Test
+    fun gradleConfigurationCacheResultOutcomeEnumPostProcessing() = testPostProcessing(
+        inputPath = "src/main/kotlin/com/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult.kt",
+        inputContent = """
+            /**
+             * The outcome of the configuration cache operation:   * `HIT` - There was a configuration cache hit.   * `MISS` - There was a configuration cache miss.   * `FAILED` - There was a configuration cache related failure.
+             *
+             * Values: hIT,mISS,fAILED
+             */
+            @JsonClass(generateAdapter = false)
+            enum class Outcome(val value: kotlin.String) {
+                @Json(name = "HIT") hIT("HIT"),
+                @Json(name = "MISS") mISS("MISS"),
+                @Json(name = "FAILED") fAILED("FAILED");
+            }
+        """.trimIndent(),
+        outputPath = "src/main/kotlin/com/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult.kt",
+        outputContent = """
+            /**
+             * The outcome of the configuration cache operation:   * `HIT` - There was a configuration cache hit.   * `MISS` - There was a configuration cache miss.   * `FAILED` - There was a configuration cache related failure.
+             *
+             * Values: hit,miss,failed
+             */
+            @JsonClass(generateAdapter = false)
+            enum class Outcome(val value: kotlin.String) {
+                @Json(name = "HIT") hit("HIT"),
+                @Json(name = "MISS") miss("MISS"),
+                @Json(name = "FAILED") failed("FAILED");
+            }
+        """.trimIndent(),
+    )
+
     private fun testPostProcessing(
         inputPath: String,
         inputContent: String,
