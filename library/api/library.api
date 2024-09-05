@@ -189,20 +189,6 @@ public final class com/gabrielfeo/develocity/api/extension/BuildsApiExtensionsKt
 	public static synthetic fun getGradleAttributesFlow$default (Lcom/gabrielfeo/develocity/api/BuildsApi;JLjava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Lkotlinx/coroutines/CoroutineScope;Ljava/util/List;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
-public abstract interface class com/gabrielfeo/develocity/api/internal/LoggerFactory {
-	public abstract fun newLogger (Lkotlin/reflect/KClass;)Lorg/slf4j/Logger;
-}
-
-public final class com/gabrielfeo/develocity/api/internal/RealLoggerFactory : com/gabrielfeo/develocity/api/internal/LoggerFactory {
-	public static final field Companion Lcom/gabrielfeo/develocity/api/internal/RealLoggerFactory$Companion;
-	public static final field LOG_LEVEL_SYSTEM_PROPERTY Ljava/lang/String;
-	public fun <init> (Lcom/gabrielfeo/develocity/api/Config;)V
-	public fun newLogger (Lkotlin/reflect/KClass;)Lorg/slf4j/Logger;
-}
-
-public final class com/gabrielfeo/develocity/api/internal/RealLoggerFactory$Companion {
-}
-
 public final class com/gabrielfeo/develocity/api/internal/auth/HttpBearerAuth : okhttp3/Interceptor {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
