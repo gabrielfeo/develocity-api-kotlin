@@ -4,11 +4,11 @@ import com.gabrielfeo.develocity.api.Config
 import org.slf4j.Logger
 import kotlin.reflect.KClass
 
-interface LoggerFactory {
+internal interface LoggerFactory {
     fun newLogger(cls: KClass<*>): Logger
 }
 
-class RealLoggerFactory(
+internal class RealLoggerFactory(
     private val config: Config,
 ) : LoggerFactory {
 
