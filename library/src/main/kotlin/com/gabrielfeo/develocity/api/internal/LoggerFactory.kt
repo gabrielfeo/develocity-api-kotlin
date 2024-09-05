@@ -18,11 +18,10 @@ class RealLoggerFactory(
     }
 
     private fun setLogLevel() {
-        if (System.getProperty(SIMPLE_LOGGER_LOG_LEVEL) != null) {
-            return
-        }
         System.setProperty(SIMPLE_LOGGER_LOG_LEVEL, config.logLevel)
     }
-}
 
-internal const val SIMPLE_LOGGER_LOG_LEVEL = "org.slf4j.simpleLogger.defaultLogLevel"
+    companion object {
+        const val LOG_LEVEL_SYSTEM_PROPERTY = "org.slf4j.simpleLogger.defaultLogLevel"
+    }
+}

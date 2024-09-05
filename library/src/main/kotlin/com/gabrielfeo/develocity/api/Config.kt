@@ -14,12 +14,15 @@ import kotlin.time.Duration.Companion.days
 data class Config(
 
     /**
-     * Changes the default log level for library classes, such as the HTTP client. By default,
-     * log level is the value of
-     * [org.slf4j.simpleLogger.defaultLogLevel](https://www.slf4j.org/api/org/slf4j/simple/SimpleLogger.html)
-     * system property or `"off"`.
+     * Changes the default log level for library classes, such as the HTTP client. Default value, by order of
+     * precedence:
+     *
+     * - `DEVELOCITY_API_LOG_LEVEL` environment variable
+     * - `org.slf4j.simpleLogger.defaultLogLevel` system property
+     * - `"off"`
      *
      * Possible values:
+     *
      * - "off" (default)
      * - "error"
      * - "warn"
@@ -30,6 +33,7 @@ data class Config(
      */
     val logLevel: String =
         env["DEVELOCITY_API_LOG_LEVEL"]
+            ?: systemProperties.logLevel
             ?: "off",
 
     /**
@@ -38,7 +42,7 @@ data class Config(
      */
     val apiUrl: String =
         env["DEVELOCITY_API_URL"]
-            ?: error("DEVELOCITY_API_URL is required"),
+            ?: error(ERROR_NULL_API_URL),
 
     /**
      * Provides the access token for a Develocity API instance. By default, uses environment
@@ -46,7 +50,7 @@ data class Config(
      */
     val apiToken: () -> String = {
         env["DEVELOCITY_API_TOKEN"]
-            ?: error("DEVELOCITY_API_TOKEN is required")
+            ?: error(ERROR_NULL_API_TOKEN)
     },
 
     /**
@@ -143,11 +147,14 @@ data class Config(
 
         /**
          * HTTP cache location. By default, uses environment variable `DEVELOCITY_API_CACHE_DIR`
-         * or the system temporary folder (`java.io.tmpdir` / develocity-api-kotlin-cache).
+         * or creates a `~/.develocity-api-kotlin-cache` directory.
          */
         val cacheDir: File =
             env["DEVELOCITY_API_CACHE_DIR"]?.let(::File)
-                ?: File(systemProperties["user.home"], ".develocity-api-kotlin-cache"),
+                ?: let {
+                    val userHome = checkNotNull(systemProperties.userHome) { ERROR_NULL_USER_HOME }
+                    File(userHome, ".develocity-api-kotlin-cache"),
+                }
 
         /**
          * Max size of the HTTP cache. By default, uses environment variable
@@ -204,3 +211,7 @@ data class Config(
                 ?: 1.days.inWholeSeconds,
     )
 }
+
+private const val ERROR_NULL_API_URL = "DEVELOCITY_API_URL is required"
+private const val ERROR_NULL_API_TOKEN = "DEVELOCITY_API_TOKEN is required"
+private const val ERROR_NULL_USER_HOME = "'user.home' system property must not be null"
