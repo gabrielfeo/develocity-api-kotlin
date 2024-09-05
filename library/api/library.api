@@ -15,33 +15,51 @@ public abstract interface class com/gabrielfeo/develocity/api/BuildCacheApi {
 }
 
 public abstract interface class com/gabrielfeo/develocity/api/BuildsApi {
+	public abstract fun getBazelAttributes (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getBazelCriticalPath (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getBuild (Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getBuilds (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getBuilds (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGradleArtifactTransformExecutions (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGradleAttributes (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGradleBuildCachePerformance (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getGradleBuildProfileOverview (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getGradleConfigurationCache (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGradleDeprecations (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGradleNetworkActivity (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getGradlePlugins (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getGradleProjects (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getGradleResourceUsage (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getMavenAttributes (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getMavenBuildCachePerformance (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getMavenBuildProfileOverview (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getMavenDependencyResolution (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getMavenModules (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getMavenPlugins (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public abstract fun getMavenResourceUsage (Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/gabrielfeo/develocity/api/BuildsApi$DefaultImpls {
+	public static synthetic fun getBazelAttributes$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getBazelCriticalPath$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getBuild$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun getBuilds$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getBuilds$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/String;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getGradleArtifactTransformExecutions$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getGradleAttributes$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getGradleBuildCachePerformance$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getGradleBuildProfileOverview$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getGradleConfigurationCache$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getGradleDeprecations$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getGradleNetworkActivity$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getGradlePlugins$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getGradleProjects$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getGradleResourceUsage$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getMavenAttributes$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getMavenBuildCachePerformance$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getMavenBuildProfileOverview$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getMavenDependencyResolution$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun getMavenModules$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getMavenPlugins$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun getMavenResourceUsage$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class com/gabrielfeo/develocity/api/Config {
@@ -136,23 +154,17 @@ public abstract interface class com/gabrielfeo/develocity/api/TestDistributionAp
 	public abstract fun createTestDistributionAgentPool (Lcom/gabrielfeo/develocity/api/model/TestDistributionAgentPoolConfiguration;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun deleteTestDistributionAgentPool (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun generateTestDistributionAgentPoolRegistrationKey (Ljava/lang/String;Lcom/gabrielfeo/develocity/api/model/TestDistributionAgentPoolRegistrationKeyDescription;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun generateTestDistributionApiKey (Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyDescription;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getTestDistributionAgentPool (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getTestDistributionAgentPoolRegistrationKey (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun getTestDistributionAgentPoolStatus (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun getTestDistributionApiKey (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun insertTestDistributionAgentPoolRegistrationKey (Ljava/lang/String;Ljava/lang/String;Lcom/gabrielfeo/develocity/api/model/TestDistributionAgentPoolRegistrationKey;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun insertTestDistributionApiKey (Ljava/lang/String;Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKey;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun listTestDistributionAgentPoolRegistrationKeys (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun listTestDistributionAgentPools (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun listTestDistributionApiKeys (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public abstract fun revokeTestDistributionAgentPoolRegistrationKey (Ljava/lang/String;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public abstract fun revokeTestDistributionApiKey (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/gabrielfeo/develocity/api/TestDistributionApi$DefaultImpls {
 	public static synthetic fun generateTestDistributionAgentPoolRegistrationKey$default (Lcom/gabrielfeo/develocity/api/TestDistributionApi;Ljava/lang/String;Lcom/gabrielfeo/develocity/api/model/TestDistributionAgentPoolRegistrationKeyDescription;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun generateTestDistributionApiKey$default (Lcom/gabrielfeo/develocity/api/TestDistributionApi;Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyDescription;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public abstract interface class com/gabrielfeo/develocity/api/TestsApi {
@@ -182,8 +194,13 @@ public abstract interface class com/gabrielfeo/develocity/api/internal/LoggerFac
 }
 
 public final class com/gabrielfeo/develocity/api/internal/RealLoggerFactory : com/gabrielfeo/develocity/api/internal/LoggerFactory {
+	public static final field Companion Lcom/gabrielfeo/develocity/api/internal/RealLoggerFactory$Companion;
+	public static final field LOG_LEVEL_SYSTEM_PROPERTY Ljava/lang/String;
 	public fun <init> (Lcom/gabrielfeo/develocity/api/Config;)V
 	public fun newLogger (Lkotlin/reflect/KClass;)Lorg/slf4j/Logger;
+}
+
+public final class com/gabrielfeo/develocity/api/internal/RealLoggerFactory$Companion {
 }
 
 public final class com/gabrielfeo/develocity/api/internal/auth/HttpBearerAuth : okhttp3/Interceptor {
@@ -306,6 +323,70 @@ public final class com/gabrielfeo/develocity/api/model/ApiProblem {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/BazelAttributes {
+	public fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/util/List;
+	public final fun component11 ()Ljava/lang/Integer;
+	public final fun component12 ()Ljava/lang/String;
+	public final fun component13 ()Ljava/lang/String;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/util/List;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Ljava/util/List;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/BazelAttributes;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BazelAttributes;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/util/List;Ljava/lang/Integer;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BazelAttributes;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBazelVersion ()Ljava/lang/String;
+	public final fun getBuildDuration ()J
+	public final fun getBuildStartTime ()J
+	public final fun getCommand ()Ljava/lang/String;
+	public final fun getExitCode ()Ljava/lang/Integer;
+	public final fun getHost ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getInvocationId ()Ljava/lang/String;
+	public final fun getLinks ()Ljava/util/List;
+	public final fun getPropertyValues ()Ljava/util/List;
+	public final fun getTags ()Ljava/util/List;
+	public final fun getTargetPatterns ()Ljava/util/List;
+	public final fun getUser ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/BazelCriticalPath {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;Ljava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getActions ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/BazelCriticalPathActionsInner {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;J)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()J
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;J)Lcom/gabrielfeo/develocity/api/model/BazelCriticalPathActionsInner;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BazelCriticalPathActionsInner;Ljava/lang/String;Ljava/lang/String;JILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BazelCriticalPathActionsInner;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCategory ()Ljava/lang/String;
+	public final fun getDuration ()J
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/BazelWorkUnit {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -402,16 +483,25 @@ public final class com/gabrielfeo/develocity/api/model/BuildAttributesValue {
 
 public final class com/gabrielfeo/develocity/api/model/BuildModelName : java/lang/Enum {
 	public static final field Companion Lcom/gabrielfeo/develocity/api/model/BuildModelName$Companion;
+	public static final field bazelAttributes Lcom/gabrielfeo/develocity/api/model/BuildModelName;
+	public static final field bazelCriticalPath Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field gradleArtifactTransformExecutions Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field gradleAttributes Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field gradleBuildCachePerformance Lcom/gabrielfeo/develocity/api/model/BuildModelName;
+	public static final field gradleBuildProfileOverview Lcom/gabrielfeo/develocity/api/model/BuildModelName;
+	public static final field gradleConfigurationCache Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field gradleDeprecations Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field gradleNetworkActivity Lcom/gabrielfeo/develocity/api/model/BuildModelName;
+	public static final field gradlePlugins Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field gradleProjects Lcom/gabrielfeo/develocity/api/model/BuildModelName;
+	public static final field gradleResourceUsage Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field mavenAttributes Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field mavenBuildCachePerformance Lcom/gabrielfeo/develocity/api/model/BuildModelName;
+	public static final field mavenBuildProfileOverview Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field mavenDependencyResolution Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field mavenModules Lcom/gabrielfeo/develocity/api/model/BuildModelName;
+	public static final field mavenPlugins Lcom/gabrielfeo/develocity/api/model/BuildModelName;
+	public static final field mavenResourceUsage Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
@@ -439,31 +529,79 @@ public final class com/gabrielfeo/develocity/api/model/BuildModelQuery {
 
 public final class com/gabrielfeo/develocity/api/model/BuildModels {
 	public fun <init> ()V
-	public fun <init> (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;)V
-	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;
-	public final fun component10 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;
+	public final fun component10 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;
+	public final fun component11 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;
+	public final fun component12 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;
+	public final fun component13 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;
+	public final fun component14 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;
+	public final fun component15 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;
+	public final fun component16 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;
+	public final fun component17 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;
+	public final fun component18 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;
+	public final fun component19 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;
 	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;
 	public final fun component3 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;
 	public final fun component4 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;
 	public final fun component5 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;
 	public final fun component6 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;
-	public final fun component7 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;
-	public final fun component8 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;
-	public final fun component9 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;
-	public final fun copy (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;)Lcom/gabrielfeo/develocity/api/model/BuildModels;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModels;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModels;
+	public final fun component7 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;
+	public final fun component8 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;
+	public final fun component9 ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;)Lcom/gabrielfeo/develocity/api/model/BuildModels;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModels;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModels;
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBazelAttributes ()Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;
+	public final fun getBazelCriticalPath ()Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;
 	public final fun getGradleArtifactTransformExecutions ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleArtifactTransformExecutions;
 	public final fun getGradleAttributes ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleAttributes;
 	public final fun getGradleBuildCachePerformance ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCachePerformance;
+	public final fun getGradleBuildProfileOverview ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;
+	public final fun getGradleConfigurationCache ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;
 	public final fun getGradleDeprecations ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations;
 	public final fun getGradleNetworkActivity ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkActivity;
+	public final fun getGradlePlugins ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;
 	public final fun getGradleProjects ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;
+	public final fun getGradleResourceUsage ()Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;
 	public final fun getMavenAttributes ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenAttributes;
 	public final fun getMavenBuildCachePerformance ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCachePerformance;
+	public final fun getMavenBuildProfileOverview ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;
 	public final fun getMavenDependencyResolution ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution;
 	public final fun getMavenModules ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;
+	public final fun getMavenPlugins ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;
+	public final fun getMavenResourceUsage ()Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/BazelAttributes;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/BazelAttributes;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/BazelAttributes;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/BazelAttributes;)Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/BazelAttributes;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelAttributes;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/BazelAttributes;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;)Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsBazelCriticalPath;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/BazelCriticalPath;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -513,6 +651,36 @@ public final class com/gabrielfeo/develocity/api/model/BuildModelsGradleBuildCac
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleBuildProfileOverview;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleConfigurationCache;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/BuildModelsGradleDeprecations {
 	public fun <init> ()V
 	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleDeprecations;)V
@@ -543,6 +711,21 @@ public final class com/gabrielfeo/develocity/api/model/BuildModelsGradleNetworkA
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradlePlugins;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradlePlugins;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/GradlePlugins;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradlePlugins;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradlePlugins;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradlePlugins;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/GradlePlugins;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/BuildModelsGradleProjects {
 	public fun <init> ()V
 	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Ljava/util/List;)V
@@ -553,6 +736,21 @@ public final class com/gabrielfeo/develocity/api/model/BuildModelsGradleProjects
 	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Ljava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleProjects;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getModel ()Ljava/util/List;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsGradleResourceUsage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;
 	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -588,6 +786,21 @@ public final class com/gabrielfeo/develocity/api/model/BuildModelsMavenBuildCach
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;)Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenBuildProfileOverview;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/BuildModelsMavenDependencyResolution {
 	public fun <init> ()V
 	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenDependencyResolution;)V
@@ -613,6 +826,36 @@ public final class com/gabrielfeo/develocity/api/model/BuildModelsMavenModules {
 	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Ljava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenModules;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getModel ()Ljava/util/List;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenPlugins;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenPlugins;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/MavenPlugins;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenPlugins;)Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenPlugins;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenPlugins;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/MavenPlugins;
+	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;)Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;Lcom/gabrielfeo/develocity/api/model/ApiProblem;Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildModelsMavenResourceUsage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getModel ()Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;
 	public final fun getProblem ()Lcom/gabrielfeo/develocity/api/model/ApiProblem;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -656,20 +899,20 @@ public final class com/gabrielfeo/develocity/api/model/BuildScanIdsByOutcome {
 
 public final class com/gabrielfeo/develocity/api/model/BuildsQuery {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Long;
-	public final fun component10 ()Ljava/lang/Boolean;
+	public final fun component10 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/Long;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/Boolean;
-	public final fun component6 ()Ljava/lang/Integer;
-	public final fun component7 ()Ljava/lang/Integer;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/BuildsQuery;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildsQuery;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildsQuery;
+	public final fun component3 ()Ljava/lang/Boolean;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()Ljava/lang/Integer;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Ljava/lang/Boolean;
+	public final fun component9 ()Ljava/lang/Long;
+	public final fun copy (Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/BuildsQuery;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/BuildsQuery;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Ljava/lang/Integer;Ljava/lang/String;Ljava/util/List;Ljava/lang/Boolean;Ljava/lang/Long;Ljava/lang/String;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/BuildsQuery;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAllModels ()Ljava/lang/Boolean;
 	public final fun getFromBuild ()Ljava/lang/String;
@@ -819,14 +1062,14 @@ public final class com/gabrielfeo/develocity/api/model/GradleArtifactTransformEx
 }
 
 public final class com/gabrielfeo/develocity/api/model/GradleAttributes {
-	public fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/util/List;
-	public final fun component11 ()Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;
-	public final fun component12 ()Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;
-	public final fun component13 ()Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;
-	public final fun component14 ()Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;
+	public final fun component11 ()Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;
+	public final fun component12 ()Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;
+	public final fun component13 ()Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;
+	public final fun component14 ()Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;
 	public final fun component15 ()Ljava/lang/String;
 	public final fun component16 ()Ljava/lang/Boolean;
 	public final fun component17 ()Ljava/lang/Boolean;
@@ -838,8 +1081,8 @@ public final class com/gabrielfeo/develocity/api/model/GradleAttributes {
 	public final fun component7 ()Z
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/GradleAttributes;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleAttributes;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleAttributes;
+	public final fun copy (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/GradleAttributes;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleAttributes;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleAttributes;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBuildDuration ()J
 	public final fun getBuildOptions ()Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;
@@ -1135,15 +1378,30 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerforman
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage {
+	public fun <init> (JLjava/util/List;)V
+	public synthetic fun <init> (JLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (JLjava/util/List;)Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;JLjava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMemoryPools ()Ljava/util/List;
+	public final fun getTotalGarbageCollectionTime ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/GradleBuildOptions {
-	public fun <init> (ZZZZZLjava/util/List;IZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (ZZZZZLjava/util/List;IZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (ZZZZZLjava/util/List;IZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (ZZZZZLjava/util/List;IZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
 	public final fun component10 ()Z
 	public final fun component11 ()Z
 	public final fun component12 ()Ljava/lang/Boolean;
 	public final fun component13 ()Ljava/lang/Boolean;
 	public final fun component14 ()Ljava/lang/Boolean;
+	public final fun component15 ()Ljava/lang/Boolean;
 	public final fun component2 ()Z
 	public final fun component3 ()Z
 	public final fun component4 ()Z
@@ -1152,8 +1410,8 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildOptions {
 	public final fun component7 ()I
 	public final fun component8 ()Z
 	public final fun component9 ()Z
-	public final fun copy (ZZZZZLjava/util/List;IZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;ZZZZZLjava/util/List;IZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;
+	public final fun copy (ZZZZZLjava/util/List;IZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;ZZZZZLjava/util/List;IZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleBuildOptions;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBuildCacheEnabled ()Ljava/lang/Boolean;
 	public final fun getConfigurationCacheEnabled ()Ljava/lang/Boolean;
@@ -1164,11 +1422,115 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildOptions {
 	public final fun getDryRunEnabled ()Z
 	public final fun getExcludedTasks ()Ljava/util/List;
 	public final fun getFileSystemWatchingEnabled ()Ljava/lang/Boolean;
+	public final fun getIsolatedProjectsEnabled ()Ljava/lang/Boolean;
 	public final fun getMaxNumberOfGradleWorkers ()I
 	public final fun getOfflineModeEnabled ()Z
 	public final fun getParallelProjectExecutionEnabled ()Z
 	public final fun getRefreshDependenciesEnabled ()Z
 	public final fun getRerunTasksEnabled ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradleBuildProfileOverview {
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;)Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleBuildProfileOverview;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBreakdown ()Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;
+	public final fun getMemoryUsage ()Lcom/gabrielfeo/develocity/api/model/GradleBuildDaemonJvmMemoryUsage;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown {
+	public fun <init> (JJLjava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;)V
+	public synthetic fun <init> (JJLjava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()Ljava/lang/Long;
+	public final fun component4 ()Ljava/lang/Long;
+	public final fun component5 ()Ljava/lang/Long;
+	public final fun copy (JJLjava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;)Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;JJLjava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleBuildTimeBreakdown;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getConfiguration ()Ljava/lang/Long;
+	public final fun getEndOfBuild ()Ljava/lang/Long;
+	public final fun getExecution ()Ljava/lang/Long;
+	public final fun getInitialization ()J
+	public final fun getTotal ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradleConfigurationCache {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCache;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getResult ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult {
+	public fun <init> (JZ)V
+	public final fun component1 ()J
+	public final fun component2 ()Z
+	public final fun copy (JZ)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;JZILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDuration ()J
+	public final fun getHasFailed ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult {
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;Ljava/util/List;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;
+	public final fun component4 ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;
+	public final fun component5 ()Ljava/util/List;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;Ljava/util/List;)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;Ljava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEntrySize ()Ljava/lang/Long;
+	public final fun getLoad ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheLoadResult;
+	public final fun getMissReasons ()Ljava/util/List;
+	public final fun getOutcome ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
+	public final fun getStore ()Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome : java/lang/Enum {
+	public static final field failed Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
+	public static final field hit Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
+	public static final field miss Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
+	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult {
+	public fun <init> (JZ)V
+	public final fun component1 ()J
+	public final fun component2 ()Z
+	public final fun copy (JZ)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;JZILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheStoreResult;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDuration ()J
+	public final fun getHasFailed ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1247,19 +1609,21 @@ public final class com/gabrielfeo/develocity/api/model/GradleDeprecations {
 
 public final class com/gabrielfeo/develocity/api/model/GradleDevelocitySettings {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Boolean;
 	public final fun component2 ()Ljava/lang/Boolean;
 	public final fun component3 ()Ljava/lang/Boolean;
 	public final fun component4 ()Ljava/lang/Boolean;
 	public final fun component5 ()Ljava/lang/Boolean;
-	public final fun copy (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;
+	public final fun component6 ()Ljava/lang/Boolean;
+	public final fun copy (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleDevelocitySettings;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBackgroundPublicationEnabled ()Ljava/lang/Boolean;
 	public final fun getBuildOutputCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getFileFingerprintCapturingEnabled ()Ljava/lang/Boolean;
+	public final fun getResourceUsageCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getTaskInputsFileCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getTestOutputCapturingEnabled ()Ljava/lang/Boolean;
 	public fun hashCode ()I
@@ -1285,17 +1649,19 @@ public final class com/gabrielfeo/develocity/api/model/GradleEnterpriseVersion {
 
 public final class com/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Boolean;
 	public final fun component2 ()Ljava/lang/Boolean;
 	public final fun component3 ()Ljava/lang/Boolean;
 	public final fun component4 ()Ljava/lang/Boolean;
-	public final fun copy (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;
+	public final fun component5 ()Ljava/lang/Boolean;
+	public final fun copy (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleGradleEnterpriseSettings;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBackgroundPublicationEnabled ()Ljava/lang/Boolean;
 	public final fun getBuildOutputCapturingEnabled ()Ljava/lang/Boolean;
+	public final fun getResourceUsageCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getTaskInputsFileCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getTestOutputCapturingEnabled ()Ljava/lang/Boolean;
 	public fun hashCode ()I
@@ -1322,6 +1688,37 @@ public final class com/gabrielfeo/develocity/api/model/GradleNetworkActivity {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/GradlePlugin {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradlePlugin;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradlePlugin;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradlePlugin;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getClassName ()Ljava/lang/String;
+	public final fun getId ()Ljava/lang/String;
+	public final fun getProjects ()Ljava/util/List;
+	public final fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradlePlugins {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/gabrielfeo/develocity/api/model/GradlePlugins;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradlePlugins;Ljava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradlePlugins;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPlugins ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/GradleProject {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -1334,6 +1731,25 @@ public final class com/gabrielfeo/develocity/api/model/GradleProject {
 	public final fun getName ()Ljava/lang/String;
 	public final fun getParent ()Ljava/lang/Integer;
 	public final fun getPath ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/GradleResourceUsage {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;)V
+	public synthetic fun <init> (Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Long;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun component3 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun component4 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun copy (Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;)Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/GradleResourceUsage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExecution ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun getNonExecution ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun getTotal ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun getTotalMemory ()Ljava/lang/Long;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1365,14 +1781,14 @@ public final class com/gabrielfeo/develocity/api/model/KeySecretPair {
 }
 
 public final class com/gabrielfeo/develocity/api/model/MavenAttributes {
-	public fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/util/List;
-	public final fun component11 ()Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;
-	public final fun component12 ()Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;
-	public final fun component13 ()Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;
-	public final fun component14 ()Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;
+	public final fun component11 ()Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;
+	public final fun component12 ()Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;
+	public final fun component13 ()Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;
+	public final fun component14 ()Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;
 	public final fun component15 ()Ljava/lang/String;
 	public final fun component16 ()Ljava/lang/Boolean;
 	public final fun component17 ()Ljava/lang/Boolean;
@@ -1384,8 +1800,8 @@ public final class com/gabrielfeo/develocity/api/model/MavenAttributes {
 	public final fun component7 ()Z
 	public final fun component8 ()Ljava/util/List;
 	public final fun component9 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/MavenAttributes;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenAttributes;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenAttributes;
+	public final fun copy (Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/MavenAttributes;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenAttributes;Ljava/lang/String;JJLjava/lang/String;Ljava/lang/String;Ljava/util/List;ZLjava/util/List;Ljava/util/List;Ljava/util/List;Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;Lcom/gabrielfeo/develocity/api/model/BuildAttributesEnvironment;Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenAttributes;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBuildDuration ()J
 	public final fun getBuildOptions ()Lcom/gabrielfeo/develocity/api/model/MavenBuildOptions;
@@ -1609,6 +2025,56 @@ public final class com/gabrielfeo/develocity/api/model/MavenBuildCachePerformanc
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown {
+	public fun <init> (JLjava/lang/Long;Ljava/lang/Long;)V
+	public synthetic fun <init> (JLjava/lang/Long;Ljava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/lang/Long;
+	public final fun component3 ()Ljava/lang/Long;
+	public final fun copy (JLjava/lang/Long;Ljava/lang/Long;)Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;JLjava/lang/Long;Ljava/lang/Long;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getEndOfBuild ()Ljava/lang/Long;
+	public final fun getGoalExecution ()Ljava/lang/Long;
+	public final fun getTotal ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown {
+	public fun <init> (JJJJLjava/lang/Long;)V
+	public synthetic fun <init> (JJJJLjava/lang/Long;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun component5 ()Ljava/lang/Long;
+	public final fun copy (JJJJLjava/lang/Long;)Lcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;JJJJLjava/lang/Long;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getOther ()J
+	public final fun getProjectDiscovery ()Ljava/lang/Long;
+	public final fun getSettings ()J
+	public final fun getToolchains ()J
+	public final fun getTotal ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage {
+	public fun <init> (JLjava/util/List;)V
+	public synthetic fun <init> (JLjava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Ljava/util/List;
+	public final fun copy (JLjava/util/List;)Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;JLjava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMemoryPools ()Ljava/util/List;
+	public final fun getTotalGarbageCollectionTime ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/MavenBuildOptions {
 	public fun <init> (ZIZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
 	public synthetic fun <init> (ZIZZZZLjava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -1651,6 +2117,36 @@ public final class com/gabrielfeo/develocity/api/model/MavenBuildOptions {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/MavenBuildProfileOverview {
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;)Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenBuildProfileOverview;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBreakdown ()Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;
+	public final fun getMemoryUsage ()Lcom/gabrielfeo/develocity/api/model/MavenBuildJvmMemoryUsage;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown {
+	public fun <init> (JLcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;)V
+	public synthetic fun <init> (JLcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()J
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;
+	public final fun component3 ()Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;
+	public final fun copy (JLcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;)Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;JLcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenBuildTimeBreakdown;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExecution ()Lcom/gabrielfeo/develocity/api/model/MavenBuildExecutionTimeBreakdown;
+	public final fun getInitializationAndDiscovery ()Lcom/gabrielfeo/develocity/api/model/MavenBuildInitializationAndDiscoveryTimeBreakdown;
+	public final fun getTotal ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/MavenDependencyResolution {
 	public fun <init> (JJJJJJ)V
 	public final fun component1 ()J
@@ -1674,20 +2170,22 @@ public final class com/gabrielfeo/develocity/api/model/MavenDependencyResolution
 
 public final class com/gabrielfeo/develocity/api/model/MavenDevelocitySettings {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Boolean;
 	public final fun component2 ()Ljava/lang/Boolean;
 	public final fun component3 ()Ljava/lang/Boolean;
 	public final fun component4 ()Ljava/lang/Boolean;
 	public final fun component5 ()Ljava/lang/Boolean;
-	public final fun copy (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;
+	public final fun component6 ()Ljava/lang/Boolean;
+	public final fun copy (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenDevelocitySettings;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBackgroundPublicationEnabled ()Ljava/lang/Boolean;
 	public final fun getBuildOutputCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getFileFingerprintCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getGoalInputsFileCapturingEnabled ()Ljava/lang/Boolean;
+	public final fun getResourceUsageCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getTestOutputCapturingEnabled ()Ljava/lang/Boolean;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1695,18 +2193,20 @@ public final class com/gabrielfeo/develocity/api/model/MavenDevelocitySettings {
 
 public final class com/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/Boolean;
 	public final fun component2 ()Ljava/lang/Boolean;
 	public final fun component3 ()Ljava/lang/Boolean;
 	public final fun component4 ()Ljava/lang/Boolean;
-	public final fun copy (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;
+	public final fun component5 ()Ljava/lang/Boolean;
+	public final fun copy (Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;)Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenGradleEnterpriseSettings;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBackgroundPublicationEnabled ()Ljava/lang/Boolean;
 	public final fun getBuildOutputCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getGoalInputsFileCapturingEnabled ()Ljava/lang/Boolean;
+	public final fun getResourceUsageCapturingEnabled ()Ljava/lang/Boolean;
 	public final fun getTestOutputCapturingEnabled ()Ljava/lang/Boolean;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1732,6 +2232,64 @@ public final class com/gabrielfeo/develocity/api/model/MavenModule {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/gabrielfeo/develocity/api/model/MavenPlugin {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/util/List;
+	public final fun component5 ()Ljava/util/List;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/MavenPlugin;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenPlugin;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenPlugin;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getArtifactId ()Ljava/lang/String;
+	public final fun getExecutedGoals ()Ljava/util/List;
+	public final fun getGoalPrefix ()Ljava/lang/String;
+	public final fun getGroupId ()Ljava/lang/String;
+	public final fun getModules ()Ljava/util/List;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getRequiredMavenVersion ()Ljava/lang/String;
+	public final fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/MavenPlugins {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun copy (Ljava/util/List;)Lcom/gabrielfeo/develocity/api/model/MavenPlugins;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenPlugins;Ljava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenPlugins;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getPlugins ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/MavenResourceUsage {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;)V
+	public synthetic fun <init> (Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/Long;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun component3 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun component4 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun copy (Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;)Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;Ljava/lang/Long;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MavenResourceUsage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExecution ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun getNonExecution ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun getTotal ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public final fun getTotalMemory ()Ljava/lang/Long;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/gabrielfeo/develocity/api/model/MavenWorkUnit {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -1745,6 +2303,21 @@ public final class com/gabrielfeo/develocity/api/model/MavenWorkUnit {
 	public final fun getExecutionId ()Ljava/lang/String;
 	public final fun getGoalName ()Ljava/lang/String;
 	public final fun getGroupId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/MemoryPoolUsage {
+	public fun <init> (Ljava/lang/String;JJ)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun copy (Ljava/lang/String;JJ)Lcom/gabrielfeo/develocity/api/model/MemoryPoolUsage;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/MemoryPoolUsage;Ljava/lang/String;JJILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/MemoryPoolUsage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMaxMemory ()J
+	public final fun getName ()Ljava/lang/String;
+	public final fun getPeakMemory ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -1877,6 +2450,60 @@ public final class com/gabrielfeo/develocity/api/model/ReplicationConfiguration 
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getPreemptive ()Z
 	public final fun getSource ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/ResourceUsageBreakdown {
+	public fun <init> ()V
+	public fun <init> (Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;)V
+	public synthetic fun <init> (Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component10 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component2 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component3 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component4 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component5 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component6 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component7 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component8 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun component9 ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun copy (Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;)Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/ResourceUsageBreakdown;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAllProcessesCpu ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getAllProcessesMemory ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getBuildChildProcessesCpu ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getBuildChildProcessesMemory ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getBuildProcessCpu ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getBuildProcessMemory ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getDiskReadThroughput ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getDiskWriteThroughput ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getNetworkDownloadThroughput ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public final fun getNetworkUploadThroughput ()Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/gabrielfeo/develocity/api/model/ResourceUsageMetric {
+	public fun <init> (JJJJJJJ)V
+	public final fun component1 ()J
+	public final fun component2 ()J
+	public final fun component3 ()J
+	public final fun component4 ()J
+	public final fun component5 ()J
+	public final fun component6 ()J
+	public final fun component7 ()J
+	public final fun copy (JJJJJJJ)Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;JJJJJJJILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/ResourceUsageMetric;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAverage ()J
+	public final fun getMax ()J
+	public final fun getMedian ()J
+	public final fun getP25 ()J
+	public final fun getP5 ()J
+	public final fun getP75 ()J
+	public final fun getP95 ()J
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -2059,66 +2686,6 @@ public final class com/gabrielfeo/develocity/api/model/TestDistributionAgentPool
 	public final fun getMaximumSize ()I
 	public final fun getMinimumSize ()I
 	public final fun getName ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/gabrielfeo/develocity/api/model/TestDistributionApiKey {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKey;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKey;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKey;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDescription ()Ljava/lang/String;
-	public final fun getKey ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/gabrielfeo/develocity/api/model/TestDistributionApiKeyDescription {
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyDescription;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyDescription;Ljava/lang/String;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyDescription;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDescription ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/gabrielfeo/develocity/api/model/TestDistributionApiKeyPrefix {
-	public fun <init> (Ljava/lang/String;Ljava/time/OffsetDateTime;Ljava/lang/String;Ljava/time/OffsetDateTime;Ljava/lang/String;Ljava/time/OffsetDateTime;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/time/OffsetDateTime;Ljava/lang/String;Ljava/time/OffsetDateTime;Ljava/lang/String;Ljava/time/OffsetDateTime;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/time/OffsetDateTime;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/time/OffsetDateTime;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/time/OffsetDateTime;
-	public final fun copy (Ljava/lang/String;Ljava/time/OffsetDateTime;Ljava/lang/String;Ljava/time/OffsetDateTime;Ljava/lang/String;Ljava/time/OffsetDateTime;)Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyPrefix;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyPrefix;Ljava/lang/String;Ljava/time/OffsetDateTime;Ljava/lang/String;Ljava/time/OffsetDateTime;Ljava/lang/String;Ljava/time/OffsetDateTime;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyPrefix;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDescription ()Ljava/lang/String;
-	public final fun getGeneratedAt ()Ljava/time/OffsetDateTime;
-	public final fun getKeyPrefix ()Ljava/lang/String;
-	public final fun getLastUsedAt ()Ljava/time/OffsetDateTime;
-	public final fun getLastUsedBy ()Ljava/lang/String;
-	public final fun getRevokedAt ()Ljava/time/OffsetDateTime;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/gabrielfeo/develocity/api/model/TestDistributionApiKeyPrefixPage {
-	public fun <init> (Ljava/util/List;)V
-	public final fun component1 ()Ljava/util/List;
-	public final fun copy (Ljava/util/List;)Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyPrefixPage;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyPrefixPage;Ljava/util/List;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/model/TestDistributionApiKeyPrefixPage;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getContent ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
