@@ -22,6 +22,7 @@ tasks.named("check") {
 
 dependencies {
     implementation(libs.kotlin.plugin)
+    implementation(libs.kotlin.binary.compatibility.validator.plugin)
     implementation(libs.dokka.plugin)
     implementation(libs.openapi.generator.plugin)
     "functionalTestImplementation"(project)
