@@ -45,7 +45,7 @@
                     </a>
             </div>
             <div class="library-version">
-2024.2.0-alpha01            </div>
+2024.2.0-alpha02            </div>
         </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":library:dokkaHtml/main">jvm</button>
@@ -127,10 +127,11 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-config/index.html">Config</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>logLevel<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LOG_LEVEL&quot;]
+            ?: systemProperties.logLevel
             ?: &quot;off&quot;<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>apiUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_URL&quot;]
-            ?: error(&quot;DEVELOCITY_API_URL is required&quot;)<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>apiToken<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>{
+            ?: error(ERROR_NULL_API_URL)<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>apiToken<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>{
         env[&quot;DEVELOCITY_API_TOKEN&quot;]
-            ?: error(&quot;DEVELOCITY_API_TOKEN is required&quot;)
+            ?: error(ERROR_NULL_API_TOKEN)
     }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>clientBuilder<span class="token operator">: </span><span data-unresolved-link="okhttp3/OkHttpClient.Builder///PointingToDeclaration/">OkHttpClient.Builder</span><span class="token operator"> = </span>basicOkHttpClient.newBuilder()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxConcurrentRequests<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CONCURRENT_REQUESTS&quot;]?.toInt()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>readTimeoutMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_READ_TIMEOUT_MILLIS&quot;]?.toLong()
             ?: 60_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cacheConfig<span class="token operator">: </span><a href="-config/-cache-config/index.html">Config.CacheConfig</a><span class="token operator"> = </span>CacheConfig()</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Library configuration options.</p></div></div></div>
                 </div>
