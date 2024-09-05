@@ -21,12 +21,13 @@ java {
     }
 }
 
+val kotlinSourceRoot = file("src/main/kotlin")
 tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.all {
-        sourceRoot("src/main/kotlin")
+        sourceRoot(kotlinSourceRoot)
         sourceLink {
-            localDirectory.set(file("src/main/kotlin"))
-            remoteUrl.set(repoUrl.map { URL("$it/blob/$version/src/main/kotlin") })
+            localDirectory.set(kotlinSourceRoot)
+            remoteUrl.set(repoUrl.map { URL("$it/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}") })
             remoteLineSuffix.set("#L")
         }
         jdkVersion.set(11)

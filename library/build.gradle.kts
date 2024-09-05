@@ -1,8 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import java.net.URL
-import org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC
-import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     id("com.gabrielfeo.kotlin-jvm-library")
