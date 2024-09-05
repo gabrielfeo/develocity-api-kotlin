@@ -23,7 +23,7 @@ class TestReplaceString(unittest.TestCase):
         self._test_replace_string(repo, [
             ('2024.1.0', '2024.1.1-alpha01'),
             ('2024.1.0', '2024.1.1-beta01'),
-            ('2024.1.0', '2024.2.0-alpha01'),
+            ('2024.1.0', '2024.2.0-alpha02'),
             ('2024.1.0', '2024.2.0-beta01'),
             ('2024.4.2', '2025.1.0-alpha01'),
         ])
