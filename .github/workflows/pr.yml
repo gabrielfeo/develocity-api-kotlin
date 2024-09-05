@@ -21,6 +21,7 @@ jobs:
             test
             compileIntegrationTestKotlin
             :build-logic:check
+            :library:apiCheck
 
   python-tests:
     runs-on: ubuntu-latest
