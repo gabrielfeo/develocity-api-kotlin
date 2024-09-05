@@ -39,47 +39,26 @@ abstract class PostProcessGeneratedApi @Inject constructor(
 
     private fun postProcess(srcDir: File, modelsPackage: String) {
         // Replace Response<X> with X in every method return type of DevelocityApi.kt
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to ": Response<(.*?)>$",
-                "replace" to """: \1""",
-                "flags" to "gm",
-            ) {
-                "fileset"(
-                    "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/develocity/api/*Api.kt",
-                )
-            }
-        }
+        replaceAll(
+            match = ": Response<(.*?)>$",
+            replace = """: \1""",
+            dir = srcDir,
+            includes = "com/gabrielfeo/develocity/api/*Api.kt",
+        )
         // Add @JvmSuppressWildcards to avoid square/retrofit#3275
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to "interface",
-                "replace" to """
-                    @JvmSuppressWildcards
-                    interface
-                """.trimIndent(),
-                "flags" to "m",
-            ) {
-                "fileset"(
-                    "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/develocity/api/*Api.kt",
-                )
-            }
-        }
+        replaceAll(
+            match = "interface",
+            replace = "@JvmSuppressWildcards\ninterface",
+            dir = srcDir,
+            includes = "com/gabrielfeo/develocity/api/*Api.kt",
+        )
         // Fix mapping of BuildModelName: gradle-attributes -> gradleAttributes
-        ant.withGroovyBuilder {
-            "replaceregexp"(
-                "match" to "Minus",
-                "replace" to "",
-                "flags" to "mg",
-            ) {
-                "fileset"(
-                    "dir" to srcDir,
-                    "includes" to "com/gabrielfeo/develocity/api/model/BuildModelName.kt",
-                )
-            }
-        }
+        replaceAll(
+            match = "Minus",
+            replace = "",
+            dir = srcDir,
+            includes = "com/gabrielfeo/develocity/api/model/BuildModelName.kt",
+        )
         // Fix mapping of GradleConfigurationCacheResult.Outcome: hIT -> hit
         val file = "com/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult.kt"
         replaceAll("hIT", "hit", dir = srcDir, includes = file)
