@@ -18,7 +18,7 @@ class RealLoggerFactory(
     }
 
     private fun setLogLevel() {
-        System.setProperty(SIMPLE_LOGGER_LOG_LEVEL, config.logLevel)
+        System.setProperty(LOG_LEVEL_SYSTEM_PROPERTY, config.logLevel)
     }
 
     companion object {

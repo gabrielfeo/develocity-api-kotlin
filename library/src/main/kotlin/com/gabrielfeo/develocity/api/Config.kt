@@ -151,10 +151,10 @@ data class Config(
          */
         val cacheDir: File =
             env["DEVELOCITY_API_CACHE_DIR"]?.let(::File)
-                ?: let {
+                ?: run {
                     val userHome = checkNotNull(systemProperties.userHome) { ERROR_NULL_USER_HOME }
-                    File(userHome, ".develocity-api-kotlin-cache"),
-                }
+                    File(userHome, ".develocity-api-kotlin-cache")
+                },
 
         /**
          * Max size of the HTTP cache. By default, uses environment variable

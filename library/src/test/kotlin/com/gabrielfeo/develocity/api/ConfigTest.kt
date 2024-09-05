@@ -9,6 +9,7 @@ class ConfigTest {
     @BeforeTest
     fun before() {
         env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
+        systemProperties = FakeSystemProperties()
     }
 
     @Test
@@ -50,5 +51,25 @@ class ConfigTest {
     fun `Given timeout set in env, readTimeoutMillis returns env value`() {
         (env as FakeEnv)["DEVELOCITY_API_READ_TIMEOUT_MILLIS"] = "100000"
         assertEquals(100_000L, Config().readTimeoutMillis)
+    }
+
+    @Test
+    fun `Given logLevel in env, logLevel is env value`() {
+        (env as FakeEnv)["DEVELOCITY_API_LOG_LEVEL"] = "trace"
+        assertEquals("trace", Config().logLevel)
+    }
+
+    @Test
+    fun `Given logLevel in System props and not in env, logLevel is prop value`() {
+        (env as FakeEnv)["DEVELOCITY_API_LOG_LEVEL"] = null
+        (systemProperties as FakeSystemProperties).logLevel = "info"
+        assertEquals("info", Config().logLevel)
+    }
+
+    @Test
+    fun `Given no logLevel set, logLevel is off`() {
+        (env as FakeEnv)["DEVELOCITY_API_LOG_LEVEL"] = null
+        (systemProperties as FakeSystemProperties).logLevel = null
+        assertEquals("off", Config().logLevel)
     }
 }
