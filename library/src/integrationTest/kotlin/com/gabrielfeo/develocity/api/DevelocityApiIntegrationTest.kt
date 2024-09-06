@@ -38,7 +38,7 @@ class DevelocityApiIntegrationTest {
                 apiToken = { "" },
             )
             DevelocityApi.newInstance(config)
-        }
+        }.shutdown()
     }
 
     @Test
