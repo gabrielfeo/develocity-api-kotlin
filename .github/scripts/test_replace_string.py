@@ -64,7 +64,7 @@ class TestReplaceString(unittest.TestCase):
         self.assertNotIn(old, content)
 
     def _assert_badge_versions_replaced(self, content, old, new):
-        if "badge/Maven%20Central-" not in content:
+        if "badge/" not in content:
             return
         self.assertIn(
             f"badge/Maven%20Central-{new.replace('-', '--')}-blue", content)
