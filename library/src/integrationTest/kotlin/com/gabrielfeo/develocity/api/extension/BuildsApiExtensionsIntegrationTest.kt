@@ -3,8 +3,15 @@ package com.gabrielfeo.develocity.api.extension
 import com.gabrielfeo.develocity.api.*
 import com.gabrielfeo.develocity.api.internal.*
 import com.gabrielfeo.develocity.api.model.BuildModelName
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.withIndex
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.test.runTest
 import okhttp3.Request
 import org.junit.jupiter.api.*
@@ -35,7 +42,7 @@ class BuildsApiExtensionsIntegrationTest {
             allModels = true,
             reverse = true,
             buildsPerPage = 2,
-        ).take(4).collect()
+        ).take(4).printProgress(0..4 step 2).collect()
         recorder.requests.forEach {
             assertUrlParam(it, "query", "user:*")
             assertUrlParam(it, "models", "gradle-attributes")
@@ -46,14 +53,30 @@ class BuildsApiExtensionsIntegrationTest {
 
     @Test
     fun getBuildsFlowReplacesSinceForFromBuildAfterFirstRequest() = runTest {
-        api.buildsApi.getBuildsFlow(since = 1, buildsPerPage = 2).take(10).collect()
+        api.buildsApi.getBuildsFlow(since = 1, buildsPerPage = 2)
+            .take(10)
+            .printProgress(0..10 step 2)
+            .collect()
         assertReplacedForFromBuildAfterFirstRequest(param = "since" to "1")
     }
 
     @Test
     fun getBuildsFlowReplacesFromInstantForFromBuildAfterFirstRequest() = runTest {
-        api.buildsApi.getBuildsFlow(fromInstant = 1, buildsPerPage = 2).take(10).collect()
+        api.buildsApi.getBuildsFlow(fromInstant = 1, buildsPerPage = 2)
+            .take(10)
+            .printProgress(0..10 step 2)
+            .collect()
         assertReplacedForFromBuildAfterFirstRequest(param = "fromInstant" to "1")
+    }
+
+    fun <T> Flow<T>.printProgress(indices: IntProgression): Flow<T> {
+        return withIndex().onEach { (i, _) ->
+            if (i in indices && i % indices.step == 0) {
+                println("PROGRESS: $i/${indices.last} builds")
+            }
+        }.map {
+            it.value
+        }
     }
 
     private fun assertReplacedForFromBuildAfterFirstRequest(param: Pair<String, String>) {
