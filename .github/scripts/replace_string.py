@@ -37,7 +37,7 @@ def replace_string(path: Path, old: str, new: str) -> None:
 def _replace_badge_versions(text: str, old: str, new: str) -> str:
     return re.sub(
         rf'''https://img\.shields\.io/badge/(.+?)-{_badge_version(old)}-(\w+)''',
-        f'''https://img.shields.io/badge/\1-{_badge_version(new)}-\3''',
+        rf'''https://img.shields.io/badge/\1-{_badge_version(new)}-\2''',
         text
     )
 
