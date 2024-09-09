@@ -7,7 +7,6 @@ import java.net.URL
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.dokka")
-    id("org.jetbrains.kotlinx.binary-compatibility-validator")
     `java-library`
 }
 

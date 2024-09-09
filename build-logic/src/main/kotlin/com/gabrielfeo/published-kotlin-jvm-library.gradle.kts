@@ -1,7 +1,9 @@
 plugins {
+    id("com.gabrielfeo.kotlin-jvm-library")
     `java-library`
     `maven-publish`
     signing
+    id("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
 
 publishing {

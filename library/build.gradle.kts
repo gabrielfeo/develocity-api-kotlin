@@ -3,10 +3,9 @@
 import java.net.URL
 
 plugins {
-    id("com.gabrielfeo.kotlin-jvm-library")
+    id("com.gabrielfeo.published-kotlin-jvm-library")
     id("com.gabrielfeo.develocity-api-code-generation")
     id("com.gabrielfeo.test-suites")
-    id("com.gabrielfeo.publishing")
     alias(libs.plugins.kotlin.jupyter)
 }
 
