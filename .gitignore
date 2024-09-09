@@ -3,6 +3,9 @@
 out
 !*/src/**/out
 
+gradle-user-home
+profile-out*
+
 build
 !.github/actions/build
 !*/src/**/build
