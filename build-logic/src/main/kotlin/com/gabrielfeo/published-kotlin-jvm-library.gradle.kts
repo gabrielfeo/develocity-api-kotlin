@@ -36,7 +36,7 @@ tasks.withType<DokkaTask>().configureEach {
             suppress = true
         }
         externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
-        externalDocumentationLink("https://square.github.io/okhttp/4.x/okhttp/")
+        externalDocumentationLink("https://square.github.io/okhttp/5.x/okhttp/")
         externalDocumentationLink("https://square.github.io/retrofit/2.x/retrofit/")
         externalDocumentationLink("https://square.github.io/moshi/1.x/moshi/")
         externalDocumentationLink("https://square.github.io/moshi/1.x/moshi-kotlin/")
