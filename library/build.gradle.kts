@@ -1,7 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
-import java.net.URL
-
 plugins {
     id("com.gabrielfeo.published-kotlin-jvm-library")
     id("com.gabrielfeo.develocity-api-code-generation")
