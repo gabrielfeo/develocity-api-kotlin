@@ -28,7 +28,7 @@ tasks.withType<DokkaTask>().configureEach {
                 .map { URL("$it/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}") }
             remoteLineSuffix = "#L"
         }
-        jdkVersion = java.toolchain.version
+        jdkVersion = java.toolchain.languageVersion.map { it.asInt() }
         suppressGeneratedFiles = false
         documentedVisibilities = setOf(PUBLIC)
         perPackageOption {
