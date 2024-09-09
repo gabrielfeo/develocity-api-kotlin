@@ -20,6 +20,9 @@ java {
         languageVersion = JavaLanguageVersion.of(11)
         vendor = JvmVendorSpec.AZUL
     }
+    consistentResolution {
+        useRuntimeClasspathVersions()
+    }
 }
 
 val kotlinSourceRoot = file("src/main/kotlin")
