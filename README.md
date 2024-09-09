@@ -1,7 +1,7 @@
 # Develocity API Kotlin
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2024.2.0--alpha02-blue)][14]
-[![Javadoc](https://img.shields.io/badge/Javadoc-2024.2.0--alpha02-orange)][7]
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-2024.2.0--alpha03-blue)][14]
+[![Javadoc](https://img.shields.io/badge/Javadoc-2024.2.0--alpha03-orange)][7]
 
 (formerly `gradle-enterprise-api-kotlin`)
 
@@ -36,7 +36,7 @@ Set up environment variables and use the library from any notebook, script or pr
 
 ```
 %useLatestDescriptors
-%use develocity-api-kotlin(version=2024.2.0-alpha02)
+%use develocity-api-kotlin(version=2024.2.0-alpha03)
 ```
 
 </details>
@@ -45,7 +45,7 @@ Set up environment variables and use the library from any notebook, script or pr
   <summary>Add to a Kotlin script</summary>
 
 ```kotlin
-@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.2.0-alpha02")
+@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.2.0-alpha03")
 ```
 
 </details>
@@ -55,7 +55,7 @@ Set up environment variables and use the library from any notebook, script or pr
 
 ```kotlin
 dependencies {
-  implementation("com.gabrielfeo:develocity-api-kotlin:2024.2.0-alpha02")
+  implementation("com.gabrielfeo:develocity-api-kotlin:2024.2.0-alpha03")
 }
 ```
 
@@ -200,7 +200,7 @@ import com.gabrielfeo.develocity.api.model.extension.*
 [11]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-develocity-api/shutdown.html
 [12]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/index.html
-[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2024.2.0-alpha02
+[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2024.2.0-alpha03
 [16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-url.html
 [17]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-token.html
 [18]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
