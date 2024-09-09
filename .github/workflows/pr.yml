@@ -35,57 +35,6 @@ jobs:
   readme-links-test:
     uses: ./.github/workflows/test-readme-links.yml
 
-  generated-api-diff:
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    steps:
-      - name: Checkout PR ref
-        uses: actions/checkout@v4
-      - name: gradle openApiGenerate (PR ref)
-        uses: ./.github/actions/build
-        with:
-          args: 'openApiGenerate postProcessGeneratedApi'
-      - run: mv ./library/build/post-processed-api ./pr-ref-api
-      - name: Checkout base ref
-        uses: actions/checkout@v4
-        with:
-          path: ./base-ref-checkout
-          ref: ${{ github.base_ref }}
-      - name: gradle openApiGenerate (base ref)
-        uses: ./.github/actions/build
-        with:
-          args: '-p ./base-ref-checkout openApiGenerate postProcessGeneratedApi'
-      - run: mv ./base-ref-checkout/library/build/post-processed-api ./base-ref-api
-      - name: Diff generated APIs
-        run: |
-          diff -ur ./base-ref-api ./pr-ref-api | tee generated-api.patch || true
-          echo -e '### Generated API diff\n\n```diff' > comment.md
-          cat generated-api.patch >> comment.md
-          echo -e '```' >> comment.md
-      - name: Find existing comment
-        uses: peter-evans/find-comment@v3
-        id: find-comment
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: 'Generated API diff'
-      - name: Create or update diff comment
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-id: ${{ steps.find-comment.outputs.comment-id }}
-          body-file: 'comment.md'
-          edit-mode: replace
-      # Upload patch as PR artifact with short expiration
-      - name: Upload generated-api.patch
-        uses: actions/upload-artifact@v2
-        with:
-          name: generated-api.patch
-          path: generated-api.patch
-          retention-days: 7
-
-
   dry-run-publish-javadoc:
     uses: ./.github/workflows/publish-javadoc.yml
     with:
