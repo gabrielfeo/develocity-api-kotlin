@@ -27,7 +27,7 @@ jobs:
       - name: 'Update version in all files'
         run: ./.github/scripts/replace_string.py ./ "$OLD_VERSION" "$NEW_VERSION"
       - name: 'Create PR'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           base: 'main'
           branch: "replace-${{ env.OLD_VERSION }}-${{ env.NEW_VERSION }}"
