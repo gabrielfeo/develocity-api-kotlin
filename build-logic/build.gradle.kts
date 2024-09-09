@@ -4,6 +4,13 @@ plugins {
     `kotlin-dsl`
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+        vendor.set(JvmVendorSpec.AZUL)
+    }
+}
+
 testing {
     suites {
         register<JvmTestSuite>("functionalTest") {
