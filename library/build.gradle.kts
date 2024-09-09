@@ -52,29 +52,29 @@ dependencies {
 }
 
 val libraryPom = Action<MavenPom> {
-    name.set("Develocity API Kotlin")
-    description.set("A library to use the Develocity API in Kotlin")
+    name = "Develocity API Kotlin"
+    description = "A library to use the Develocity API in Kotlin"
     val repoUrl = providers.gradleProperty("repo.url")
-    url.set(repoUrl)
+    url = repoUrl
     licenses {
         license {
-            name.set("MIT")
-            url.set("https://spdx.org/licenses/MIT.html")
-            distribution.set("repo")
+            name = "MIT"
+            url = "https://spdx.org/licenses/MIT.html"
+            distribution = "repo"
         }
     }
     developers {
         developer {
-            id.set("gabrielfeo")
-            name.set("Gabriel Feo")
-            email.set("gabriel@gabrielfeo.com")
+            id = "gabrielfeo"
+            name = "Gabriel Feo"
+            email = "gabriel@gabrielfeo.com"
         }
     }
     scm {
         val basicUrl = repoUrl.map { it.substringAfter("://") }
-        connection.set(basicUrl.map { "scm:git:git://$it.git" })
-        developerConnection.set(basicUrl.map { "scm:git:ssh://$it.git" })
-        url.set(basicUrl.map { "https://$it/" })
+        connection = basicUrl.map { "scm:git:git://$it.git" }
+        developerConnection = basicUrl.map { "scm:git:ssh://$it.git" }
+        url = basicUrl.map { "https://$it/" }
     }
 }
 

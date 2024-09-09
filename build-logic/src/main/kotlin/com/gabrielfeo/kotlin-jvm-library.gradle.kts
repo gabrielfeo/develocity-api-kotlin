@@ -17,8 +17,8 @@ java {
     withSourcesJar()
     withJavadocJar()
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-        vendor.set(JvmVendorSpec.AZUL)
+        languageVersion = JavaLanguageVersion.of(11)
+        vendor = JvmVendorSpec.AZUL
     }
 }
 
@@ -27,16 +27,16 @@ tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.all {
         sourceRoot(kotlinSourceRoot)
         sourceLink {
-            localDirectory.set(kotlinSourceRoot)
-            remoteUrl.set(repoUrl.map { URL("$it/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}") })
-            remoteLineSuffix.set("#L")
+            localDirectory = kotlinSourceRoot
+            remoteUrl = repoUrl.map { URL("$it/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}") }
+            remoteLineSuffix = "#L"
         }
-        jdkVersion.set(11)
-        suppressGeneratedFiles.set(false)
-        documentedVisibilities.set(setOf(PUBLIC))
+        jdkVersion = 11
+        suppressGeneratedFiles = false
+        documentedVisibilities = setOf(PUBLIC)
         perPackageOption {
-            matchingRegex.set(""".*\.internal.*""")
-            suppress.set(true)
+            matchingRegex = """.*\.internal.*"""
+            suppress = true
         }
         externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
         externalDocumentationLink("https://square.github.io/okhttp/4.x/okhttp/")

@@ -5,12 +5,12 @@ plugins {
 }
 
 application {
-    mainClass.set("com.gabrielfeo.develocity.api.example.MainKt")
+    mainClass = "com.gabrielfeo.develocity.api.example.MainKt"
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion = JavaLanguageVersion.of(11)
     }
 }
 
