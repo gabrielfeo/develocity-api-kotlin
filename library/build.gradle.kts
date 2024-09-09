@@ -1,14 +1,7 @@
-@file:Suppress("UnstableApiUsage")
-
-import java.net.URL
-
 plugins {
-    id("com.gabrielfeo.kotlin-jvm-library")
+    id("com.gabrielfeo.published-kotlin-jvm-library")
     id("com.gabrielfeo.develocity-api-code-generation")
     id("com.gabrielfeo.test-suites")
-    `java-library`
-    `maven-publish`
-    signing
     alias(libs.plugins.kotlin.jupyter)
 }
 
@@ -20,12 +13,6 @@ tasks.processJupyterApiResources {
 
 tasks.named<Test>("integrationTest") {
     environment("DEVELOCITY_API_LOG_LEVEL", "DEBUG")
-}
-
-java {
-    consistentResolution {
-        useRuntimeClasspathVersions()
-    }
 }
 
 dependencies {
@@ -52,29 +39,29 @@ dependencies {
 }
 
 val libraryPom = Action<MavenPom> {
-    name.set("Develocity API Kotlin")
-    description.set("A library to use the Develocity API in Kotlin")
+    name = "Develocity API Kotlin"
+    description = "A library to use the Develocity API in Kotlin"
     val repoUrl = providers.gradleProperty("repo.url")
-    url.set(repoUrl)
+    url = repoUrl
     licenses {
         license {
-            name.set("MIT")
-            url.set("https://spdx.org/licenses/MIT.html")
-            distribution.set("repo")
+            name = "MIT"
+            url = "https://spdx.org/licenses/MIT.html"
+            distribution = "repo"
         }
     }
     developers {
         developer {
-            id.set("gabrielfeo")
-            name.set("Gabriel Feo")
-            email.set("gabriel@gabrielfeo.com")
+            id = "gabrielfeo"
+            name = "Gabriel Feo"
+            email = "gabriel@gabrielfeo.com"
         }
     }
     scm {
         val basicUrl = repoUrl.map { it.substringAfter("://") }
-        connection.set(basicUrl.map { "scm:git:git://$it.git" })
-        developerConnection.set(basicUrl.map { "scm:git:ssh://$it.git" })
-        url.set(basicUrl.map { "https://$it/" })
+        connection = basicUrl.map { "scm:git:git://$it.git" }
+        developerConnection = basicUrl.map { "scm:git:ssh://$it.git" }
+        url = basicUrl.map { "https://$it/" }
     }
 }
 
@@ -104,36 +91,5 @@ publishing {
                 }
             }
         }
-    }
-    repositories {
-        maven {
-            name = "mavenCentral"
-            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            val isSnapshot = version.toString().endsWith("SNAPSHOT")
-            url = if (isSnapshot) snapshotsRepoUrl else releasesRepoUrl
-            authentication {
-                register<BasicAuthentication>("basic")
-            }
-            credentials {
-                username = project.properties["maven.central.username"] as String?
-                password = project.properties["maven.central.password"] as String?
-            }
-        }
-    }
-}
-
-fun isCI() = System.getenv("CI").toBoolean()
-
-signing {
-    val signedPublications = publishing.publications.matching {
-        !it.name.contains("unsigned", ignoreCase = true)
-    }
-    sign(signedPublications)
-    if (isCI()) {
-        useInMemoryPgpKeys(
-            project.properties["signing.secretKey"] as String?,
-            project.properties["signing.password"] as String?,
-        )
     }
 }

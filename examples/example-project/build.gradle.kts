@@ -1,17 +1,10 @@
 plugins {
-    // in your project, replace for id("org.jetbrains.kotlin.jvm")
-    id("com.gabrielfeo.kotlin-jvm-library")
+    id("org.jetbrains.kotlin.jvm")
     application
 }
 
 application {
-    mainClass.set("com.gabrielfeo.develocity.api.example.MainKt")
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
+    mainClass = "com.gabrielfeo.develocity.api.example.MainKt"
 }
 
 dependencies {

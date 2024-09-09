@@ -5,10 +5,13 @@ plugins {
 }
 
 // Cross-configure so we don't pollute the example buildscript
-project("example-project").configurations.configureEach {
-    resolutionStrategy.dependencySubstitution {
-        substitute(module("com.gabrielfeo:develocity-api-kotlin"))
-            .using(project(":library"))
+project("example-project") {
+    apply(plugin = "com.gabrielfeo.kotlin-jvm-library")
+    configurations.configureEach {
+        resolutionStrategy.dependencySubstitution {
+            substitute(module("com.gabrielfeo:develocity-api-kotlin"))
+                .using(project(":library"))
+        }
     }
 }
 
