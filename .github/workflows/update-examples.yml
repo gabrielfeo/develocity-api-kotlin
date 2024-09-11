@@ -30,8 +30,8 @@ jobs:
             "Git v:refname doesn't handle Maven version qualifiers correctly."
           git tag -d "$new"
           old="$(git tag --sort=-v:refname | head -n 1)"
-          echo "NEW_VERSION=$new" | tee -a $GITHUB_ENV
           echo "OLD_VERSION=$old" | tee -a $GITHUB_ENV
+          echo "NEW_VERSION=$new" | tee -a $GITHUB_ENV
       - name: 'Update version in all files'
         run: ./.github/scripts/replace_string.py ./ "$OLD_VERSION" "$NEW_VERSION"
       - name: 'Create PR'
