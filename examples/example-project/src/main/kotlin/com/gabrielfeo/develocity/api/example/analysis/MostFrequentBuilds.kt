@@ -27,13 +27,14 @@ suspend fun mostFrequentBuilds(
     // Fetch builds from the API
     val builds: List<GradleAttributes> = api.getBuildsFlow(
         fromInstant = 0,
-        query = """buildStartTime>$startTime tag:local""",
+        query = """buildStartTime>$startTime""",
         models = listOf(BuildModelName.gradleAttributes),
     ).map {
         it.models!!.gradleAttributes!!.model!!
     }.toList(LinkedList())
 
     // Process builds and count how many times each was invoked
+    check(builds.isNotEmpty()) { "No builds found. Adjust query and try again." }
     val buildCounts = builds.groupBy { build ->
         val tasks = build.requestedTasks.joinToString(" ").trim(':')
         tasks.ifBlank { "IDE sync" }

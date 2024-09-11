@@ -38,7 +38,7 @@ val api = DevelocityApi.newInstance()
 val builds: List<GradleAttributes> = runBlocking {
     api.buildsApi.getBuildsFlow(
         fromInstant = 0,
-        query = """buildStartTime>-7d tag:local""",
+        query = """buildStartTime>-7d""",
         models = listOf(BuildModelName.gradleAttributes),
     ).map {
         it.models!!.gradleAttributes!!.model!!
@@ -46,6 +46,7 @@ val builds: List<GradleAttributes> = runBlocking {
 }
 
 // Process builds and count how many times each was invoked
+check(builds.isNotEmpty()) { "No builds found. Adjust query and try again." }
 val buildCounts = builds.groupBy { build ->
     val tasks = build.requestedTasks.joinToString(" ").trim(':')
     tasks.ifBlank { "IDE sync" }
