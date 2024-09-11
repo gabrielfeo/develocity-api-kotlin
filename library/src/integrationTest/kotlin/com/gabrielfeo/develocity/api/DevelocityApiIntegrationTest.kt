@@ -23,7 +23,7 @@ class DevelocityApiIntegrationTest {
         val builds = api.buildsApi.getBuilds(
             since = 0,
             maxBuilds = 5,
-            query = """tag:local value:"Email=gabriel.feo*""""
+            query = """buildStartTime>-7d""""
         )
         assertEquals(5, builds.size)
         api.shutdown()
