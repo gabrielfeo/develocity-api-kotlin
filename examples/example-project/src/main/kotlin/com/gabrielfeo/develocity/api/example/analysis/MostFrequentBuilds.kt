@@ -34,6 +34,7 @@ suspend fun mostFrequentBuilds(
     }.toList(LinkedList())
 
     // Process builds and count how many times each was invoked
+    check(builds.isNotEmpty()) { "No builds found. Adjust query and try again." }
     val buildCounts = builds.groupBy { build ->
         val tasks = build.requestedTasks.joinToString(" ").trim(':')
         tasks.ifBlank { "IDE sync" }
