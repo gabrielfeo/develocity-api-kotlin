@@ -4,6 +4,10 @@ on:
   push:
     tags: [ '*' ]
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or tag'
+        required: true
 
 defaults:
   run:
@@ -19,11 +23,13 @@ jobs:
         with:
           fetch-depth: 0
       - run: pip install -r .github/scripts/requirements.txt
+      - run: echo "NEW_VERSION=${{ inputs.ref || github.ref_name }}" >> $GITHUB_ENV
       - name: 'Get versions'
         run: |
-          old_version="$(git tag --sort=-v:refname | head -n 2 | tail -n 1)"
+          # Delete latest for sorting. v:refname doesn't handle Maven version qualifiers correctly.
+          git tag -d "$NEW_VERSION"
+          old_version="$(git tag --sort=-v:refname | head -n 1)"
           echo "OLD_VERSION=$old_version" >> $GITHUB_ENV
-          echo "NEW_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
       - name: 'Update version in all files'
         run: ./.github/scripts/replace_string.py ./ "$OLD_VERSION" "$NEW_VERSION"
       - name: 'Create PR'
@@ -31,6 +37,6 @@ jobs:
         with:
           base: 'main'
           branch: "replace-${{ env.OLD_VERSION }}-${{ env.NEW_VERSION }}"
-          title: "Bump library version in examples to ${{ env.NEW_VERSION }}"
+          title: "Update version in examples to ${{ env.NEW_VERSION }}"
           author: "github-actions <github-actions@github.com>"
           committer: "github-actions <github-actions@github.com>"
