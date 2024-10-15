@@ -16,8 +16,8 @@ data class Config(
     /**
      * Changes minimum log level for library classes, including the HTTP
      * client, **when using `slf4j-simple`** (bundled with the library). If
-     * replacing SLF4J bindings, this setting has no effect, but log level can
-     * be changed in the chosen logging framework.
+     * replacing SLF4J bindings, this setting has no effect, and log level
+     * must be changed in the chosen logging framework.
      *
      * Default value, by order of precedence:
      *
