@@ -14,16 +14,20 @@ import kotlin.time.Duration.Companion.days
 data class Config(
 
     /**
-     * Changes the default log level for library classes, such as the HTTP client. Default value, by order of
-     * precedence:
+     * Changes minimum log level for library classes, including the HTTP
+     * client, **when using `slf4j-simple`** (bundled with the library). If
+     * replacing SLF4J bindings, this setting has no effect, and log level
+     * must be changed in the chosen logging framework.
+     *
+     * Default value, by order of precedence:
      *
      * - `DEVELOCITY_API_LOG_LEVEL` environment variable
      * - `org.slf4j.simpleLogger.defaultLogLevel` system property
      * - `"off"`
      *
-     * Possible values:
+     * SLF4J valid log levels and their usage by the library:
      *
-     * - "off" (default)
+     * - "off" (default, no logs)
      * - "error"
      * - "warn"
      * - "info"
