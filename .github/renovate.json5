@@ -5,7 +5,7 @@
   ],
   "schedule": [
     // Runs once, despite '*' minutes (https://docs.renovatebot.com/configuration-options/#schedule)
-    "* 6 * * 1",
+    "* 0-6 * * 1",
   ],
   "ignorePaths": [
     "**/test_resources/**",
