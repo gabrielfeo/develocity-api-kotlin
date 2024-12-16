@@ -53,7 +53,12 @@ jobs:
         with:
           branch: "${{ env.UPDATE_BRANCH }}"
           commit-message: "Bump Develocity API spec version to ${{ env.NEW_VERSION }}"
-          title: "Bump Develocity API spec version to ${{ env.NEW_VERSION }}"
+          title: |
+            Bump Develocity API spec version to ${{ env.NEW_VERSION }}
+
+            Generated from workflow run [${{ github.run_id }}][1].
+
+            [1]: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           body: "https://docs.gradle.com/enterprise/api-manual/#release_history"
           author: "github-actions <github-actions@github.com>"
           committer: "github-actions <github-actions@github.com>"
