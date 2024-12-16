@@ -33,6 +33,11 @@ jobs:
             echo "NEW_VERSION=$(cat new.txt)" >> $GITHUB_ENV
           fi
           rm new.txt || true
+      - name: gradle :library:apiDump
+        uses: ./.github/actions/build
+        with:
+          dry-run: ${{ inputs.dry_run }}
+          args: :library:apiDump
       - name: Check for existing PR
         if: ${{ env.NEW_VERSION }}
         run: |
