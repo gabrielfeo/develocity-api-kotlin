@@ -45,7 +45,7 @@
                     </a>
             </div>
             <div class="library-version">
-2024.2.0            </div>
+2024.3.0-alpha01            </div>
         </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":library:dokkaHtml/main">jvm</button>
@@ -72,7 +72,7 @@
         env[&quot;DEVELOCITY_API_TOKEN&quot;]
             ?: error(ERROR_NULL_API_TOKEN)
     }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>clientBuilder<span class="token operator">: </span><span data-unresolved-link="okhttp3/OkHttpClient.Builder///PointingToDeclaration/">OkHttpClient.Builder</span><span class="token operator"> = </span>basicOkHttpClient.newBuilder()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxConcurrentRequests<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CONCURRENT_REQUESTS&quot;]?.toInt()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>readTimeoutMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_READ_TIMEOUT_MILLIS&quot;]?.toLong()
-            ?: 60_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cacheConfig<span class="token operator">: </span><a href="-cache-config/index.html">Config.CacheConfig</a><span class="token operator"> = </span>CacheConfig()</span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/develocity-api-kotlin/blob/2024.2.0/library/src/main/kotlin/com/gabrielfeo/develocity/api/Config.kt#L14">source</a>)</span></span></div><p class="paragraph">Library configuration options.</p></div></div>
+            ?: 60_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cacheConfig<span class="token operator">: </span><a href="-cache-config/index.html">Config.CacheConfig</a><span class="token operator"> = </span>CacheConfig()</span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/develocity-api-kotlin/blob/2024.3.0-alpha01/library/src/main/kotlin/com/gabrielfeo/develocity/api/Config.kt#L14">source</a>)</span></span></div><p class="paragraph">Library configuration options.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -207,7 +207,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="log-level.html">logLevel</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Changes the default log level for library classes, such as the HTTP client. Default value, by order of precedence:</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="log-level.html">logLevel</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Changes minimum log level for library classes, including the HTTP client, <strong>when using </strong><code class="strong lang-kotlin"><strong>slf4j-simple</strong></code> (bundled with the library). If replacing SLF4J bindings, this setting has no effect, and log level must be changed in the chosen logging framework.</p></div></div></div>
                 </div>
               </div>
             </div>
