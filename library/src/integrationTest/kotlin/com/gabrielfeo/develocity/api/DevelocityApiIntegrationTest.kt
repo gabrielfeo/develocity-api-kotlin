@@ -3,6 +3,7 @@ package com.gabrielfeo.develocity.api
 import com.gabrielfeo.develocity.api.internal.*
 import com.google.common.reflect.ClassPath
 import kotlinx.coroutines.test.runTest
+import okhttp3.OkHttpClient
 import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.reflect.KVisibility.PUBLIC
 import kotlin.reflect.full.memberProperties
@@ -23,7 +24,7 @@ class DevelocityApiIntegrationTest {
         val builds = api.buildsApi.getBuilds(
             since = 0,
             maxBuilds = 5,
-            query = """buildStartTime>-7d""""
+            query = """buildStartTime>-7d""",
         )
         assertEquals(5, builds.size)
         api.shutdown()
