@@ -11,6 +11,7 @@ LATEST_VERSION_REGEX = r'<a [^>]*href="ref/develocity-([\d.]+)-api\.yaml">Specif
 
 def main(properties_file='gradle.properties'):
     current = get_current_api_spec_version(properties_file)
+    print(f"Current spec version in", properties_file, "is", current, file=sys.stderr)
     latest = extract_latest_version()
     if current == latest:
         exit(1)
@@ -33,7 +34,9 @@ def extract_latest_version():
     resp.raise_for_status()
     match = re.search(LATEST_VERSION_REGEX, resp.text)
     if not match:
-        raise RuntimeError("Failed to retrieve latest version")
+        raise RuntimeError(f"Failed to get latest version from {VERSIONS_URL} \
+                             with /{LATEST_VERSION_REGEX}/")
+    print("First match in HTML of ", VERSIONS_URL, "is", match, file=sys.stderr)
     return match.group(1)
 
 
