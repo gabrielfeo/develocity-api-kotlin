@@ -150,4 +150,23 @@ interface FakeBuildsApiScaffold : BuildsApi {
     override suspend fun getMavenModules(id: String, availabilityWaitTimeoutSecs: Int?): List<MavenModule> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getGradleTestPerformance(
+        id: String,
+        availabilityWaitTimeoutSecs: Int?
+    ): GradleTestPerformance {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenTestPerformance(id: String, availabilityWaitTimeoutSecs: Int?): MavenTestPerformance {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getNpmAttributes(id: String, availabilityWaitTimeoutSecs: Int?): NpmAttributes {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getPythonAttributes(id: String, availabilityWaitTimeoutSecs: Int?): PythonAttributes {
+        TODO("Not yet implemented")
+    }
 }
