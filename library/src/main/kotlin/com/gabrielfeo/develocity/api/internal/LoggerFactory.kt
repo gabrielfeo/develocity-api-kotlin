@@ -22,6 +22,6 @@ internal class RealLoggerFactory(
     }
 
     companion object {
-        const val LOG_LEVEL_SYSTEM_PROPERTY = "org.slf4j.simpleLogger.defaultLogLevel"
+        const val LOG_LEVEL_SYSTEM_PROPERTY = "org.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api"
     }
 }
