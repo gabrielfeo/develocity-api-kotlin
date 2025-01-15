@@ -6,6 +6,7 @@ import kotlin.reflect.KClass
 
 internal interface LoggerFactory {
     fun newLogger(cls: KClass<*>): Logger
+    fun newLogger(name: String): Logger
 }
 
 internal class RealLoggerFactory(
@@ -15,6 +16,11 @@ internal class RealLoggerFactory(
     override fun newLogger(cls: KClass<*>): Logger {
         setLogLevel()
         return org.slf4j.LoggerFactory.getLogger(cls.java)
+    }
+
+    override fun newLogger(name: String): Logger {
+        setLogLevel()
+        return org.slf4j.LoggerFactory.getLogger(name)
     }
 
     private fun setLogLevel() {
