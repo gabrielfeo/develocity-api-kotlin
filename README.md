@@ -18,7 +18,12 @@ api.buildsApi.getBuildsFlow(fromInstant = 0, query = "buildStartTime<-1d").forEa
 }
 ```
 
-The library takes care of caching under the hood (opt-in) and provides some convenience extensions.
+## How is this different from the [official samples][33]?
+
+The official samples are an excellent demo of the API inside a full-fledged Java project.
+Among other things, you might not want to maintain an OpenAPI code generation setup.
+Even if you do, you'll find it generates less-than-ideal or even failing code depending on your `openapi-generator` configuration.
+This library [fixes][34] those issues in generated code, implements [paging][24], [caching][13] and [env-based configuration][8] for you, while providing a JAR that's ready-to-use from any project, script or notebook.
 
 ## Setup
 
@@ -188,6 +193,12 @@ import com.gabrielfeo.develocity.api.model.*
 import com.gabrielfeo.develocity.api.model.extension.*
 ```
 
+## Issues and contributions
+
+If you run into any problems, please open an issue to make it visible to maintainers and other users.
+Contributions are always welcome, although it's recommended to open an issue first.
+For general discussions or questions, feel free to reach out to maintainers on the [Gradle Community Slack][35].
+
 [1]: https://docs.gradle.com/enterprise/api-manual/
 [2]: https://square.github.io/retrofit/
 [3]: https://github.com/square/retrofit/issues/3448
@@ -218,3 +229,6 @@ import com.gabrielfeo.develocity.api.model.extension.*
 [30]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html
 [31]: ./docs/AccessKeys.md
 [32]: ./examples
+[33]: https://github.com/gradle/develocity-api-samples
+[34]: https://github.com/gabrielfeo/develocity-api-kotlin/blob/main/build-logic/src/functionalTest/kotlin/com/gabrielfeo/task/PostProcessGeneratedApiTest.kt#L21
+[35]: https://community.gradle.org/#community-channels
