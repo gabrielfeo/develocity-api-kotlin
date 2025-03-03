@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.1.10"
 dokka = "1.9.20"
-openapi-generator = "7.11.0"
+openapi-generator = "7.12.0"
 jupyter-api = "0.12.0-382"
 jupyter-testkit = "0.12.0-382"
 jupyter-plugin = "0.12.0-382"
