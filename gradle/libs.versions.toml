@@ -12,7 +12,7 @@ retrofit = "2.11.0"
 kotlin-coroutines = "1.10.1"
 kotlin-binary-compatibility-validator = "0.17.0"
 slf4j = "2.0.17"
-guava = "33.4.0-jre"
+guava = "33.4.6-jre"
 
 [libraries]
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
