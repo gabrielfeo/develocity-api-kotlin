@@ -169,4 +169,16 @@ interface FakeBuildsApiScaffold : BuildsApi {
     override suspend fun getPythonAttributes(id: String, availabilityWaitTimeoutSecs: Int?): PythonAttributes {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getGradleDependencies(id: String, availabilityWaitTimeoutSecs: Int?): GradleDependencies {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenDependencies(id: String, availabilityWaitTimeoutSecs: Int?): MavenDependencies {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getSbtAttributes(id: String, availabilityWaitTimeoutSecs: Int?): SbtAttributes {
+        TODO("Not yet implemented")
+    }
 }
