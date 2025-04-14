@@ -5,4 +5,4 @@ GitPython==3.1.44
 idna==3.10
 requests==2.32.3
 smmap==5.0.2
-urllib3==2.3.0
+urllib3==2.4.0
