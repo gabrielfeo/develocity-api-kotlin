@@ -17,6 +17,8 @@
   "rebaseWhen": "behind-base-branch",
   // Remove configDescription from PR body
   "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
+  // Remove "dependency " prefix which makes message subjects too long
+  "commitMessageTopic": "{{depName}}",
   "packageRules": [
     // Add a changelog link to Develocity plugin PRs
     {
