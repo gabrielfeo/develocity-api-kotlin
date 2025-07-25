@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 package com.gabrielfeo
 
 plugins {
@@ -12,5 +14,13 @@ java {
     }
     consistentResolution {
         useRuntimeClasspathVersions()
+    }
+}
+
+testing {
+    suites {
+        named<JvmTestSuite>("test") {
+            useKotlinTest()
+        }
     }
 }

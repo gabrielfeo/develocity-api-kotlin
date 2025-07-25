@@ -7,9 +7,7 @@ plugins {
 
 testing {
     suites {
-        // 'test' is registered by default
-        register<JvmTestSuite>("integrationTest")
-        withType<JvmTestSuite>().configureEach {
+        register<JvmTestSuite>("integrationTest") {
             useKotlinTest()
         }
     }
