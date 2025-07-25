@@ -20,6 +20,7 @@ jobs:
           args: >-
             test
             compileIntegrationTestKotlin
+            compileExamplesTestKotlin
             :build-logic:check
             :library:apiCheck
 
