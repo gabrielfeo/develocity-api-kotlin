@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("com.gabrielfeo.published-kotlin-jvm-library")
     id("com.gabrielfeo.develocity-api-code-generation")
@@ -91,5 +94,11 @@ publishing {
                 }
             }
         }
+    }
+}
+
+tasks.named("compileKotlin", KotlinCompile::class) {
+    compilerOptions {
+        languageVersion = KotlinVersion.KOTLIN_1_8
     }
 }
