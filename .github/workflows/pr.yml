@@ -20,12 +20,7 @@ jobs:
       - name: gradle test
         uses: ./.github/actions/build
         with:
-          args: >-
-            test
-            compileIntegrationTestKotlin
-            compileExamplesTestKotlin
-            :build-logic:check
-            :library:apiCheck
+          args: check
 
   python-tests:
     runs-on: ubuntu-latest
