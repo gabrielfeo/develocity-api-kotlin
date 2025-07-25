@@ -38,7 +38,7 @@ val api = DevelocityApi.newInstance()
 val builds: List<GradleAttributes> = runBlocking {
     api.buildsApi.getBuildsFlow(
         fromInstant = 0,
-        query = """buildStartTime>-7d""",
+        query = """buildStartTime>-7d buildTool:gradle""",
         models = listOf(BuildModelName.gradleAttributes),
     ).map {
         it.models!!.gradleAttributes!!.model!!

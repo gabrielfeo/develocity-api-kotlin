@@ -27,7 +27,7 @@ suspend fun mostFrequentBuilds(
     // Fetch builds from the API
     val builds: List<GradleAttributes> = api.getBuildsFlow(
         fromInstant = 0,
-        query = """buildStartTime>$startTime""",
+        query = """buildStartTime>$startTime buildTool:gradle""",
         models = listOf(BuildModelName.gradleAttributes),
     ).map {
         it.models!!.gradleAttributes!!.model!!
