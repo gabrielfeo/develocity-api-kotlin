@@ -15,7 +15,6 @@ import kotlin.io.path.div
 
 class NotebooksTest {
 
-    @TempDir(cleanup = CleanupMode.NEVER)
     lateinit var tempDir: Path
 
     lateinit var venv: PythonVenv
