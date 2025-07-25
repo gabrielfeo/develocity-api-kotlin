@@ -513,7 +513,6 @@ public final class com/gabrielfeo/develocity/api/model/BuildModelName : java/lan
 	public static final field npmAttributes Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field pythonAttributes Lcom/gabrielfeo/develocity/api/model/BuildModelName;
 	public static final field sbtAttributes Lcom/gabrielfeo/develocity/api/model/BuildModelName;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/BuildModelName;
@@ -1177,7 +1176,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleArtifactTransformEx
 	public static final field executedNotCacheable Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$AvoidanceOutcome;
 	public static final field executedUnknownCacheability Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$AvoidanceOutcome;
 	public static final field skipped Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$AvoidanceOutcome;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$AvoidanceOutcome;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$AvoidanceOutcome;
@@ -1185,7 +1183,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleArtifactTransformEx
 
 public final class com/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$CacheArtifactRejectedReason : java/lang/Enum {
 	public static final field artifactSizeTooLarge Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$CacheArtifactRejectedReason;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$CacheArtifactRejectedReason;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$CacheArtifactRejectedReason;
@@ -1196,7 +1193,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleArtifactTransformEx
 	public static final field disabledToEnsureCorrectness Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$NonCacheabilityCategory;
 	public static final field notCacheable Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$NonCacheabilityCategory;
 	public static final field unknown Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$NonCacheabilityCategory;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$NonCacheabilityCategory;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$NonCacheabilityCategory;
@@ -1209,7 +1205,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleArtifactTransformEx
 	public static final field success Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$Outcome;
 	public static final field unknown Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$Outcome;
 	public static final field upToDate Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$Outcome;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$Outcome;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleArtifactTransformExecutionEntry$Outcome;
@@ -1465,7 +1460,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerforman
 	public static final field lifecycle Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static final field noMinusSource Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static final field skipped Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
@@ -1473,7 +1467,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerforman
 
 public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$CacheArtifactRejectedReason : java/lang/Enum {
 	public static final field artifactSizeTooLarge Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$CacheArtifactRejectedReason;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$CacheArtifactRejectedReason;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$CacheArtifactRejectedReason;
@@ -1494,7 +1487,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerforman
 	public static final field taskHasNoActions Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field taskOutputCachingNotEnabled Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field unknown Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
@@ -1687,7 +1679,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleConfigurationCacheR
 	public static final field failed Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
 	public static final field hit Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
 	public static final field miss Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleConfigurationCacheResult$Outcome;
@@ -1784,7 +1775,6 @@ public final class com/gabrielfeo/develocity/api/model/GradleDeprecationOwner$Ty
 	public static final field script Lcom/gabrielfeo/develocity/api/model/GradleDeprecationOwner$Type;
 	public static final field task Lcom/gabrielfeo/develocity/api/model/GradleDeprecationOwner$Type;
 	public static final field unknown Lcom/gabrielfeo/develocity/api/model/GradleDeprecationOwner$Type;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleDeprecationOwner$Type;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/GradleDeprecationOwner$Type;
@@ -2208,7 +2198,6 @@ public final class com/gabrielfeo/develocity/api/model/MavenBuildCachePerformanc
 	public static final field executedNotCacheable Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$AvoidanceOutcome;
 	public static final field executedUnknownCacheability Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$AvoidanceOutcome;
 	public static final field skipped Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$AvoidanceOutcome;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$AvoidanceOutcome;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$AvoidanceOutcome;
@@ -2216,7 +2205,6 @@ public final class com/gabrielfeo/develocity/api/model/MavenBuildCachePerformanc
 
 public final class com/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$CacheArtifactRejectedReason : java/lang/Enum {
 	public static final field artifactSizeTooLarge Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$CacheArtifactRejectedReason;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$CacheArtifactRejectedReason;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$CacheArtifactRejectedReason;
@@ -2233,7 +2221,6 @@ public final class com/gabrielfeo/develocity/api/model/MavenBuildCachePerformanc
 	public static final field offlineBuild Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$NonCacheabilityCategory;
 	public static final field unknown Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$NonCacheabilityCategory;
 	public static final field unknownEntitlements Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$NonCacheabilityCategory;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$NonCacheabilityCategory;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/MavenBuildCachePerformanceGoalExecutionEntry$NonCacheabilityCategory;
@@ -2971,7 +2958,6 @@ public final class com/gabrielfeo/develocity/api/model/TestAccelerationFeatureUs
 	public static final field disabled Lcom/gabrielfeo/develocity/api/model/TestAccelerationFeatureUsageStatus;
 	public static final field enabled Lcom/gabrielfeo/develocity/api/model/TestAccelerationFeatureUsageStatus;
 	public static final field unavailable Lcom/gabrielfeo/develocity/api/model/TestAccelerationFeatureUsageStatus;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/TestAccelerationFeatureUsageStatus;
@@ -3169,7 +3155,6 @@ public final class com/gabrielfeo/develocity/api/model/TestIncludeFields : java/
 	public static final field BUILD_SCAN_IDS Lcom/gabrielfeo/develocity/api/model/TestIncludeFields;
 	public static final field Companion Lcom/gabrielfeo/develocity/api/model/TestIncludeFields$Companion;
 	public static final field WORK_UNITS Lcom/gabrielfeo/develocity/api/model/TestIncludeFields;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/TestIncludeFields;
@@ -3206,7 +3191,6 @@ public final class com/gabrielfeo/develocity/api/model/TestOutcome : java/lang/E
 	public static final field notSelected Lcom/gabrielfeo/develocity/api/model/TestOutcome;
 	public static final field passed Lcom/gabrielfeo/develocity/api/model/TestOutcome;
 	public static final field skipped Lcom/gabrielfeo/develocity/api/model/TestOutcome;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/TestOutcome;
