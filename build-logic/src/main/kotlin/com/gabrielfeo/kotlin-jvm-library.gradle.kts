@@ -30,5 +30,5 @@ val testTasks = tasks.named {
 }
 
 tasks.named { it.startsWith("publish") }.configureEach {
-    mustRunAfter(testTasks)
+    shouldRunAfter(testTasks)
 }
