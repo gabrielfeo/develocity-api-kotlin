@@ -11,18 +11,16 @@ jobs:
 
   kotlin-tests:
     runs-on: ubuntu-latest
+    env:
+      DEVELOCITY_API_URL: "${{ vars.DEVELOCITY_API_URL }}"
+      DEVELOCITY_API_TOKEN: "${{ secrets.DEVELOCITY_API_TOKEN }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: gradle test
+      - name: gradle check
         uses: ./.github/actions/build
         with:
-          args: >-
-            test
-            compileIntegrationTestKotlin
-            compileExamplesTestKotlin
-            :build-logic:check
-            :library:apiCheck
+          args: check
 
   python-tests:
     runs-on: ubuntu-latest
