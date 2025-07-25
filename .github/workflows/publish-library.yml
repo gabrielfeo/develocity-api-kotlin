@@ -24,6 +24,9 @@ jobs:
 
   build-and-publish:
     runs-on: ubuntu-latest
+    env:
+      DEVELOCITY_API_URL: "${{ variables.DEVELOCITY_API_URL }}"
+      DEVELOCITY_API_TOKEN: "${{ secrets.DEVELOCITY_API_TOKEN }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,6 +38,7 @@ jobs:
         with:
           dry-run: ${{ inputs.dry_run }}
           args: >-
+            check
             publishDevelocityApiKotlinPublicationToMavenCentralRepository
             publishRelocationPublicationToMavenCentralRepository
             --rerun-tasks

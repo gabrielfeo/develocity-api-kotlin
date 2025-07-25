@@ -24,3 +24,11 @@ testing {
         }
     }
 }
+
+val testTasks = tasks.named {
+    it == "check" || it.contains("test", ignoreCase = true)
+}
+
+tasks.named { it.startsWith("publish") }.configureEach {
+    mustRunAfter(testTasks)
+}
