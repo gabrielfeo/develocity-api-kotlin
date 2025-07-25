@@ -1,7 +1,6 @@
 package com.gabrielfeo.develocity.api.example
 
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.CoroutineStart.*
+import kotlinx.coroutines.CoroutineStart.UNDISPATCHED
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
