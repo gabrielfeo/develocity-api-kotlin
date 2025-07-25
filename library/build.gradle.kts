@@ -1,10 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.gabrielfeo.published-kotlin-jvm-library")
     id("com.gabrielfeo.develocity-api-code-generation")
-    id("com.gabrielfeo.test-suites")
+    id("com.gabrielfeo.integration-test-suite")
+    id("com.gabrielfeo.examples-test-suite")
     alias(libs.plugins.kotlin.jupyter)
 }
 
@@ -12,10 +14,6 @@ tasks.processJupyterApiResources {
     libraryProducers = listOf(
         "com.gabrielfeo.develocity.api.internal.jupyter.DevelocityApiJupyterIntegration",
     )
-}
-
-tasks.named<Test>("integrationTest") {
-    environment("DEVELOCITY_API_LOG_LEVEL", "DEBUG")
 }
 
 dependencies {
@@ -81,6 +79,12 @@ publishing {
             from(components["java"])
             pom(libraryPom)
         }
+        register<MavenPublication>("unsignedSnapshotDevelocityApiKotlin") {
+            artifactId = "develocity-api-kotlin"
+            version = "SNAPSHOT"
+            from(components["java"])
+            pom(libraryPom)
+        }
         register<MavenPublication>("relocation") {
             artifactId = "gradle-enterprise-api-kotlin"
             pom {
@@ -101,4 +105,19 @@ tasks.named("compileKotlin", KotlinCompile::class) {
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_1_8
     }
+}
+
+tasks.withType<Test>().configureEach {
+    environment("DEVELOCITY_API_LOG_LEVEL", "DEBUG")
+    providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
+        inputs.property("${name}.hashCode", value.hashCode())
+    }
+}
+
+val publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal by tasks.getting
+
+tasks.named<Test>("examplesTest") {
+    inputs.files(files(publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal))
+        .withPropertyName("snapshotPublicationArtifacts")
+        .withNormalizer(ClasspathNormalizer::class)
 }
