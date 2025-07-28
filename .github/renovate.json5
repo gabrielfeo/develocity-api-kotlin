@@ -37,10 +37,15 @@
       "groupName": "Kotlin/Jupyter",
       "groupSlug": "kotlin-jupyter",
     },
-    // Group bumps of .github/scripts dependencies (pip)
+    // Group bumps of .github/scripts dependencies
     {
-      "matchManagers": ["pip_requirements"],
+      "matchFileNames": [".github/scripts/**"],
       "groupName": ".github/scripts dependencies",
-    }
+    },
+    // Group bumps of examples/ dependencies
+    {
+      "matchFileNames": ["examples/**"],
+      "groupName": "examples dependencies",
+    },
   ],
 }
