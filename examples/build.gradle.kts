@@ -36,13 +36,6 @@ val runAll = tasks.register("runAll") {
     dependsOn(exampleTestTasks)
 }
 
-val parallelExamples: String? by project
-if (!parallelExamples.toBoolean()) {
-    exampleTestTasks.windowed(size = 2, step = 1).forEach { (a, b) ->
-        b.configure { mustRunAfter(a) }
-    }
-}
-
 tasks.named("check") {
     dependsOn(runAll)
 }
