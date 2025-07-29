@@ -7,10 +7,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.io.TempDir
+import java.net.URI
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.absolute
 import kotlin.io.path.div
+import kotlin.io.path.writeText
 
 class NotebooksTest {
 
@@ -53,17 +55,23 @@ class NotebooksTest {
 
     private fun forceUseOfMavenLocalSnapshotArtifact(sourceNotebook: Path): Path {
         val mavenLocal = Path(System.getProperty("user.home"), ".m2/repository").toUri()
+        val libraryDescriptor = (tempDir / "develocity-api-kotlin.json").apply {
+            writeText(buildLibraryDescriptor(version = "SNAPSHOT", repository = mavenLocal))
+        }
         return jupyter.replaceMagics(
             path = sourceNotebook,
             replacePattern = Regex("""(?:DependsOn|%use).*develocity-api-kotlin.*"""),
-            replacement = listOf(
-                """@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:SNAPSHOT")""",
-                """@file:Repository("$mavenLocal")""",
-                """%trackClasspath on""",
-                """import com.gabrielfeo.develocity.api.*""",
-                """import com.gabrielfeo.develocity.api.model.*""",
-                """import com.gabrielfeo.develocity.api.extension.*""",
-            ).joinToString("\n")
+            replacement = """
+                %use develocity-api-kotlin@file[$libraryDescriptor]
+                %trackClasspath on
+            """.trimIndent()
         )
     }
+
+    private fun buildLibraryDescriptor(version: String, repository: URI) = """
+        {
+          "dependencies": ["com.gabrielfeo:develocity-api-kotlin:$version"],
+          "repositories": ["$repository"]
+        }
+    """.trimIndent()
 }
