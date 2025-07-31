@@ -20,13 +20,13 @@ dependencies {
     constraints {
         implementation(libs.okio)
     }
-    api(libs.moshi)
     implementation(libs.moshi.kotlin)
-    api(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
-    api(libs.retrofit)
     implementation(libs.retrofit.converter.moshi)
     implementation(libs.retrofit.converter.scalars)
+    api(libs.retrofit)
+    api(libs.moshi)
+    api(libs.okhttp)
     api(libs.kotlin.coroutines)
     implementation(libs.slf4j.api)
     runtimeOnly(libs.slf4j.simple)
