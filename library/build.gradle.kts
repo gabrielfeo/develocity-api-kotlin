@@ -16,17 +16,18 @@ tasks.processJupyterApiResources {
     )
 }
 
+// Order matters as this library is used as a Kotlin Jupyter kernel dependency (see #440)
 dependencies {
     constraints {
         implementation(libs.okio)
     }
-    api(libs.moshi)
-    implementation(libs.moshi.kotlin)
     api(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     api(libs.retrofit)
     implementation(libs.retrofit.converter.moshi)
     implementation(libs.retrofit.converter.scalars)
+    api(libs.moshi)
+    implementation(libs.moshi.kotlin)
     api(libs.kotlin.coroutines)
     implementation(libs.slf4j.api)
     runtimeOnly(libs.slf4j.simple)
