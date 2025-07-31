@@ -16,6 +16,7 @@ tasks.processJupyterApiResources {
     )
 }
 
+// Order matters as this library is used as a Kotlin Jupyter kernel dependency (see #440)
 dependencies {
     constraints {
         implementation(libs.okio)
