@@ -1,0 +1,8 @@
+{
+  "producers": [],
+  "definitions": [
+    {
+      "fqn": "com.gabrielfeo.develocity.api.internal.jupyter.DevelocityApiJupyterIntegration"
+    }
+  ]
+}
