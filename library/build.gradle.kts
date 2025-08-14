@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -7,13 +6,6 @@ plugins {
     id("com.gabrielfeo.develocity-api-code-generation")
     id("com.gabrielfeo.integration-test-suite")
     id("com.gabrielfeo.examples-test-suite")
-    alias(libs.plugins.kotlin.jupyter)
-}
-
-tasks.processJupyterApiResources {
-    libraryProducers = listOf(
-        "com.gabrielfeo.develocity.api.internal.jupyter.DevelocityApiJupyterIntegration",
-    )
 }
 
 // Order matters as this library is used as a Kotlin Jupyter kernel dependency (see #440)
