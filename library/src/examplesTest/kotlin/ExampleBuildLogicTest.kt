@@ -24,8 +24,29 @@ class ExampleBuildLogicTest {
     }
 
     @Test
-    fun testExampleBuildLogic() {
-        val output = runInShell(projectDir, "./gradlew --stacktrace --no-daemon help")
-        assertTrue(output.contains("Execution phase performance overview"))
+    fun testBuildPerformanceMetricsTaskWithDefaults() {
+        val user = System.getProperty("user.name")
+        val output = runBuild("userBuildPerformanceMetrics")
+        assertPerformanceMetricsOutput(output, user = user, period = "-14d")
+    }
+
+    private fun runBuild(gradleArgs: String) =
+        runInShell(projectDir, "./gradlew --stacktrace --no-daemon $gradleArgs")
+
+    private fun assertPerformanceMetricsOutput(
+        output: String,
+        user: String,
+        period: String,
+    ) {
+        val expectedHeading = "Build performance overview for $user since $period (powered by Develocity®)"
+        assertTrue(output.contains(expectedHeading))
+        assertTrue(output.contains("▶︎ Serialization factor:"))
+        assertTrue(output.contains("⏩︎ Avoidance savings:"))
+    }
+
+    @Test
+    fun testBuildPerformanceMetricsTaskWithOptions() {
+        val output = runBuild("userBuildPerformanceMetrics --user runner --period=-1d")
+        assertPerformanceMetricsOutput(output, user = "runner", period = "-1d")
     }
 }
