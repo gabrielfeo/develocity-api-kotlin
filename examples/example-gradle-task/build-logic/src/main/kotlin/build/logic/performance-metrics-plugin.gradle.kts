@@ -1,7 +1,5 @@
 package build.logic
 
-import kotlinx.coroutines.runBlocking
-
 gradle.sharedServices.registerIfAbsent("develocityApiService", DevelocityApiService::class)
 
 tasks.register<PerformanceMetricsTask>("userBuildPerformanceMetrics") {

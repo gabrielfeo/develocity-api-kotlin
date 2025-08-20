@@ -5,7 +5,6 @@ import kotlinx.coroutines.runBlocking
 import com.gabrielfeo.develocity.api.model.BuildModelName
 import com.gabrielfeo.develocity.api.model.Build
 import com.gabrielfeo.develocity.api.model.GradleBuildCachePerformance
-import kotlin.math.roundToInt
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
