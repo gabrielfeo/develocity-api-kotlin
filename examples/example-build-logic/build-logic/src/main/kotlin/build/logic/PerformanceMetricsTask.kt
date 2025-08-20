@@ -59,8 +59,10 @@ abstract class PerformanceMetricsTask(
             .map { it.workUnitAvoidanceSavingsSummary.ratio }
             .let { DescriptiveStatistics(it.toDoubleArray()) }
 
+        val heading = "Build performance overview for $user, ${period.get()} (powered by Develocity®)"
         return """
-            |${"\u001B[1;36m"}User build performance overview (powered by Develocity®):${"\u001B[0m"}
+            |
+            |${"\u001B[1;36m"}$heading${"\u001B[0m"}
             |  ▶︎ Serialization factor: %.1fx
             |      (Gradle's parallel execution)
             |  ⏩︎ Avoidance savings: %.1f%% (mean) ~ %.1f%% (p95)
