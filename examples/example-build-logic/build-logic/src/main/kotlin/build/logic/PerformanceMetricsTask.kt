@@ -24,6 +24,14 @@ abstract class PerformanceMetricsTask(
     @get:Optional
     @get:Input
     @get:Option(
+        option = "user",
+        description = "The user to query builds for. Defaults to the current OS username."
+    )
+    abstract val user: Property<String>
+
+    @get:Optional
+    @get:Input
+    @get:Option(
         option = "period",
         description = "The period to query builds for (e.g. -14d, -30d, etc). Default: -14d."
     )
@@ -34,32 +42,28 @@ abstract class PerformanceMetricsTask(
 
     @TaskAction
     fun run() {
-        val startTime = period.orNull?.takeIf { it.isNotBlank() } ?: "-14d"
+        val user = user.getOrElse(System.getProperty("user.name"))
+        val startTime = period.getOrElse("-14d")
         val metrics = runBlocking {
-            getUserBuildsPerformanceMetrics(api.get(), startTime)
+            getUserBuildsPerformanceMetrics(api.get(), user, startTime)
         }
         logger.quiet(metrics)
     }
 
-    suspend fun getUserBuildsPerformanceMetrics(api: DevelocityApi, startTime: String): String {
-        val user = System.getProperty("user.name")
-        val buildsPerformanceData = api.buildsApi.getBuilds(
-            fromInstant = 0,
-            query = """user:"$user" buildStartTime>$startTime""",
-            models = listOf(BuildModelName.gradleBuildCachePerformance),
-        ).mapNotNull { build ->
-            build.models?.gradleBuildCachePerformance?.model
-        }
-
+    suspend fun getUserBuildsPerformanceMetrics(
+        api: DevelocityApi,
+        user: String,
+        startTime: String,
+    ): String {
+        val query = """user:"$user" buildStartTime>$startTime"""
+        val buildsPerformanceData = fetchBuildsPerformanceData(api, query)
         val serializationFactors = buildsPerformanceData
             .map { it.serializationFactor }
             .let { DescriptiveStatistics(it.toDoubleArray()) }
-
         val avoidanceSavings = buildsPerformanceData
             .map { it.workUnitAvoidanceSavingsSummary.ratio }
             .let { DescriptiveStatistics(it.toDoubleArray()) }
-
-        val heading = "Build performance overview for $user, ${period.get()} (powered by Develocity®)"
+        val heading = "Build performance overview for $user since $startTime (powered by Develocity®)"
         return """
             |
             |${"\u001B[1;36m"}$heading${"\u001B[0m"}
@@ -72,5 +76,18 @@ abstract class PerformanceMetricsTask(
             avoidanceSavings.mean,
             avoidanceSavings.getPercentile(95.0),
         )
+    }
+
+    private suspend fun fetchBuildsPerformanceData(
+        api: DevelocityApi,
+        query: String,
+    ): List<GradleBuildCachePerformance> {
+        return api.buildsApi.getBuilds(
+            fromInstant = 0,
+            query = query,
+            models = listOf(BuildModelName.gradleBuildCachePerformance),
+        ).mapNotNull { build ->
+            build.models?.gradleBuildCachePerformance?.model
+        }
     }
 }
