@@ -24,7 +24,11 @@ kotlin {
 
 val examples = fileTree(rootDir) {
     include("examples/**")
-    exclude("**/build", "**/.*")
+    exclude {
+        it.isDirectory
+            && (it.name == "build" || it.name.startsWith("."))
+            && !it.path.endsWith("build-logic/src/main/kotlin/build")
+    }
 }
 
 tasks.named("processExamplesTestResources", ProcessResources::class) {

@@ -10,6 +10,7 @@ A Kotlin library to access the [Develocity API][1], easy to use from:
 - [Jupyter notebooks with the Kotlin kernel][29]
 - [Kotlin scripts (`kts`)][27]
 - [Kotlin projects][28]
+- [Gradle tasks][36]
 
 ```kotlin
 val api = DevelocityApi.newInstance()
@@ -232,3 +233,4 @@ For general discussions or questions, feel free to reach out to maintainers on t
 [33]: https://github.com/gradle/develocity-api-samples
 [34]: https://github.com/gabrielfeo/develocity-api-kotlin/blob/main/build-logic/src/functionalTest/kotlin/com/gabrielfeo/task/PostProcessGeneratedApiTest.kt#L21
 [35]: https://community.gradle.org/#community-channels
+[36]: ./examples/example-gradle-task/
