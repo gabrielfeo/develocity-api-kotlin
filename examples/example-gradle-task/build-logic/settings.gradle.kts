@@ -1,4 +1,4 @@
-rootProject.name = "dak-example-build-logic-build-logic"
+rootProject.name = "dak-example-gradle-task-build-logic"
 
 dependencyResolutionManagement {
     repositories {

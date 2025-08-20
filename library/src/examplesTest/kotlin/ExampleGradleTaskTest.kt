@@ -10,13 +10,13 @@ import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 import kotlin.io.path.div
 
-class ExampleBuildLogicTest {
+class ExampleGradleTaskTest {
 
     @TempDir
     lateinit var tempDir: Path
 
     private val projectDir
-        get() = tempDir / "examples/example-build-logic"
+        get() = tempDir / "examples/example-gradle-task"
 
     @BeforeEach
     fun setup() {

@@ -233,4 +233,4 @@ For general discussions or questions, feel free to reach out to maintainers on t
 [33]: https://github.com/gradle/develocity-api-samples
 [34]: https://github.com/gabrielfeo/develocity-api-kotlin/blob/main/build-logic/src/functionalTest/kotlin/com/gabrielfeo/task/PostProcessGeneratedApiTest.kt#L21
 [35]: https://community.gradle.org/#community-channels
-[36]: ./examples/example-build-logic/
+[36]: ./examples/example-gradle-task/
