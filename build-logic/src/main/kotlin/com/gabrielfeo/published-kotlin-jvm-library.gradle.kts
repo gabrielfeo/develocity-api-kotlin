@@ -23,7 +23,7 @@ tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.all {
         sourceRoot(kotlinSourceRoot)
         sourceLink {
-            localDirectory = kotlinSourceRoot
+            localDirectory.set(kotlinSourceRoot)
             remoteUrl = providers.gradleProperty("repo.url")
                 .map { URL("$it/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}") }
             remoteLineSuffix = "#L"
