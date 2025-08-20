@@ -17,7 +17,8 @@ abstract class DevelocityApiService
 }
 
 private fun config() = Config(
-    // Necessary to accomodate Gradle's build service lifecycle
+    // Necessary to accomodate Gradle's build service lifecycle because library
+    // uses a singleton OkHttpClient.Builder unless one is provided.
     // See https://github.com/gabrielfeo/develocity-api-kotlin/issues/451
     clientBuilder = OkHttpClient.Builder(),
 )
