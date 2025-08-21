@@ -44,7 +44,7 @@ openApiGenerate {
         .map { it.asFile.absolutePath }
     outputDir = generateDir
     val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
-    ignoreFileOverride = ignoreFile.asFile.absolutePath
+    ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
     apiPackage = "com.gabrielfeo.develocity.api"
     modelPackage = "com.gabrielfeo.develocity.api.model"
     packageName = "com.gabrielfeo.develocity.api.internal"
