@@ -21,7 +21,9 @@ runs:
       uses: actions/setup-java@v4
       with:
         distribution: liberica
-        java-version: 24
+        java-version: |
+          24
+          17
     - name: Set up Gradle
       uses: gradle/actions/setup-gradle@v4
       with:
