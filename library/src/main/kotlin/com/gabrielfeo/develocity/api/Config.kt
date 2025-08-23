@@ -1,11 +1,11 @@
 package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.develocity.api.internal.*
-import com.gabrielfeo.develocity.api.internal.auth.*
+import com.gabrielfeo.develocity.api.internal.auth.accessKeyResolver
+import com.gabrielfeo.develocity.api.internal.basicOkHttpClient
+import com.gabrielfeo.develocity.api.internal.env
+import com.gabrielfeo.develocity.api.internal.systemProperties
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
-import okio.FileSystem
-import okio.Path.Companion.toPath
 import java.io.File
 import java.net.URI
 import kotlin.time.Duration.Companion.days
