@@ -44,11 +44,13 @@ internal class AccessKeyResolver(
         fileSystem.read(path) {
             while (true) {
                 val line = readUtf8Line()?.trim(' ', ';') ?: break
-                if (line.isBlank() || line.startsWith('#')) continue
+                if (line.isBlank() || line.isComment()) continue
                 val entry = HostAccessKeyEntry(line)
                 if (entry.host == host) return entry
             }
         }
         return null
     }
+
+    private fun String.isComment() = startsWith('#')
 }
