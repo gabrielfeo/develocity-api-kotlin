@@ -24,16 +24,18 @@ internal class AccessKeyResolver(
 
     private fun fromEnvVar(varName: String, host: String): HostAccessKeyEntry? =
         env[varName]?.let { envVar ->
-            envVar.split(';').firstNotNullOfOrNull { entry ->
-                HostAccessKeyEntry(entry).takeIf { it.host == host }
-            }
+            envVar.split(';')
+                .firstNotNullOfOrNull { entry ->
+                    if (entry.isBlank()) null
+                    else HostAccessKeyEntry(entry).takeIf { it.host == host }
+                }
         }
 
     private fun fromFile(path: Path, host: String): HostAccessKeyEntry? {
         if (!fileSystem.exists(path)) return null
         fileSystem.read(path) {
             while (true) {
-                val line = readUtf8Line() ?: break
+                val line = readUtf8Line()?.trim(' ', ';') ?: break
                 if (line.isBlank() || line.startsWith('#')) continue
                 val entry = HostAccessKeyEntry(line)
                 if (entry.host == host) return entry
