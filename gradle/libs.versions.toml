@@ -14,6 +14,7 @@ slf4j = "2.0.17"
 guava = "33.4.8-jre"
 
 [libraries]
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 okio-fakeFileSystem = { module = "com.squareup.okio:okio-fakefilesystem", version.ref = "okio" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }

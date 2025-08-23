@@ -31,6 +31,7 @@ dependencies {
     testImplementation(libs.okio.fakeFileSystem)
     testImplementation(libs.okio)
     testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.junit.jupiter.params)
     integrationTestImplementation(libs.kotlin.coroutines.test)
     integrationTestImplementation(libs.guava)
     integrationTestImplementation(libs.kotlin.jupyter.testkit)
