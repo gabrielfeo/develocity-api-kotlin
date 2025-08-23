@@ -17,13 +17,6 @@ project("example-project") {
 
 val exampleTestTasks = ArrayList<TaskProvider<*>>()
 
-exampleTestTasks += tasks.register<Exec>("runExampleScript") {
-    group = "Application"
-    description = "Runs the './example-scripts/example-script.main.kts' script"
-    commandLine("kotlinc", "-script", file("./example-scripts/example-script.main.kts"))
-    environment("JAVA_OPTS", "-Xmx1g")
-}
-
 exampleTestTasks += tasks.register("runExampleProject") {
     group = "Application"
     description = "Runs examples/example-project"
