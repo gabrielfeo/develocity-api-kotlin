@@ -1,5 +1,5 @@
 plugins {
-    id("org.jetbrains.kotlin.jvm")
+    kotlin("jvm") version "2.2.10"
     application
 }
 
@@ -9,4 +9,8 @@ application {
 
 dependencies {
     implementation("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
+}
+
+repositories {
+    mavenCentral()
 }
