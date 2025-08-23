@@ -1,12 +1,18 @@
 package com.gabrielfeo.develocity.api
 
-import java.io.File
-import com.gabrielfeo.develocity.api.internal.*
-import com.gabrielfeo.develocity.api.internal.auth.*
+import com.gabrielfeo.develocity.api.internal.FakeEnv
+import com.gabrielfeo.develocity.api.internal.FakeSystemProperties
+import com.gabrielfeo.develocity.api.internal.auth.AccessKeyResolver
+import com.gabrielfeo.develocity.api.internal.auth.accessKeyResolver
+import com.gabrielfeo.develocity.api.internal.env
+import com.gabrielfeo.develocity.api.internal.systemProperties
 import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
 import org.junit.jupiter.api.assertDoesNotThrow
-import kotlin.test.*
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 class ConfigTest {
 

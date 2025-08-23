@@ -5,10 +5,8 @@ import okio.Path
 import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import java.util.stream.Stream
 import kotlin.test.assertEquals
 
 
@@ -61,18 +59,18 @@ class AccessKeyResolverTest {
 
         @JvmStatic
         fun envVarCaseProvider() = listOf(
-              "DEVELOCITY_ACCESS_KEY",
-              "GRADLE_ENTERPRISE_ACCESS_KEY",
-          ).flatMap {
-              listOf(
-                  EnvVarCase(it, "$host=foo", expected = "foo"),
-                  EnvVarCase(it, ";$host=foo;", expected = "foo"),
-                  EnvVarCase(it, "other=bar;$host=foo;not$host=baz", expected = "foo"),
-                  EnvVarCase(it, "", expected = null),
-                  EnvVarCase(it, ";", expected = null),
-                  EnvVarCase(it, "other=bar;not$host=baz", expected = null),
-              )
-          }
+            "DEVELOCITY_ACCESS_KEY",
+            "GRADLE_ENTERPRISE_ACCESS_KEY",
+        ).flatMap {
+            listOf(
+                EnvVarCase(it, "$host=foo", expected = "foo"),
+                EnvVarCase(it, ";$host=foo;", expected = "foo"),
+                EnvVarCase(it, "other=bar;$host=foo;not$host=baz", expected = "foo"),
+                EnvVarCase(it, "", expected = null),
+                EnvVarCase(it, ";", expected = null),
+                EnvVarCase(it, "other=bar;not$host=baz", expected = null),
+            )
+        }
     }
 
     @ParameterizedTest(name = "example")
