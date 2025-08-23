@@ -1,91 +1,100 @@
 package com.gabrielfeo.develocity.api.internal.auth
 
 import com.gabrielfeo.develocity.api.internal.FakeEnv
+import okio.Path
 import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
-import kotlin.test.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
+import kotlin.test.assertEquals
+
+
+private val host = "host.example.com"
+private val home = "/home/testuser".toPath()
 
 class AccessKeyResolverTest {
-    private val host = "host.example.com"
-    private val home = "/home/testuser".toPath()
-    private lateinit var env: FakeEnv
-    private lateinit var fs: FakeFileSystem
 
-    @BeforeTest
+    data class FileCase(val path: Path, val content: String, val expected: String?)
+    data class EnvVarCase(val varName: String, val value: String?, val expected: String?)
+
+    private lateinit var env: FakeEnv
+    private lateinit var fileSystem: FakeFileSystem
+    private lateinit var resolver: AccessKeyResolver
+
+    @BeforeEach
     fun setUp() {
         env = FakeEnv()
-        fs = FakeFileSystem()
+        fileSystem = FakeFileSystem()
+        resolver = AccessKeyResolver(env, home, fileSystem)
     }
 
-    private fun resolver() = AccessKeyResolver(env, home, fs)
-
-    private fun writeKeysFile(path: String, content: String) {
-        val filePath = path.toPath()
-        fs.createDirectories(filePath.parent!!)
-        fs.write(filePath) { writeUtf8(content) }
+    private fun writeKeysFile(path: Path, content: String) {
+        fileSystem.createDirectories(path.parent!!)
+        fileSystem.write(path) { writeUtf8(content) }
     }
 
-    // region ~/.gradle
-    @Test fun `~ gradle - single key with newline`() = testGradleFile("$host=foo\n", "foo")
-    @Test fun `~ gradle - single key no newline`() = testGradleFile("$host=foo", "foo")
-    @Test fun `~ gradle - single key with semicolon`() = testGradleFile("$host=foo;\n", "foo")
-    @Test fun `~ gradle - single key no semicolon`() = testGradleFile("$host=foo;", "foo")
-    @Test fun `~ gradle - multiple keys`() = testGradleFile("other=bar\n$host=foo\nnot$host=baz\n", "foo")
-    @Test fun `~ gradle - no keys`() = testGradleFile("", null)
-    @Test fun `~ gradle - no matching key`() = testGradleFile("other=bar\nnot$host=baz\n", null)
-    private fun testGradleFile(content: String, expected: String?) {
-        writeKeysFile("/home/testuser/.gradle/develocity/keys.properties", content)
-        assertEquals(expected, resolver().resolve(host))
-    }
-    // endregion
+    companion object {
 
-    // region GRADLE_USER_HOME
-    @Test fun `GRADLE_USER_HOME - single key with newline`() = testGradleUserHome("$host=foo\n", "foo")
-    @Test fun `GRADLE_USER_HOME - single key no newline`() = testGradleUserHome("$host=foo", "foo")
-    @Test fun `GRADLE_USER_HOME - single key with semicolon`() = testGradleUserHome("$host=foo;\n", "foo")
-    @Test fun `GRADLE_USER_HOME - single key no semicolon`() = testGradleUserHome("$host=foo;", "foo")
-    @Test fun `GRADLE_USER_HOME - multiple keys`() = testGradleUserHome("other=bar\n$host=foo\nnot$host=baz\n", "foo")
-    @Test fun `GRADLE_USER_HOME - no keys`() = testGradleUserHome("", null)
-    @Test fun `GRADLE_USER_HOME - no matching key`() = testGradleUserHome("other=bar\nnot$host=baz\n", null)
-    private fun testGradleUserHome(content: String, expected: String?) {
-        val customHome = "/custom/gradle/home".toPath()
+        @JvmStatic
+        fun standardFileCaseProvider() = listOf(
+            "/home/testuser/.gradle/develocity/keys.properties".toPath(),
+            "/home/testuser/.m2/.develocity/keys.properties".toPath(),
+        ).flatMap {
+            listOf(
+                FileCase(it, content = "$host=foo\n", expected = "foo"),
+                FileCase(it, content = "$host=foo", expected = "foo"),
+                FileCase(it, content = "$host=foo;\n", expected = "foo"),
+                FileCase(it, content = "$host=foo;", expected = "foo"),
+                FileCase(it, content = "other=bar\n$host=foo\nnot$host=baz\n", expected = "foo"),
+                FileCase(it, content = "\n#foo\n\nother=bar\n\n$host=foo\nnot$host=baz\n", expected = "foo"),
+                FileCase(it, content = "", expected = null),
+                FileCase(it, content = "\n", expected = null),
+                FileCase(it, content = "other=bar\nnot$host=baz\n", expected = null),
+            )
+        }
+
+        @JvmStatic
+        fun customGradleUserHomeCaseProvider() = standardFileCaseProvider()
+
+        @JvmStatic
+        fun envVarCaseProvider() = listOf(
+              "DEVELOCITY_ACCESS_KEY",
+              "GRADLE_ENTERPRISE_ACCESS_KEY",
+          ).flatMap {
+              listOf(
+                  EnvVarCase(it, "$host=foo", expected = "foo"),
+                  EnvVarCase(it, ";$host=foo;", expected = "foo"),
+                  EnvVarCase(it, "other=bar;$host=foo;not$host=baz", expected = "foo"),
+                  EnvVarCase(it, "", expected = null),
+                  EnvVarCase(it, ";", expected = null),
+                  EnvVarCase(it, "other=bar;not$host=baz", expected = null),
+              )
+          }
+    }
+
+    @ParameterizedTest(name = "example")
+    @MethodSource("standardFileCaseProvider")
+    fun resolveFromStandardFile(case: FileCase) {
+        writeKeysFile(case.path, case.content)
+        assertEquals(case.expected, resolver.resolve(host))
+    }
+
+    @ParameterizedTest
+    @MethodSource("customGradleUserHomeCaseProvider")
+    fun resolveFromFileOnCustomGradleUserHome(case: FileCase) {
+        val customHome = "/custom/gradle/user/home".toPath()
         env["GRADLE_USER_HOME"] = customHome.toString()
-        writeKeysFile("/custom/gradle/home/develocity/keys.properties", content)
-        assertEquals(expected, resolver().resolve(host))
+        writeKeysFile(customHome / "develocity/keys.properties", case.content)
+        assertEquals(case.expected, resolver.resolve(host))
     }
-    // endregion
 
-    // region ~/.m2
-    @Test fun `~ m2 - single key with newline`() = testM2File("$host=foo\n", "foo")
-    @Test fun `~ m2 - single key no newline`() = testM2File("$host=foo", "foo")
-    @Test fun `~ m2 - single key with semicolon`() = testM2File("$host=foo;\n", "foo")
-    @Test fun `~ m2 - single key no semicolon`() = testM2File("$host=foo;", "foo")
-    @Test fun `~ m2 - multiple keys`() = testM2File("other=bar\n$host=foo\nnot$host=baz\n", "foo")
-    @Test fun `~ m2 - no keys`() = testM2File("", null)
-    @Test fun `~ m2 - no matching key`() = testM2File("other=bar\nnot$host=baz\n", null)
-    private fun testM2File(content: String, expected: String?) {
-        writeKeysFile("/home/testuser/.m2/.develocity/keys.properties", content)
-        assertEquals(expected, resolver().resolve(host))
+    @ParameterizedTest
+    @MethodSource("envVarCaseProvider")
+    fun resolveFromEnvVar(case: EnvVarCase) {
+        env[case.varName] = case.value
+        assertEquals(case.expected, resolver.resolve(host))
     }
-    // endregion
-
-    // region DEVELOCITY_ACCESS_KEY
-    @Test fun `env var DEVELOCITY_ACCESS_KEY - single key`() = testEnvVar("DEVELOCITY_ACCESS_KEY", "$host=foo", "foo")
-    @Test fun `env var DEVELOCITY_ACCESS_KEY - single key with semicolon`() = testEnvVar("DEVELOCITY_ACCESS_KEY", "$host=foo;", "foo")
-    @Test fun `env var DEVELOCITY_ACCESS_KEY - multiple keys`() = testEnvVar("DEVELOCITY_ACCESS_KEY", "other=bar;$host=foo;not$host=baz", "foo")
-    @Test fun `env var DEVELOCITY_ACCESS_KEY - no keys`() = testEnvVar("DEVELOCITY_ACCESS_KEY", "", null)
-    @Test fun `env var DEVELOCITY_ACCESS_KEY - no matching key`() = testEnvVar("DEVELOCITY_ACCESS_KEY", "other=bar;not$host=baz", null)
-    // endregion
-
-    // region GRADLE_ENTERPRISE_ACCESS_KEY
-    @Test fun `env var GRADLE_ENTERPRISE_ACCESS_KEY - single key`() = testEnvVar("GRADLE_ENTERPRISE_ACCESS_KEY", "$host=foo", "foo")
-    @Test fun `env var GRADLE_ENTERPRISE_ACCESS_KEY - single key with semicolon`() = testEnvVar("GRADLE_ENTERPRISE_ACCESS_KEY", "$host=foo;", "foo")
-    @Test fun `env var GRADLE_ENTERPRISE_ACCESS_KEY - multiple keys`() = testEnvVar("GRADLE_ENTERPRISE_ACCESS_KEY", "other=bar;$host=foo;not$host=baz", "foo")
-    @Test fun `env var GRADLE_ENTERPRISE_ACCESS_KEY - no keys`() = testEnvVar("GRADLE_ENTERPRISE_ACCESS_KEY", "", null)
-    @Test fun `env var GRADLE_ENTERPRISE_ACCESS_KEY - no matching key`() = testEnvVar("GRADLE_ENTERPRISE_ACCESS_KEY", "other=bar;not$host=baz", null)
-    private fun testEnvVar(varName: String, value: String?, expected: String?) {
-        env[varName] = value
-        assertEquals(expected, resolver().resolve(host))
-    }
-    // endregion
 }
