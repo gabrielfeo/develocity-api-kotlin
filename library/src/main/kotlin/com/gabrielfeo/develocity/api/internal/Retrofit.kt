@@ -12,10 +12,14 @@ internal fun buildRetrofit(
     client: OkHttpClient,
     moshi: Moshi,
 ) = with(Retrofit.Builder()) {
-    val url = config.apiUrl
-    check("/api/" in url) { "A valid API URL must end in /api/" }
-    val instanceUrl = url.substringBefore("api/")
-    baseUrl(instanceUrl)
+    val base = config.develocityUrl
+    // Ensure trailing slash for URL joining
+    val baseWithSlash = if (base.endsWith("/")) base else "$base/"
+    val apiUrl = baseWithSlash + "api/"
+    runCatching { java.net.URI(apiUrl) }.onFailure { error ->
+        throw IllegalArgumentException("A valid API URL could not be constructed from develocityUrl: $base", error)
+    }
+    baseUrl(apiUrl)
     addConverterFactory(ScalarsConverterFactory.create())
     addConverterFactory(MoshiConverterFactory.create(moshi))
     client(client)

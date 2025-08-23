@@ -14,7 +14,7 @@ class LoggerFactoryTest {
     @AfterTest
     fun cleanup() {
         System.clearProperty(logLevelProperty)
-        env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/")
+        env = FakeEnv("DEVELOCITY_URL" to "https://example.com/")
     }
 
     @Test
