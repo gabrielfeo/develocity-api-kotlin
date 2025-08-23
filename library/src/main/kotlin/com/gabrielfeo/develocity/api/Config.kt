@@ -1,7 +1,7 @@
 package com.gabrielfeo.develocity.api
 
 import com.gabrielfeo.develocity.api.internal.*
-import com.gabrielfeo.develocity.api.internal.auth.AccessKeyResolver
+import com.gabrielfeo.develocity.api.internal.auth.*
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okio.FileSystem
@@ -74,9 +74,7 @@ data class Config(
      */
     val accessKey: () -> String = {
         val host = URI(apiUrl).host
-        val userHome = checkNotNull(systemProperties.userHome).toPath()
-        val keyResolver = AccessKeyResolver(env, userHome, FileSystem.SYSTEM)
-        requireNotNull(keyResolver.resolve(host)) { ERROR_NULL_ACCESS_KEY }
+        requireNotNull(accessKeyResolver.resolve(host)) { ERROR_NULL_ACCESS_KEY }
     },
 
     /**

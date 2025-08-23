@@ -1,9 +1,17 @@
 package com.gabrielfeo.develocity.api.internal.auth
 
 import com.gabrielfeo.develocity.api.internal.Env
+import com.gabrielfeo.develocity.api.internal.env
+import com.gabrielfeo.develocity.api.internal.systemProperties
 import okio.FileSystem
 import okio.Path
 import okio.Path.Companion.toPath
+
+internal var accessKeyResolver = AccessKeyResolver(
+    env,
+    homeDirectory = checkNotNull(systemProperties.userHome).toPath(),
+    fileSystem = FileSystem.SYSTEM,
+)
 
 internal class AccessKeyResolver(
     private val env: Env,
