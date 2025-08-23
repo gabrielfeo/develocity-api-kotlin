@@ -28,6 +28,7 @@ dependencies {
     runtimeOnly(libs.slf4j.simple)
     compileOnly(libs.kotlin.jupyter.api)
     testImplementation(libs.okhttp.mockwebserver)
+    testImplementation(libs.okio.fakeFileSystem)
     testImplementation(libs.okio)
     testImplementation(libs.kotlin.coroutines.test)
     integrationTestImplementation(libs.kotlin.coroutines.test)

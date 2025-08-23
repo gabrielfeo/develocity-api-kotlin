@@ -61,7 +61,7 @@ private fun OkHttpClient.Builder.addNetworkInterceptors(
     val logger = loggerFactory.newLogger(HttpLoggingInterceptor::class)
     addNetworkInterceptor(HttpLoggingInterceptor(logger = logger::debug).apply { level = BASIC })
     addNetworkInterceptor(HttpLoggingInterceptor(logger = logger::trace).apply { level = BODY })
-    addNetworkInterceptor(HttpBearerAuth("bearer", config.apiToken()))
+    addNetworkInterceptor(HttpBearerAuth("bearer", config.accessKey()))
 }
 
 internal fun buildCache(
