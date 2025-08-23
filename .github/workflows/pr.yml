@@ -21,7 +21,7 @@ jobs:
       - name: gradle check
         uses: ./.github/actions/build
         with:
-          args: check --info
+          args: check
 
   python-tests:
     runs-on: ubuntu-latest
