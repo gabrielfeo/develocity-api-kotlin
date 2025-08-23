@@ -44,17 +44,17 @@ data class Config(
             ?: "off",
 
     /**
-     * Provides the URL of a Develocity API instance REST API. By default, uses
-     * environment variable `DEVELOCITY_API_URL`. Must end with `/api/`.
+     * Provides the base URL of a Develocity instance. By default, uses
+     * environment variable `DEVELOCITY_URL`. Must be a valid URL with no path segments (trailing slash OK) or query parameters.
      */
-    val apiUrl: String =
-        env["DEVELOCITY_API_URL"]
-            ?.also { requireValidUrl(it) }
-            ?: error(ERROR_NULL_API_URL),
+    val develocityUrl: String =
+        env["DEVELOCITY_URL"]
+            ?.also { requireValidBaseUrl(it) }
+            ?: error(ERROR_NULL_DEVELOCITY_URL),
 
     /**
      * Provides the access key for a Develocity API instance. By default, resolves to the first
-     * key from these sources that matches the host of [apiUrl]:
+    * key from these sources that matches the host of [develocityUrl]:
      *
      * - variable `DEVELOCITY_ACCESS_KEY`
      * - variable `GRADLE_ENTERPRISE_ACCESS_KEY`
@@ -73,7 +73,7 @@ data class Config(
      * @throws IllegalArgumentException if no matching key is found.
      */
     val accessKey: () -> String = {
-        val host = URI(apiUrl).host
+        val host = URI(develocityUrl).host
         requireNotNull(accessKeyResolver.resolve(host)) { ERROR_NULL_ACCESS_KEY }
     },
 
@@ -236,14 +236,17 @@ data class Config(
     )
 }
 
-private fun requireValidUrl(string: String) {
-    requireNotNull(runCatching { URI(string) }.getOrNull()) {
-        ERROR_MALFORMED_API_URL.format(string)
-    }
+
+private fun requireValidBaseUrl(string: String) {
+    val uri = runCatching { URI(string) }.getOrNull()
+    requireNotNull(uri) { ERROR_MALFORMED_DEVELOCITY_URL.format(string) }
+    require(uri.scheme == "http" || uri.scheme == "https") { ERROR_MALFORMED_DEVELOCITY_URL.format(string) }
+    require(uri.path.isNullOrEmpty() || uri.path == "/") { ERROR_MALFORMED_DEVELOCITY_URL.format(string) }
+    require(uri.query == null) { ERROR_MALFORMED_DEVELOCITY_URL.format(string) }
 }
 
-private const val ERROR_NULL_API_URL = "DEVELOCITY_API_URL is required"
-private const val ERROR_MALFORMED_API_URL = "DEVELOCITY_API_URL contains a malformed URL: %s"
+private const val ERROR_NULL_DEVELOCITY_URL = "DEVELOCITY_URL is required"
+private const val ERROR_MALFORMED_DEVELOCITY_URL = "DEVELOCITY_URL must be a valid base URL (no path or query): %s"
 private const val ERROR_NULL_ACCESS_KEY = "Develocity access key not found. " +
     "Please set DEVELOCITY_ACCESS_KEY='[host]=[accessKey]' or see Config.accessKey javadoc for " +
     "other supported options."

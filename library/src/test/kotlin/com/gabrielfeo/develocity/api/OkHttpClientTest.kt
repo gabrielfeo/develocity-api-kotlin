@@ -72,8 +72,8 @@ class OkHttpClientTest {
         val fakeEnv = FakeEnv(*envVars)
         if ("DEVELOCITY_ACCESS_KEY" !in fakeEnv)
             fakeEnv["DEVELOCITY_ACCESS_KEY"] = "example.com=example-token"
-        if ("DEVELOCITY_API_URL" !in fakeEnv)
-            fakeEnv["DEVELOCITY_API_URL"] = "https://example.com/api/"
+        if ("DEVELOCITY_URL" !in fakeEnv)
+            fakeEnv["DEVELOCITY_URL"] = "https://example.com/"
         env = fakeEnv
         systemProperties = FakeSystemProperties()
         accessKeyResolver = AccessKeyResolver(

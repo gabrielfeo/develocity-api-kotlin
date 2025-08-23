@@ -12,19 +12,24 @@ import kotlin.test.*
 class RetrofitTest {
 
     @Test
-    fun `Sets instance URL from options, stripping api segment`() {
+    fun `Sets instance URL from options, appending api segment`() {
         val retrofit = buildRetrofit(
-            "DEVELOCITY_API_URL" to "https://example.com/api/",
+            "DEVELOCITY_URL" to "https://example.com/",
         )
-        // That's what generated classes expect
-        assertEquals("https://example.com/", retrofit.baseUrl().toString())
+        // The baseUrl should be the API endpoint
+        assertEquals("https://example.com/api/", retrofit.baseUrl().toString())
     }
 
     @Test
-    fun `Rejects invalid URL`() {
+    fun `Rejects invalid URL with path or query`() {
         assertFails {
             buildRetrofit(
-                "DEVELOCITY_API_URL" to "https://example.com/",
+                "DEVELOCITY_URL" to "https://example.com/foo",
+            )
+        }
+        assertFails {
+            buildRetrofit(
+                "DEVELOCITY_URL" to "https://example.com/?q=1",
             )
         }
     }
@@ -35,8 +40,8 @@ class RetrofitTest {
         val fakeEnv = FakeEnv(*envVars)
         if ("DEVELOCITY_ACCESS_KEY" !in fakeEnv)
             fakeEnv["DEVELOCITY_ACCESS_KEY"] = "example.com=example-token"
-        if ("DEVELOCITY_API_URL" !in fakeEnv)
-            fakeEnv["DEVELOCITY_API_URL"] = "https://example.com/api/"
+        if ("DEVELOCITY_URL" !in fakeEnv)
+            fakeEnv["DEVELOCITY_URL"] = "https://example.com/"
         env = fakeEnv
         systemProperties = FakeSystemProperties()
         accessKeyResolver = AccessKeyResolver(

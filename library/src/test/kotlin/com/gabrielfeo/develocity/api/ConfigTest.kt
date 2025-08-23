@@ -18,7 +18,7 @@ class ConfigTest {
 
     @BeforeTest
     fun before() {
-        env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
+    env = FakeEnv("DEVELOCITY_URL" to "https://example.com/")
         systemProperties = FakeSystemProperties()
         accessKeyResolver = AccessKeyResolver(
             env,
@@ -36,21 +36,21 @@ class ConfigTest {
     }
 
     @Test
-    fun `Given URL set in env, apiUrl is env URL`() {
-        (env as FakeEnv)["DEVELOCITY_API_URL"] = "https://example.com/api/"
-        assertEquals("https://example.com/api/", Config().apiUrl)
+    fun `Given URL set in env, develocityUrl is env URL`() {
+        (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
+        assertEquals("https://example.com/", Config().develocityUrl)
     }
 
     @Test
     fun `Given default access key function and resolvable key, accessKey is key`() {
-        (env as FakeEnv)["DEVELOCITY_API_URL"] = "https://example.com/api/"
+        (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
         (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "example.com=foo"
         assertEquals("foo", Config().accessKey())
     }
 
     @Test
     fun `Given default access key and no resolvable key, error`() {
-        (env as FakeEnv)["DEVELOCITY_API_URL"] = "https://example.com/api/"
+        (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
         (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "notexample.com=foo"
         assertFails {
             Config().accessKey()
