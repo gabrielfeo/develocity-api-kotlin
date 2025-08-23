@@ -29,8 +29,10 @@ class RetrofitTest {
         vararg envVars: Pair<String, String?>,
     ): Retrofit {
         val fakeEnv = FakeEnv(*envVars)
-        if ("DEVELOCITY_API_TOKEN" !in fakeEnv)
-            fakeEnv["DEVELOCITY_API_TOKEN"] = "example-token"
+        if ("DEVELOCITY_ACCESS_KEY" !in fakeEnv)
+            fakeEnv["DEVELOCITY_ACCESS_KEY"] = "example.com=example-token"
+        if ("DEVELOCITY_API_URL" !in fakeEnv)
+            fakeEnv["DEVELOCITY_API_URL"] = "https://example.com/api/"
         env = fakeEnv
         val config = Config()
         return buildRetrofit(

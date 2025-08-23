@@ -36,7 +36,7 @@ class DevelocityApiIntegrationTest {
         assertDoesNotThrow {
             val config = Config(
                 apiUrl = "https://google.com/api/",
-                apiToken = { "" },
+                accessKey = { "" },
             )
             DevelocityApi.newInstance(config)
         }

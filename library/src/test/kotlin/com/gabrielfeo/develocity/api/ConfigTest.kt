@@ -1,6 +1,10 @@
 package com.gabrielfeo.develocity.api
 
+import java.io.File
 import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.internal.auth.AccessKeyResolver
+import okio.Path.Companion.toPath
+import okio.fakefilesystem.FakeFileSystem
 import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.*
 
@@ -27,16 +31,71 @@ class ConfigTest {
     }
 
     @Test
-    fun `Given no token, error`() {
+    fun `Given no access key, error`() {
         assertFails {
-            Config().apiToken()
+            Config().accessKey()
         }
     }
 
     @Test
-    fun `Given token set in env, apiToken is env token`() {
-        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
-        assertEquals("bar", Config().apiToken())
+    fun `Given access key var with single host, accessKey is matching key`() {
+        val host = java.net.URI(Config().apiUrl).host
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "$host=foo"
+        assertEquals("foo", Config().accessKey())
+    }
+
+    @Test
+    fun `Given access key var with multiple hosts, accessKey is matching key`() {
+        val host = java.net.URI(Config().apiUrl).host
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "not$host=foo;$host=bar;alsonot$host=baz"
+        assertEquals("bar", Config().accessKey())
+    }
+
+    @Test
+    fun `Given access key var without matching host, error`() {
+        val host = java.net.URI(Config().apiUrl).host
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "not$host=tokenvalue"
+        assertFails {
+            Config().accessKey()
+        }
+    }
+    @Test
+    fun `Given access key file with single host, accessKey is matching key`() {
+        val host = java.net.URI(Config().apiUrl).host
+        val fs = FakeFileSystem()
+        val home = "/home/testuser".toPath()
+        val keysPath = home / ".gradle/develocity/keys.properties"
+        fs.createDirectories(keysPath.parent!!)
+        fs.write(keysPath) { writeUtf8("$host=fromfile\n") }
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = null
+        val resolver = AccessKeyResolver(env, home, fs)
+        assertEquals("fromfile", resolver.resolve(host))
+    }
+
+    @Test
+    fun `Given access key file with multiple hosts, accessKey is matching key`() {
+        val host = java.net.URI(Config().apiUrl).host
+        val fs = FakeFileSystem()
+        val home = "/home/testuser".toPath()
+        val keysPath = home / ".gradle/develocity/keys.properties"
+        fs.createDirectories(keysPath.parent!!)
+        fs.write(keysPath) { writeUtf8("not$host=foo\n$host=fromfile\nother=bar\n") }
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = null
+        val resolver = AccessKeyResolver(env, home, fs)
+        assertEquals("fromfile", resolver.resolve(host))
+    }
+
+    @Test
+    fun `Given access key file without matching host, error`() {
+        val host = java.net.URI(Config().apiUrl).host
+        val fs = FakeFileSystem()
+        val home = "/home/testuser".toPath()
+        val keysPath = home / ".gradle/develocity/keys.properties"
+        fs.createDirectories(keysPath.parent!!)
+        fs.write(keysPath) { writeUtf8("not$host=foo\nother=bar\n") }
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = null
+        val resolver = AccessKeyResolver(env, home, fs)
+        assertNull(resolver.resolve(host))
     }
 
     @Test

@@ -90,7 +90,7 @@ public final class com/gabrielfeo/develocity/api/Config {
 	public final fun copy (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;)Lcom/gabrielfeo/develocity/api/Config;
 	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/Config;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/Config;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getApiToken ()Lkotlin/jvm/functions/Function0;
+	public final fun getAccessKey ()Lkotlin/jvm/functions/Function0;
 	public final fun getApiUrl ()Ljava/lang/String;
 	public final fun getCacheConfig ()Lcom/gabrielfeo/develocity/api/Config$CacheConfig;
 	public final fun getClientBuilder ()Lokhttp3/OkHttpClient$Builder;

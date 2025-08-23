@@ -18,15 +18,15 @@ class DevelocityApiTest {
     }
 
     @Test
-    fun `Fails lazily if no API token`() {
-        env = FakeEnv("DEVELOCITY_API_URL" to "example-url")
+    fun `Fails lazily if no access key`() {
+        env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
         val api = assertDoesNotThrow {
             DevelocityApi.newInstance(Config())
         }
         val error = assertThrows<Exception> {
             api.buildsApi.toString()
         }
-        error.assertRootMessageContains("DEVELOCITY_API_TOKEN")
+        error.assertRootMessageContains("DEVELOCITY_ACCESS_KEY")
     }
 
     private fun Throwable.assertRootMessageContains(text: String) {
