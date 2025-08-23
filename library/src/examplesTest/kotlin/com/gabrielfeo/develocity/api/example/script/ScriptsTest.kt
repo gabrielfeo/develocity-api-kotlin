@@ -1,4 +1,4 @@
-package com.gabrielfeo.develocity.api.example.notebook
+package com.gabrielfeo.develocity.api.example.script
 
 import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
