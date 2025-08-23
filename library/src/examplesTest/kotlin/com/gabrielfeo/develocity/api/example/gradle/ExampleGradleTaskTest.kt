@@ -1,5 +1,4 @@
-
-
+package com.gabrielfeo.develocity.api.example.gradle
 
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach

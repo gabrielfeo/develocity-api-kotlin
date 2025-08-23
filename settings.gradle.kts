@@ -10,8 +10,6 @@ plugins {
 
 include(
     ":library",
-    ":examples",
-    ":examples:example-project",
 )
 
 dependencyResolutionManagement {
