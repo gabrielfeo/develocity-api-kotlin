@@ -2,7 +2,7 @@ package com.gabrielfeo.develocity.api
 
 import java.io.File
 import com.gabrielfeo.develocity.api.internal.*
-import com.gabrielfeo.develocity.api.internal.auth.AccessKeyResolver
+import com.gabrielfeo.develocity.api.internal.auth.*
 import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -14,6 +14,11 @@ class ConfigTest {
     fun before() {
         env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
         systemProperties = FakeSystemProperties()
+        accessKeyResolver = AccessKeyResolver(
+            env,
+            homeDirectory = "/home/testuser".toPath(),
+            fileSystem = FakeFileSystem(),
+        )
     }
 
     @Test
@@ -31,21 +36,30 @@ class ConfigTest {
     }
 
     @Test
-    fun `Given no access key from resolver or function, error`() {
+    fun `Given default access key function and resolvable key, accessKey is key`() {
+        (env as FakeEnv)["DEVELOCITY_API_URL"] = "https://example.com/api/"
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "example.com=foo"
+        assertEquals("foo", Config().accessKey())
+    }
+
+    @Test
+    fun `Given default access key and no resolvable key, error`() {
+        (env as FakeEnv)["DEVELOCITY_API_URL"] = "https://example.com/api/"
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "notexample.com=foo"
         assertFails {
             Config().accessKey()
         }
     }
 
     @Test
-    fun `Given access key function fails, error`() {
+    fun `Given custom access key function fails, error`() {
         assertFails {
             Config(accessKey = { error("foo") }).accessKey()
         }
     }
 
     @Test
-    fun `Given access key function yields value, accessKey is value`() {
+    fun `Given custom access key function yields value, accessKey is value`() {
         assertEquals("foo", Config(accessKey = { "foo" }).accessKey())
     }
 
