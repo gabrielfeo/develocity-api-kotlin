@@ -1,11 +1,12 @@
 [versions]
 kotlin = "2.2.10"
+kotlin-stdlib = "2.0.0"
 dokka = "2.0.0"
 openapi-generator = "7.14.0"
 jupyter = "0.15.0-594"
 okio = "3.16.0"
 moshi = "1.15.2"
-okhttp = "5.1.0"
+okhttp = "4.12.0"
 retrofit = "3.0.0"
 kotlin-coroutines = "1.10.2"
 kotlin-binary-compatibility-validator = "0.18.1"
@@ -28,6 +29,7 @@ kotlin-jupyter-api = { module = "org.jetbrains.kotlinx:kotlin-jupyter-api", vers
 kotlin-jupyter-testkit = { module = "org.jetbrains.kotlinx:kotlin-jupyter-test-kit", version.ref = "jupyter" }
 kotlin-binary-compatibility-validator-plugin = { module = "org.jetbrains.kotlinx:binary-compatibility-validator", version.ref = "kotlin-binary-compatibility-validator" }
 kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin-stdlib" }
 dokka-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 openapi-generator-plugin = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapi-generator" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }

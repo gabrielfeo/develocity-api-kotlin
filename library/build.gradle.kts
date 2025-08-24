@@ -13,6 +13,9 @@ dependencies {
     constraints {
         implementation(libs.okio)
     }
+    // Set fixed version of stdlib for compatibility with the version of Kotlin
+    // embedded in earlier versions of Gradle
+    implementation(libs.kotlin.stdlib)
     api(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     api(libs.retrofit)
@@ -101,6 +104,10 @@ tasks.named("compileKotlin", KotlinCompile::class) {
 }
 
 tasks.withType<Test>().configureEach {
+    systemProperty(
+        "junit.jupiter.tempdir.cleanup.mode.default",
+        System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
+    )
     environment("DEVELOCITY_API_LOG_LEVEL", "DEBUG")
     providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
         inputs.property("${name}.hashCode", value.hashCode())
