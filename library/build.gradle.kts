@@ -106,6 +106,7 @@ tasks.named("compileKotlin", KotlinCompile::class) {
 }
 
 tasks.withType<Test>().configureEach {
+    maxParallelForks = 4
     systemProperty(
         "junit.jupiter.tempdir.cleanup.mode.default",
         System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
@@ -122,5 +123,4 @@ tasks.named<Test>("examplesTest") {
     inputs.files(files(publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal))
         .withPropertyName("snapshotPublicationArtifacts")
         .withNormalizer(ClasspathNormalizer::class)
-    maxParallelForks = 4
 }
