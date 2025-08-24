@@ -54,7 +54,7 @@ data class Config(
 
     /**
      * Provides the access key for a Develocity API instance. By default, resolves to the first
-    * key from these sources that matches the host of [develocityUrl]:
+     * key from these sources that matches the host of [develocityUrl]:
      *
      * - variable `DEVELOCITY_ACCESS_KEY`
      * - variable `GRADLE_ENTERPRISE_ACCESS_KEY`

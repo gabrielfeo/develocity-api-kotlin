@@ -18,7 +18,7 @@ class ConfigTest {
 
     @BeforeTest
     fun before() {
-    env = FakeEnv("DEVELOCITY_URL" to "https://example.com/")
+        env = FakeEnv("DEVELOCITY_URL" to "https://example.com/")
         systemProperties = FakeSystemProperties()
         accessKeyResolver = AccessKeyResolver(
             env,
