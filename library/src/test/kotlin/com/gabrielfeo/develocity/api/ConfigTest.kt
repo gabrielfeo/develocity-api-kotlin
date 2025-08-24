@@ -42,6 +42,12 @@ class ConfigTest {
     }
 
     @Test
+    fun `Given custom URL passed, develocityUrl is custom URL`() {
+        val config = Config(develocityUrl = "https://custom.example.com/")
+        assertEquals("https://custom.example.com/", config.develocityUrl)
+    }
+
+    @Test
     fun `Given default access key function and resolvable key, accessKey is key`() {
         (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
         (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "example.com=foo"
