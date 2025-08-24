@@ -1,11 +1,15 @@
 package com.gabrielfeo.develocity.api
 
 import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.internal.auth.AccessKeyResolver
 import com.gabrielfeo.develocity.api.internal.auth.HttpBearerAuth
+import com.gabrielfeo.develocity.api.internal.auth.accessKeyResolver
 import com.gabrielfeo.develocity.api.internal.caching.CacheEnforcingInterceptor
 import com.gabrielfeo.develocity.api.internal.caching.CacheHitLoggingInterceptor
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
+import okio.Path.Companion.toPath
+import okio.fakefilesystem.FakeFileSystem
 import kotlin.test.*
 
 class OkHttpClientTest {
@@ -66,11 +70,17 @@ class OkHttpClientTest {
         clientBuilder: OkHttpClient.Builder? = null,
     ): OkHttpClient {
         val fakeEnv = FakeEnv(*envVars)
-        if ("DEVELOCITY_API_TOKEN" !in fakeEnv)
-            fakeEnv["DEVELOCITY_API_TOKEN"] = "example-token"
+        if ("DEVELOCITY_ACCESS_KEY" !in fakeEnv)
+            fakeEnv["DEVELOCITY_ACCESS_KEY"] = "example.com=example-token"
         if ("DEVELOCITY_API_URL" !in fakeEnv)
-            fakeEnv["DEVELOCITY_API_URL"] = "example-url"
+            fakeEnv["DEVELOCITY_API_URL"] = "https://example.com/api/"
         env = fakeEnv
+        systemProperties = FakeSystemProperties()
+        accessKeyResolver = AccessKeyResolver(
+            env,
+            homeDirectory = "/home/testuser".toPath(),
+            fileSystem = FakeFileSystem(),
+        )
         val config = when (clientBuilder) {
             null -> Config()
             else -> Config(clientBuilder = clientBuilder)

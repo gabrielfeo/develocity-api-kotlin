@@ -1,10 +1,13 @@
 package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.develocity.api.Config.CacheConfig
-import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.internal.auth.accessKeyResolver
+import com.gabrielfeo.develocity.api.internal.basicOkHttpClient
+import com.gabrielfeo.develocity.api.internal.env
+import com.gabrielfeo.develocity.api.internal.systemProperties
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import java.io.File
+import java.net.URI
 import kotlin.time.Duration.Companion.days
 
 /**
@@ -46,15 +49,32 @@ data class Config(
      */
     val apiUrl: String =
         env["DEVELOCITY_API_URL"]
+            ?.also { requireValidUrl(it) }
             ?: error(ERROR_NULL_API_URL),
 
     /**
-     * Provides the access token for a Develocity API instance. By default, uses environment
-     * variable `DEVELOCITY_API_TOKEN`.
+     * Provides the access key for a Develocity API instance. By default, resolves to the first
+     * key from these sources that matches the host of [apiUrl]:
+     *
+     * - variable `DEVELOCITY_ACCESS_KEY`
+     * - variable `GRADLE_ENTERPRISE_ACCESS_KEY`
+     * - file `$GRADLE_USER_HOME/.gradle/develocity/keys.properties` or, if `GRADLE_USER_HOME` is
+     *   not set, `~/.gradle/develocity/keys.properties`
+     * - file `~/.m2/.develocity/keys.properties`
+     *
+     * Refer to Develocity documentation for details on the format of such variables and files:
+     *
+     * - [Develocity Gradle Plugin User Manual][1]
+     * - [Develocity Maven Extension User Manual][2]
+     *
+     * [1]: https://docs.gradle.com/develocity/gradle-plugin/current/#manual_access_key_configuration
+     * [2]: https://docs.gradle.com/develocity/maven-extension/current/#manual_access_key_configuration
+     *
+     * @throws IllegalArgumentException if no matching key is found.
      */
-    val apiToken: () -> String = {
-        env["DEVELOCITY_API_TOKEN"]
-            ?: error(ERROR_NULL_API_TOKEN)
+    val accessKey: () -> String = {
+        val host = URI(apiUrl).host
+        requireNotNull(accessKeyResolver.resolve(host)) { ERROR_NULL_ACCESS_KEY }
     },
 
     /**
@@ -216,6 +236,15 @@ data class Config(
     )
 }
 
+private fun requireValidUrl(string: String) {
+    requireNotNull(runCatching { URI(string) }.getOrNull()) {
+        ERROR_MALFORMED_API_URL.format(string)
+    }
+}
+
 private const val ERROR_NULL_API_URL = "DEVELOCITY_API_URL is required"
-private const val ERROR_NULL_API_TOKEN = "DEVELOCITY_API_TOKEN is required"
+private const val ERROR_MALFORMED_API_URL = "DEVELOCITY_API_URL contains a malformed URL: %s"
+private const val ERROR_NULL_ACCESS_KEY = "Develocity access key not found. " +
+    "Please set DEVELOCITY_ACCESS_KEY='[host]=[accessKey]' or see Config.accessKey javadoc for " +
+    "other supported options."
 private const val ERROR_NULL_USER_HOME = "'user.home' system property must not be null"

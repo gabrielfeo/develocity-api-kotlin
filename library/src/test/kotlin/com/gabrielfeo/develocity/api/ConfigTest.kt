@@ -1,8 +1,18 @@
 package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.internal.FakeEnv
+import com.gabrielfeo.develocity.api.internal.FakeSystemProperties
+import com.gabrielfeo.develocity.api.internal.auth.AccessKeyResolver
+import com.gabrielfeo.develocity.api.internal.auth.accessKeyResolver
+import com.gabrielfeo.develocity.api.internal.env
+import com.gabrielfeo.develocity.api.internal.systemProperties
+import okio.Path.Companion.toPath
+import okio.fakefilesystem.FakeFileSystem
 import org.junit.jupiter.api.assertDoesNotThrow
-import kotlin.test.*
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 class ConfigTest {
 
@@ -10,6 +20,11 @@ class ConfigTest {
     fun before() {
         env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
         systemProperties = FakeSystemProperties()
+        accessKeyResolver = AccessKeyResolver(
+            env,
+            homeDirectory = "/home/testuser".toPath(),
+            fileSystem = FakeFileSystem(),
+        )
     }
 
     @Test
@@ -27,16 +42,31 @@ class ConfigTest {
     }
 
     @Test
-    fun `Given no token, error`() {
+    fun `Given default access key function and resolvable key, accessKey is key`() {
+        (env as FakeEnv)["DEVELOCITY_API_URL"] = "https://example.com/api/"
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "example.com=foo"
+        assertEquals("foo", Config().accessKey())
+    }
+
+    @Test
+    fun `Given default access key and no resolvable key, error`() {
+        (env as FakeEnv)["DEVELOCITY_API_URL"] = "https://example.com/api/"
+        (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "notexample.com=foo"
         assertFails {
-            Config().apiToken()
+            Config().accessKey()
         }
     }
 
     @Test
-    fun `Given token set in env, apiToken is env token`() {
-        (env as FakeEnv)["DEVELOCITY_API_TOKEN"] = "bar"
-        assertEquals("bar", Config().apiToken())
+    fun `Given custom access key function fails, error`() {
+        assertFails {
+            Config(accessKey = { error("foo") }).accessKey()
+        }
+    }
+
+    @Test
+    fun `Given custom access key function yields value, accessKey is value`() {
+        assertEquals("foo", Config(accessKey = { "foo" }).accessKey())
     }
 
     @Test

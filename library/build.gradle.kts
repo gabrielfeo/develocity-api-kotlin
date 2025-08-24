@@ -28,8 +28,10 @@ dependencies {
     runtimeOnly(libs.slf4j.simple)
     compileOnly(libs.kotlin.jupyter.api)
     testImplementation(libs.okhttp.mockwebserver)
+    testImplementation(libs.okio.fakeFileSystem)
     testImplementation(libs.okio)
     testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.junit.jupiter.params)
     integrationTestImplementation(libs.kotlin.coroutines.test)
     integrationTestImplementation(libs.guava)
     integrationTestImplementation(libs.kotlin.jupyter.testkit)
@@ -104,6 +106,7 @@ tasks.named("compileKotlin", KotlinCompile::class) {
 }
 
 tasks.withType<Test>().configureEach {
+    maxParallelForks = 4
     systemProperty(
         "junit.jupiter.tempdir.cleanup.mode.default",
         System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
@@ -120,5 +123,4 @@ tasks.named<Test>("examplesTest") {
     inputs.files(files(publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal))
         .withPropertyName("snapshotPublicationArtifacts")
         .withNormalizer(ClasspathNormalizer::class)
-    maxParallelForks = 4
 }
