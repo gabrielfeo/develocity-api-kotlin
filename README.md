@@ -30,7 +30,7 @@ This library [fixes][34] those issues in generated code, implements [paging][24]
 
 Set up once and use the library from any notebook, script or project:
 
-- [`DEVELOCITY_API_URL`][16]: the URL of your Develocity instance
+- [`DEVELOCITY_URL`][16]: the URL of your Develocity instance
 - [`DEVELOCITY_API_CACHE_ENABLED`][12] (optional, off by default): enables caching for some
   requests (see [caveats][13])
 - An access key in one of the supported locations
@@ -190,7 +190,7 @@ your own. For example:
 
 ```kotlin
 val config = Config(
-  apiUrl = "https://ge.mycompany.com/api/",
+  develocityUrl = "https://ge.mycompany.com/",
   accessKey = { vault.getDevelocityAccessKey() },
   clientBuilder = existingClient.newBuilder(),
 )
