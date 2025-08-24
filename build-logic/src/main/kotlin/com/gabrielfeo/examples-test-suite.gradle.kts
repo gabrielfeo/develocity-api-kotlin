@@ -27,7 +27,7 @@ val examples = fileTree(rootDir) {
     exclude {
         it.isDirectory
             && (it.name == "build" || it.name.startsWith("."))
-            && !it.path.endsWith("build-logic/src/main/kotlin/build")
+            && !it.path.endsWith("buildSrc/src/main/kotlin/build")
     }
 }
 

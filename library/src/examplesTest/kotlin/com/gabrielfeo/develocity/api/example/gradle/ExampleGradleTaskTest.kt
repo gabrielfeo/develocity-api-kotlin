@@ -2,13 +2,18 @@ package com.gabrielfeo.develocity.api.example.gradle
 
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.TestMethodOrder
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Path
 import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 import kotlin.io.path.div
+import java.nio.file.Files
 
+@TestMethodOrder(OrderAnnotation::class)
 class ExampleGradleTaskTest {
 
     @TempDir
@@ -17,9 +22,24 @@ class ExampleGradleTaskTest {
     private val projectDir
         get() = tempDir / "examples/example-gradle-task"
 
+    private val initScriptPath
+        get() = tempDir / ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY
+
     @BeforeEach
     fun setup() {
         copyFromResources("/examples", tempDir)
+        copyFromResources("/${ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}", tempDir)
+    }
+
+    @Test
+    @Order(1)
+    fun smokeTest() {
+        val dependencies = runBuild(":buildSrc:dependencies --configuration runtimeClasspath")
+        val libraryMatches = dependencies.lines().filter { "develocity-api-kotlin" in it }
+        assertTrue(libraryMatches.isNotEmpty())
+        assertTrue(libraryMatches.all { "-> SNAPSHOT" in it && "FAILED" !in it }) {
+            "Expected forced SNAPSHOT versions, but found [${libraryMatches.joinToString(", ")}]"
+        }
     }
 
     @Test
@@ -30,7 +50,12 @@ class ExampleGradleTaskTest {
     }
 
     private fun runBuild(gradleArgs: String) =
-        runInShell(projectDir, "./gradlew --stacktrace --no-daemon $gradleArgs")
+        runInShell(
+            projectDir,
+            "./gradlew --stacktrace --no-daemon",
+            "-I $initScriptPath",
+            gradleArgs,
+        )
 
     private fun assertPerformanceMetricsOutput(
         output: String,
