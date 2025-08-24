@@ -43,7 +43,7 @@ internal class AccessKeyResolver(
         if (!fileSystem.exists(path)) return null
         fileSystem.read(path) {
             while (true) {
-                val line = readUtf8Line()?.trim(' ', ';') ?: break
+                val line = readUtf8Line()?.trim(' ') ?: break
                 if (line.isBlank() || line.isComment()) continue
                 val entry = HostAccessKeyEntry(line)
                 if (entry.host == host) return entry
