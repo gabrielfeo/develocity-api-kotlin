@@ -44,6 +44,8 @@ class AccessKeyResolverTest {
             listOf(
                 FileCase(it, content = "$host=foo\n", expected = "foo"),
                 FileCase(it, content = "$host=foo", expected = "foo"),
+                FileCase(it, content = "$host=foo # comment", expected = "foo"),
+                FileCase(it, content = "$host=foo  #  comment", expected = "foo"),
                 FileCase(it, content = "other=bar\n$host=foo\nnot$host=baz\n", expected = "foo"),
                 FileCase(it, content = "\n#foo\n\nother=bar\n\n$host=foo\nnot$host=baz\n", expected = "foo"),
                 FileCase(it, content = "", expected = null),

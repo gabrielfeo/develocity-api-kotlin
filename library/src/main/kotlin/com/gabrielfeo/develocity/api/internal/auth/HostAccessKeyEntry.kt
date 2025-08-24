@@ -2,7 +2,7 @@ package com.gabrielfeo.develocity.api.internal.auth
 
 internal class HostAccessKeyEntry(entry: String) {
 
-    private val components = entry.split('=')
+    private val components = entry.substringBefore(" #").trim().split('=')
 
     init {
         require(components.size == 2 && host.isNotBlank() && accessKey.isNotBlank()) {
