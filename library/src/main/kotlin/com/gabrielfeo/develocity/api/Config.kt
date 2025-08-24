@@ -49,7 +49,6 @@ data class Config(
      */
     val develocityUrl: String =
         env["DEVELOCITY_URL"]
-            ?.also { requireValidBaseUrl(it) }
             ?: error(ERROR_NULL_DEVELOCITY_URL),
 
     /**
@@ -117,6 +116,10 @@ data class Config(
     val cacheConfig: CacheConfig =
         CacheConfig(),
 ) {
+
+    init {
+        requireValidBaseUrl(develocityUrl)
+    }
 
     /**
      * HTTP cache is off by default, but can speed up requests significantly. The Develocity

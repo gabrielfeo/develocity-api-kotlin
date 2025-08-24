@@ -20,20 +20,6 @@ class RetrofitTest {
         assertEquals("https://example.com/api/", retrofit.baseUrl().toString())
     }
 
-    @Test
-    fun `Rejects invalid URL with path or query`() {
-        assertFails {
-            buildRetrofit(
-                "DEVELOCITY_URL" to "https://example.com/foo",
-            )
-        }
-        assertFails {
-            buildRetrofit(
-                "DEVELOCITY_URL" to "https://example.com/?q=1",
-            )
-        }
-    }
-
     private fun buildRetrofit(
         vararg envVars: Pair<String, String?>,
     ): Retrofit {

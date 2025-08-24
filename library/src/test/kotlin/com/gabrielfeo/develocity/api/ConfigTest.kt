@@ -48,6 +48,27 @@ class ConfigTest {
     }
 
     @Test
+    fun `Given URL with path, error`() {
+        assertFails {
+            Config(develocityUrl = "https://example.com/foo")
+        }
+    }
+
+    @Test
+    fun `Given URL with query, error`() {
+        assertFails {
+            Config(develocityUrl = "https://example.com?foo=bar")
+        }
+    }
+
+    @Test
+    fun `Given invalid URL, error`() {
+        assertFails {
+            Config(develocityUrl = "https:/example.com&")
+        }
+    }
+
+    @Test
     fun `Given default access key function and resolvable key, accessKey is key`() {
         (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
         (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "example.com=foo"
