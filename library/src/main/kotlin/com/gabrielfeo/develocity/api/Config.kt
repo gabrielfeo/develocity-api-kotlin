@@ -78,8 +78,7 @@ data class Config(
      * @throws IllegalArgumentException if no matching key is found.
      */
     val accessKey: () -> String = {
-        val host = server.host
-        requireNotNull(accessKeyResolver.resolve(host)) { ERROR_NULL_ACCESS_KEY }
+        requireNotNull(accessKeyResolver.resolve(server.host)) { ERROR_NULL_ACCESS_KEY }
     },
 
     /**
