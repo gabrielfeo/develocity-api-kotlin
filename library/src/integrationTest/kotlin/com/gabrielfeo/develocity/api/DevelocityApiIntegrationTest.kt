@@ -35,7 +35,7 @@ class DevelocityApiIntegrationTest {
         env = FakeEnv()
         assertDoesNotThrow {
             val config = Config(
-                develocityUrl = URL("https://example.com/"),
+                server = URL("https://example.com/"),
                 accessKey = { "example.com=example-token" }
             )
             DevelocityApi.newInstance(config)

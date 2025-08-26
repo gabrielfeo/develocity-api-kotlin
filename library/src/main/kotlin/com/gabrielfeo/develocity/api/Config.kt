@@ -44,17 +44,20 @@ data class Config(
             ?: "off",
 
     /**
-     * Provides the base URL of a Develocity instance. By default, uses
-     * environment variable `DEVELOCITY_URL`. Must be a valid URL with no path segments (trailing slash OK) or query parameters.
+     * Provides the URL of a Develocity server to use in API requests. By default, uses environment
+     * variable `DEVELOCITY_URL`. Must be a valid URL with no path segments (trailing slash OK) or
+     * query parameters.
+     *
+     * Example value: `https://develocity.example.com/`
      */
-    val develocityUrl: URL =
+    val server: URL =
         env["DEVELOCITY_URL"]
             ?.let { URL(it) }
             ?: error(ERROR_NULL_DEVELOCITY_URL),
 
     /**
-     * Provides the access key for a Develocity API instance. By default, resolves to the first
-     * key from these sources that matches the host of [develocityUrl]:
+     * Provides the access key for the Develocity server. By default, resolves to the first key from
+     * these sources that matches the host of [server]:
      *
      * - variable `DEVELOCITY_ACCESS_KEY`
      * - variable `GRADLE_ENTERPRISE_ACCESS_KEY`
@@ -62,7 +65,9 @@ data class Config(
      *   not set, `~/.gradle/develocity/keys.properties`
      * - file `~/.m2/.develocity/keys.properties`
      *
-     * Refer to Develocity documentation for details on the format of such variables and files:
+     * Example value: `develocity.example.com=abcdefg1234567`
+     *
+     * Refer to Develocity documentation for more details on the format of such variables and files:
      *
      * - [Develocity Gradle Plugin User Manual][1]
      * - [Develocity Maven Extension User Manual][2]
@@ -73,7 +78,7 @@ data class Config(
      * @throws IllegalArgumentException if no matching key is found.
      */
     val accessKey: () -> String = {
-        val host = develocityUrl.host
+        val host = server.host
         requireNotNull(accessKeyResolver.resolve(host)) { ERROR_NULL_ACCESS_KEY }
     },
 
@@ -119,7 +124,7 @@ data class Config(
 ) {
 
     init {
-        requireValidBaseUrl(develocityUrl)
+        requireValidBaseUrl(server)
     }
 
     /**

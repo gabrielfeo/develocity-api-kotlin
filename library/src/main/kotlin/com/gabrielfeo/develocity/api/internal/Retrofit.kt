@@ -12,7 +12,7 @@ internal fun buildRetrofit(
     client: OkHttpClient,
     moshi: Moshi,
 ) = with(Retrofit.Builder()) {
-    val base = config.develocityUrl
+    val base = config.server
     val baseStr = base.toString().let { if (it.endsWith("/")) it else "$it/" }
     baseUrl(baseStr)
     addConverterFactory(ScalarsConverterFactory.create())

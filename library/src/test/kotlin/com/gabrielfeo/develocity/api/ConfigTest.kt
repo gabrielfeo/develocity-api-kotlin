@@ -37,35 +37,35 @@ class ConfigTest {
     }
 
     @Test
-    fun `Given URL set in env, develocityUrl is env URL`() {
+    fun `Given server URL set in env, server is correct URL`() {
         (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
-        assertEquals(URL("https://example.com/"), Config().develocityUrl)
+        assertEquals(URL("https://example.com/"), Config().server)
     }
 
     @Test
-    fun `Given custom URL passed, develocityUrl is custom URL`() {
-        val config = Config(develocityUrl = URL("https://custom.example.com/"))
-        assertEquals(URL("https://custom.example.com/"), config.develocityUrl)
+    fun `Given server URL set in code, server is correct URL`() {
+        val config = Config(server = URL("https://custom.example.com/"))
+        assertEquals(URL("https://custom.example.com/"), config.server)
     }
 
     @Test
     fun `Given URL with path, error`() {
         assertFails {
-            Config(develocityUrl = URL("https://example.com/foo"))
+            Config(server = URL("https://example.com/foo"))
         }
     }
 
     @Test
     fun `Given URL with query, error`() {
         assertFails {
-            Config(develocityUrl = URL("https://example.com?foo=bar"))
+            Config(server = URL("https://example.com?foo=bar"))
         }
     }
 
     @Test
     fun `Given invalid URL, error`() {
         assertFails {
-            Config(develocityUrl = URL("https:/example.com&"))
+            Config(server = URL("https:/example.com&"))
         }
     }
 
