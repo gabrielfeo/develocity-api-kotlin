@@ -3,8 +3,8 @@ package com.gabrielfeo.develocity.api
 import com.gabrielfeo.develocity.api.internal.*
 import com.google.common.reflect.ClassPath
 import kotlinx.coroutines.test.runTest
-import okhttp3.OkHttpClient
 import org.junit.jupiter.api.assertDoesNotThrow
+import java.net.URL
 import kotlin.reflect.KVisibility.PUBLIC
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.javaType
@@ -35,8 +35,8 @@ class DevelocityApiIntegrationTest {
         env = FakeEnv()
         assertDoesNotThrow {
             val config = Config(
-                develocityUrl = "https://google.com/",
-                accessKey = { "" },
+                develocityUrl = URL("https://example.com/"),
+                accessKey = { "example.com=example-token" }
             )
             DevelocityApi.newInstance(config)
         }

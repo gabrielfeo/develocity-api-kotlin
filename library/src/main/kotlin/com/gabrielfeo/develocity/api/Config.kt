@@ -7,7 +7,7 @@ import com.gabrielfeo.develocity.api.internal.systemProperties
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import java.io.File
-import java.net.URI
+import java.net.URL
 import kotlin.time.Duration.Companion.days
 
 /**
@@ -47,8 +47,9 @@ data class Config(
      * Provides the base URL of a Develocity instance. By default, uses
      * environment variable `DEVELOCITY_URL`. Must be a valid URL with no path segments (trailing slash OK) or query parameters.
      */
-    val develocityUrl: String =
+    val develocityUrl: URL =
         env["DEVELOCITY_URL"]
+            ?.let { URL(it) }
             ?: error(ERROR_NULL_DEVELOCITY_URL),
 
     /**
@@ -72,7 +73,7 @@ data class Config(
      * @throws IllegalArgumentException if no matching key is found.
      */
     val accessKey: () -> String = {
-        val host = URI(develocityUrl).host
+        val host = develocityUrl.host
         requireNotNull(accessKeyResolver.resolve(host)) { ERROR_NULL_ACCESS_KEY }
     },
 
@@ -240,12 +241,11 @@ data class Config(
 }
 
 
-private fun requireValidBaseUrl(string: String) {
-    val uri = runCatching { URI(string) }.getOrNull()
-    requireNotNull(uri) { ERROR_MALFORMED_DEVELOCITY_URL.format(string) }
-    require(uri.scheme == "http" || uri.scheme == "https") { ERROR_MALFORMED_DEVELOCITY_URL.format(string) }
-    require(uri.path.isNullOrEmpty() || uri.path == "/") { ERROR_MALFORMED_DEVELOCITY_URL.format(string) }
-    require(uri.query == null) { ERROR_MALFORMED_DEVELOCITY_URL.format(string) }
+private fun requireValidBaseUrl(url: URL) {
+    requireNotNull(url) { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
+    require(url.protocol == "http" || url.protocol == "https") { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
+    require(url.path.isNullOrEmpty() || url.path == "/") { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
+    require(url.query == null) { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
 }
 
 private const val ERROR_NULL_DEVELOCITY_URL = "DEVELOCITY_URL is required"

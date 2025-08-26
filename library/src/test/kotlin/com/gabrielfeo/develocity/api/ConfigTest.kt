@@ -9,6 +9,7 @@ import com.gabrielfeo.develocity.api.internal.systemProperties
 import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
 import org.junit.jupiter.api.assertDoesNotThrow
+import java.net.URL
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -38,33 +39,33 @@ class ConfigTest {
     @Test
     fun `Given URL set in env, develocityUrl is env URL`() {
         (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
-        assertEquals("https://example.com/", Config().develocityUrl)
+        assertEquals(URL("https://example.com/"), Config().develocityUrl)
     }
 
     @Test
     fun `Given custom URL passed, develocityUrl is custom URL`() {
-        val config = Config(develocityUrl = "https://custom.example.com/")
-        assertEquals("https://custom.example.com/", config.develocityUrl)
+        val config = Config(develocityUrl = URL("https://custom.example.com/"))
+        assertEquals(URL("https://custom.example.com/"), config.develocityUrl)
     }
 
     @Test
     fun `Given URL with path, error`() {
         assertFails {
-            Config(develocityUrl = "https://example.com/foo")
+            Config(develocityUrl = URL("https://example.com/foo"))
         }
     }
 
     @Test
     fun `Given URL with query, error`() {
         assertFails {
-            Config(develocityUrl = "https://example.com?foo=bar")
+            Config(develocityUrl = URL("https://example.com?foo=bar"))
         }
     }
 
     @Test
     fun `Given invalid URL, error`() {
         assertFails {
-            Config(develocityUrl = "https:/example.com&")
+            Config(develocityUrl = URL("https:/example.com&"))
         }
     }
 

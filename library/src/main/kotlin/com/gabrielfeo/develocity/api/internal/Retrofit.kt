@@ -13,13 +13,8 @@ internal fun buildRetrofit(
     moshi: Moshi,
 ) = with(Retrofit.Builder()) {
     val base = config.develocityUrl
-    // Ensure trailing slash for URL joining
-    val baseWithSlash = if (base.endsWith("/")) base else "$base/"
-    val apiUrl = baseWithSlash + "api/"
-    runCatching { java.net.URI(apiUrl) }.onFailure { error ->
-        throw IllegalArgumentException("A valid API URL could not be constructed from develocityUrl: $base", error)
-    }
-    baseUrl(apiUrl)
+    val baseStr = base.toString().let { if (it.endsWith("/")) it else "$it/" }
+    baseUrl(baseStr)
     addConverterFactory(ScalarsConverterFactory.create())
     addConverterFactory(MoshiConverterFactory.create(moshi))
     client(client)
