@@ -13,6 +13,8 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import java.time.Duration
 import org.slf4j.Logger
 
+private const val HTTP_LOGGER_NAME = "com.gabrielfeo.develocity.api.OkHttpClient"
+
 /**
  * Base instance just so that multiple created [Config]s will share resources by default.
  */
@@ -58,7 +60,7 @@ private fun OkHttpClient.Builder.addNetworkInterceptors(
     if (config.cacheConfig.cacheEnabled) {
         addNetworkInterceptor(buildCacheEnforcingInterceptor(config))
     }
-    val logger = loggerFactory.newLogger(HttpLoggingInterceptor::class)
+    val logger = loggerFactory.newLogger(HTTP_LOGGER_NAME)
     addNetworkInterceptor(HttpLoggingInterceptor(logger = logger::debug).apply { level = BASIC })
     addNetworkInterceptor(HttpLoggingInterceptor(logger = logger::trace).apply { level = BODY })
     // Add authentication after logging to prevent clients from leaking their access key

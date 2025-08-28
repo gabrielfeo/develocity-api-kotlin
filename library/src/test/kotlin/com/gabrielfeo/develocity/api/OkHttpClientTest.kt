@@ -65,9 +65,25 @@ class OkHttpClientTest {
         assertTrue(client.readTimeoutMillis > defaultTimeout)
     }
 
+    @Test
+    fun `Logs under library package`() {
+        val loggerFactory = ProxyLoggerFactory(delegate = RealLoggerFactory(Config()))
+        buildClient(loggerFactory = loggerFactory)
+        loggerFactory.createdLoggers.let {
+            assertTrue(it.isNotEmpty())
+            it.forEach {
+                assertTrue(
+                    it.name.startsWith("com.gabrielfeo.develocity.api"),
+                    "Logger name '${it.name}' should start with 'com.gabrielfeo.develocity.api'"
+                )
+            }
+        }
+    }
+
     private fun buildClient(
         vararg envVars: Pair<String, String?>,
         clientBuilder: OkHttpClient.Builder? = null,
+        loggerFactory: LoggerFactory? = null,
     ): OkHttpClient {
         val fakeEnv = FakeEnv(*envVars)
         if ("DEVELOCITY_ACCESS_KEY" !in fakeEnv)
@@ -85,6 +101,6 @@ class OkHttpClientTest {
             null -> Config()
             else -> Config(clientBuilder = clientBuilder)
         }
-        return buildOkHttpClient(config, RealLoggerFactory(config))
+        return buildOkHttpClient(config, loggerFactory ?: RealLoggerFactory(config))
     }
 }
