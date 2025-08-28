@@ -1,13 +1,12 @@
 package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.develocity.api.internal.auth.accessKeyResolver
-import com.gabrielfeo.develocity.api.internal.basicOkHttpClient
-import com.gabrielfeo.develocity.api.internal.env
-import com.gabrielfeo.develocity.api.internal.systemProperties
+import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.internal.auth.*
 import okhttp3.Dispatcher
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import java.io.File
-import java.net.URL
+import java.net.URI
 import kotlin.time.Duration.Companion.days
 
 /**
@@ -50,9 +49,9 @@ data class Config(
      *
      * Example value: `https://develocity.example.com/`
      */
-    val server: URL =
+    val server: URI =
         env["DEVELOCITY_URL"]
-            ?.let { URL(it) }
+            ?.let { URI(it) }
             ?: error(ERROR_NULL_DEVELOCITY_URL),
 
     /**
@@ -245,11 +244,11 @@ data class Config(
 }
 
 
-private fun requireValidBaseUrl(url: URL) {
-    requireNotNull(url) { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
-    require(url.protocol == "http" || url.protocol == "https") { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
+private fun requireValidBaseUrl(url: URI) {
+    require(url.scheme == "http" || url.scheme == "https") { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
     require(url.path.isNullOrEmpty() || url.path == "/") { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
     require(url.query == null) { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
+    requireNotNull(url.toHttpUrlOrNull()) { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
 }
 
 private const val ERROR_NULL_DEVELOCITY_URL = "DEVELOCITY_URL is required"

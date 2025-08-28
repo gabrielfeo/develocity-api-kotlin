@@ -1,19 +1,14 @@
 package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.develocity.api.internal.FakeEnv
-import com.gabrielfeo.develocity.api.internal.FakeSystemProperties
-import com.gabrielfeo.develocity.api.internal.auth.AccessKeyResolver
-import com.gabrielfeo.develocity.api.internal.auth.accessKeyResolver
-import com.gabrielfeo.develocity.api.internal.env
-import com.gabrielfeo.develocity.api.internal.systemProperties
+import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.internal.auth.*
 import okio.Path.Companion.toPath
 import okio.fakefilesystem.FakeFileSystem
+import org.junit.jupiter.api.DynamicTest.dynamicTest
+import org.junit.jupiter.api.TestFactory
 import org.junit.jupiter.api.assertDoesNotThrow
-import java.net.URL
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertFails
+import java.net.URI
+import kotlin.test.*
 
 class ConfigTest {
 
@@ -39,33 +34,44 @@ class ConfigTest {
     @Test
     fun `Given server URL set in env, server is correct URL`() {
         (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
-        assertEquals(URL("https://example.com/"), Config().server)
+        assertEquals(URI("https://example.com/"), Config().server)
     }
 
     @Test
     fun `Given server URL set in code, server is correct URL`() {
-        val config = Config(server = URL("https://custom.example.com/"))
-        assertEquals(URL("https://custom.example.com/"), config.server)
+        val config = Config(server = URI("https://custom.example.com/"))
+        assertEquals(URI("https://custom.example.com/"), config.server)
     }
 
-    @Test
-    fun `Given URL with path, error`() {
-        assertFails {
-            Config(server = URL("https://example.com/foo"))
+    @TestFactory
+    fun `Given URL with path, error`() = listOf(
+        "mailto:foo@bar.com",
+        "file:///example/foo",
+        "http://example.com?foo",
+        "https://example.com?foo",
+        "https://example.com/foo",
+        "https://example.com/foo?bar=1",
+        "https://example.com/foo/bar/baz",
+        "https://example.com/foo/bar/baz?qux=1",
+    ).map { url ->
+        dynamicTest(url) {
+            assertFailsWith<IllegalArgumentException> {
+                Config(server = URI(url))
+            }
         }
     }
 
     @Test
     fun `Given URL with query, error`() {
         assertFails {
-            Config(server = URL("https://example.com?foo=bar"))
+            Config(server = URI("https://example.com?foo=bar"))
         }
     }
 
     @Test
     fun `Given invalid URL, error`() {
         assertFails {
-            Config(server = URL("https:/example.com&"))
+            Config(server = URI("https:/example.com&"))
         }
     }
 
