@@ -232,7 +232,7 @@ For general discussions or questions, feel free to reach out to maintainers on t
 [12]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/index.html
 [14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2024.3.0
-[16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-url.html
+[16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/server.html
 [17]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/access-key.html
 [18]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
 [19]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api.model/-gradle-attributes/index.html
