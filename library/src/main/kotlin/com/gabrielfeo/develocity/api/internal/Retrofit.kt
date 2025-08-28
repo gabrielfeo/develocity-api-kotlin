@@ -1,6 +1,6 @@
 package com.gabrielfeo.develocity.api.internal
 
-import com.gabrielfeo.develocity.api.Config
+import com.gabrielfeo.develocity.api.*
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -12,10 +12,7 @@ internal fun buildRetrofit(
     client: OkHttpClient,
     moshi: Moshi,
 ) = with(Retrofit.Builder()) {
-    val url = config.apiUrl
-    check("/api/" in url) { "A valid API URL must end in /api/" }
-    val instanceUrl = url.substringBefore("api/")
-    baseUrl(instanceUrl)
+    baseUrl(config.server.resolve("/").toString())
     addConverterFactory(ScalarsConverterFactory.create())
     addConverterFactory(MoshiConverterFactory.create(moshi))
     client(client)

@@ -25,7 +25,7 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     env:
-      DEVELOCITY_API_URL: "${{ vars.DEVELOCITY_API_URL }}"
+      DEVELOCITY_URL: "${{ vars.DEVELOCITY_URL }}"
       DEVELOCITY_ACCESS_KEY: "${{ secrets.DEVELOCITY_ACCESS_KEY }}"
     steps:
       - name: Checkout

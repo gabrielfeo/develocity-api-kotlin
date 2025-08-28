@@ -12,7 +12,7 @@ jobs:
   kotlin-tests:
     runs-on: ubuntu-latest
     env:
-      DEVELOCITY_API_URL: "${{ vars.DEVELOCITY_API_URL }}"
+      DEVELOCITY_URL: "${{ vars.DEVELOCITY_URL }}"
       DEVELOCITY_ACCESS_KEY: "${{ secrets.DEVELOCITY_ACCESS_KEY }}"
       DEVELOCITY_API_CACHE_ENABLED: "false"
     steps:

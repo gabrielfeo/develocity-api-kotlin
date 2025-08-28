@@ -1,10 +1,9 @@
 package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.develocity.api.internal.auth.accessKeyResolver
-import com.gabrielfeo.develocity.api.internal.basicOkHttpClient
-import com.gabrielfeo.develocity.api.internal.env
-import com.gabrielfeo.develocity.api.internal.systemProperties
+import com.gabrielfeo.develocity.api.internal.*
+import com.gabrielfeo.develocity.api.internal.auth.*
 import okhttp3.Dispatcher
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import java.io.File
 import java.net.URI
@@ -44,17 +43,18 @@ data class Config(
             ?: "off",
 
     /**
-     * Provides the URL of a Develocity API instance REST API. By default, uses
-     * environment variable `DEVELOCITY_API_URL`. Must end with `/api/`.
+     * Provides the URL of a Develocity server to use in API requests. By default, uses environment
+     * variable `DEVELOCITY_URL`. Must be a valid URL with no path segments (trailing slash OK) or
+     * query parameters.
+     *
+     * Example value: `https://develocity.example.com/`
      */
-    val apiUrl: String =
-        env["DEVELOCITY_API_URL"]
-            ?.also { requireValidUrl(it) }
-            ?: error(ERROR_NULL_API_URL),
+    val server: URI =
+        requireNotNull(env["DEVELOCITY_URL"]?.let(::URI)) { ERROR_NULL_DEVELOCITY_URL },
 
     /**
-     * Provides the access key for a Develocity API instance. By default, resolves to the first
-     * key from these sources that matches the host of [apiUrl]:
+     * Provides the access key for the Develocity server. By default, resolves to the first key from
+     * these sources that matches the host of [server]:
      *
      * - variable `DEVELOCITY_ACCESS_KEY`
      * - variable `GRADLE_ENTERPRISE_ACCESS_KEY`
@@ -62,7 +62,9 @@ data class Config(
      *   not set, `~/.gradle/develocity/keys.properties`
      * - file `~/.m2/.develocity/keys.properties`
      *
-     * Refer to Develocity documentation for details on the format of such variables and files:
+     * Example value: `develocity.example.com=abcdefg1234567`
+     *
+     * Refer to Develocity documentation for more details on the format of such variables and files:
      *
      * - [Develocity Gradle Plugin User Manual][1]
      * - [Develocity Maven Extension User Manual][2]
@@ -73,8 +75,7 @@ data class Config(
      * @throws IllegalArgumentException if no matching key is found.
      */
     val accessKey: () -> String = {
-        val host = URI(apiUrl).host
-        requireNotNull(accessKeyResolver.resolve(host)) { ERROR_NULL_ACCESS_KEY }
+        requireNotNull(accessKeyResolver.resolve(server.host)) { ERROR_NULL_ACCESS_KEY }
     },
 
     /**
@@ -117,6 +118,10 @@ data class Config(
     val cacheConfig: CacheConfig =
         CacheConfig(),
 ) {
+
+    init {
+        requireValidBaseUrl(server)
+    }
 
     /**
      * HTTP cache is off by default, but can speed up requests significantly. The Develocity
@@ -236,14 +241,17 @@ data class Config(
     )
 }
 
-private fun requireValidUrl(string: String) {
-    requireNotNull(runCatching { URI(string) }.getOrNull()) {
-        ERROR_MALFORMED_API_URL.format(string)
-    }
+
+private fun requireValidBaseUrl(url: URI) {
+    require(url.scheme == "http" || url.scheme == "https") { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
+    require(url.path.isNullOrEmpty() || url.path == "/") { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
+    require(url.query == null) { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
+    requireNotNull(url.toHttpUrlOrNull()) { ERROR_MALFORMED_DEVELOCITY_URL.format(url) }
 }
 
-private const val ERROR_NULL_API_URL = "DEVELOCITY_API_URL is required"
-private const val ERROR_MALFORMED_API_URL = "DEVELOCITY_API_URL contains a malformed URL: %s"
+private const val ERROR_NULL_DEVELOCITY_URL = "DEVELOCITY_URL is required"
+private const val ERROR_MALFORMED_DEVELOCITY_URL = "DEVELOCITY_URL must be a valid HTTP or HTTPS " +
+    "URL to a Develocity server, with no path or query parameters: %s"
 private const val ERROR_NULL_ACCESS_KEY = "Develocity access key not found. " +
     "Please set DEVELOCITY_ACCESS_KEY='[host]=[accessKey]' or see Config.accessKey javadoc for " +
     "other supported options."

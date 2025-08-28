@@ -3,8 +3,7 @@ package com.gabrielfeo.develocity.api
 import com.gabrielfeo.develocity.api.internal.*
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import kotlin.test.Test
-import kotlin.test.assertContains
+import kotlin.test.*
 
 class DevelocityApiTest {
 
@@ -14,12 +13,12 @@ class DevelocityApiTest {
         val error = assertThrows<Exception> {
             DevelocityApi.newInstance(Config())
         }
-        error.assertRootMessageContains("DEVELOCITY_API_URL")
+        error.assertRootMessageContains("DEVELOCITY_URL")
     }
 
     @Test
     fun `Fails lazily if no access key`() {
-        env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
+        env = FakeEnv("DEVELOCITY_URL" to "https://example.com/")
         val api = assertDoesNotThrow {
             DevelocityApi.newInstance(Config())
         }
