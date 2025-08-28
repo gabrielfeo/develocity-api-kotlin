@@ -50,9 +50,7 @@ data class Config(
      * Example value: `https://develocity.example.com/`
      */
     val server: URI =
-        env["DEVELOCITY_URL"]
-            ?.let { URI(it) }
-            ?: error(ERROR_NULL_DEVELOCITY_URL),
+        requireNotNull(env["DEVELOCITY_URL"]?.let(::URI)) { ERROR_NULL_DEVELOCITY_URL },
 
     /**
      * Provides the access key for the Develocity server. By default, resolves to the first key from

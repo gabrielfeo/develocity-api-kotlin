@@ -26,7 +26,7 @@ class ConfigTest {
     @Test
     fun `Given no URL set in env, error`() {
         env = FakeEnv()
-        assertFails {
+        assertFailsWith<IllegalArgumentException> {
             Config()
         }
     }
@@ -69,19 +69,21 @@ class ConfigTest {
     }
 
     @Test
-    fun `Given default access key and no resolvable key, error`() {
+    fun `Given default access key function and no resolvable key, error`() {
         (env as FakeEnv)["DEVELOCITY_URL"] = "https://example.com/"
         (env as FakeEnv)["DEVELOCITY_ACCESS_KEY"] = "notexample.com=foo"
-        assertFails {
+        assertFailsWith<IllegalArgumentException> {
             Config().accessKey()
         }
     }
 
     @Test
-    fun `Given custom access key function fails, error`() {
-        assertFails {
-            Config(accessKey = { error("foo") }).accessKey()
+    fun `Given custom access key function fails, uncaught and unwrapped error`() {
+        val error = assertFails {
+            Config(accessKey = { throw RuntimeException("foo") }).accessKey()
         }
+        assertIs<RuntimeException>(error)
+        assertEquals("foo", error.message)
     }
 
     @Test
