@@ -252,7 +252,8 @@ private fun requireValidBaseUrl(url: URI) {
 }
 
 private const val ERROR_NULL_DEVELOCITY_URL = "DEVELOCITY_URL is required"
-private const val ERROR_MALFORMED_DEVELOCITY_URL = "DEVELOCITY_URL must be a valid base URL (no path or query): %s"
+private const val ERROR_MALFORMED_DEVELOCITY_URL = "DEVELOCITY_URL must be a valid HTTP or HTTPS " +
+    "URL to a Develocity server, with no path or query parameters: %s"
 private const val ERROR_NULL_ACCESS_KEY = "Develocity access key not found. " +
     "Please set DEVELOCITY_ACCESS_KEY='[host]=[accessKey]' or see Config.accessKey javadoc for " +
     "other supported options."
