@@ -1,14 +1,8 @@
 package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.develocity.api.internal.*
 import kotlin.test.*
 
 class CacheConfigTest {
-
-    @BeforeTest
-    fun before() {
-        env = FakeEnv("DEVELOCITY_API_URL" to "https://example.com/api/")
-    }
 
     @Test
     fun `default longTermCacheUrlPattern matches attributes URLs`() {
