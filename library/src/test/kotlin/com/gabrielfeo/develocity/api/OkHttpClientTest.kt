@@ -65,6 +65,14 @@ class OkHttpClientTest {
         assertTrue(client.readTimeoutMillis > defaultTimeout)
     }
 
+    /**
+     * Tests against regressions of issue gabrielfeo/develocity-api-kotlin#451
+     */
+    @Test
+    fun `Given no clientBuilder specified, OkHttpClient resources not re-used`() {
+        assertNotEquals(buildClient().connectionPool, buildClient().connectionPool)
+    }
+
     private fun buildClient(
         vararg envVars: Pair<String, String?>,
         clientBuilder: OkHttpClient.Builder? = null,
