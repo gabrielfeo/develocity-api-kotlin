@@ -88,7 +88,7 @@ data class Config(
      * The default is to share resources only within the library, i.e. multiple `Config()` with
      * the default [clientBuilder] will already share resources.
      */
-    val clientBuilder: OkHttpClient.Builder = basicOkHttpClient.newBuilder(),
+    val clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder(),
 
     /**
      * Maximum amount of concurrent requests allowed. Further requests will be queued. By default,

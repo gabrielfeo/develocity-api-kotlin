@@ -1,24 +1,14 @@
 package com.gabrielfeo.develocity.api.internal
 
-import com.gabrielfeo.develocity.api.Config
-import com.gabrielfeo.develocity.api.internal.auth.HttpBearerAuth
-import com.gabrielfeo.develocity.api.internal.caching.CacheEnforcingInterceptor
-import com.gabrielfeo.develocity.api.internal.caching.CacheHitLoggingInterceptor
+import com.gabrielfeo.develocity.api.*
+import com.gabrielfeo.develocity.api.internal.auth.*
+import com.gabrielfeo.develocity.api.internal.caching.*
 import okhttp3.Cache
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import java.time.Duration
-import org.slf4j.Logger
-
-/**
- * Base instance just so that multiple created [Config]s will share resources by default.
- */
-internal val basicOkHttpClient by lazy {
-    OkHttpClient.Builder().build()
-}
 
 /**
  * Builds the final `OkHttpClient` with a `Config`.
