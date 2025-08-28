@@ -4,7 +4,6 @@ import kotlin.test.Test
 import com.gabrielfeo.develocity.api.Config
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.test.assertFalse
 
@@ -22,18 +21,20 @@ class LoggerFactoryTest {
     }
 
     @Test
-    fun `Level always copied from Config`() {
-        val loggerFactory = RealLoggerFactory(Config(logLevel = "foo"))
-        loggerFactory.newLogger(LoggerFactoryTest::class)
-        assertEquals("foo", System.getProperty(logLevelProperty))
+    fun `Given custom log level set, loggers created with log level`() {
+        check(Config().logLevel != "trace") { "Precondition failed: default level is already trace" }
+        val loggerFactory = RealLoggerFactory(Config(logLevel = "trace"))
+        val logger = loggerFactory.newLogger(LoggerFactoryTest::class)
+        assertTrue(logger.isTraceEnabled)
     }
 
     @Test
-    fun `Level has no effect on other loggers`() {
-        val loggerFactory = RealLoggerFactory(Config(logLevel = "debug"))
+    fun `Given custom log level set, unrelated loggers unaffected`() {
+        val unrelatedLogger = org.slf4j.LoggerFactory.getLogger("foo.Bar")
+        check(!unrelatedLogger.isTraceEnabled) { "Precondition failed: unrelated logger is already trace" }
+        val loggerFactory = RealLoggerFactory(Config(logLevel = "trace"))
         val logger = loggerFactory.newLogger(LoggerFactoryTest::class)
-        val otherLogger = org.slf4j.LoggerFactory.getLogger("foo.Bar")
-        assertTrue(logger.isDebugEnabled)
-        assertFalse(otherLogger.isDebugEnabled)
+        assertTrue(logger.isTraceEnabled)
+        assertFalse(unrelatedLogger.isTraceEnabled)
     }
 }
