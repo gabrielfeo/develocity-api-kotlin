@@ -44,7 +44,7 @@ class ConfigTest {
     }
 
     @TestFactory
-    fun `Given URL with path, error`() = listOf(
+    fun `Given malformed URL, error`() = listOf(
         "mailto:foo@bar.com",
         "file:///example/foo",
         "http://example.com?foo",
@@ -58,20 +58,6 @@ class ConfigTest {
             assertFailsWith<IllegalArgumentException> {
                 Config(server = URI(url))
             }
-        }
-    }
-
-    @Test
-    fun `Given URL with query, error`() {
-        assertFails {
-            Config(server = URI("https://example.com?foo=bar"))
-        }
-    }
-
-    @Test
-    fun `Given invalid URL, error`() {
-        assertFails {
-            Config(server = URI("https:/example.com&"))
         }
     }
 
