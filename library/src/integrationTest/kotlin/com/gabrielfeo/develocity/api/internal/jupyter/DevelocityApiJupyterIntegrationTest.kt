@@ -7,6 +7,8 @@ import org.jetbrains.kotlinx.jupyter.api.Code
 import org.jetbrains.kotlinx.jupyter.testkit.JupyterReplTestCase
 import kotlin.reflect.KVisibility
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 @ExperimentalStdlibApi
 class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
@@ -20,6 +22,24 @@ class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
         "custom value name" in attrs
         attrs["custom value name"]
     """)
+
+    @Test
+    fun `Given default clientBuilder, re-uses OkHttpClient resources`() {
+        execSuccess("val api = DevelocityApi.newInstance()")
+        execSuccess("val api2 = DevelocityApi.newInstance()")
+        val connectionPool1 = execRendered("api.config.clientBuilder.build().connectionPool.hashCode()")
+        val connectionPool2 = execRendered("api2.config.clientBuilder.build().connectionPool.hashCode()")
+        assertEquals(connectionPool1, connectionPool2)
+    }
+
+    @Test
+    fun `Given custom clientBuilder set, does not re-use OkHttpClient resources`() {
+        execSuccess("val api = DevelocityApi.newInstance(Config(clientBuilder = okhttp3.OkHttpClient.Builder()))")
+        execSuccess("val api2 = DevelocityApi.newInstance(Config(clientBuilder = okhttp3.OkHttpClient.Builder()))")
+        val connectionPool1 = execRendered("api.config.clientBuilder.build().connectionPool.hashCode()")
+        val connectionPool2 = execRendered("api2.config.clientBuilder.build().connectionPool.hashCode()")
+        assertNotEquals(connectionPool1, connectionPool2)
+    }
 
     @Test
     fun `imports all public classes`() {
