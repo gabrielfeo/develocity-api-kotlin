@@ -7,7 +7,7 @@ import org.gradle.api.services.BuildServiceParameters
 import okhttp3.OkHttpClient
 
 abstract class DevelocityApiService
-    : DevelocityApi by DevelocityApi.newInstance(config()),
+    : DevelocityApi by DevelocityApi.newInstance(),
       BuildService<BuildServiceParameters.None>,
       AutoCloseable {
 
@@ -15,10 +15,3 @@ abstract class DevelocityApiService
         shutdown()
     }
 }
-
-private fun config() = Config(
-    // Necessary to accomodate Gradle's build service lifecycle because library
-    // uses a singleton OkHttpClient.Builder unless one is provided.
-    // See https://github.com/gabrielfeo/develocity-api-kotlin/issues/451
-    clientBuilder = OkHttpClient.Builder(),
-)
