@@ -6,22 +6,22 @@ import org.intellij.lang.annotations.Language
 import org.jetbrains.kotlinx.jupyter.api.Code
 import org.jetbrains.kotlinx.jupyter.testkit.JupyterReplTestCase
 import kotlin.reflect.KVisibility
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
+import kotlin.test.*
 
 @ExperimentalStdlibApi
 class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
 
     @Test
-    fun `imports all extensions`() = assertSucceeds("""
+    fun `imports all extensions`() = assertSucceeds(
+        """
         com.gabrielfeo.develocity.api.BuildsApi::getGradleAttributesFlow
         com.gabrielfeo.develocity.api.BuildsApi::getBuildsFlow
 
         val attrs = emptyList<com.gabrielfeo.develocity.api.model.BuildAttributesValue>()
         "custom value name" in attrs
         attrs["custom value name"]
-    """)
+    """
+    )
 
     @Test
     fun `Given default clientBuilder, re-uses OkHttpClient resources`() {
@@ -30,6 +30,17 @@ class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
         val connectionPool1 = execRendered("api.config.clientBuilder.build().connectionPool.hashCode()")
         val connectionPool2 = execRendered("api2.config.clientBuilder.build().connectionPool.hashCode()")
         assertEquals(connectionPool1, connectionPool2)
+    }
+
+    @Test
+    fun `Given logLevel set, logs`() {
+        execSuccess(
+            """
+                val api = DevelocityApi.newInstance(Config(logLevel = "debug"))
+                runBlocking { api.buildsApi.getBuild("foo") }
+            """.trimIndent()
+        )
+        TODO("verify log output")
     }
 
     @Test
