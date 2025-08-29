@@ -203,6 +203,26 @@ public final class com/gabrielfeo/develocity/api/extension/BuildsApiExtensionsKt
 	public static synthetic fun getGradleAttributesFlow$default (Lcom/gabrielfeo/develocity/api/BuildsApi;JLjava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Lkotlinx/coroutines/CoroutineScope;Ljava/util/List;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
+public final class com/gabrielfeo/develocity/api/internal/FreshOkHttpClientBuilderFactory : com/gabrielfeo/develocity/api/internal/OkHttpClientBuilderFactory {
+	public fun <init> ()V
+	public fun create ()Lokhttp3/OkHttpClient$Builder;
+}
+
+public abstract interface class com/gabrielfeo/develocity/api/internal/OkHttpClientBuilderFactory {
+	public static final field Companion Lcom/gabrielfeo/develocity/api/internal/OkHttpClientBuilderFactory$Companion;
+	public abstract fun create ()Lokhttp3/OkHttpClient$Builder;
+}
+
+public final class com/gabrielfeo/develocity/api/internal/OkHttpClientBuilderFactory$Companion {
+	public final fun getDefault ()Lcom/gabrielfeo/develocity/api/internal/OkHttpClientBuilderFactory;
+	public final fun setDefault (Lcom/gabrielfeo/develocity/api/internal/OkHttpClientBuilderFactory;)V
+}
+
+public final class com/gabrielfeo/develocity/api/internal/SharedOkHttpClientBuilderFactory : com/gabrielfeo/develocity/api/internal/OkHttpClientBuilderFactory {
+	public fun <init> ()V
+	public fun create ()Lokhttp3/OkHttpClient$Builder;
+}
+
 public final class com/gabrielfeo/develocity/api/internal/auth/HttpBearerAuth : okhttp3/Interceptor {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V

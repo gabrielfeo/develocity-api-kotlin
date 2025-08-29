@@ -1,5 +1,6 @@
 package com.gabrielfeo.develocity.api.internal.jupyter
 
+import org.jetbrains.kotlinx.jupyter.api.ExecutionCallback
 import org.jetbrains.kotlinx.jupyter.api.KotlinKernelVersion
 import org.jetbrains.kotlinx.jupyter.api.libraries.LibraryDefinition
 
@@ -12,5 +13,14 @@ class DevelocityApiJupyterIntegration : LibraryDefinition {
         "com.gabrielfeo.develocity.api.*",
         "com.gabrielfeo.develocity.api.model.*",
         "com.gabrielfeo.develocity.api.extension.*",
+    )
+
+    override val init: List<ExecutionCallback<*>> = listOf(
+        {
+            execute("""
+                com.gabrielfeo.develocity.api.internal.OkHttpClientBuilderFactory.default =
+                    com.gabrielfeo.develocity.api.internal.SharedOkHttpClientBuilderFactory()
+            """.trimIndent())
+        }
     )
 }
