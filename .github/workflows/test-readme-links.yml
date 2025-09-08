@@ -24,4 +24,5 @@ jobs:
         with:
           folder-path: .
           max-depth: 1
+          use-verbose-mode: yes
           config-file: .github/link-check-config.json
