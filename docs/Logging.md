@@ -13,6 +13,10 @@ Logs appear in the Kotlin Jupyter kernel logs:
 
 ![IntelliJ Kotlin Notebook logs tool window](media/IntelliJKernelLogs.png)
 
+⚠️ Older versions of the Kotlin Jupyter kernel had issues with logging. Kernel version `0.15.0-598` and higher are known to work. In IntelliJ, configure to use a later version than bundled. In pip and conda, update the kernel package.
+
+![IntelliJ Kotlin Jupyter kernel version configuration](media/IntelliJKernelSettings.png)
+
 ## Scripts
 
 1. Add an SLF4J implementation (e.g., `slf4j-simple`, `logback-classic`, etc.)
