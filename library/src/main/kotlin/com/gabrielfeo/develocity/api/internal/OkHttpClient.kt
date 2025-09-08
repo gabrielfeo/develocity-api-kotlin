@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+import org.slf4j.Logger
 import java.time.Duration
 
 private const val HTTP_LOGGER_NAME = "com.gabrielfeo.develocity.api.OkHttpClient"
@@ -21,11 +22,15 @@ internal fun buildOkHttpClient(
     loggerFactory: LoggerFactory,
 ) = with(config.clientBuilder) {
     readTimeout(Duration.ofMillis(config.readTimeoutMillis))
+    val httpLogger = loggerFactory.newLogger(HTTP_LOGGER_NAME)
+    val cacheLogger = loggerFactory.newLogger(CACHE_LOGGER_NAME)
     if (config.cacheConfig.cacheEnabled) {
-        cache(buildCache(config, loggerFactory))
+        cache(buildCache(config, cacheLogger))
+    } else {
+        cacheLogger.debug("HTTP cache is disabled")
     }
-    addInterceptors(config, loggerFactory)
-    addNetworkInterceptors(config, loggerFactory)
+    addInterceptors(config, cacheLogger)
+    addNetworkInterceptors(config, httpLogger)
     build().apply {
         config.maxConcurrentRequests?.let {
             dispatcher.maxRequests = it
@@ -36,36 +41,33 @@ internal fun buildOkHttpClient(
 
 private fun OkHttpClient.Builder.addInterceptors(
     config: Config,
-    loggerFactory: LoggerFactory,
+    cacheLogger: Logger,
 ) {
     if (config.cacheConfig.cacheEnabled) {
-        val logger = loggerFactory.newLogger(CacheHitLoggingInterceptor::class)
-        addInterceptor(CacheHitLoggingInterceptor(logger))
+        addInterceptor(CacheHitLoggingInterceptor(cacheLogger))
     }
 }
 
 private fun OkHttpClient.Builder.addNetworkInterceptors(
     config: Config,
-    loggerFactory: LoggerFactory,
+    httpLogger: Logger,
 ) {
     if (config.cacheConfig.cacheEnabled) {
         addNetworkInterceptor(buildCacheEnforcingInterceptor(config))
     }
-    val logger = loggerFactory.newLogger(HTTP_LOGGER_NAME)
-    addNetworkInterceptor(HttpLoggingInterceptor(logger = logger::debug).apply { level = BASIC })
-    addNetworkInterceptor(HttpLoggingInterceptor(logger = logger::trace).apply { level = BODY })
+    addNetworkInterceptor(HttpLoggingInterceptor(logger = httpLogger::debug).apply { level = BASIC })
+    addNetworkInterceptor(HttpLoggingInterceptor(logger = httpLogger::trace).apply { level = BODY })
     // Add authentication after logging to prevent clients from leaking their access key
     addNetworkInterceptor(HttpBearerAuth("bearer", config.accessKey()))
 }
 
 internal fun buildCache(
     config: Config,
-    loggerFactory: LoggerFactory,
+    cacheLogger: Logger,
 ): Cache {
     val cacheDir = config.cacheConfig.cacheDir
     val maxSize = config.cacheConfig.maxCacheSize
-    val logger = loggerFactory.newLogger(CACHE_LOGGER_NAME)
-    logger.debug("HTTP cache dir: {} (max {}B)", cacheDir, maxSize)
+    cacheLogger.debug("HTTP cache dir: {} (max {}B)", cacheDir, maxSize)
     return Cache(cacheDir, maxSize)
 }
 
