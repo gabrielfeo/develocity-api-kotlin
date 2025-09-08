@@ -1501,7 +1501,7 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerforman
 	public static final field executedNotCacheable Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static final field executedUnknownCacheability Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static final field lifecycle Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
-	public static final field noMinusSource Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
+	public static final field noSource Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static final field skipped Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
@@ -1517,9 +1517,9 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerforman
 
 public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory : java/lang/Enum {
 	public static final field buildCacheNotEnabled Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
-	public static final field cacheMinusIfConditionNotMatched Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
+	public static final field cacheIfConditionNotMatched Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field disabledToEnsureCorrectness Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
-	public static final field doMinusNotMinusCacheMinusIfConditionMatched Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
+	public static final field doNotCacheIfConditionMatched Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field multipleOutputsDeclared Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field noOutputsDeclared Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field nonCacheableInputs Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
