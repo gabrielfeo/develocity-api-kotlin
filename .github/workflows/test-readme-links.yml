@@ -24,3 +24,4 @@ jobs:
         with:
           folder-path: .
           max-depth: 1
+          config-file: .github/link-check-config.json
