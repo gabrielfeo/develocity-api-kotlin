@@ -149,6 +149,10 @@ printMetrics(api.buildsApi.getBuildsFlow(query = "..."))
 api.shutdown()
 ```
 
+## Logging
+
+See [docs/Logging.md](docs/Logging.md) for how to configure logging in projects, scripts, and notebooks.
+
 ### Working samples
 
 - [Jupyter notebooks with the Kotlin kernel][29]

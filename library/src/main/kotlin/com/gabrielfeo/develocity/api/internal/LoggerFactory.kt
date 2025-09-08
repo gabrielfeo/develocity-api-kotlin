@@ -14,20 +14,14 @@ internal class RealLoggerFactory(
 ) : LoggerFactory {
 
     override fun newLogger(cls: KClass<*>): Logger {
-        setLogLevel()
         return org.slf4j.LoggerFactory.getLogger(cls.java)
     }
 
     override fun newLogger(name: String): Logger {
-        setLogLevel()
         return org.slf4j.LoggerFactory.getLogger(name)
     }
 
-    private fun setLogLevel() {
-        System.setProperty(LOG_LEVEL_SYSTEM_PROPERTY, config.logLevel)
-    }
 
     companion object {
-        const val LOG_LEVEL_SYSTEM_PROPERTY = "org.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api"
     }
 }

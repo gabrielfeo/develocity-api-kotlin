@@ -65,21 +65,6 @@ class OkHttpClientTest {
         assertTrue(client.readTimeoutMillis > defaultTimeout)
     }
 
-    @Test
-    fun `Logs under library package`() {
-        val loggerFactory = ProxyLoggerFactory(delegate = RealLoggerFactory(Config()))
-        buildClient(loggerFactory = loggerFactory)
-        loggerFactory.createdLoggers.let {
-            assertTrue(it.isNotEmpty())
-            it.forEach {
-                assertTrue(
-                    it.name.startsWith("com.gabrielfeo.develocity.api"),
-                    "Logger name '${it.name}' should start with 'com.gabrielfeo.develocity.api'"
-                )
-            }
-        }
-    }
-
     /**
      * Tests against regressions of issue gabrielfeo/develocity-api-kotlin#451
      */

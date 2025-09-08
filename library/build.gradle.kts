@@ -25,7 +25,6 @@ dependencies {
     implementation(libs.moshi.kotlin)
     api(libs.kotlin.coroutines)
     implementation(libs.slf4j.api)
-    runtimeOnly(libs.slf4j.simple)
     compileOnly(libs.kotlin.jupyter.api)
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.okio.fakeFileSystem)
@@ -111,7 +110,7 @@ tasks.withType<Test>().configureEach {
         "junit.jupiter.tempdir.cleanup.mode.default",
         System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
     )
-    environment("DEVELOCITY_API_LOG_LEVEL", "DEBUG")
+    systemProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity", "DEBUG")
     providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
         inputs.property("${name}.hashCode", value.hashCode())
     }
