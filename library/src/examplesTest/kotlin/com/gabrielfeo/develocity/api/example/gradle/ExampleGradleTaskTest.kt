@@ -34,7 +34,7 @@ class ExampleGradleTaskTest {
     @Test
     @Order(1)
     fun smokeTest() {
-        val dependencies = runBuild(":buildSrc:dependencies --configuration runtimeClasspath")
+        val dependencies = runBuild(":buildSrc:dependencies --configuration runtimeClasspath").stdout
         val libraryMatches = dependencies.lines().filter { "develocity-api-kotlin" in it }
         assertTrue(libraryMatches.isNotEmpty())
         assertTrue(libraryMatches.all { "-> SNAPSHOT" in it && "FAILED" !in it }) {
@@ -45,7 +45,7 @@ class ExampleGradleTaskTest {
     @Test
     fun testBuildPerformanceMetricsTaskWithDefaults() {
         val user = System.getProperty("user.name")
-        val output = runBuild("userBuildPerformanceMetrics")
+        val output = runBuild("userBuildPerformanceMetrics").stdout
         assertPerformanceMetricsOutput(output, user = user, period = "-14d")
     }
 
@@ -70,7 +70,7 @@ class ExampleGradleTaskTest {
 
     @Test
     fun testBuildPerformanceMetricsTaskWithOptions() {
-        val output = runBuild("userBuildPerformanceMetrics --user runner --period=-1d")
+        val output = runBuild("userBuildPerformanceMetrics --user runner --period=-1d").stdout
         assertPerformanceMetricsOutput(output, user = "runner", period = "-1d")
     }
 }

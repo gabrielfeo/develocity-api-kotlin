@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.io.CleanupMode
 import org.junit.jupiter.api.io.TempDir
 import java.net.URI
 import java.nio.file.Path
@@ -16,7 +17,7 @@ import kotlin.io.path.writeText
 
 class NotebooksTest {
 
-    @TempDir
+    @TempDir(cleanup = CleanupMode.NEVER)
     lateinit var tempDir: Path
 
     lateinit var venv: PythonVenv
@@ -40,7 +41,7 @@ class NotebooksTest {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
         val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(sourceNotebook)
         val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
-        with(JsonAdapter.fromJson(executedNotebook).asNotebookJson()) {
+        with(JsonAdapter.fromJson(executedNotebook.outputNotebook).asNotebookJson()) {
             assertTrue(textOutputLines.any { Regex("""Collected \d+ builds from the API""").containsMatchIn(it) }) {
                 "Expected line match not found in text outputs:\n${JsonAdapter.toPrettyJson(properties)}"
             }
@@ -51,6 +52,14 @@ class NotebooksTest {
                 "Expected Kandy outputs not found in notebook:\n${JsonAdapter.toPrettyJson(properties)}"
             }
         }
+    }
+
+    @Test
+    fun testLoggingNotebook() {
+        val sourceNotebook = tempDir / "examples/example-notebooks/Logging.ipynb"
+        val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(sourceNotebook)
+        val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
+        assertTrue(executedNotebook.outputStreams.stderr.contains("HTTP cache dir", ignoreCase = true))
     }
 
     private fun forceUseOfMavenLocalSnapshotArtifact(sourceNotebook: Path): Path {

@@ -33,7 +33,7 @@ class ExampleProjectTest {
     @Test
     @Order(1)
     fun smokeTest() {
-        val dependencies = runBuild("dependencies --configuration runtimeClasspath")
+        val dependencies = runBuild("dependencies --configuration runtimeClasspath").stdout
         val libraryMatches = dependencies.lines().filter { "develocity-api-kotlin" in it }
         assertTrue(libraryMatches.isNotEmpty())
         assertTrue(libraryMatches.all { "-> SNAPSHOT" in it && "FAILED" !in it }) {
@@ -43,7 +43,7 @@ class ExampleProjectTest {
 
     @Test
     fun testExampleProject() {
-        val output = runBuild("run")
+        val output = runBuild("run").stdout
         val tableRegex = Regex("""(?ms)^[-]+\nMost frequent builds:\n\s*\n(.+\|\s*\d+\s*\n?)+""")
         assertTrue(tableRegex.containsMatchIn(output)) {
             "Expected match for pattern '$tableRegex' in output '$output'"

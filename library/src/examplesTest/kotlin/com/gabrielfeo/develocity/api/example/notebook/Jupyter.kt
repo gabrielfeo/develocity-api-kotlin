@@ -1,5 +1,6 @@
 package com.gabrielfeo.develocity.api.example.notebook
 
+import com.gabrielfeo.develocity.api.example.OutputStreams
 import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 import java.nio.file.Path
@@ -12,9 +13,14 @@ class Jupyter(
     val venv: Path,
 ) {
 
-    fun executeNotebook(path: Path): Path {
+    class Execution(
+        val outputStreams: OutputStreams,
+        val outputNotebook: Path,
+    )
+
+    fun executeNotebook(path: Path): Execution {
         val outputPath = path.parent / "${path.nameWithoutExtension}-executed.ipynb"
-        runInShell(
+        val outputStreams = runInShell(
             workDir,
             "source '${venv / "bin/activate"}' &&",
             "jupyter nbconvert '$path'",
@@ -22,7 +28,7 @@ class Jupyter(
             "--execute",
             "--output='$outputPath'",
         )
-        return outputPath
+        return Execution(outputStreams, outputPath)
     }
 
     fun replaceMagics(
