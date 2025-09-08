@@ -1,0 +1,10 @@
+{
+  "retryCount": 3,
+  "fallbackRetryDelay": "120s",
+  "replacementPatterns": [
+    {
+      "pattern": "^https://nbviewer.org/github/",
+      "replacement": "https://github.com/"
+    }
+  ]
+}
