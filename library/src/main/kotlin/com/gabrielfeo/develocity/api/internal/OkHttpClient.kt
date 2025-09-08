@@ -11,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import java.time.Duration
 
 private const val HTTP_LOGGER_NAME = "com.gabrielfeo.develocity.api.OkHttpClient"
+private const val CACHE_LOGGER_NAME = "com.gabrielfeo.develocity.api.Cache"
 
 /**
  * Builds the final `OkHttpClient` with a `Config`.
@@ -63,7 +64,7 @@ internal fun buildCache(
 ): Cache {
     val cacheDir = config.cacheConfig.cacheDir
     val maxSize = config.cacheConfig.maxCacheSize
-    val logger = loggerFactory.newLogger(Cache::class)
+    val logger = loggerFactory.newLogger(CACHE_LOGGER_NAME)
     logger.debug("HTTP cache dir: {} (max {}B)", cacheDir, maxSize)
     return Cache(cacheDir, maxSize)
 }
