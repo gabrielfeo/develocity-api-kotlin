@@ -34,6 +34,8 @@ dependencies {
     integrationTestImplementation(libs.kotlin.coroutines.test)
     integrationTestImplementation(libs.guava)
     integrationTestImplementation(libs.kotlin.jupyter.testkit)
+    integrationTestImplementation(libs.logback.core)
+    integrationTestImplementation(libs.logback.classic)
 }
 
 val libraryPom = Action<MavenPom> {
