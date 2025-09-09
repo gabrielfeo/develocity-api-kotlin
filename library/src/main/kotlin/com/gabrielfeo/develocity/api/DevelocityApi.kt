@@ -1,6 +1,5 @@
 package com.gabrielfeo.develocity.api
 
-import com.gabrielfeo.develocity.api.internal.RealLoggerFactory
 import com.gabrielfeo.develocity.api.internal.buildOkHttpClient
 import com.gabrielfeo.develocity.api.internal.buildRetrofit
 import com.gabrielfeo.develocity.api.internal.infrastructure.Serializer
@@ -69,7 +68,7 @@ internal class RealDevelocityApi(
 ) : DevelocityApi {
 
     private val okHttpClient by lazy {
-        buildOkHttpClient(config = config, RealLoggerFactory())
+        buildOkHttpClient(config = config)
     }
 
     private val retrofit: Retrofit by lazy {

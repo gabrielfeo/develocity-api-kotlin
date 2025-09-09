@@ -93,6 +93,6 @@ class OkHttpClientTest {
             null -> Config()
             else -> Config(clientBuilder = clientBuilder)
         }
-        return buildOkHttpClient(config, RealLoggerFactory())
+        return buildOkHttpClient(config)
     }
 }

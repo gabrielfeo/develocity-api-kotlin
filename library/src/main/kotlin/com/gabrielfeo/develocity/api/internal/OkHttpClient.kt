@@ -9,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import java.time.Duration
 
 private const val HTTP_LOGGER_NAME = "com.gabrielfeo.develocity.api.OkHttpClient"
@@ -19,11 +20,10 @@ private const val CACHE_LOGGER_NAME = "com.gabrielfeo.develocity.api.Cache"
  */
 internal fun buildOkHttpClient(
     config: Config,
-    loggerFactory: LoggerFactory,
 ) = with(config.clientBuilder) {
     readTimeout(Duration.ofMillis(config.readTimeoutMillis))
-    val httpLogger = loggerFactory.newLogger(HTTP_LOGGER_NAME)
-    val cacheLogger = loggerFactory.newLogger(CACHE_LOGGER_NAME)
+    val httpLogger = LoggerFactory.getLogger(HTTP_LOGGER_NAME)
+    val cacheLogger = LoggerFactory.getLogger(CACHE_LOGGER_NAME)
     if (config.cacheConfig.cacheEnabled) {
         cache(buildCache(config, cacheLogger))
     } else {
