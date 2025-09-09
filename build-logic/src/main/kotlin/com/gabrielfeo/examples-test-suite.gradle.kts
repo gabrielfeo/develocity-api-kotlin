@@ -63,3 +63,33 @@ tasks.named<Test>("examplesTest") {
 tasks.named("check") {
     dependsOn("examplesTest")
 }
+
+val enforceSameQueries by tasks.registering {
+    inputs.files(examples)
+        .withPropertyName("exampleFiles")
+        .withPathSensitivity(PathSensitivity.NONE)
+        .skipWhenEmpty()
+    outputs.cacheIf { true }
+    doLast {
+        var firstQuery: Pair<File, String>? = null
+        for (file in examples.files) {
+            file.useLines { lines ->
+                val query = lines
+                    .map { it.trim(' ', ',') }
+                    .firstOrNull { Regex("""query\s*=""").containsMatchIn(it) }
+                    ?.removePrefix("query")
+                    ?.trim(' ', '=', '"', '\'')
+                    ?: continue
+                if (firstQuery == null) {
+                    firstQuery = file to query
+                    continue
+                }
+                val (firstFile, firstQuery) = firstQuery
+                if (firstQuery != query) {
+                    val comparison = "'$firstQuery' ($firstFile) vs '$query' ($file)"
+                    throw VerificationException("Mismatched queries in examples: $comparison")
+                }
+            }
+        }
+    }
+}
