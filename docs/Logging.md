@@ -1,6 +1,12 @@
 # Logging
 
-This library uses SLF4J for logging, but does not bundle an SLF4J implementation.
+This library uses [SLF4J][1] but does not bundle an SLF4J implementation.
+
+- [Notebooks](#notebooks)
+- [Scripts](#scripts)
+    - [`simple-logger`](#simple-logger)
+- [Projects](#projects)
+    - [`simple-logger`](#simple-logger-1)
 
 ## Notebooks
 
@@ -38,7 +44,7 @@ Then set the log level for `com.gabrielfeo.develocity.api` using system properti
 @file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
 @file:DependsOn("org.slf4j:slf4j-simple:2.0.17")
 
-System.setProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity", "info")
+System.setProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api", "debug")
 
 // ...
 ```
@@ -46,7 +52,8 @@ System.setProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity", "info
 - from the shebang line
 
 ```kotlin
-#!/usr/bin/env kotlin -script -J-Dorg.slf4j.simpleLogger.log.com.gabrielfeo.develocity=info
+#!/usr/bin/env kotlin -script -J-Dorg.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api=debug
+
 @file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
 @file:DependsOn("org.slf4j:slf4j-simple:2.0.17")
 
@@ -56,7 +63,7 @@ System.setProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity", "info
 - from `JAVA_OPTS`
 
 ```bash
-export JAVA_OPTS="-Dorg.slf4j.simpleLogger.log.com.gabrielfeo.develocity=info"
+export JAVA_OPTS="-Dorg.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api=debug"
 kotlin -script example-script.main.kts
 ```
 
@@ -72,7 +79,8 @@ Adding `simple-logger` to your classpath is the easiest way to get logging in pr
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("org.slf4j:slf4j-simple:2.0.17")
+    implementation("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
+    runtimeOnly("org.slf4j:slf4j-simple:2.0.17")
 }
 ```
 
@@ -81,6 +89,8 @@ Then set the system property when running your application. If using the Gradle 
 ```kotlin
 tasks.named<JavaExec>("run") {
     // ...
-    systemProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity", "debug")
+    systemProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api", "debug")
 }
 ```
+
+[0]: https://www.slf4j.org/
