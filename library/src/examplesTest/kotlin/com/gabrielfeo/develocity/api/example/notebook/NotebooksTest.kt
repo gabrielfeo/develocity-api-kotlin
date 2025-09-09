@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
-import org.junit.jupiter.api.io.CleanupMode
 import org.junit.jupiter.api.io.TempDir
 import java.net.URI
 import java.nio.file.Path
@@ -17,7 +16,6 @@ import kotlin.io.path.writeText
 
 class NotebooksTest {
 
-    @TempDir(cleanup = CleanupMode.NEVER)
     lateinit var tempDir: Path
 
     lateinit var venv: PythonVenv
