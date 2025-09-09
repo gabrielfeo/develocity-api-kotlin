@@ -76,7 +76,6 @@ class OkHttpClientTest {
     private fun buildClient(
         vararg envVars: Pair<String, String?>,
         clientBuilder: OkHttpClient.Builder? = null,
-        loggerFactory: LoggerFactory? = null,
     ): OkHttpClient {
         val fakeEnv = FakeEnv(*envVars)
         if ("DEVELOCITY_ACCESS_KEY" !in fakeEnv)
@@ -94,6 +93,6 @@ class OkHttpClientTest {
             null -> Config()
             else -> Config(clientBuilder = clientBuilder)
         }
-        return buildOkHttpClient(config, loggerFactory ?: RealLoggerFactory(config))
+        return buildOkHttpClient(config, RealLoggerFactory())
     }
 }

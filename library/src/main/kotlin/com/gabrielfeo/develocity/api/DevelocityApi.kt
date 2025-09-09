@@ -69,7 +69,7 @@ internal class RealDevelocityApi(
 ) : DevelocityApi {
 
     private val okHttpClient by lazy {
-        buildOkHttpClient(config = config, RealLoggerFactory(config))
+        buildOkHttpClient(config = config, RealLoggerFactory())
     }
 
     private val retrofit: Retrofit by lazy {

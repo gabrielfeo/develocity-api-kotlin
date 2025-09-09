@@ -50,7 +50,7 @@ class RetrofitTest {
         val config = Config()
         return buildRetrofit(
             config = config,
-            client = buildOkHttpClient(config, RealLoggerFactory(config)),
+            client = buildOkHttpClient(config, RealLoggerFactory()),
             moshi = Moshi.Builder().build()
         )
     }
