@@ -3,6 +3,8 @@ package com.gabrielfeo.develocity.api
 import ch.qos.logback.classic.Logger as LogbackLogger
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.AppenderBase
+import ch.qos.logback.core.ConsoleAppender
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder
 import com.gabrielfeo.develocity.api.internal.*
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.io.TempDir
@@ -13,7 +15,7 @@ import kotlin.test.*
 
 class LoggingIntegrationTest {
 
-    class LogRecorder : AppenderBase<ILoggingEvent>() {
+    private class LogRecorder : AppenderBase<ILoggingEvent>() {
         val logsByLoggerName = mutableListOf<Pair<String, String>>()
         override fun append(eventObject: ILoggingEvent) {
             with(eventObject) {
@@ -25,16 +27,26 @@ class LoggingIntegrationTest {
     @TempDir
     lateinit var tempDir: File
 
-    val appender = LogRecorder()
-    lateinit var api: DevelocityApi
+    private val recorder = LogRecorder()
+
+    private lateinit var api: DevelocityApi
 
     @BeforeTest
     fun setup() {
         (LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME) as LogbackLogger).apply {
             detachAndStopAllAppenders()
-            addAppender(appender)
+            addAppender(recorder)
+            addAppender(ConsoleAppender<ILoggingEvent>().apply {
+                context = loggerContext
+                encoder = PatternLayoutEncoder().apply {
+                    context = loggerContext
+                    pattern = "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+                    start()
+                }
+                start()
+            })
         }
-        appender.start()
+        recorder.start()
         env = RealEnv
         api = DevelocityApi.newInstance(
             config = Config(
@@ -54,7 +66,7 @@ class LoggingIntegrationTest {
     @Test
     fun logsUnderLibraryPackage() = runTest {
         api.buildsApi.getBuilds(since = 0, maxBuilds = 1)
-        with(appender.logsByLoggerName) {
+        with(recorder.logsByLoggerName) {
             assertTrue(isNotEmpty())
             assertTrue(any { (_, message) -> message.contains("cache dir", ignoreCase = true) })
             assertTrue(any { (_, message) -> message.contains("cache miss", ignoreCase = true) })

@@ -112,7 +112,6 @@ tasks.withType<Test>().configureEach {
         "junit.jupiter.tempdir.cleanup.mode.default",
         System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
     )
-    systemProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity", "DEBUG")
     providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
         inputs.property("${name}.hashCode", value.hashCode())
     }
