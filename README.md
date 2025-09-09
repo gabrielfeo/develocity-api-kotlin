@@ -165,6 +165,12 @@ from the same OpenAPI spec.
 
 ## Optional setup
 
+### Logging
+
+See [docs/Logging.md](docs/Logging.md) for how to configure logging in projects, scripts, and notebooks.
+
+### Code-based configuration
+
 Creating a custom [`Config`][8] allows you to change library settings via code instead of
 environment variables. It also lets you share resources between the library's `OkHttpClient` and
 your own. For example:

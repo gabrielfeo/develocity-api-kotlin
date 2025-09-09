@@ -16,33 +16,6 @@ import kotlin.time.Duration.Companion.days
 data class Config(
 
     /**
-     * Changes minimum log level for library classes, including the HTTP
-     * client, **when using `slf4j-simple`** (bundled with the library). If
-     * replacing SLF4J bindings, this setting has no effect, and log level
-     * must be changed in the chosen logging framework.
-     *
-     * Default value, by order of precedence:
-     *
-     * - `DEVELOCITY_API_LOG_LEVEL` environment variable
-     * - `org.slf4j.simpleLogger.defaultLogLevel` system property
-     * - `"off"`
-     *
-     * SLF4J valid log levels and their usage by the library:
-     *
-     * - "off" (default, no logs)
-     * - "error"
-     * - "warn"
-     * - "info"
-     * - "debug" (logs HTTP traffic: URLs and status codes only)
-     * - "trace" (logs HTTP traffic: full request and response including body, excluding
-     *   authorization header)
-     */
-    val logLevel: String =
-        env["DEVELOCITY_API_LOG_LEVEL"]
-            ?: systemProperties.logLevel
-            ?: "off",
-
-    /**
      * Provides the URL of a Develocity server to use in API requests. By default, uses environment
      * variable `DEVELOCITY_URL`. Must be a valid URL with no path segments (trailing slash OK) or
      * query parameters.
