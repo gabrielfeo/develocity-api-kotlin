@@ -59,7 +59,8 @@ class NotebooksTest {
         val sourceNotebook = tempDir / "examples/example-notebooks/Logging.ipynb"
         val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(sourceNotebook)
         val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
-        assertTrue(executedNotebook.outputStreams.stderr.contains("HTTP cache dir", ignoreCase = true))
+        val kernelLogs = executedNotebook.outputStreams.stderr
+        assertTrue(kernelLogs.contains("gabrielfeo.develocity.api.Cache - HTTP cache", ignoreCase = true))
     }
 
     private fun forceUseOfMavenLocalSnapshotArtifact(sourceNotebook: Path): Path {
