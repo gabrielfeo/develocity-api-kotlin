@@ -14,14 +14,16 @@ This library uses [SLF4J][1] but does not bundle an SLF4J implementation.
 
 Logs appear in the Kotlin Jupyter kernel logs:
 
-- In IntelliJ, view logs in the Kotlin Notebook logs tool window
 - In Jupyter and JupyterLab, logs appear in the shell that owns the Jupyter process
+- In IntelliJ, view logs in the Kotlin Notebook logs tool window
 
 ![IntelliJ Kotlin Notebook logs tool window](media/IntelliJKernelLogs.png)
 
 ⚠️ Older versions of the Kotlin Jupyter kernel had issues with logging. Kernel version `0.15.0-598` and higher are known to work. In IntelliJ, configure to use a later version than bundled. In pip and conda, update the kernel package.
 
 ![IntelliJ Kotlin Jupyter kernel version configuration](media/IntelliJKernelSettings.png)
+
+See the example notebook [Logging.ipynb](../examples/example-notebooks/Logging.ipynb).
 
 ## Scripts
 

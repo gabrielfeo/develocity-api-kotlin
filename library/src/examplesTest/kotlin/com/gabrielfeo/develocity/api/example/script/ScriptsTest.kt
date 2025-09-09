@@ -23,7 +23,7 @@ class ScriptsTest {
     fun testMostFrequentBuildsScript() {
         val script = tempDir / "examples/example-scripts/example-script.main.kts"
         val replacedScript = forceUseOfMavenLocalSnapshotArtifact(script)
-        val output = runInShell(tempDir, "kotlin '$replacedScript'").trim()
+        val output = runInShell(tempDir, "kotlin '$replacedScript'").stdout.trim()
         val tableRegex = Regex("""(?ms)^[-]+\nMost frequent builds:\n\s*\n(.+\|\s*\d+\s*\n?)+""")
         assertTrue(tableRegex.containsMatchIn(output)) {
             "Expected match for pattern '$tableRegex' in output '$output'"
