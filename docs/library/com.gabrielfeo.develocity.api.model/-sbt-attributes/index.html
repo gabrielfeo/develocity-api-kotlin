@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SbtAttributes</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../index.html">
+                    library
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+2025.1.0        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter=":library:dokkaHtml/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":library:dokkaHtml/main"
+                                       data-filter=":library:dokkaHtml/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    library
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="library::com.gabrielfeo.develocity.api.model/SbtAttributes///PointingToDeclaration//-1951329584">
+  <div class="breadcrumbs"><a href="../../../index.html">library</a><span class="delimiter">/</span><a href="../index.html">com.gabrielfeo.develocity.api.model</a><span class="delimiter">/</span><span class="current">SbtAttributes</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Sbt</span><wbr></wbr><span><span>Attributes</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">SbtAttributes</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;id&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;buildStartTime&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>buildStartTime<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;buildDuration&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>buildDuration<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;sbtVersion&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>sbtVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;pluginVersion&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>pluginVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;rootProjectName&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>rootProjectName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;requestedCommands&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>requestedCommands<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;hasFailed&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>hasFailed<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;tags&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;values&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>propertyValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-build-attributes-value/index.html">BuildAttributesValue</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;links&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>links<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-build-attributes-link/index.html">BuildAttributesLink</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;develocitySettings&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>develocitySettings<span class="token operator">: </span><a href="../-sbt-develocity-settings/index.html">SbtDevelocitySettings</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;buildOptions&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>buildOptions<span class="token operator">: </span><a href="../-sbt-build-options/index.html">SbtBuildOptions</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;environment&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>environment<span class="token operator">: </span><a href="../-build-attributes-environment/index.html">BuildAttributesEnvironment</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;hasVerificationFailure&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>hasVerificationFailure<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;hasNonVerificationFailure&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span><span class="token keyword">val </span>hasNonVerificationFailure<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">The attributes of an sbt build.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>id</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Build Scan ID.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>build</span><wbr></wbr><span>Start</span><wbr></wbr><span><span>Time</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The time when the build starts, as milliseconds since Epoch.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>build</span><wbr></wbr><span><span>Duration</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The duration of the build, as milliseconds.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>sbt</span><wbr></wbr><span><span>Version</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The sbt version used.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>plugin</span><wbr></wbr><span><span>Version</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Develocity sbt plugin version used.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>root</span><wbr></wbr><span>Project</span><wbr></wbr><span><span>Name</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The name of the root project, as reported by sbt.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>requested</span><wbr></wbr><span><span>Commands</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The list of requested commands.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>has</span><wbr></wbr><span><span>Failed</span></span></u></div></span></div><div><div class="title"><p class="paragraph">True when the build fails, false otherwise.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>tags</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The list of Build Scan tags.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>property</span><wbr></wbr><span><span>Values</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The list of Build Scan values.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>links</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The list of Build Scan links.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>develocity</span><wbr></wbr><span><span>Settings</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>build</span><wbr></wbr><span><span>Options</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>environment</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>has</span><wbr></wbr><span>Verification</span><wbr></wbr><span><span>Failure</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Set only if the build fails: true when the build has at least one failure classified as \&quot;Verification\&quot;, false otherwise.  The Verification classification is meant for failures that are expected within a standard application development lifecycle. They typically represent a problem with the developer’s inputs to the build such as the source code.</p></div></div></div></div><div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>has</span><wbr></wbr><span>Non</span><wbr></wbr><span>Verification</span><wbr></wbr><span><span>Failure</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Set only if the build fails: true when the build has at least one failure classified as \&quot;Non-verification\&quot;, false otherwise.  The Non-verification classification is meant for failures that are typically not expected within a standard application development lifecycle, such as build configuration failures, dependency resolution failures, and infrastructure failures.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-526549153%2FConstructors%2F-1951329584" anchor-label="SbtAttributes" id="-526549153%2FConstructors%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sbt-attributes.html"><span>Sbt</span><wbr></wbr><span><span>Attributes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-526549153%2FConstructors%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;id&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;buildStartTime&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>buildStartTime<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;buildDuration&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>buildDuration<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;sbtVersion&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>sbtVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;pluginVersion&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>pluginVersion<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;rootProjectName&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>rootProjectName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;requestedCommands&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>requestedCommands<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;hasFailed&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>hasFailed<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;tags&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>tags<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;values&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>propertyValues<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-build-attributes-value/index.html">BuildAttributesValue</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;links&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>links<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-build-attributes-link/index.html">BuildAttributesLink</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;develocitySettings&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>develocitySettings<span class="token operator">: </span><a href="../-sbt-develocity-settings/index.html">SbtDevelocitySettings</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;buildOptions&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>buildOptions<span class="token operator">: </span><a href="../-sbt-build-options/index.html">SbtBuildOptions</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;environment&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>environment<span class="token operator">: </span><a href="../-build-attributes-environment/index.html">BuildAttributesEnvironment</a><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;hasVerificationFailure&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>hasVerificationFailure<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://square.github.io/moshi/1.x/moshi-kotlin/com.squareup.moshi/-json/index.html"><span class="token annotation builtin">Json</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">&quot;hasNonVerificationFailure&quot;</span></span></span><wbr></wbr><span class="token punctuation">)</span> </span>hasNonVerificationFailure<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="299368577%2FProperties%2F-1951329584" anchor-label="buildDuration" id="299368577%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="build-duration.html"><span>build</span><wbr></wbr><span><span>Duration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="299368577%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="build-duration.html">buildDuration</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1875225593%2FProperties%2F-1951329584" anchor-label="buildOptions" id="-1875225593%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="build-options.html"><span>build</span><wbr></wbr><span><span>Options</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1875225593%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="build-options.html">buildOptions</a><span class="token operator">: </span><a href="../-sbt-build-options/index.html">SbtBuildOptions</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1709080714%2FProperties%2F-1951329584" anchor-label="buildStartTime" id="-1709080714%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="build-start-time.html"><span>build</span><wbr></wbr><span>Start</span><wbr></wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1709080714%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="build-start-time.html">buildStartTime</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="173525846%2FProperties%2F-1951329584" anchor-label="develocitySettings" id="173525846%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="develocity-settings.html"><span>develocity</span><wbr></wbr><span><span>Settings</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="173525846%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="develocity-settings.html">develocitySettings</a><span class="token operator">: </span><a href="../-sbt-develocity-settings/index.html">SbtDevelocitySettings</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="864226096%2FProperties%2F-1951329584" anchor-label="environment" id="864226096%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="environment.html"><span><span>environment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="864226096%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="environment.html">environment</a><span class="token operator">: </span><a href="../-build-attributes-environment/index.html">BuildAttributesEnvironment</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1639813172%2FProperties%2F-1951329584" anchor-label="hasFailed" id="-1639813172%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-failed.html"><span>has</span><wbr></wbr><span><span>Failed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1639813172%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="has-failed.html">hasFailed</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1514895161%2FProperties%2F-1951329584" anchor-label="hasNonVerificationFailure" id="-1514895161%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-non-verification-failure.html"><span>has</span><wbr></wbr><span>Non</span><wbr></wbr><span>Verification</span><wbr></wbr><span><span>Failure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1514895161%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="has-non-verification-failure.html">hasNonVerificationFailure</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1909396866%2FProperties%2F-1951329584" anchor-label="hasVerificationFailure" id="1909396866%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-verification-failure.html"><span>has</span><wbr></wbr><span>Verification</span><wbr></wbr><span><span>Failure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1909396866%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="has-verification-failure.html">hasVerificationFailure</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1283926556%2FProperties%2F-1951329584" anchor-label="id" id="1283926556%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="id.html"><span><span>id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1283926556%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="id.html">id</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="365332682%2FProperties%2F-1951329584" anchor-label="links" id="365332682%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="links.html"><span><span>links</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="365332682%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="links.html">links</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-build-attributes-link/index.html">BuildAttributesLink</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1337085406%2FProperties%2F-1951329584" anchor-label="pluginVersion" id="1337085406%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="plugin-version.html"><span>plugin</span><wbr></wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1337085406%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="plugin-version.html">pluginVersion</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1874307168%2FProperties%2F-1951329584" anchor-label="propertyValues" id="1874307168%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="property-values.html"><span>property</span><wbr></wbr><span><span>Values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1874307168%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="property-values.html">propertyValues</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-build-attributes-value/index.html">BuildAttributesValue</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-195589619%2FProperties%2F-1951329584" anchor-label="requestedCommands" id="-195589619%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="requested-commands.html"><span>requested</span><wbr></wbr><span><span>Commands</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-195589619%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="requested-commands.html">requestedCommands</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="365963809%2FProperties%2F-1951329584" anchor-label="rootProjectName" id="365963809%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="root-project-name.html"><span>root</span><wbr></wbr><span>Project</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="365963809%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="root-project-name.html">rootProjectName</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-602404060%2FProperties%2F-1951329584" anchor-label="sbtVersion" id="-602404060%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sbt-version.html"><span>sbt</span><wbr></wbr><span><span>Version</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-602404060%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="sbt-version.html">sbtVersion</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="922279518%2FProperties%2F-1951329584" anchor-label="tags" id="922279518%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tags.html"><span><span>tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="922279518%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="tags.html">tags</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

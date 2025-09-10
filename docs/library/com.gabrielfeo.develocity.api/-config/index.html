@@ -26,76 +26,111 @@
 <link href="../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../styles/logo-styles.css" rel="Stylesheet">
 <link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
 <script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
 <script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
     <div class="root">
-<nav class="navigation" id="navigation-wrapper">
-    <div class="navigation--inner">
-        <div class="navigation-title">
-            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
-            <div class="library-name">
-                    <a class="library-name--link" href="../../../index.html">
-                            library
-                    </a>
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../index.html">
+                    library
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+2025.1.0        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter=":library:dokkaHtml/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":library:dokkaHtml/main"
+                                       data-filter=":library:dokkaHtml/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
-            <div class="library-version">
-2024.3.0            </div>
         </div>
-        <div class="filter-section" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":library:dokkaHtml/main">jvm</button>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
         </div>
-    </div>
-    <div class="navigation-controls">
-        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
-        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
-    </div>
-</nav>
+    </nav>
         <div id="container">
             <div class="sidebar" id="leftColumn">
-                <div class="sidebar--inner" id="sideMenu"></div>
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    library
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
             </div>
             <div id="main">
 <div class="main-content" data-page-type="classlike" id="content" pageIds="library::com.gabrielfeo.develocity.api/Config///PointingToDeclaration//-1951329584">
   <div class="breadcrumbs"><a href="../../../index.html">library</a><span class="delimiter">/</span><a href="../index.html">com.gabrielfeo.develocity.api</a><span class="delimiter">/</span><span class="current">Config</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Config</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Config</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>logLevel<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LOG_LEVEL&quot;]
-            ?: systemProperties.logLevel
-            ?: &quot;off&quot;<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>apiUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_URL&quot;]
-            ?: error(ERROR_NULL_API_URL)<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>apiToken<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>{
-        env[&quot;DEVELOCITY_API_TOKEN&quot;]
-            ?: error(ERROR_NULL_API_TOKEN)
-    }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>clientBuilder<span class="token operator">: </span><span data-unresolved-link="okhttp3/OkHttpClient.Builder///PointingToDeclaration/">OkHttpClient.Builder</span><span class="token operator"> = </span>basicOkHttpClient.newBuilder()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxConcurrentRequests<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CONCURRENT_REQUESTS&quot;]?.toInt()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>readTimeoutMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_READ_TIMEOUT_MILLIS&quot;]?.toLong()
-            ?: 60_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cacheConfig<span class="token operator">: </span><a href="-cache-config/index.html">Config.CacheConfig</a><span class="token operator"> = </span>CacheConfig()</span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/develocity-api-kotlin/blob/2024.3.0/library/src/main/kotlin/com/gabrielfeo/develocity/api/Config.kt#L14">source</a>)</span></span></div><p class="paragraph">Library configuration options.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Config</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>server<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URI.html">URI</a><span class="token operator"> = </span>requireNotNull(env[&quot;DEVELOCITY_URL&quot;]?.let(::URI)) { ERROR_NULL_DEVELOCITY_URL }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>accessKey<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>{
+        requireNotNull(accessKeyResolver.resolve(server.host)) { ERROR_NULL_ACCESS_KEY }
+    }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>clientBuilder<span class="token operator">: </span><span data-unresolved-link="okhttp3/OkHttpClient.Builder///PointingToDeclaration/">OkHttpClient.Builder</span><span class="token operator"> = </span>OkHttpClientBuilderFactory.default.create()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxConcurrentRequests<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CONCURRENT_REQUESTS&quot;]?.toInt()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>readTimeoutMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_READ_TIMEOUT_MILLIS&quot;]?.toLong()
+            ?: 60_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cacheConfig<span class="token operator">: </span><a href="-cache-config/index.html">Config.CacheConfig</a><span class="token operator"> = </span>CacheConfig()</span></span><span class="token punctuation">)</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/gabrielfeo/develocity-api-kotlin/blob/2025.1.0/library/src/main/kotlin/com/gabrielfeo/develocity/api/Config.kt#L16">source</a>)</span></span></div><p class="paragraph">Library configuration options.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="">Constructors</h2>
-        <div class="table"><a data-name="-737917065%2FConstructors%2F-1951329584" anchor-label="Config" id="-737917065%2FConstructors%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+        <div class="table"><a data-name="-791076681%2FConstructors%2F-1951329584" anchor-label="Config" id="-791076681%2FConstructors%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-config.html"><span><span>Config</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-737917065%2FConstructors%2F-1951329584"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-791076681%2FConstructors%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">logLevel<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LOG_LEVEL&quot;]
-            ?: systemProperties.logLevel
-            ?: &quot;off&quot;<span class="token punctuation">, </span></span><span class="parameter ">apiUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_URL&quot;]
-            ?: error(ERROR_NULL_API_URL)<span class="token punctuation">, </span></span><span class="parameter ">apiToken<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>{
-        env[&quot;DEVELOCITY_API_TOKEN&quot;]
-            ?: error(ERROR_NULL_API_TOKEN)
-    }<span class="token punctuation">, </span></span><span class="parameter ">clientBuilder<span class="token operator">: </span><span data-unresolved-link="okhttp3/OkHttpClient.Builder///PointingToDeclaration/">OkHttpClient.Builder</span><span class="token operator"> = </span>basicOkHttpClient.newBuilder()<span class="token punctuation">, </span></span><span class="parameter ">maxConcurrentRequests<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CONCURRENT_REQUESTS&quot;]?.toInt()<span class="token punctuation">, </span></span><span class="parameter ">readTimeoutMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_READ_TIMEOUT_MILLIS&quot;]?.toLong()
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">server<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URI.html">URI</a><span class="token operator"> = </span>requireNotNull(env[&quot;DEVELOCITY_URL&quot;]?.let(::URI)) { ERROR_NULL_DEVELOCITY_URL }<span class="token punctuation">, </span></span><span class="parameter ">accessKey<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>{
+        requireNotNull(accessKeyResolver.resolve(server.host)) { ERROR_NULL_ACCESS_KEY }
+    }<span class="token punctuation">, </span></span><span class="parameter ">clientBuilder<span class="token operator">: </span><span data-unresolved-link="okhttp3/OkHttpClient.Builder///PointingToDeclaration/">OkHttpClient.Builder</span><span class="token operator"> = </span>OkHttpClientBuilderFactory.default.create()<span class="token punctuation">, </span></span><span class="parameter ">maxConcurrentRequests<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CONCURRENT_REQUESTS&quot;]?.toInt()<span class="token punctuation">, </span></span><span class="parameter ">readTimeoutMillis<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_READ_TIMEOUT_MILLIS&quot;]?.toLong()
             ?: 60_000L<span class="token punctuation">, </span></span><span class="parameter ">cacheConfig<span class="token operator">: </span><a href="-cache-config/index.html">Config.CacheConfig</a><span class="token operator"> = </span>CacheConfig()</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
@@ -115,19 +150,19 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-cache-config/index.html">CacheConfig</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cacheEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_CACHE_ENABLED&quot;].toBoolean()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cacheDir<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/File.html">File</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_CACHE_DIR&quot;]?.let(::File)
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-cache-config/index.html">CacheConfig</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>cacheEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_CACHE_ENABLED&quot;].toBoolean()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cacheDir<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html">File</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_CACHE_DIR&quot;]?.let(::File)
                 ?: run {
                     val userHome = checkNotNull(systemProperties.userHome) { ERROR_NULL_USER_HOME }
                     File(userHome, &quot;.develocity-api-kotlin-cache&quot;)
-                }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxCacheSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CACHE_SIZE&quot;]?.toLong()
-            ?: 1_000_000_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>longTermCacheUrlPattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
+                }<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>maxCacheSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_MAX_CACHE_SIZE&quot;]?.toLong()
+            ?: 1_000_000_000L<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>longTermCacheUrlPattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_LONG_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
                 ?: Regex(
                     &quot;&quot;&quot;
                     .*/api/builds/[\d\w]+/(?:gradle|maven)-(?:attributes|build-cache-performance)
                 &quot;&quot;&quot;.trimIndent()
-                )<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>longTermCacheMaxAge<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE&quot;]?.toLong()
-                ?: 365.days.inWholeSeconds<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shortTermCacheUrlPattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
-                ?: &quot;&quot;&quot;.*/builds(?:\?.*|\Z)&quot;&quot;&quot;.toRegex()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shortTermCacheMaxAge<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE&quot;]?.toLong()
+                )<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>longTermCacheMaxAge<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE&quot;]?.toLong()
+                ?: 365.days.inWholeSeconds<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shortTermCacheUrlPattern<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.text/-regex/index.html">Regex</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_URL_PATTERN&quot;]?.toRegex()
+                ?: &quot;&quot;&quot;.*/builds(?:\?.*|\Z)&quot;&quot;&quot;.toRegex()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shortTermCacheMaxAge<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span>env[&quot;DEVELOCITY_API_SHORT_TERM_CACHE_MAX_AGE&quot;]?.toLong()
                 ?: 1.days.inWholeSeconds</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">HTTP cache is off by default, but can speed up requests significantly. The Develocity API disallows HTTP caching, but this library forcefully enables it by overwriting cache-related headers in API responses. Enable with <a href="-cache-config/cache-enabled.html">cacheEnabled</a>.</p></div></div></div>
                 </div>
               </div>
@@ -137,32 +172,17 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="">Properties</h2>
-        <div class="table"><a data-name="-679087969%2FProperties%2F-1951329584" anchor-label="apiToken" id="-679087969%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+        <div class="table"><a data-name="606599649%2FProperties%2F-1951329584" anchor-label="accessKey" id="606599649%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="api-token.html"><span>api</span><wbr></wbr><span><span>Token</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-679087969%2FProperties%2F-1951329584"></span>
+                  <div><a href="access-key.html"><span>access</span><wbr></wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="606599649%2FProperties%2F-1951329584"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="api-token.html">apiToken</a><span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Provides the access token for a Develocity API instance. By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_TOKEN</code>.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="1442547881%2FProperties%2F-1951329584" anchor-label="apiUrl" id="1442547881%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="api-url.html"><span>api</span><wbr></wbr><span><span>Url</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1442547881%2FProperties%2F-1951329584"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="api-url.html">apiUrl</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Provides the URL of a Develocity API instance REST API. By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_URL</code>. Must end with <code class="lang-kotlin">/api/</code>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="access-key.html">accessKey</a><span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Provides the access key for the Develocity server. By default, resolves to the first key from these sources that matches the host of <a href="server.html">server</a>:</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -197,21 +217,6 @@
               </div>
             </div>
           </div>
-<a data-name="1083020574%2FProperties%2F-1951329584" anchor-label="logLevel" id="1083020574%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="log-level.html"><span>log</span><wbr></wbr><span><span>Level</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1083020574%2FProperties%2F-1951329584"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="log-level.html">logLevel</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Changes minimum log level for library classes, including the HTTP client, <strong>when using </strong><code class="strong lang-kotlin"><strong>slf4j-simple</strong></code> (bundled with the library). If replacing SLF4J bindings, this setting has no effect, and log level must be changed in the chosen logging framework.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
 <a data-name="1400986397%2FProperties%2F-1951329584" anchor-label="maxConcurrentRequests" id="1400986397%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
             <div class="main-subrow keyValue ">
@@ -222,7 +227,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="max-concurrent-requests.html">maxConcurrentRequests</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Maximum amount of concurrent requests allowed. Further requests will be queued. By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_MAX_CONCURRENT_REQUESTS</code> or 5 (OkHttp's default value of <span data-unresolved-link="okhttp3/Dispatcher/maxRequestsPerHost/#/PointingToDeclaration/">Dispatcher.maxRequestsPerHost</span>).</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="max-concurrent-requests.html">maxConcurrentRequests</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Maximum amount of concurrent requests allowed. Further requests will be queued. By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_MAX_CONCURRENT_REQUESTS</code> or 5 (OkHttp's default value of <span data-unresolved-link="okhttp3/Dispatcher/maxRequestsPerHost/#/PointingToDeclaration/">Dispatcher.maxRequestsPerHost</span>).</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -237,7 +242,22 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="read-timeout-millis.html">readTimeoutMillis</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Timeout for reading an API response, used for <span data-unresolved-link="okhttp3/OkHttpClient/readTimeoutMillis/#/PointingToDeclaration/">OkHttpClient.readTimeoutMillis</span>. By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_READ_TIMEOUT_MILLIS</code> or 60_000. Keep in mind that Develocity API responses can be big and slow to send depending on the endpoint.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="read-timeout-millis.html">readTimeoutMillis</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></div><div class="brief "><p class="paragraph">Timeout for reading an API response, used for <span data-unresolved-link="okhttp3/OkHttpClient/readTimeoutMillis/#/PointingToDeclaration/">OkHttpClient.readTimeoutMillis</span>. By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_API_READ_TIMEOUT_MILLIS</code> or 60_000. Keep in mind that Develocity API responses can be big and slow to send depending on the endpoint.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1739149851%2FProperties%2F-1951329584" anchor-label="server" id="1739149851%2FProperties%2F-1951329584" data-filterable-set=":library:dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":library:dokkaHtml/main" data-filterable-set=":library:dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="server.html"><span><span>server</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1739149851%2FProperties%2F-1951329584"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="server.html">server</a><span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/URI.html">URI</a></div><div class="brief "><p class="paragraph">Provides the URL of a Develocity server to use in API requests. By default, uses environment variable <code class="lang-kotlin">DEVELOCITY_URL</code>. Must be a valid URL with no path segments (trailing slash OK) or query parameters.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -247,11 +267,16 @@
     </div>
   </div>
 </div>
-      <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
-                class="pull-right"><span>Generated by </span><a
-                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-      </div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
             </div>
         </div>
     </div>
