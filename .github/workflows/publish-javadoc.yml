@@ -51,7 +51,7 @@ jobs:
       - name: Download new javadoc
         uses: actions/download-artifact@v5
         with:
-          path: ./
+          path: docs
       - name: Commit
         run: |
           git config user.name github-actions
