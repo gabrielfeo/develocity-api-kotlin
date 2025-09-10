@@ -2,11 +2,13 @@ from nbconvert.preprocessors import Preprocessor
 from traitlets import Unicode
 import re
 
-class ReplaceMagicsPreprocessor(Preprocessor):
+
+class ReplacePatternPreprocessor(Preprocessor):
     """
     Preprocessor that replaces lines in code cells matching a regex pattern
     with a replacement string, while keeping magic lines (e.g. '%use [...]')
     at the top, which is a requirement of the Kotlin kernel for Jupyter.
+    The pattern and replacement can be set via config, allowing use for any regex replacement.
     """
 
     pattern = Unicode().tag(config=True)
@@ -17,7 +19,6 @@ class ReplaceMagicsPreprocessor(Preprocessor):
         if cell.cell_type != "code":
             return cell, resources
 
-        # Expect cell.source to be a str:
         if not isinstance(cell.source, str):
             raise ValueError("Cell source must be a string.")
 
@@ -25,7 +26,7 @@ class ReplaceMagicsPreprocessor(Preprocessor):
         line_magics = []
         replaced = []
         for line in cell.source.splitlines(keepends=True):
-            # Replace only if pattern matches
+            # Replace pattern with replacement
             new_lines = regex.sub(self.replacement, line).splitlines(keepends=True)
             for new_line in new_lines:
                 if new_line.startswith('%'):

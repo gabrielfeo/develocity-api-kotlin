@@ -38,7 +38,11 @@ class NotebooksTest {
     @Test
     fun testMostFrequentBuildsNotebook() {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
-        val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(sourceNotebook)
+        val replacedNotebook = jupyter.replaceBuildStartTime(
+            path = sourceNotebook,
+            replacement = "buildStartTime>-1d"
+        )
+        val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(replacedNotebook)
         val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
         with(JsonAdapter.fromJson(executedNotebook.outputNotebook).asNotebookJson()) {
             assertTrue(textOutputLines.any { Regex("""Collected \d+ builds from the API""").containsMatchIn(it) }) {
