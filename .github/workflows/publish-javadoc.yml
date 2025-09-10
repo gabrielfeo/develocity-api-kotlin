@@ -50,8 +50,6 @@ jobs:
         run: rm -rf docs
       - name: Download new javadoc
         uses: actions/download-artifact@v5
-        with:
-          path: ./
       - name: Commit
         run: |
           git config user.name github-actions
