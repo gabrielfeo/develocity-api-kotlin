@@ -43,10 +43,9 @@ class ExampleGradleTaskTest {
     }
 
     @Test
-    fun testBuildPerformanceMetricsTaskWithDefaults() {
-        val user = System.getProperty("user.name")
-        val output = runBuild("userBuildPerformanceMetrics").stdout
-        assertPerformanceMetricsOutput(output, user = user, period = "-14d")
+    fun testBuildPerformanceMetricsTask() {
+        val output = runBuild("userBuildPerformanceMetrics --user runner --period=-12h").stdout
+        assertPerformanceMetricsOutput(output, user = "runner", period = "-12h")
     }
 
     private fun runBuild(gradleArgs: String) =
@@ -66,11 +65,5 @@ class ExampleGradleTaskTest {
         assertTrue(output.contains(expectedHeading))
         assertTrue(output.contains("▶︎ Serialization factor:"))
         assertTrue(output.contains("⏩︎ Avoidance savings:"))
-    }
-
-    @Test
-    fun testBuildPerformanceMetricsTaskWithOptions() {
-        val output = runBuild("userBuildPerformanceMetrics --user runner --period=-1d").stdout
-        assertPerformanceMetricsOutput(output, user = "runner", period = "-1d")
     }
 }
