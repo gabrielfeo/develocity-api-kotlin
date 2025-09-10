@@ -30,14 +30,16 @@ class Jupyter(
         return Execution(outputStreams, outputPath)
     }
 
-    fun replaceBuildStartTime(
+    fun replacePattern(
         path: Path,
-        replacement: String
+        pattern: String,
+        replacement: String,
+        outputSuffix: String = "processed"
     ): Path {
         if ((workDir / "preprocessors.py").notExists()) {
             copyFromResources("/preprocessors.py", workDir)
         }
-        val outputPath = path.parent / "${path.nameWithoutExtension}-starttime.ipynb"
+        val outputPath = path.parent / "${path.nameWithoutExtension}-$outputSuffix.ipynb"
         runInShell(
             workDir,
             "source '${venv / "bin/activate"}' &&",
@@ -45,29 +47,7 @@ class Jupyter(
             "--to ipynb",
             "--output='$outputPath'",
             "--NotebookExporter.preprocessors=preprocessors.ReplacePatternPreprocessor",
-            "--ReplacePatternPreprocessor.pattern='/buildStartTime[^\n]*'",
-            "--ReplacePatternPreprocessor.replacement='$replacement'",
-        )
-        return outputPath
-    }
-
-    fun replaceMagics(
-        path: Path,
-        replacePattern: Regex,
-        replacement: String
-    ): Path {
-        if ((workDir / "preprocessors.py").notExists()) {
-            copyFromResources("/preprocessors.py", workDir)
-        }
-        val outputPath = path.parent / "${path.nameWithoutExtension}-processed.ipynb"
-        runInShell(
-            workDir,
-            "source '${venv / "bin/activate"}' &&",
-            "jupyter nbconvert '$path'",
-            "--to ipynb",
-            "--output='$outputPath'",
-            "--NotebookExporter.preprocessors=preprocessors.ReplacePatternPreprocessor",
-            "--ReplacePatternPreprocessor.pattern='$replacePattern'",
+            "--ReplacePatternPreprocessor.pattern='$pattern'",
             "--ReplacePatternPreprocessor.replacement='$replacement'",
         )
         return outputPath
