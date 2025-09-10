@@ -40,7 +40,7 @@ class NotebooksTest {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
         val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(sourceNotebook)
         val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
-        with(JsonAdapter.fromJson(executedNotebook).asNotebookJson()) {
+        with(JsonAdapter.fromJson(executedNotebook.outputNotebook).asNotebookJson()) {
             assertTrue(textOutputLines.any { Regex("""Collected \d+ builds from the API""").containsMatchIn(it) }) {
                 "Expected line match not found in text outputs:\n${JsonAdapter.toPrettyJson(properties)}"
             }
@@ -51,6 +51,15 @@ class NotebooksTest {
                 "Expected Kandy outputs not found in notebook:\n${JsonAdapter.toPrettyJson(properties)}"
             }
         }
+    }
+
+    @Test
+    fun testLoggingNotebook() {
+        val sourceNotebook = tempDir / "examples/example-notebooks/Logging.ipynb"
+        val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(sourceNotebook)
+        val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
+        val kernelLogs = executedNotebook.outputStreams.stderr
+        assertTrue(kernelLogs.contains("gabrielfeo.develocity.api.Cache - HTTP cache", ignoreCase = true))
     }
 
     private fun forceUseOfMavenLocalSnapshotArtifact(sourceNotebook: Path): Path {

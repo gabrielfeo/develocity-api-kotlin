@@ -78,22 +78,20 @@ public final class com/gabrielfeo/develocity/api/BuildsApi$DefaultImpls {
 
 public final class com/gabrielfeo/develocity/api/Config {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/net/URI;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/net/URI;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/net/URI;
-	public final fun component3 ()Lkotlin/jvm/functions/Function0;
-	public final fun component4 ()Lokhttp3/OkHttpClient$Builder;
-	public final fun component5 ()Ljava/lang/Integer;
-	public final fun component6 ()J
-	public final fun component7 ()Lcom/gabrielfeo/develocity/api/Config$CacheConfig;
-	public final fun copy (Ljava/lang/String;Ljava/net/URI;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;)Lcom/gabrielfeo/develocity/api/Config;
-	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/Config;Ljava/lang/String;Ljava/net/URI;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/Config;
+	public fun <init> (Ljava/net/URI;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;)V
+	public synthetic fun <init> (Ljava/net/URI;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/net/URI;
+	public final fun component2 ()Lkotlin/jvm/functions/Function0;
+	public final fun component3 ()Lokhttp3/OkHttpClient$Builder;
+	public final fun component4 ()Ljava/lang/Integer;
+	public final fun component5 ()J
+	public final fun component6 ()Lcom/gabrielfeo/develocity/api/Config$CacheConfig;
+	public final fun copy (Ljava/net/URI;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;)Lcom/gabrielfeo/develocity/api/Config;
+	public static synthetic fun copy$default (Lcom/gabrielfeo/develocity/api/Config;Ljava/net/URI;Lkotlin/jvm/functions/Function0;Lokhttp3/OkHttpClient$Builder;Ljava/lang/Integer;JLcom/gabrielfeo/develocity/api/Config$CacheConfig;ILjava/lang/Object;)Lcom/gabrielfeo/develocity/api/Config;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAccessKey ()Lkotlin/jvm/functions/Function0;
 	public final fun getCacheConfig ()Lcom/gabrielfeo/develocity/api/Config$CacheConfig;
 	public final fun getClientBuilder ()Lokhttp3/OkHttpClient$Builder;
-	public final fun getLogLevel ()Ljava/lang/String;
 	public final fun getMaxConcurrentRequests ()Ljava/lang/Integer;
 	public final fun getReadTimeoutMillis ()J
 	public final fun getServer ()Ljava/net/URI;
@@ -1501,7 +1499,7 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerforman
 	public static final field executedNotCacheable Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static final field executedUnknownCacheability Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static final field lifecycle Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
-	public static final field noMinusSource Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
+	public static final field noSource Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public static final field skipped Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$AvoidanceOutcome;
@@ -1517,9 +1515,9 @@ public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerforman
 
 public final class com/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory : java/lang/Enum {
 	public static final field buildCacheNotEnabled Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
-	public static final field cacheMinusIfConditionNotMatched Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
+	public static final field cacheIfConditionNotMatched Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field disabledToEnsureCorrectness Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
-	public static final field doMinusNotMinusCacheMinusIfConditionMatched Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
+	public static final field doNotCacheIfConditionMatched Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field multipleOutputsDeclared Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field noOutputsDeclared Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
 	public static final field nonCacheableInputs Lcom/gabrielfeo/develocity/api/model/GradleBuildCachePerformanceTaskExecutionEntry$NonCacheabilityCategory;
