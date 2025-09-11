@@ -1,6 +1,7 @@
 package com.gabrielfeo.develocity.api.example.notebook
 
 import com.gabrielfeo.develocity.api.example.JsonAdapter
+import com.gabrielfeo.develocity.api.example.Queries
 import com.gabrielfeo.develocity.api.example.copyFromResources
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -40,8 +41,8 @@ class NotebooksTest {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
         val replacedNotebook = jupyter.replacePattern(
             path = sourceNotebook,
-            pattern = Regex("""buildStartTime\S+"""),
-            replacement = "buildStartTime>-1d",
+            pattern = Regex("""query\s*=.+,"""),
+            replacement = """query = "${Queries.FAST}",""",
             outputSuffix = "starttime"
         )
         val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(replacedNotebook)
@@ -79,6 +80,7 @@ class NotebooksTest {
             replacement = """
                 %use develocity-api-kotlin@file[$libraryDescriptor]
                 %trackClasspath on
+                %logLevel debug
             """.trimIndent()
         )
     }
