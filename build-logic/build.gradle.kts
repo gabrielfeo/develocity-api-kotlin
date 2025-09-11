@@ -32,5 +32,6 @@ dependencies {
     implementation(libs.kotlin.binary.compatibility.validator.plugin)
     implementation(libs.dokka.plugin)
     implementation(libs.openapi.generator.plugin)
+    implementation(libs.vanniktech.mavenPublishPlugin)
     "functionalTestImplementation"(project)
 }
