@@ -20,13 +20,13 @@ defaults:
   run:
     shell: bash
 
+env:
+  DEVELOCITY_URL: "${{ vars.DEVELOCITY_URL }}"
+
 jobs:
 
   build-and-publish:
     runs-on: ubuntu-latest
-    env:
-      DEVELOCITY_URL: "${{ vars.DEVELOCITY_URL }}"
-      DEVELOCITY_ACCESS_KEY: "${{ secrets.DEVELOCITY_ACCESS_KEY }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v5

@@ -12,8 +12,7 @@ inputs:
     required: false
   dry-run:
     description: "Whether to --dry-run"
-    type: boolean
-    default: false
+    default: 'false'
 runs:
   using: "composite"
   steps:
@@ -29,6 +28,7 @@ runs:
       with:
         validate-wrappers: true
         add-job-summary-as-pr-comment: 'on-failure'
+        develocity-access-key: "${{ secrets.DEVELOCITY_ACCESS_KEY }}"
     - name: Run Gradle
       shell: bash
       run: |
