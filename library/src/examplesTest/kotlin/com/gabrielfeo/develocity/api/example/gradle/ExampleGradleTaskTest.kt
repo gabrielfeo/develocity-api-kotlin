@@ -1,5 +1,6 @@
 package com.gabrielfeo.develocity.api.example.gradle
 
+import com.gabrielfeo.develocity.api.example.BuildStartTime
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
@@ -44,8 +45,9 @@ class ExampleGradleTaskTest {
 
     @Test
     fun testBuildPerformanceMetricsTask() {
-        val output = runBuild("userBuildPerformanceMetrics --user runner --period=-12h").stdout
-        assertPerformanceMetricsOutput(output, user = "runner", period = "-12h")
+        val args = "--user runner --period=${BuildStartTime.RECENT}"
+        val output = runBuild("userBuildPerformanceMetrics $args").stdout
+        assertPerformanceMetricsOutput(output, user = "runner", period = BuildStartTime.RECENT)
     }
 
     private fun runBuild(gradleArgs: String) =
