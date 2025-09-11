@@ -14,6 +14,16 @@ class ReplacePatternPreprocessor(Preprocessor):
     pattern = Unicode().tag(config=True)
     replacement = Unicode().tag(config=True)
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.did_replace = False
+
+    def preprocess(self, nb, resources):
+        super().preprocess(nb, resources)
+        if not self.did_replace:
+            raise ValueError(f"No replacements made with pattern: {self.pattern}")
+        return nb, resources
+
     def preprocess_cell(self, cell, resources, cell_index):
         # Only process code cells
         if cell.cell_type != "code":
@@ -34,5 +44,8 @@ class ReplacePatternPreprocessor(Preprocessor):
                 else:
                     replaced.append(new_line)
 
-        cell.source = "".join(line_magics + replaced)
+        new_source = "".join(line_magics + replaced)
+        if new_source != cell.source:
+            self.did_replace = True
+        cell.source = new_source
         return cell, resources
