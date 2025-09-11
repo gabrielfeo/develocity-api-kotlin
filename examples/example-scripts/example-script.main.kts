@@ -14,7 +14,7 @@
  * - "Some are doing check builds locally, which we set up to trigger our notably slow
  *   legacy tests. We should suggest they run test instead, leaving check for CI to run."
  *
- * Run this with at least 1GB of heap to accomodate the fetched data: JAVA_OPTS=-Xmx1g
+ * Run this with at least 1GB of heap to accommodate the fetched data: JAVA_OPTS=-Xmx1g
  */
 
 @file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
@@ -24,21 +24,17 @@ import com.gabrielfeo.develocity.api.model.*
 import com.gabrielfeo.develocity.api.extension.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import java.time.*
 import java.util.LinkedList
 
 // Parameters
-val startDate = LocalDate.now().minusWeeks(1)
-val buildFilter: (GradleAttributes) -> Boolean = { build ->
-    "LOCAL" in build.tags
-}
+val query = args.getOrElse(0) { "buildStartTime>-7d buildTool:gradle" }
 
 // Fetch builds from the API
 val api = DevelocityApi.newInstance()
 val builds: List<GradleAttributes> = runBlocking {
     api.buildsApi.getBuildsFlow(
         fromInstant = 0,
-        query = """buildStartTime>-7d buildTool:gradle""",
+        query = query,
         models = listOf(BuildModelName.gradleAttributes),
     ).map {
         it.models!!.gradleAttributes!!.model!!
