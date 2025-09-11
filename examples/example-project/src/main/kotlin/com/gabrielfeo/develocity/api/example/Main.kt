@@ -13,15 +13,16 @@ import okhttp3.OkHttpClient
 
 val clientBuilder = OkHttpClient.Builder()
 
-suspend fun main() {
+suspend fun main(args: Array<String>) {
     val newConfig = Config(
         clientBuilder = clientBuilder,
     )
     val develocityApi = DevelocityApi.newInstance(newConfig)
-    runAllAnalysis(develocityApi)
+    val query = args.getOrElse(0) { "buildStartTime>-1d buildTool:gradle" }
+    runAllAnalysis(develocityApi, query)
     develocityApi.shutdown()
 }
 
-private suspend fun runAllAnalysis(develocityApi: DevelocityApi) {
-    mostFrequentBuilds(api = develocityApi.buildsApi)
+private suspend fun runAllAnalysis(develocityApi: DevelocityApi, query: String) {
+    mostFrequentBuilds(api = develocityApi.buildsApi, query)
 }

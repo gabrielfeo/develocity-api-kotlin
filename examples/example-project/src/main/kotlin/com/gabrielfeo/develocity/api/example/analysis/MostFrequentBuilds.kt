@@ -22,12 +22,12 @@ import java.util.LinkedList
  */
 suspend fun mostFrequentBuilds(
     api: BuildsApi,
-    startTime: String = "-7d",
+    query: String,
 ) {
     // Fetch builds from the API
     val builds: List<GradleAttributes> = api.getBuildsFlow(
         fromInstant = 0,
-        query = """buildStartTime>$startTime buildTool:gradle""",
+        query = query,
         models = listOf(BuildModelName.gradleAttributes),
     ).map {
         it.models!!.gradleAttributes!!.model!!

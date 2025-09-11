@@ -1,5 +1,6 @@
 package com.gabrielfeo.develocity.api.example.gradle
 
+import com.gabrielfeo.develocity.api.example.BuildStartTime
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
@@ -43,10 +44,10 @@ class ExampleGradleTaskTest {
     }
 
     @Test
-    fun testBuildPerformanceMetricsTaskWithDefaults() {
-        val user = System.getProperty("user.name")
-        val output = runBuild("userBuildPerformanceMetrics").stdout
-        assertPerformanceMetricsOutput(output, user = user, period = "-14d")
+    fun testBuildPerformanceMetricsTask() {
+        val args = "--user runner --period=${BuildStartTime.RECENT}"
+        val output = runBuild("userBuildPerformanceMetrics $args").stdout
+        assertPerformanceMetricsOutput(output, user = "runner", period = BuildStartTime.RECENT)
     }
 
     private fun runBuild(gradleArgs: String) =
@@ -66,11 +67,5 @@ class ExampleGradleTaskTest {
         assertTrue(output.contains(expectedHeading))
         assertTrue(output.contains("▶︎ Serialization factor:"))
         assertTrue(output.contains("⏩︎ Avoidance savings:"))
-    }
-
-    @Test
-    fun testBuildPerformanceMetricsTaskWithOptions() {
-        val output = runBuild("userBuildPerformanceMetrics --user runner --period=-1d").stdout
-        assertPerformanceMetricsOutput(output, user = "runner", period = "-1d")
     }
 }

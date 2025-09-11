@@ -12,7 +12,6 @@ class Jupyter(
     val workDir: Path,
     val venv: Path,
 ) {
-
     class Execution(
         val outputStreams: OutputStreams,
         val outputNotebook: Path,
@@ -31,24 +30,24 @@ class Jupyter(
         return Execution(outputStreams, outputPath)
     }
 
-    fun replaceMagics(
+    fun replacePattern(
         path: Path,
-        replacePattern: Regex,
-        replacement: String
+        pattern: Regex,
+        replacement: String,
     ): Path {
         if ((workDir / "preprocessors.py").notExists()) {
             copyFromResources("/preprocessors.py", workDir)
         }
-        val outputPath = path.parent / "${path.nameWithoutExtension}-processed.ipynb"
+        val outputPath = path.parent / "${path.nameWithoutExtension}-replaced.ipynb"
         runInShell(
             workDir,
             "source '${venv / "bin/activate"}' &&",
             "jupyter nbconvert '$path'",
             "--to ipynb",
             "--output='$outputPath'",
-            "--NotebookExporter.preprocessors=preprocessors.ReplaceMagicsPreprocessor",
-            "--ReplaceMagicsPreprocessor.pattern='$replacePattern'",
-            "--ReplaceMagicsPreprocessor.replacement='$replacement'",
+            "--NotebookExporter.preprocessors=preprocessors.ReplacePatternPreprocessor",
+            "--ReplacePatternPreprocessor.pattern='$pattern'",
+            "--ReplacePatternPreprocessor.replacement='$replacement'",
         )
         return outputPath
     }

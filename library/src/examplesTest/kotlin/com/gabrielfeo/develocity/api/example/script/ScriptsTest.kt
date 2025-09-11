@@ -1,5 +1,6 @@
 package com.gabrielfeo.develocity.api.example.script
 
+import com.gabrielfeo.develocity.api.example.Queries
 import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -12,18 +13,18 @@ import kotlin.io.path.div
 class ScriptsTest {
 
     @TempDir
-    lateinit var tempDir: Path
+    lateinit var dir: Path
 
     @BeforeEach
     fun setup() {
-        copyFromResources("/examples", tempDir)
+        copyFromResources("/examples", dir)
     }
 
     @Test
     fun testMostFrequentBuildsScript() {
-        val script = tempDir / "examples/example-scripts/example-script.main.kts"
+        val script = dir / "examples/example-scripts/example-script.main.kts"
         val replacedScript = forceUseOfMavenLocalSnapshotArtifact(script)
-        val output = runInShell(tempDir, "kotlin '$replacedScript'").stdout.trim()
+        val output = runInShell(dir, "kotlin '$replacedScript' '${Queries.FAST}'").stdout.trim()
         val tableRegex = Regex("""(?ms)^[-]+\nMost frequent builds:\n\s*\n(.+\|\s*\d+\s*\n?)+""")
         assertTrue(tableRegex.containsMatchIn(output)) {
             "Expected match for pattern '$tableRegex' in output '$output'"
@@ -43,7 +44,7 @@ class ScriptsTest {
                     @file:Repository("file://$mavenLocal")
                 """.trimIndent(),
         )
-        val replacedPath = tempDir.resolve("examples/example-scripts/example-script-SNAPSHOT.main.kts")
+        val replacedPath = dir.resolve("examples/example-scripts/example-script-SNAPSHOT.main.kts")
         replacedPath.toFile().writeText(replaced)
         return replacedPath
     }

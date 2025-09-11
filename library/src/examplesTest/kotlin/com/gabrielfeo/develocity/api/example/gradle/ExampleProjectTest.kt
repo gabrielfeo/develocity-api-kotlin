@@ -1,5 +1,6 @@
 package com.gabrielfeo.develocity.api.example.gradle
 
+import com.gabrielfeo.develocity.api.example.Queries
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
@@ -43,7 +44,7 @@ class ExampleProjectTest {
 
     @Test
     fun testExampleProject() {
-        val output = runBuild("run").stdout
+        val output = runBuild("""run --args '"${Queries.FAST}"'""").stdout
         val tableRegex = Regex("""(?ms)^[-]+\nMost frequent builds:\n\s*\n(.+\|\s*\d+\s*\n?)+""")
         assertTrue(tableRegex.containsMatchIn(output)) {
             "Expected match for pattern '$tableRegex' in output '$output'"
