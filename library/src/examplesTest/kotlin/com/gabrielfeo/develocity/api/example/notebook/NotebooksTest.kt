@@ -40,7 +40,7 @@ class NotebooksTest {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
         val replacedNotebook = jupyter.replacePattern(
             path = sourceNotebook,
-            pattern = "/buildStartTime[^\n]*",
+            pattern = Regex("""buildStartTime\S+?"""),
             replacement = "buildStartTime>-1d",
             outputSuffix = "starttime"
         )
@@ -75,7 +75,7 @@ class NotebooksTest {
         }
         return jupyter.replacePattern(
             path = sourceNotebook,
-            pattern = "(?:DependsOn|%use).*develocity-api-kotlin.*",
+            pattern = Regex("(?:DependsOn|%use).*develocity-api-kotlin.*"),
             replacement = """
                 %use develocity-api-kotlin@file[$libraryDescriptor]
                 %trackClasspath on

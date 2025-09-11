@@ -32,7 +32,7 @@ class Jupyter(
 
     fun replacePattern(
         path: Path,
-        pattern: String,
+        pattern: Regex,
         replacement: String,
         outputSuffix: String = "processed"
     ): Path {
