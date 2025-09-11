@@ -38,9 +38,11 @@ class NotebooksTest {
     @Test
     fun testMostFrequentBuildsNotebook() {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
-        val replacedNotebook = jupyter.replaceBuildStartTime(
+        val replacedNotebook = jupyter.replacePattern(
             path = sourceNotebook,
-            replacement = "buildStartTime>-1d"
+            pattern = "/buildStartTime[^\n]*",
+            replacement = "buildStartTime>-1d",
+            outputSuffix = "starttime"
         )
         val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(replacedNotebook)
         val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
@@ -71,9 +73,9 @@ class NotebooksTest {
         val libraryDescriptor = (tempDir / "develocity-api-kotlin.json").apply {
             writeText(buildLibraryDescriptor(version = "SNAPSHOT", repository = mavenLocal))
         }
-        return jupyter.replaceMagics(
+        return jupyter.replacePattern(
             path = sourceNotebook,
-            replacePattern = Regex("""(?:DependsOn|%use).*develocity-api-kotlin.*"""),
+            pattern = "(?:DependsOn|%use).*develocity-api-kotlin.*",
             replacement = """
                 %use develocity-api-kotlin@file[$libraryDescriptor]
                 %trackClasspath on
