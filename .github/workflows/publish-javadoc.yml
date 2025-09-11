@@ -31,7 +31,7 @@ jobs:
         uses: ./.github/actions/build
         with:
           args: >-
-            dokkaHtml
+            dokkaGenerate
             '-Pversion=${{ github.ref_name }}'
           artifact-name: 'docs'
           path-to-upload: "library/build/dokka/html/**/*"
