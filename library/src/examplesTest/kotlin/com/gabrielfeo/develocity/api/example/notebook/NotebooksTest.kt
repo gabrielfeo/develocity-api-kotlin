@@ -40,7 +40,7 @@ class NotebooksTest {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
         val replacedNotebook = jupyter.replacePattern(
             path = sourceNotebook,
-            pattern = Regex("""buildStartTime\S+?"""),
+            pattern = Regex("""buildStartTime\S+"""),
             replacement = "buildStartTime>-1d",
             outputSuffix = "starttime"
         )
