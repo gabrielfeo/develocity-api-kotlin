@@ -1,32 +1,43 @@
-# Access key / API token
+# Access keys
 
-[All API requests require authentication][1]. Provide a valid access key of your Develocity instance
-as the `DEVELOCITY_API_TOKEN` environment variable.
+API requests may require [authentication][1].
 
-## How to get an access key
+## Anonymous access
 
-1. Sign in to Develocity (with a user that has “Export build data” permission)
-2. Go to "My settings" from the user menu in the top right-hand corner of the page
-3. Go to "Access keys" from the sidebar
-4. Click "Generate" on the right-hand side
-5. Set key as the `DEVELOCITY_API_TOKEN` environment variable when using the library
+If your Develocity server is configured to allow [anonymous access][2] for permission "Access build data via the API", then an access key is not required to use this library.
+This is often the case for a server only accessible from a private network.
 
-## Migrating from macOS keychain support
+![Anonymous access settings](media/AnonymousAccessPage.png)
 
-This library used to support storing the key in the macOS keychain as `gradle-enterprise-api-kotlin`.
-This feature was deprecated in 2023.4.0, then removed in 2024.1.1. You may use the method of your choice
-(secret managers, password manager CLIs, etc.) to store and retrieve the key to an environment.
+## Authenticated access
 
-If you used the key from keychain and need a drop-in replacement:
+The library will automatically resolve the access key using the same conventions as official Develocity tooling, in order:
 
-```
-# Create an alias in your shell to fetch the key from keychain
-echo 'alias dat="security find-generic-password -w -a "$LOGNAME" -s gradle-enterprise-api-kotlin"' >> ~/.zshrc
+- Environment variable `DEVELOCITY_ACCESS_KEY`
+- Environment variable `GRADLE_ENTERPRISE_ACCESS_KEY`
+- File `$GRADLE_USER_HOME/.gradle/develocity/keys.properties` (or `~/.gradle/develocity/keys.properties` if `GRADLE_USER_HOME` is not set)
+- File `~/.m2/.develocity/keys.properties`
 
-# Retrieve it to the environment variable before running the program
-DEVELOCITY_API_TOKEN="$(dat)" ./my-script.main.kts
-DEVELOCITY_API_TOKEN="$(dat)" jupyter lab
-DEVELOCITY_API_TOKEN="$(dat)" idea my-project
-```
+Please check if you already have an access key set up in your build environment for the Develocity server you want to query. The first key for a matching host will be used, if found.
+
+See the official manuals for instructions on how to set up a new access key in one of these locations:
+
+- [Develocity Gradle Plugin User Manual][3]
+- [Develocity Maven Extension User Manual][4]
+- [Develocity sbt Plugin User Manual][5]
+- [Develocity npm Agent User Manual][6]
+- [Develocity Python Agent User Manual][7]
+
+### User permissions
+
+To call the API, the user from which the access key was generated must have the "Access build data via the API" permission.
+
+![User permissions](media/AccessPage.png)
 
 [1]: https://docs.gradle.com/enterprise/api-manual/#access_control
+[2]: https://docs.gradle.com/develocity/helm-admin/current/#_anonymous_access
+[3]: https://docs.gradle.com/develocity/gradle-plugin/current/#manual_access_key_configuration
+[4]: https://docs.gradle.com/develocity/maven-extension/current/#manual_access_key_configuration
+[5]: https://gradle.com/help/sbt-plugin-authenticating
+[6]: https://gradle.com/help/npm-agent-authenticating
+[7]: https://gradle.com/help/python-agent-authenticating

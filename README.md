@@ -28,12 +28,31 @@ This library [fixes][34] those issues in generated code, implements [paging][24]
 
 ## Setup
 
-Set up environment variables and use the library from any notebook, script or project:
+Set up once and use the library from any notebook, script or project:
 
-- [`DEVELOCITY_API_URL`][16]: the URL of your Develocity instance
-- [`DEVELOCITY_API_TOKEN`][17]: an [access key][31] for the Develocity instance
+- [`DEVELOCITY_URL`][16]: the URL of your Develocity instance
 - [`DEVELOCITY_API_CACHE_ENABLED`][12] (optional, off by default): enables caching for some
   requests (see [caveats][13])
+- An access key in one of the supported locations
+
+<details>
+
+<summary>Supported access key locations</summary>
+
+Access key support matches that of official tooling: the  Develocity [Gradle Plugin][37] and [Maven Extension][38].
+If you've already provisioned a key for your build to connect to Develocity, there's probably no action needed.
+Supported locations, in order of precedence:
+
+- a provider function as [`Config.accessKey`][17] (see [optional setup](#optional-setup))
+- official tooling locations with value in format `host=key`, e.g. `DEVELOCITY_ACCESS_KEY='foo.com=my-key'`:
+  - [`DEVELOCITY_ACCESS_KEY`](https://docs.gradle.com/develocity/gradle-plugin/current/#manual_access_key_configuration)
+  - [`GRADLE_ENTERPRISE_ACCESS_KEY`](https://docs.gradle.com/develocity/gradle-plugin/current/#manual_access_key_configuration)
+  - File `$GRADLE_USER_HOME/.gradle/develocity/keys.properties`, or `~/.gradle/develocity/keys.properties` if `GRADLE_USER_HOME` is not set
+  - File `~/.m2/.develocity/keys.properties`
+
+Refer to the Develocity [Gradle Plugin User Manual][37] or [Maven Extension User Manual][38] for details on these variables and files, including support for keys of multiple hosts.
+
+</details>
 
 ### Setup snippets
 
@@ -177,8 +196,8 @@ your own. For example:
 
 ```kotlin
 val config = Config(
-  apiUrl = "https://ge.mycompany.com/api/",
-  apiToken = { vault.getGeApiToken() },
+  develocityUrl = "https://ge.mycompany.com/",
+  accessKey = { vault.getDevelocityAccessKey() },
   clientBuilder = existingClient.newBuilder(),
 )
 val api = DevelocityApi.newInstance(config)
@@ -219,8 +238,8 @@ For general discussions or questions, feel free to reach out to maintainers on t
 [12]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/index.html
 [14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2024.3.0
-[16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-url.html
-[17]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/api-token.html
+[16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/server.html
+[17]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/access-key.html
 [18]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
 [19]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api.model/-gradle-attributes/index.html
 [20]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
@@ -240,3 +259,5 @@ For general discussions or questions, feel free to reach out to maintainers on t
 [34]: https://github.com/gabrielfeo/develocity-api-kotlin/blob/main/build-logic/src/functionalTest/kotlin/com/gabrielfeo/task/PostProcessGeneratedApiTest.kt#L21
 [35]: https://community.gradle.org/#community-channels
 [36]: ./examples/example-gradle-task/
+[37]: https://docs.gradle.com/develocity/gradle-plugin/current/#manual_access_key_configuration
+[38]: https://docs.gradle.com/develocity/maven-extension/current/#manual_access_key_configuration
