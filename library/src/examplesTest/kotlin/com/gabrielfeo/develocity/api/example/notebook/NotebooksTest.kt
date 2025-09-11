@@ -1,6 +1,7 @@
 package com.gabrielfeo.develocity.api.example.notebook
 
 import com.gabrielfeo.develocity.api.example.JsonAdapter
+import com.gabrielfeo.develocity.api.example.Queries
 import com.gabrielfeo.develocity.api.example.copyFromResources
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -38,7 +39,8 @@ class NotebooksTest {
     @Test
     fun testMostFrequentBuildsNotebook() {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
-        val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(sourceNotebook)
+        val fasterNotebook = forceUseOfFasterQuery(sourceNotebook)
+        val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(fasterNotebook)
         val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
         with(JsonAdapter.fromJson(executedNotebook.outputNotebook).asNotebookJson()) {
             assertTrue(textOutputLines.any { Regex("""Collected \d+ builds from the API""").containsMatchIn(it) }) {
@@ -52,6 +54,12 @@ class NotebooksTest {
             }
         }
     }
+
+    private fun forceUseOfFasterQuery(sourceNotebook: Path): Path = jupyter.replacePattern(
+        path = sourceNotebook,
+        pattern = Regex("""query\s*=.+,"""),
+        replacement = """query = "${Queries.FAST}",""",
+    )
 
     @Test
     fun testLoggingNotebook() {
@@ -67,12 +75,13 @@ class NotebooksTest {
         val libraryDescriptor = (tempDir / "develocity-api-kotlin.json").apply {
             writeText(buildLibraryDescriptor(version = "SNAPSHOT", repository = mavenLocal))
         }
-        return jupyter.replaceMagics(
+        return jupyter.replacePattern(
             path = sourceNotebook,
-            replacePattern = Regex("""(?:DependsOn|%use).*develocity-api-kotlin.*"""),
+            pattern = Regex("(?:DependsOn|%use).*develocity-api-kotlin.*"),
             replacement = """
                 %use develocity-api-kotlin@file[$libraryDescriptor]
                 %trackClasspath on
+                %logLevel debug
             """.trimIndent()
         )
     }
