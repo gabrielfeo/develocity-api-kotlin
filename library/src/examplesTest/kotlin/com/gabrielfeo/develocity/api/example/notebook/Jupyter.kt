@@ -34,12 +34,11 @@ class Jupyter(
         path: Path,
         pattern: Regex,
         replacement: String,
-        outputSuffix: String = "processed"
     ): Path {
         if ((workDir / "preprocessors.py").notExists()) {
             copyFromResources("/preprocessors.py", workDir)
         }
-        val outputPath = path.parent / "${path.nameWithoutExtension}-$outputSuffix.ipynb"
+        val outputPath = path.parent / "${path.nameWithoutExtension}-replaced.ipynb"
         runInShell(
             workDir,
             "source '${venv / "bin/activate"}' &&",

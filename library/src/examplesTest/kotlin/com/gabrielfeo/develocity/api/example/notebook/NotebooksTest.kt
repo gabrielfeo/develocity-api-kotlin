@@ -39,13 +39,8 @@ class NotebooksTest {
     @Test
     fun testMostFrequentBuildsNotebook() {
         val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
-        val replacedNotebook = jupyter.replacePattern(
-            path = sourceNotebook,
-            pattern = Regex("""query\s*=.+,"""),
-            replacement = """query = "${Queries.FAST}",""",
-            outputSuffix = "starttime"
-        )
-        val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(replacedNotebook)
+        val fasterNotebook = forceUseOfFasterQuery(sourceNotebook)
+        val snapshotNotebook = forceUseOfMavenLocalSnapshotArtifact(fasterNotebook)
         val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
         with(JsonAdapter.fromJson(executedNotebook.outputNotebook).asNotebookJson()) {
             assertTrue(textOutputLines.any { Regex("""Collected \d+ builds from the API""").containsMatchIn(it) }) {
@@ -59,6 +54,12 @@ class NotebooksTest {
             }
         }
     }
+
+    private fun forceUseOfFasterQuery(sourceNotebook: Path): Path = jupyter.replacePattern(
+        path = sourceNotebook,
+        pattern = Regex("""query\s*=.+,"""),
+        replacement = """query = "${Queries.FAST}",""",
+    )
 
     @Test
     fun testLoggingNotebook() {
