@@ -9,6 +9,7 @@ plugins {
     `java-library`
     `maven-publish`
     signing
+    id("com.vanniktech.maven.publish.base")
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
     id("org.jetbrains.dokka")
 }
@@ -47,23 +48,8 @@ tasks.named<Jar>("javadocJar") {
     from(tasks.dokkaHtml)
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "mavenCentral"
-            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            val isSnapshot = version.toString().endsWith("SNAPSHOT")
-            url = if (isSnapshot) snapshotsRepoUrl else releasesRepoUrl
-            authentication {
-                register<BasicAuthentication>("basic")
-            }
-            credentials {
-                username = project.properties["maven.central.username"] as String?
-                password = project.properties["maven.central.password"] as String?
-            }
-        }
-    }
+mavenPublishing {
+    publishToMavenCentral()
 }
 
 fun isCI() = System.getenv("CI").toBoolean()

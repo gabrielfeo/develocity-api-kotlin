@@ -13,6 +13,7 @@ kotlin-binary-compatibility-validator = "0.18.1"
 slf4j = "2.0.17"
 logback = "1.5.18"
 guava = "33.4.8-jre"
+maven-publish-plugin = "0.34.0"
 
 [libraries]
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
@@ -39,3 +40,4 @@ slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logback-core = { module = "ch.qos.logback:logback-core", version.ref = "logback" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
+vanniktech-mavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish-plugin" }
