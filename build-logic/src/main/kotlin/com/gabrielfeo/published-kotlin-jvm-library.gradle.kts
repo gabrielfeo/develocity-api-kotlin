@@ -22,14 +22,14 @@ java {
 
 configure<DokkaExtension> {
     val kotlinSourceRoot = file("src/main/kotlin")
-    val repoUrl = providers.gradleProperty("repo.url").map {
-        URI("$it/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}")
-    }
+    val repoUrlSuffix = "/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}"
+    val repoUrl = providers.gradleProperty("repo.url")
+        .map { URI("$it$repoUrlSuffix").toString() }
     dokkaSourceSets.configureEach {
         sourceRoots.from(kotlinSourceRoot)
         sourceLink {
             localDirectory.set(kotlinSourceRoot)
-            remoteUrl(repoUrl.toString())
+            remoteUrl(repoUrl)
             remoteLineSuffix = "#L"
         }
         jdkVersion = java.toolchain.languageVersion.map { it.asInt() }
@@ -40,11 +40,11 @@ configure<DokkaExtension> {
             suppress = true
         }
         listOf(
-            "https://kotlinlang.org/api/kotlinx.coroutines/",
-            "https://square.github.io/okhttp/5.x/okhttp/",
-            "https://square.github.io/retrofit/2.x/retrofit/",
-            "https://square.github.io/moshi/1.x/moshi/",
-            "https://square.github.io/moshi/1.x/moshi-kotlin/",
+            "https://kotlinlang.org/api/kotlinx.coroutines",
+            "https://square.github.io/okhttp/5.x/okhttp",
+            "https://square.github.io/retrofit/2.x/retrofit",
+            "https://square.github.io/moshi/1.x/moshi",
+            "https://square.github.io/moshi/1.x/moshi-kotlin",
         ).forEach { url ->
             val name = url.trim('/').substringAfterLast('/')
             externalDocumentationLinks.register(name) {
