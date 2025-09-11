@@ -1,8 +1,8 @@
 package com.gabrielfeo
 
-import org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC
-import org.jetbrains.dokka.gradle.DokkaTask
-import java.net.URL
+import org.jetbrains.dokka.gradle.DokkaExtension
+import org.jetbrains.dokka.gradle.engine.parameters.VisibilityModifier
+import java.net.URI
 
 plugins {
     id("com.gabrielfeo.kotlin-jvm-library")
@@ -19,33 +19,44 @@ java {
     withJavadocJar()
 }
 
-val kotlinSourceRoot = file("src/main/kotlin")
-tasks.withType<DokkaTask>().configureEach {
-    dokkaSourceSets.all {
-        sourceRoot(kotlinSourceRoot)
+
+configure<DokkaExtension> {
+    val kotlinSourceRoot = file("src/main/kotlin")
+    val repoUrlSuffix = "/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}"
+    val repoUrl = providers.gradleProperty("repo.url")
+        .map { URI("$it$repoUrlSuffix").toString() }
+    dokkaSourceSets.configureEach {
+        sourceRoots.from(kotlinSourceRoot)
         sourceLink {
             localDirectory.set(kotlinSourceRoot)
-            remoteUrl = providers.gradleProperty("repo.url")
-                .map { URL("$it/blob/$version/${kotlinSourceRoot.relativeTo(rootDir)}") }
+            remoteUrl(repoUrl)
             remoteLineSuffix = "#L"
         }
         jdkVersion = java.toolchain.languageVersion.map { it.asInt() }
+        documentedVisibilities.add(VisibilityModifier.Public)
         suppressGeneratedFiles = false
-        documentedVisibilities = setOf(PUBLIC)
         perPackageOption {
             matchingRegex = """.*\.internal.*"""
             suppress = true
         }
-        externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
-        externalDocumentationLink("https://square.github.io/okhttp/5.x/okhttp/")
-        externalDocumentationLink("https://square.github.io/retrofit/2.x/retrofit/")
-        externalDocumentationLink("https://square.github.io/moshi/1.x/moshi/")
-        externalDocumentationLink("https://square.github.io/moshi/1.x/moshi-kotlin/")
+        listOf(
+            "https://kotlinlang.org/api/kotlinx.coroutines",
+            "https://square.github.io/okhttp/5.x/okhttp",
+            "https://square.github.io/retrofit/2.x/retrofit",
+            "https://square.github.io/moshi/1.x/moshi",
+            "https://square.github.io/moshi/1.x/moshi-kotlin",
+        ).forEach { url ->
+            val name = url.trim('/').substringAfterLast('/')
+            externalDocumentationLinks.register(name) {
+                url(url)
+                packageListUrl("$url/package-list")
+            }
+        }
     }
 }
 
 tasks.named<Jar>("javadocJar") {
-    from(tasks.dokkaHtml)
+    from(tasks.dokkaGenerate)
 }
 
 mavenPublishing {
