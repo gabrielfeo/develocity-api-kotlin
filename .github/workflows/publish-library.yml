@@ -42,8 +42,8 @@ jobs:
             publishDevelocityApiKotlinPublicationToMavenCentralRepository
             publishRelocationPublicationToMavenCentralRepository
             --rerun-tasks
-            '-Pmaven.central.username=${{ secrets.MAVEN_CENTRAL_USERNAME }}'
-            '-Pmaven.central.password=${{ secrets.MAVEN_CENTRAL_PASSWORD }}'
+            '-PmavenCentralUsername=${{ secrets.MAVEN_CENTRAL_USERNAME }}'
+            '-PmavenCentralPassword=${{ secrets.MAVEN_CENTRAL_PASSWORD }}'
             '-Psigning.password=${{ secrets.GPG_PASSWORD }}'
             '-Psigning.secretKey=${{ secrets.GPG_SECRET_KEY }}'
           artifact-name: 'outputs'
