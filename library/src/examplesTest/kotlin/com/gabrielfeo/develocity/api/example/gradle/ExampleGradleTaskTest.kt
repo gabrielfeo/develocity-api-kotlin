@@ -1,5 +1,6 @@
 package com.gabrielfeo.develocity.api.example.gradle
 
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
@@ -11,7 +12,6 @@ import java.nio.file.Path
 import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 import kotlin.io.path.div
-import java.nio.file.Files
 
 @TestMethodOrder(OrderAnnotation::class)
 class ExampleGradleTaskTest {
@@ -22,13 +22,11 @@ class ExampleGradleTaskTest {
     private val projectDir
         get() = tempDir / "examples/example-gradle-task"
 
-    private val initScriptPath
-        get() = tempDir / ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY
-
     @BeforeEach
     fun setup() {
         copyFromResources("/examples", tempDir)
         copyFromResources("/${ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}", tempDir)
+        copyFromResources("/${ResourceInitScripts.REQUIRE_JAVA_11_COMPATIBILITY}", tempDir)
     }
 
     @Test
@@ -49,11 +47,18 @@ class ExampleGradleTaskTest {
         assertPerformanceMetricsOutput(output, user = user, period = "-14d")
     }
 
+    @Test
+    fun testJavaVersionCompatibility() {
+        val initScript = tempDir / ResourceInitScripts.REQUIRE_JAVA_11_COMPATIBILITY
+        val output = runBuild("-p buildSrc :generateExternalPluginSpecBuilders -I '$initScript'").stdout
+        assertFalse(Regex("""FAILED|Could not resolve|No matching variant""").containsMatchIn(output))
+    }
+
     private fun runBuild(gradleArgs: String) =
         runInShell(
             projectDir,
             "./gradlew --stacktrace --no-daemon",
-            "-I $initScriptPath",
+            "-I ${tempDir / ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}",
             gradleArgs,
         )
 
