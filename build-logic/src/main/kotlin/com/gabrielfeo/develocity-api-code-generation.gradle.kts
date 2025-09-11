@@ -8,20 +8,17 @@ plugins {
     id("org.openapi.generator")
 }
 
-val localSpecPath = providers.gradleProperty("localSpecPath")
-val remoteSpecUrl = providers.gradleProperty("remoteSpecUrl").orElse(
-    providers.gradleProperty("develocity.version").map { geVersion ->
-        val majorVersion = geVersion.substringBefore('.').toInt()
-        val specName = when {
-            majorVersion <= 2023 -> "gradle-enterprise-$geVersion-api.yaml"
-            else -> "develocity-$geVersion-api.yaml"
-        }
-        "https://docs.gradle.com/enterprise/api-manual/ref/$specName"
-    }
-)
-
 val downloadApiSpec by tasks.registering {
-    onlyIf { !localSpecPath.isPresent() }
+    val remoteSpecUrl = providers.gradleProperty("remoteSpecUrl").orElse(
+        providers.gradleProperty("develocity.version").map { geVersion ->
+            val majorVersion = geVersion.substringBefore('.').toInt()
+            val specName = when {
+                majorVersion <= 2023 -> "gradle-enterprise-$geVersion-api.yaml"
+                else -> "develocity-$geVersion-api.yaml"
+            }
+            "https://docs.gradle.com/enterprise/api-manual/ref/$specName"
+        }
+    )
     val spec = resources.text.fromUri(remoteSpecUrl)
     val specName = remoteSpecUrl.map { it.substringAfterLast('/') }
     val outFile = project.layout.buildDirectory.file(specName)
@@ -35,11 +32,7 @@ val downloadApiSpec by tasks.registering {
 
 openApiGenerate {
     generatorName = "kotlin"
-    val spec = when {
-        localSpecPath.isPresent() -> localSpecPath.map { rootProject.file(it).absolutePath }
-        else -> downloadApiSpec.map { it.outputs.files.first().absolutePath }
-    }
-    inputSpec = spec
+    inputSpec = downloadApiSpec.map { it.outputs.files.first().absolutePath }
     val generateDir = project.layout.buildDirectory.dir("generated-api")
         .map { it.asFile.absolutePath }
     outputDir = generateDir
