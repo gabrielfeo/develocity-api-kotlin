@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -100,9 +101,15 @@ publishing {
     }
 }
 
+tasks.named("compileJava", JavaCompile::class) {
+    sourceCompatibility = "11"
+    targetCompatibility = "11"
+}
+
 tasks.named("compileKotlin", KotlinCompile::class) {
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_1_8
+        jvmTarget = JvmTarget.JVM_11
     }
 }
 
