@@ -102,8 +102,8 @@ publishing {
 }
 
 tasks.named("compileJava", JavaCompile::class) {
-    sourceCompatibility = "11"
-    targetCompatibility = "11"
+    sourceCompatibility = JavaVersion.VERSION_11.majorVersion
+    targetCompatibility = JavaVersion.VERSION_11.majorVersion
 }
 
 tasks.named("compileKotlin", KotlinCompile::class) {
