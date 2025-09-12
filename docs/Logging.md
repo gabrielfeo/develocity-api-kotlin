@@ -43,7 +43,7 @@ Then set the log level for `com.gabrielfeo.develocity.api` using system properti
 - from script code
 
 ```kotlin
-@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
+@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2025.1.1")
 @file:DependsOn("org.slf4j:slf4j-simple:2.0.17")
 
 System.setProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api", "debug")
@@ -56,7 +56,7 @@ System.setProperty("org.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api", "
 ```kotlin
 #!/usr/bin/env kotlin -script -J-Dorg.slf4j.simpleLogger.log.com.gabrielfeo.develocity.api=debug
 
-@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
+@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2025.1.1")
 @file:DependsOn("org.slf4j:slf4j-simple:2.0.17")
 
 // ...
@@ -81,7 +81,7 @@ Adding `simple-logger` to your classpath is the easiest way to get logging in pr
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
+    implementation("com.gabrielfeo:develocity-api-kotlin:2025.1.1")
     runtimeOnly("org.slf4j:slf4j-simple:2.0.17")
 }
 ```
