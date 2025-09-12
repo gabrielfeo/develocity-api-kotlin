@@ -1,7 +1,7 @@
 # Develocity API Kotlin
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2024.3.0-blue)][14]
-[![Javadoc](https://img.shields.io/badge/Javadoc-2024.3.0-orange)][7]
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-2025.1.1-blue)][14]
+[![Javadoc](https://img.shields.io/badge/Javadoc-2025.1.1-orange)][7]
 
 (formerly `gradle-enterprise-api-kotlin`)
 
@@ -61,7 +61,7 @@ Refer to the Develocity [Gradle Plugin User Manual][37] or [Maven Extension User
 
 ```
 %useLatestDescriptors
-%use develocity-api-kotlin(version=2024.3.0)
+%use develocity-api-kotlin(version=2025.1.1)
 ```
 
 </details>
@@ -70,7 +70,7 @@ Refer to the Develocity [Gradle Plugin User Manual][37] or [Maven Extension User
   <summary>Add to a Kotlin script</summary>
 
 ```kotlin
-@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
+@file:DependsOn("com.gabrielfeo:develocity-api-kotlin:2025.1.1")
 ```
 
 </details>
@@ -80,7 +80,7 @@ Refer to the Develocity [Gradle Plugin User Manual][37] or [Maven Extension User
 
 ```kotlin
 dependencies {
-  implementation("com.gabrielfeo:develocity-api-kotlin:2024.3.0")
+  implementation("com.gabrielfeo:develocity-api-kotlin:2025.1.1")
 }
 ```
 
@@ -237,7 +237,7 @@ For general discussions or questions, feel free to reach out to maintainers on t
 [11]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-develocity-api/shutdown.html
 [12]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/cache-enabled.html
 [13]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/-cache-config/index.html
-[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2024.3.0
+[14]: https://central.sonatype.com/artifact/com.gabrielfeo/develocity-api-kotlin/2025.1.1
 [16]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/server.html
 [17]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-config/access-key.html
 [18]: https://gabrielfeo.github.io/develocity-api-kotlin/library/com.gabrielfeo.develocity.api/-builds-api/index.html
