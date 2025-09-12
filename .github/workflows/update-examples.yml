@@ -46,4 +46,4 @@ jobs:
           title: "Bump examples and badges to ${{ env.NEW_VERSION }}"
           author: "github-actions <github-actions@github.com>"
           committer: "github-actions <github-actions@github.com>"
-          body: "Update docs from ${{ env.OLD_VERSION }} to ${{ env.NEW_VERSION }}."
+          body: "Bump versions from ${{ env.OLD_VERSION }} to ${{ env.NEW_VERSION }}."
