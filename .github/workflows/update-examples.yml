@@ -6,11 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       old:
-        description: 'Git ref of version to replace. Leave empty for auto-detect from git tags.'
+        description: |
+          git ref of version to be replaced with 'new'. Defaults to the first git tag lower than 'new' in v:refname sorting.
         required: false
       new:
-        description: 'Branch or tag'
-        required: true
+        description: |
+          git ref of version to replace 'old'. Defaults to the current git tag.
+        required: false
 
 defaults:
   run:
