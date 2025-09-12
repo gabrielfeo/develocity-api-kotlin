@@ -6,11 +6,13 @@ on:
   workflow_dispatch:
     inputs:
       old:
-        description: 'Git ref of version to replace. Leave empty for auto-detect from git tags.'
+        description: |
+          git ref of version to be replaced with 'new'. Defaults to the first git tag lower than 'new' in v:refname sorting.
         required: false
       new:
-        description: 'Branch or tag'
-        required: true
+        description: |
+          git ref of version to replace 'old'. Defaults to the current git ref (github.ref_name).
+        required: false
 
 defaults:
   run:
@@ -28,9 +30,10 @@ jobs:
       - run: pip install -r .github/scripts/requirements.txt
       - name: 'Get versions'
         run: |
+          old="${{ inputs.old }}"
           new="${{ inputs.new || github.ref_name }}"
           echo "NEW_VERSION=$new" | tee -a $GITHUB_ENV
-          if [[ "${{ inputs.old }}" == "" ]]; then
+          if [[ "$old" == "" ]]; then
             echo "Auto-detecting old version from git tags"
             # Get previous version from descending tag list
             old="$(git tag --sort=-v:refname | grep -A1 "$new" | tail -1)"
