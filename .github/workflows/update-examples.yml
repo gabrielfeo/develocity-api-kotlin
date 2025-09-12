@@ -11,7 +11,7 @@ on:
         required: false
       new:
         description: |
-          git ref of version to replace 'old'. Defaults to the current git tag.
+          git ref of version to replace 'old'. Defaults to the current git ref (github.ref_name).
         required: false
 
 defaults:
