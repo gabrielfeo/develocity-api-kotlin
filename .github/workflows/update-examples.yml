@@ -5,7 +5,10 @@ on:
     tags: [ '*' ]
   workflow_dispatch:
     inputs:
-      ref:
+      old:
+        description: 'Git ref of version to replace. Leave empty for auto-detect from git tags.'
+        required: false
+      new:
         description: 'Branch or tag'
         required: true
 
@@ -25,13 +28,14 @@ jobs:
       - run: pip install -r .github/scripts/requirements.txt
       - name: 'Get versions'
         run: |
-          new="${{ inputs.ref || github.ref_name }}"
-          echo "Deleting '$new' in case it's alpha to stable bump." \
-            "Git v:refname doesn't handle Maven version qualifiers correctly."
-          git tag -d "$new"
-          old="$(git tag --sort=-v:refname | head -n 1)"
-          echo "OLD_VERSION=$old" | tee -a $GITHUB_ENV
+          new="${{ inputs.new || github.ref_name }}"
           echo "NEW_VERSION=$new" | tee -a $GITHUB_ENV
+          if [[ "${{ inputs.old }}" == "" ]]; then
+            echo "Auto-detecting old version from git tags"
+            # Get previous version from descending tag list
+            old="$(git tag --sort=-v:refname | grep -A1 "$new" | tail -1)"
+          fi
+          echo "OLD_VERSION=$old" | tee -a $GITHUB_ENV
       - name: 'Update version in all files'
         run: ./.github/scripts/replace_string.py ./ "$OLD_VERSION" "$NEW_VERSION"
       - name: 'Create PR'
@@ -42,4 +46,4 @@ jobs:
           title: "Bump examples and badges to ${{ env.NEW_VERSION }}"
           author: "github-actions <github-actions@github.com>"
           committer: "github-actions <github-actions@github.com>"
-          body: "Bump the version in examples and badges from ${{ env.OLD_VERSION }} to ${{ env.NEW_VERSION }}."
+          body: "Update docs from ${{ env.OLD_VERSION }} to ${{ env.NEW_VERSION }}."

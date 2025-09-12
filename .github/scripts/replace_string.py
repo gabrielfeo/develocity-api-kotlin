@@ -50,8 +50,11 @@ def _badge_version(version: str) -> str:
     return version.replace('-', '--')
 
 
-def _should_replace_in(repo, file):
-    return file.is_file() and not repo.ignored(file) and file.parts[0] != '.git'
+def _should_replace_in(repo, file: Path) -> bool:
+    return file.is_file() \
+        and not repo.ignored(file) \
+        and file.parts[0] != '.git' \
+        and file.name != 'test_replace_string.py'
 
 
 if __name__ == "__main__":
