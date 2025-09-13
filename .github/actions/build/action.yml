@@ -34,6 +34,9 @@ runs:
       with:
         validate-wrappers: true
         add-job-summary-as-pr-comment: 'on-failure'
+        # Disable cache for releases, enable write everywhere else
+        cache-read-only: false
+        cache-disabled: ${{ startsWith('refs/tags', github.ref) }}
     - name: Run Gradle
       shell: bash
       run: |
