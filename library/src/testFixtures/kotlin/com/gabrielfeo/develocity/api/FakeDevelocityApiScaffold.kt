@@ -181,4 +181,8 @@ interface FakeBuildsApiScaffold : BuildsApi {
     override suspend fun getSbtAttributes(id: String, availabilityWaitTimeoutSecs: Int?): SbtAttributes {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getMavenExtensions(id: String, availabilityWaitTimeoutSecs: Int?): MavenExtensions {
+        TODO("Not yet implemented")
+    }
 }
