@@ -9,8 +9,8 @@ import org.junit.jupiter.api.TestMethodOrder
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Path
+import com.gabrielfeo.develocity.api.copyFromResources
 import com.gabrielfeo.develocity.api.example.BuildStartTime
-import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 import kotlin.io.path.div
 

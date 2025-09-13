@@ -1,8 +1,8 @@
 package com.gabrielfeo.develocity.api.example.notebook
 
+import com.gabrielfeo.develocity.api.copyFromResources
 import com.gabrielfeo.develocity.api.example.JsonAdapter
 import com.gabrielfeo.develocity.api.example.Queries
-import com.gabrielfeo.develocity.api.example.copyFromResources
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

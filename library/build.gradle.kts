@@ -7,6 +7,7 @@ plugins {
     id("com.gabrielfeo.develocity-api-code-generation")
     id("com.gabrielfeo.integration-test-suite")
     id("com.gabrielfeo.examples-test-suite")
+    id("com.gabrielfeo.test-fixtures")
 }
 
 // Order matters as this library is used as a Kotlin Jupyter kernel dependency (see #440)
@@ -37,6 +38,7 @@ dependencies {
     integrationTestImplementation(libs.kotlin.jupyter.testkit)
     integrationTestImplementation(libs.logback.core)
     integrationTestImplementation(libs.logback.classic)
+    integrationTestImplementation(libs.okhttp.mockwebserver)
 }
 
 val libraryPom = Action<MavenPom> {
@@ -119,9 +121,14 @@ tasks.withType<Test>().configureEach {
         "junit.jupiter.tempdir.cleanup.mode.default",
         System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
     )
-    providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
-        inputs.property("${name}.hashCode", value.hashCode())
-    }
+}
+
+tasks.named<Test>("test") {
+    environment = emptyMap()
+}
+
+tasks.named<Test>("integrationTest") {
+    environment = emptyMap()
 }
 
 val publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal by tasks.getting
@@ -130,4 +137,7 @@ tasks.named<Test>("examplesTest") {
     inputs.files(files(publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal))
         .withPropertyName("snapshotPublicationArtifacts")
         .withNormalizer(ClasspathNormalizer::class)
+    providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
+        inputs.property("${name}.hashCode", value.hashCode())
+    }
 }

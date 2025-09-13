@@ -9,3 +9,6 @@ internal interface Env {
 internal object RealEnv : Env {
     override fun get(name: String): String? = System.getenv(name)
 }
+
+@Suppress("UnusedReceiverParameter")
+internal fun RealEnv.asMap(): Map<String, String> = System.getenv()
