@@ -129,13 +129,12 @@ tasks.named<Test>("test") {
 
 tasks.named<Test>("integrationTest") {
     environment = emptyMap()
-    maxParallelForks = 6
 }
 
 val publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal by tasks.getting
 
 tasks.named<Test>("examplesTest") {
-    maxParallelForks = 2
+    maxParallelForks = 4
     inputs.files(files(publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal))
         .withPropertyName("snapshotPublicationArtifacts")
         .withNormalizer(ClasspathNormalizer::class)
