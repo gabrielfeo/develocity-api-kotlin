@@ -48,7 +48,7 @@ class LoggingIntegrationTest {
         }
         recorder.start()
         val mockWebServer = okhttp3.mockwebserver.MockWebServer()
-        mockWebServer.enqueue(okhttp3.mockwebserver.MockResponse().setBody("{\"builds\":[]}"))
+        mockWebServer.enqueue(okhttp3.mockwebserver.MockResponse().setBody("[]"))
         mockWebServer.start()
         env = FakeEnv()
         api = DevelocityApi.newInstance(
