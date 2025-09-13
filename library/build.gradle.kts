@@ -123,6 +123,10 @@ tasks.withType<Test>().configureEach {
     )
 }
 
+tasks.named<Test>("test") {
+    environment = emptyMap()
+}
+
 tasks.named<Test>("integrationTest") {
     environment = emptyMap()
 }
