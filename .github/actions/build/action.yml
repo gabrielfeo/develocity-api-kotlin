@@ -24,11 +24,19 @@ runs:
         java-version: |
           24
           17
+    - name: Setup Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.13'
+        cache: 'pip'
     - name: Set up Gradle
       uses: gradle/actions/setup-gradle@v4
       with:
         validate-wrappers: true
         add-job-summary-as-pr-comment: 'on-failure'
+        # Disable cache for releases, disable write for bot branches, enable write everywhere else
+        cache-disabled: ${{ startsWith('refs/tags', github.ref) }}
+        cache-read-only: ${{ contains('renovate/', github.ref) || contains('bot/', github.ref) }}
     - name: Run Gradle
       shell: bash
       run: |
