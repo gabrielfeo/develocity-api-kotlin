@@ -116,11 +116,12 @@ tasks.named("compileKotlin", KotlinCompile::class) {
 }
 
 tasks.withType<Test>().configureEach {
-    maxParallelForks = 4
-    systemProperty(
-        "junit.jupiter.tempdir.cleanup.mode.default",
-        System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
-    )
+    maxParallelForks = 6
+    systemProperty("junit.jupiter.execution.parallel.enabled", "true")
+    systemProperty("junit.jupiter.execution.parallel.mode.default", "same_thread")
+    val cleanupMode = System.getProperty("junit.jupiter.tempdir.cleanup.mode.default")
+        ?: "always"
+    systemProperty("junit.jupiter.tempdir.cleanup.mode.default", cleanupMode)
 }
 
 tasks.named<Test>("test") {
