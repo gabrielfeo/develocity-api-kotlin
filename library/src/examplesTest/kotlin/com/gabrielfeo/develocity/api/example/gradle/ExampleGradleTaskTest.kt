@@ -2,37 +2,26 @@ package com.gabrielfeo.develocity.api.example.gradle
 
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
-import org.junit.jupiter.api.Order
-import org.junit.jupiter.api.TestMethodOrder
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Path
 import com.gabrielfeo.develocity.api.copyFromResources
 import com.gabrielfeo.develocity.api.example.BuildStartTime
 import com.gabrielfeo.develocity.api.example.runInShell
+import org.junit.jupiter.api.parallel.Execution
+import org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT
 import kotlin.io.path.div
 
-@TestMethodOrder(OrderAnnotation::class)
+@Execution(CONCURRENT)
 class ExampleGradleTaskTest {
 
-    @TempDir
-    lateinit var tempDir: Path
-
-    private val projectDir
-        get() = tempDir / "examples/example-gradle-task"
-
-    @BeforeEach
-    fun setup() {
-        copyFromResources("/examples", tempDir)
-        copyFromResources("/${ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}", tempDir)
-        copyFromResources("/${ResourceInitScripts.REQUIRE_JAVA_11_COMPATIBILITY}", tempDir)
+    class TestPaths(val rootDir: Path) {
+        val initScriptsDir = rootDir
+        val projectDir = rootDir / "examples/example-gradle-task"
     }
 
     @Test
-    @Order(1)
-    fun smokeTest() {
+    fun ensureRunBuildUsesSnapshotDependency(@TempDir tempDir: Path) = with(setup(tempDir)) {
         val dependencies = runBuild(":buildSrc:dependencies --configuration runtimeClasspath").stdout
         val libraryMatches = dependencies.lines().filter { "develocity-api-kotlin" in it }
         assertTrue(libraryMatches.isNotEmpty())
@@ -41,28 +30,36 @@ class ExampleGradleTaskTest {
         }
     }
 
+    private fun setup(tempDir: Path): TestPaths {
+        copyFromResources("/examples", tempDir)
+        copyFromResources("/${ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}", tempDir)
+        copyFromResources("/${ResourceInitScripts.REQUIRE_JAVA_11_COMPATIBILITY}", tempDir)
+        return TestPaths(tempDir)
+    }
+
     @Test
-    fun testBuildPerformanceMetricsTask() {
+    fun testBuildPerformanceMetricsTask(@TempDir tempDir: Path) = with(setup(tempDir)) {
         val args = "--user runner --period=${BuildStartTime.RECENT}"
         val output = runBuild("userBuildPerformanceMetrics $args").stdout
         assertPerformanceMetricsOutput(output, user = "runner", period = BuildStartTime.RECENT)
     }
 
     @Test
-    fun testJavaVersionCompatibility() {
-        val initScript = tempDir / ResourceInitScripts.REQUIRE_JAVA_11_COMPATIBILITY
+    fun testJavaVersionCompatibility(@TempDir tempDir: Path) = with(setup(tempDir)) {
+        val initScript = initScriptsDir / ResourceInitScripts.REQUIRE_JAVA_11_COMPATIBILITY
         val output = runBuild("-p buildSrc :generateExternalPluginSpecBuilders -I '$initScript'").stdout
         assertFalse(Regex("""FAILED|Could not resolve|No matching variant""").containsMatchIn(output))
     }
 
-    private fun runBuild(gradleArgs: String) =
+    private fun TestPaths.runBuild(gradleArgs: String) =
         runInShell(
             projectDir,
             "./gradlew --stacktrace --no-daemon",
-            "-I ${tempDir / ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}",
+            "-I ${initScriptsDir / ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}",
             gradleArgs,
         )
 
+    @Suppress("SameParameterValue")
     private fun assertPerformanceMetricsOutput(
         output: String,
         user: String,

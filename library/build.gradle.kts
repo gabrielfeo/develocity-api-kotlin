@@ -116,11 +116,11 @@ tasks.named("compileKotlin", KotlinCompile::class) {
 }
 
 tasks.withType<Test>().configureEach {
-    maxParallelForks = 4
-    systemProperty(
-        "junit.jupiter.tempdir.cleanup.mode.default",
-        System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
-    )
+    systemProperty("junit.jupiter.execution.parallel.enabled", "true")
+    systemProperty("junit.jupiter.execution.parallel.mode.default", "same_thread")
+    val cleanupMode = System.getProperty("junit.jupiter.tempdir.cleanup.mode.default")
+        ?: "always"
+    systemProperty("junit.jupiter.tempdir.cleanup.mode.default", cleanupMode)
 }
 
 tasks.named<Test>("test") {
@@ -128,12 +128,14 @@ tasks.named<Test>("test") {
 }
 
 tasks.named<Test>("integrationTest") {
+    maxParallelForks = 2
     environment = emptyMap()
 }
 
 val publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal by tasks.getting
 
 tasks.named<Test>("examplesTest") {
+    maxParallelForks = 4
     inputs.files(files(publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal))
         .withPropertyName("snapshotPublicationArtifacts")
         .withNormalizer(ClasspathNormalizer::class)

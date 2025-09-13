@@ -5,12 +5,15 @@ import com.google.common.reflect.ClassPath.ClassInfo
 import org.intellij.lang.annotations.Language
 import org.jetbrains.kotlinx.jupyter.api.Code
 import org.jetbrains.kotlinx.jupyter.testkit.JupyterReplTestCase
+import org.junit.jupiter.api.parallel.Execution
+import org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT
 import kotlin.reflect.KVisibility
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 @ExperimentalStdlibApi
+@Execution(CONCURRENT)
 class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
 
     @Test
