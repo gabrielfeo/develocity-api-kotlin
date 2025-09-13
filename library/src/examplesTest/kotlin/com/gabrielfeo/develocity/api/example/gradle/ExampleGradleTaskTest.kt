@@ -2,9 +2,6 @@ package com.gabrielfeo.develocity.api.example.gradle
 
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
-import org.junit.jupiter.api.Order
-import org.junit.jupiter.api.TestMethodOrder
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Path
@@ -15,7 +12,6 @@ import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT
 import kotlin.io.path.div
 
-@TestMethodOrder(OrderAnnotation::class)
 @Execution(CONCURRENT)
 class ExampleGradleTaskTest {
 
@@ -25,8 +21,7 @@ class ExampleGradleTaskTest {
     }
 
     @Test
-    @Order(1)
-    fun smokeTest(@TempDir tempDir: Path) = with(setup(tempDir)) {
+    fun ensureRunBuildUsesSnapshotDependency(@TempDir tempDir: Path) = with(setup(tempDir)) {
         val dependencies = runBuild(":buildSrc:dependencies --configuration runtimeClasspath").stdout
         val libraryMatches = dependencies.lines().filter { "develocity-api-kotlin" in it }
         assertTrue(libraryMatches.isNotEmpty())
@@ -64,6 +59,7 @@ class ExampleGradleTaskTest {
             gradleArgs,
         )
 
+    @Suppress("SameParameterValue")
     private fun assertPerformanceMetricsOutput(
         output: String,
         user: String,
