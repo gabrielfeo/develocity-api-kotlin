@@ -7,6 +7,7 @@ plugins {
     id("com.gabrielfeo.develocity-api-code-generation")
     id("com.gabrielfeo.integration-test-suite")
     id("com.gabrielfeo.examples-test-suite")
+    id("com.gabrielfeo.test-fixtures")
 }
 
 // Order matters as this library is used as a Kotlin Jupyter kernel dependency (see #440)

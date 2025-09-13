@@ -1,7 +1,7 @@
 package com.gabrielfeo.develocity.api.example.script
 
+import com.gabrielfeo.develocity.api.copyFromResources
 import com.gabrielfeo.develocity.api.example.Queries
-import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach

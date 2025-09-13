@@ -1,7 +1,7 @@
 package com.gabrielfeo.develocity.api.example.notebook
 
+import com.gabrielfeo.develocity.api.copyFromResources
 import com.gabrielfeo.develocity.api.example.OutputStreams
-import com.gabrielfeo.develocity.api.example.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 import java.nio.file.Path
 import kotlin.io.path.div

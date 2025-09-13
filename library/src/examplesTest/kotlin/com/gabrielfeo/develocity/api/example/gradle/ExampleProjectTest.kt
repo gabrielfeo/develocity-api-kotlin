@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Path
 import kotlin.io.path.div
-import com.gabrielfeo.develocity.api.example.copyFromResources
+import com.gabrielfeo.develocity.api.copyFromResources
 import com.gabrielfeo.develocity.api.example.runInShell
 
 @TestMethodOrder(OrderAnnotation::class)
