@@ -128,6 +128,7 @@ tasks.named<Test>("test") {
 }
 
 tasks.named<Test>("integrationTest") {
+    maxParallelForks = 2
     environment = emptyMap()
 }
 
