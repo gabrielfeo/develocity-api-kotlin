@@ -25,8 +25,9 @@ class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
 
     @Test
     fun `Given default clientBuilder, re-uses OkHttpClient resources`() {
-        execSuccess("val api = DevelocityApi.newInstance()")
-        execSuccess("val api2 = DevelocityApi.newInstance()")
+        val config = """Config(server = java.net.URI("https://foo.com"), accessKey = { "foo.com=bar" })"""
+        execSuccess("""val api = DevelocityApi.newInstance($config)""")
+        execSuccess("""val api2 = DevelocityApi.newInstance($config)""")
         val connectionPool1 = execRendered("api.config.clientBuilder.build().connectionPool.hashCode()")
         val connectionPool2 = execRendered("api2.config.clientBuilder.build().connectionPool.hashCode()")
         assertEquals(connectionPool1, connectionPool2)
@@ -34,8 +35,15 @@ class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
 
     @Test
     fun `Given custom clientBuilder set, does not re-use OkHttpClient resources`() {
-        execSuccess("val api = DevelocityApi.newInstance(Config(clientBuilder = okhttp3.OkHttpClient.Builder()))")
-        execSuccess("val api2 = DevelocityApi.newInstance(Config(clientBuilder = okhttp3.OkHttpClient.Builder()))")
+        val config = """
+            Config(
+                server = java.net.URI("https://foo.com"),
+                accessKey = { "foo.com=bar" },
+                clientBuilder = okhttp3.OkHttpClient.Builder(),
+            )
+        """.trimIndent()
+        execSuccess("val api = DevelocityApi.newInstance($config)")
+        execSuccess("val api2 = DevelocityApi.newInstance($config)")
         val connectionPool1 = execRendered("api.config.clientBuilder.build().connectionPool.hashCode()")
         val connectionPool2 = execRendered("api2.config.clientBuilder.build().connectionPool.hashCode()")
         assertNotEquals(connectionPool1, connectionPool2)

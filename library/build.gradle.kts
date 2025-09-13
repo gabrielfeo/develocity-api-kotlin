@@ -121,9 +121,10 @@ tasks.withType<Test>().configureEach {
         "junit.jupiter.tempdir.cleanup.mode.default",
         System.getProperty("junit.jupiter.tempdir.cleanup.mode.default") ?: "always",
     )
-    providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
-        inputs.property("${name}.hashCode", value.hashCode())
-    }
+}
+
+tasks.named<Test>("integrationTest") {
+    environment = emptyMap()
 }
 
 val publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal by tasks.getting
@@ -132,4 +133,7 @@ tasks.named<Test>("examplesTest") {
     inputs.files(files(publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal))
         .withPropertyName("snapshotPublicationArtifacts")
         .withNormalizer(ClasspathNormalizer::class)
+    providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
+        inputs.property("${name}.hashCode", value.hashCode())
+    }
 }
