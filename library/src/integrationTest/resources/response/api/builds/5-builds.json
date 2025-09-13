@@ -1,0 +1,37 @@
+[
+  {
+    "id": "67b3o5ld6iwc2",
+    "availableAt": 1754424892386,
+    "buildToolType": "gradle",
+    "buildToolVersion": "9.0.0",
+    "buildAgentVersion": "4.1"
+  },
+  {
+    "id": "e2bajrtqpe4bi",
+    "availableAt": 1754425137741,
+    "buildToolType": "gradle",
+    "buildToolVersion": "9.0.0",
+    "buildAgentVersion": "4.1"
+  },
+  {
+    "id": "rb5bbp6hxpcto",
+    "availableAt": 1754425141088,
+    "buildToolType": "gradle",
+    "buildToolVersion": "9.0.0",
+    "buildAgentVersion": "4.1"
+  },
+  {
+    "id": "gur3efx4fnqsc",
+    "availableAt": 1757168772917,
+    "buildToolType": "gradle",
+    "buildToolVersion": "8.14.3",
+    "buildAgentVersion": "4.1.1"
+  },
+  {
+    "id": "tw3yw5fhovwtq",
+    "availableAt": 1757168910932,
+    "buildToolType": "gradle",
+    "buildToolVersion": "8.14.3",
+    "buildAgentVersion": "4.1.1"
+  }
+]

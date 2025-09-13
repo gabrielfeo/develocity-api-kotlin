@@ -1,4 +1,4 @@
-package com.gabrielfeo.develocity.api.example
+package com.gabrielfeo.develocity.api
 
 import java.net.URL
 import java.nio.file.Path
