@@ -138,6 +138,7 @@ tasks.named<Test>("examplesTest") {
     inputs.files(files(publishUnsignedSnapshotDevelocityApiKotlinPublicationToMavenLocal))
         .withPropertyName("snapshotPublicationArtifacts")
         .withNormalizer(ClasspathNormalizer::class)
+    environment("DEVELOCITY_API_CACHE_ENABLED", "false")
     providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
         inputs.property("${name}.hashCode", value.hashCode())
     }
