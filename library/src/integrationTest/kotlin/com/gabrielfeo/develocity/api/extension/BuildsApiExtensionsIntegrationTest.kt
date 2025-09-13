@@ -10,20 +10,28 @@ import okhttp3.Request
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.time.Duration.Companion.minutes
 
 class BuildsApiExtensionsIntegrationTest {
 
-    init {
-        env = RealEnv
+    private val recorder = RequestRecorder()
+    private lateinit var api: DevelocityApi
+    private lateinit var mockWebServer: okhttp3.mockwebserver.MockWebServer
+
+    @BeforeTest
+    fun setup() {
+        mockWebServer = okhttp3.mockwebserver.MockWebServer()
+        mockWebServer.enqueue(okhttp3.mockwebserver.MockResponse().setBody("[]"))
+        mockWebServer.start()
+        env = FakeEnv()
+        api = buildApi(recorder)
     }
 
-    private val recorder = RequestRecorder()
-    private val api = buildApi(recorder)
-
     @AfterTest
-    fun setup() {
+    fun teardown() {
         api.shutdown()
+        mockWebServer.shutdown()
     }
 
     @Test
@@ -73,6 +81,8 @@ class BuildsApiExtensionsIntegrationTest {
     private fun buildApi(recorder: RequestRecorder) =
         DevelocityApi.newInstance(
             config = Config(
+                server = mockWebServer.url("/").toUri(),
+                accessKey = { "${mockWebServer.url("/").host}=foo" },
                 clientBuilder = recorder.clientBuilder(),
                 cacheConfig = Config.CacheConfig(cacheEnabled = false),
             )

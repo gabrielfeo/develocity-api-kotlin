@@ -37,6 +37,7 @@ dependencies {
     integrationTestImplementation(libs.kotlin.jupyter.testkit)
     integrationTestImplementation(libs.logback.core)
     integrationTestImplementation(libs.logback.classic)
+    integrationTestImplementation(libs.okhttp.mockwebserver)
 }
 
 val libraryPom = Action<MavenPom> {

@@ -47,9 +47,14 @@ class LoggingIntegrationTest {
             })
         }
         recorder.start()
-        env = RealEnv
+        val mockWebServer = okhttp3.mockwebserver.MockWebServer()
+        mockWebServer.enqueue(okhttp3.mockwebserver.MockResponse().setBody("{\"builds\":[]}"))
+        mockWebServer.start()
+        env = FakeEnv()
         api = DevelocityApi.newInstance(
             config = Config(
+                server = mockWebServer.url("/").toUri(),
+                accessKey = { "${mockWebServer.url("/").host}=foo" },
                 cacheConfig = Config.CacheConfig(
                     cacheEnabled = true,
                     cacheDir = tempDir,
