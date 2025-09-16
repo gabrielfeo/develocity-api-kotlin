@@ -1,0 +1,12 @@
+**/.*
+**/.github/*
+**/gradle/**
+**/docs/*
+**/*.md
+**/*gradle*
+**/src/main/AndroidManifest.xml
+**/src/main/kotlin/com/gabrielfeo/develocity/api/internal/infrastructure/ApiClient.kt
+**/src/main/kotlin/com/gabrielfeo/develocity/api/GradleEnterpriseApi.kt
+**/src/main/kotlin/com/gabrielfeo/develocity/api/DevelocityApi.kt
+**/src/test/**
+

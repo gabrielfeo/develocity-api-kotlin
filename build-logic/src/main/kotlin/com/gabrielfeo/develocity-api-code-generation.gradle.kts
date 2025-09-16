@@ -1,7 +1,7 @@
 package com.gabrielfeo
 
 import com.gabrielfeo.task.PostProcessGeneratedApi
-import org.gradle.kotlin.dsl.*
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
     id("com.gabrielfeo.kotlin-jvm-library")
@@ -30,14 +30,16 @@ val downloadApiSpec by tasks.registering {
     }
 }
 
-openApiGenerate {
+fun openApiGenerateTask(
+    outputDir: Provider<Directory>,
+    ignoreFile: RegularFile,
+    templateDir: Directory? = null,
+) = tasks.registering(GenerateTask::class) {
     generatorName = "kotlin"
     inputSpec = downloadApiSpec.map { it.outputs.files.first().absolutePath }
-    val generateDir = project.layout.buildDirectory.dir("generated-api")
-        .map { it.asFile.absolutePath }
-    outputDir = generateDir
-    val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
+    this.outputDir = outputDir.map { it.asFile.absolutePath }
     ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
+    this.templateDir.set(templateDir?.asFile?.absolutePath)
     apiPackage = "com.gabrielfeo.develocity.api"
     modelPackage = "com.gabrielfeo.develocity.api.model"
     packageName = "com.gabrielfeo.develocity.api.internal"
@@ -48,19 +50,51 @@ openApiGenerate {
     cleanupOutput = true
 }
 
-val postProcessGeneratedApi by tasks.registering(PostProcessGeneratedApi::class) {
-    val generatedSrc = tasks.openApiGenerate
-        .flatMap { it.outputDir }
-        .map { File(it) }
-    originalFiles.convention(project.layout.dir(generatedSrc))
-    postProcessedFiles.convention(project.layout.buildDirectory.dir("post-processed-api"))
-    modelsPackage.convention(tasks.openApiGenerate.flatMap { it.modelPackage })
-}
+val generateDevelocityApiMain by openApiGenerateTask(
+    outputDir = project.layout.buildDirectory.dir("generated-api-main"),
+    ignoreFile = project.layout.projectDirectory.file("src/main/.openapi-generator-ignore"),
+)
+
+fun postProcessingTask(
+    generateTask: Provider<GenerateTask>,
+    outputDir: Provider<Directory>,
+) = tasks.registering(PostProcessGeneratedApi::class) {
+        val generatedSrc = generateTask.flatMap { it.outputDir }.map { File(it) }
+        originalFiles.convention(project.layout.dir(generatedSrc))
+        postProcessedFiles.convention(outputDir)
+        modelsPackage.convention(generateTask.flatMap { it.modelPackage })
+    }
+
+val postProcessGeneratedApiMain by postProcessingTask(
+    generateTask = generateDevelocityApiMain,
+    outputDir = project.layout.buildDirectory.dir("post-processed-api-main"),
+)
 
 sourceSets {
     main {
         java {
-            srcDir(postProcessGeneratedApi)
+            srcDir(postProcessGeneratedApiMain)
+        }
+    }
+}
+
+plugins.withType<TestFixturesPlugin>().whenObjectAdded {
+    val generateDevelocityApiTestFixtures by openApiGenerateTask(
+        outputDir = project.layout.buildDirectory.dir("generated-api-test-fixtures"),
+        // TODO Other param fixtures need to be ported over. Start with original templates. Core issue is that default values cannot be re-declared in the fake, but try leaving all annotations out for simplicity, as in headerParams.mustache.
+        // cp ~/p/gradle/openapi-generator/modules/openapi-generator/src/main/resources/kotlin-client/libraries/jvm-retrofit2/*Param* library/src/testFixtures/test-fixture-templates/
+        templateDir = project.layout.projectDirectory.dir("src/testFixtures/test-fixture-templates"),
+        ignoreFile = project.layout.projectDirectory.file("src/testFixtures/.openapi-generator-ignore"),
+    )
+    val postProcessGeneratedApiTestFixtures by postProcessingTask(
+        generateTask = generateDevelocityApiTestFixtures,
+        outputDir = project.layout.buildDirectory.dir("post-processed-api-test-fixtures"),
+    )
+    sourceSets {
+        named("testFixtures") {
+            java {
+                srcDir(postProcessGeneratedApiTestFixtures)
+            }
         }
     }
 }

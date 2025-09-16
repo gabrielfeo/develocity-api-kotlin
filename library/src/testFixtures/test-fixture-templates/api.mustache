@@ -1,0 +1,22 @@
+package {{apiPackage}}
+
+import {{packageName}}.infrastructure.CollectionFormats.*
+import retrofit2.http.*
+
+{{#imports}}import {{import}}
+{{/imports}}
+
+{{#operations}}
+{{#x-kotlin-import-models}}
+import {{{modelPackage}}}.*
+
+{{/x-kotlin-import-models}}
+
+interface Fake{{classname}}Adapter : {{classname}} {
+    {{#operation}}
+    override suspend fun {{operationId}}({{^allParams}}){{/allParams}}{{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{^-last}}, {{/-last}}{{#-last}}){{/-last}}{{/allParams}}: {{{returnType}}} {
+        TODO("Not implemented")
+    }
+    {{/operation}}
+}
+{{/operations}}
