@@ -183,6 +183,49 @@ class PostProcessGeneratedApiTest {
         """.trimIndent(),
     )
 
+    /**
+     * Fixes enum case names: mAVENEXTCLASSPATH -> mavenExtClasspath (gabrielfeo/develocity-api-kotlin#429).
+     *
+     * Occurs when API spec enum name is uppercase and generator enumPropertyNaming is camelCase.
+     */
+    @Test
+    fun mavenExtensionTypeEnumPostProcessing() = testPostProcessing(
+        inputPath = "src/main/kotlin/com/gabrielfeo/develocity/api/model/MavenExtension.kt",
+        inputContent = """
+            /**
+             * The extension application type. * `CORE` - A core extension, provided in the lib folder of the Maven installation. * `MAVEN_EXT_CLASSPATH` - A core extension provided via the -Dmaven.ext.class.path system property.   * `LIB_EXT` - A core extension, provided in the lib/ext folder of the Maven installation. * `PROJECT` - A project extension, provided via a declaration in .mvn/extensions.xml in the Maven working directory.  * `POM` - A build extension, provided via a declaration in the build section of the top level project pom.xml * `UNKNOWN` - An extension for which none of the other types match.
+             *
+             * Values: cORE,mAVENEXTCLASSPATH,lIBEXT,pROJECT,pOM,uNKNOWN
+             */
+            @JsonClass(generateAdapter = false)
+            enum class Type(val value: kotlin.String) {
+                @Json(name = "CORE") cORE("CORE"),
+                @Json(name = "MAVEN_EXT_CLASSPATH") mAVENEXTCLASSPATH("MAVEN_EXT_CLASSPATH"),
+                @Json(name = "LIB_EXT") lIBEXT("LIB_EXT"),
+                @Json(name = "PROJECT") pROJECT("PROJECT"),
+                @Json(name = "POM") pOM("POM"),
+                @Json(name = "UNKNOWN") uNKNOWN("UNKNOWN");
+            }
+        """.trimIndent(),
+        outputPath = "src/main/kotlin/com/gabrielfeo/develocity/api/model/MavenExtension.kt",
+        outputContent = """
+            /**
+             * The extension application type. * `CORE` - A core extension, provided in the lib folder of the Maven installation. * `MAVEN_EXT_CLASSPATH` - A core extension provided via the -Dmaven.ext.class.path system property.   * `LIB_EXT` - A core extension, provided in the lib/ext folder of the Maven installation. * `PROJECT` - A project extension, provided via a declaration in .mvn/extensions.xml in the Maven working directory.  * `POM` - A build extension, provided via a declaration in the build section of the top level project pom.xml * `UNKNOWN` - An extension for which none of the other types match.
+             *
+             * Values: core,mavenExtClasspath,libExt,project,pom,unknown
+             */
+            @JsonClass(generateAdapter = false)
+            enum class Type(val value: kotlin.String) {
+                @Json(name = "CORE") core("CORE"),
+                @Json(name = "MAVEN_EXT_CLASSPATH") mavenExtClasspath("MAVEN_EXT_CLASSPATH"),
+                @Json(name = "LIB_EXT") libExt("LIB_EXT"),
+                @Json(name = "PROJECT") project("PROJECT"),
+                @Json(name = "POM") pom("POM"),
+                @Json(name = "UNKNOWN") unknown("UNKNOWN");
+            }
+        """.trimIndent(),
+    )
+
     private fun testPostProcessing(
         inputPath: String,
         inputContent: String,

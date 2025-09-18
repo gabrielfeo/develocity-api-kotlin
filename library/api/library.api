@@ -2673,12 +2673,12 @@ public final class com/gabrielfeo/develocity/api/model/MavenExtension {
 }
 
 public final class com/gabrielfeo/develocity/api/model/MavenExtension$Type : java/lang/Enum {
-	public static final field cORE Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
-	public static final field lIBEXT Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
-	public static final field mAVENEXTCLASSPATH Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
-	public static final field pOM Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
-	public static final field pROJECT Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
-	public static final field uNKNOWN Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
+	public static final field core Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
+	public static final field libExt Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
+	public static final field mavenExtClasspath Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
+	public static final field pom Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
+	public static final field project Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
+	public static final field unknown Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
 	public static fun values ()[Lcom/gabrielfeo/develocity/api/model/MavenExtension$Type;
