@@ -10,6 +10,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.io.TempDir
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.slf4j.helpers.SubstituteLogger
 import java.io.File
 import kotlin.test.*
 
@@ -33,7 +34,12 @@ class LoggingIntegrationTest {
 
     @BeforeTest
     fun setup() {
-        (LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME) as LogbackLogger).apply {
+        var logger = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)
+        while (logger is SubstituteLogger) {
+            logger = logger.delegate()
+        }
+        (logger as? LogbackLogger) ?: error("Unexpected logger type ${logger::class.java}")
+        logger.apply {
             detachAndStopAllAppenders()
             addAppender(recorder)
             addAppender(ConsoleAppender<ILoggingEvent>().apply {
