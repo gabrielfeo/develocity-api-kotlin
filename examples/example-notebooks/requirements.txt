@@ -1,2 +1,2 @@
-jupyterlab==4.4.7
+jupyterlab==4.4.8
 kotlin-jupyter-kernel==0.15.0.598
