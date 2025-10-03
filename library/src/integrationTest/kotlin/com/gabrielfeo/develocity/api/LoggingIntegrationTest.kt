@@ -1,16 +1,14 @@
 package com.gabrielfeo.develocity.api
 
-import ch.qos.logback.classic.Logger as LogbackLogger
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.AppenderBase
-import ch.qos.logback.core.ConsoleAppender
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder
+import ch.qos.logback.classic.LoggerContext as LogbackLoggerContext
 import com.gabrielfeo.develocity.api.internal.*
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.io.TempDir
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.slf4j.helpers.SubstituteLogger
 import java.io.File
 import kotlin.test.*
 
@@ -34,24 +32,9 @@ class LoggingIntegrationTest {
 
     @BeforeTest
     fun setup() {
-        var logger = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)
-        while (logger is SubstituteLogger) {
-            logger = logger.delegate()
-        }
-        (logger as? LogbackLogger) ?: error("Unexpected logger type ${logger::class.java}")
-        logger.apply {
-            detachAndStopAllAppenders()
-            addAppender(recorder)
-            addAppender(ConsoleAppender<ILoggingEvent>().apply {
-                context = loggerContext
-                encoder = PatternLayoutEncoder().apply {
-                    context = loggerContext
-                    pattern = "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-                    start()
-                }
-                start()
-            })
-        }
+        val loggerContext = LoggerFactory.getILoggerFactory() as LogbackLoggerContext
+        val rootLogger = loggerContext.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME)
+        rootLogger.addAppender(recorder)
         recorder.start()
         val mockWebServer = okhttp3.mockwebserver.MockWebServer()
         mockWebServer.enqueue(okhttp3.mockwebserver.MockResponse().setBody("[]"))
@@ -71,6 +54,9 @@ class LoggingIntegrationTest {
 
     @AfterTest
     fun tearDown() {
+        (LoggerFactory.getILoggerFactory() as LogbackLoggerContext)
+            .getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME)
+            .detachAndStopAllAppenders()
         api.shutdown()
     }
 
