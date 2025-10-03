@@ -38,13 +38,6 @@ abstract class PostProcessGeneratedApi @Inject constructor(
     }
 
     private fun postProcess(srcDir: File, modelsPackage: String) {
-        // Replace Response<X> with X in every method return type of DevelocityApi.kt
-        replaceAll(
-            match = ": Response<(.*?)>$",
-            replace = """: \1""",
-            dir = srcDir,
-            includes = "com/gabrielfeo/develocity/api/*Api.kt",
-        )
         // Add @JvmSuppressWildcards to avoid square/retrofit#3275
         replaceAll(
             match = "interface",

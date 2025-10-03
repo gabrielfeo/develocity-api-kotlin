@@ -45,6 +45,7 @@ openApiGenerate {
     additionalProperties.put("library", "jvm-retrofit2")
     additionalProperties.put("useCoroutines", true)
     additionalProperties.put("enumPropertyNaming", "camelCase")
+    additionalProperties.put("useResponseAsReturnType", false)
     cleanupOutput = true
 }
 
