@@ -19,7 +19,6 @@ class PostProcessGeneratedApiTest {
 
     /**
      * - Fixes missing model imports by replacing all with a wildcard (OpenAPITools/openapi-generator#14871)
-     * - Replaces return types of Response<X> for X, for more idiomatic usage with coroutines
      * - Adds @JvmSuppressWildcards to avoid square/retrofit#3275
      */
     @Test
@@ -30,7 +29,6 @@ class PostProcessGeneratedApiTest {
 
             import com.gabrielfeo.develocity.api.internal.infrastructure.CollectionFormats.*
             import retrofit2.http.*
-            import retrofit2.Response
             import okhttp3.RequestBody
             import com.squareup.moshi.Json
 
@@ -67,7 +65,7 @@ class PostProcessGeneratedApiTest {
                  * @return [Build]
                  */
                 @GET("api/builds/{id}")
-                suspend fun getBuild(@Path("id") id: kotlin.String, @Query("models") models: kotlin.collections.List<BuildModelName>? = null, @Query("availabilityWaitTimeoutSecs") availabilityWaitTimeoutSecs: kotlin.Int? = null): Response<Build>
+                suspend fun getBuild(@Path("id") id: kotlin.String, @Query("models") models: kotlin.collections.List<BuildModelName>? = null, @Query("availabilityWaitTimeoutSecs") availabilityWaitTimeoutSecs: kotlin.Int? = null): Build
         """.trimIndent(),
         outputPath = "src/main/kotlin/com/gabrielfeo/develocity/api/BuildsApi.kt",
         outputContent = """
@@ -75,7 +73,6 @@ class PostProcessGeneratedApiTest {
 
             import com.gabrielfeo.develocity.api.internal.infrastructure.CollectionFormats.*
             import retrofit2.http.*
-            import retrofit2.Response
             import okhttp3.RequestBody
             import com.squareup.moshi.Json
 
