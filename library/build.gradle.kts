@@ -33,11 +33,12 @@ dependencies {
     testImplementation(libs.okio)
     testImplementation(libs.kotlin.coroutines.test)
     testImplementation(libs.junit.jupiter.params)
+    // Must come first else classpath ordering issues when casting loggers for tests
+    integrationTestImplementation(libs.logback.core)
+    integrationTestImplementation(libs.logback.classic)
     integrationTestImplementation(libs.kotlin.coroutines.test)
     integrationTestImplementation(libs.guava)
     integrationTestImplementation(libs.kotlin.jupyter.testkit)
-    integrationTestImplementation(libs.logback.core)
-    integrationTestImplementation(libs.logback.classic)
     integrationTestImplementation(libs.okhttp.mockwebserver)
 }
 
