@@ -8,33 +8,28 @@ import com.gabrielfeo.develocity.api.internal.*
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.io.TempDir
 import org.slf4j.Logger
+import org.slf4j.Logger.ROOT_LOGGER_NAME
 import org.slf4j.LoggerFactory
 import java.io.File
 import kotlin.test.*
 
 class LoggingIntegrationTest {
 
-    private class LogRecorder : AppenderBase<ILoggingEvent>() {
-        val logsByLoggerName = mutableListOf<Pair<String, String>>()
-        override fun append(eventObject: ILoggingEvent) {
-            with(eventObject) {
-                logsByLoggerName += (loggerName to formattedMessage)
-            }
-        }
-    }
-
     @TempDir
     lateinit var tempDir: File
 
-    private val recorder = LogRecorder()
+    private val recorder: InMemoryLogRecorder by lazy {
+        val lc = LoggerFactory.getILoggerFactory() as LogbackLoggerContext
+        // The appender is attached to the com.gabrielfeo.develocity.api logger
+        val logger = lc.getLogger("com.gabrielfeo.develocity")
+        logger.getAppender("IN_MEMORY") as InMemoryLogRecorder
+    }
 
     private lateinit var api: DevelocityApi
 
     @BeforeTest
     fun setup() {
-        val loggerContext = LoggerFactory.getILoggerFactory() as LogbackLoggerContext
-        val rootLogger = loggerContext.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME)
-        rootLogger.addAppender(recorder)
+        // Appender is configured via logback-test.xml; ensure it's started
         recorder.start()
         val mockWebServer = okhttp3.mockwebserver.MockWebServer()
         mockWebServer.enqueue(okhttp3.mockwebserver.MockResponse().setBody("[]"))
@@ -54,9 +49,10 @@ class LoggingIntegrationTest {
 
     @AfterTest
     fun tearDown() {
-        (LoggerFactory.getILoggerFactory() as LogbackLoggerContext)
-            .getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME)
-            .detachAndStopAllAppenders()
+        val lc = LoggerFactory.getILoggerFactory() as LogbackLoggerContext
+        val logger = lc.getLogger("com.gabrielfeo.develocity")
+        logger.detachAppender("IN_MEMORY")
+        recorder.stop()
         api.shutdown()
     }
 
