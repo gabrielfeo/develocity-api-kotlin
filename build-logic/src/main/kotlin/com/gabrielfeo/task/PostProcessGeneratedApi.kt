@@ -57,6 +57,19 @@ abstract class PostProcessGeneratedApi @Inject constructor(
         replaceAll("hIT", "hit", dir = srcDir, includes = file)
         replaceAll("mISS", "miss", dir = srcDir, includes = file)
         replaceAll("fAILED", "failed", dir = srcDir, includes = file)
+
+        // Fix mapping of MavenExtension.Type: lIBEXT -> core
+        val mavenExtensionFile = "com/gabrielfeo/develocity/api/model/MavenExtension.kt"
+        mapOf(
+            "cORE" to "core",
+            "mAVENEXTCLASSPATH" to "mavenExtClasspath",
+            "lIBEXT" to "libExt",
+            "pROJECT" to "project",
+            "pOM" to "pom",
+            "uNKNOWN" to "unknown",
+        ).forEach { (match, replace) ->
+            replaceAll(match, replace, dir = srcDir, includes = mavenExtensionFile)
+        }
     }
 
     private fun replaceAll(

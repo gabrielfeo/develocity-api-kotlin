@@ -1,11 +1,19 @@
 <configuration>
-    <logger name="com.gabrielfeo.develocity" level="DEBUG"/>
+
+    <logger name="com.gabrielfeo.develocity" level="DEBUG">
+        <appender-ref ref="IN_MEMORY" />
+    </logger>
+
     <root level="INFO">
-        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="CONSOLE" />
     </root>
+
+    <appender name="IN_MEMORY" class="com.gabrielfeo.develocity.api.InMemoryLogRecorder" />
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+
 </configuration>

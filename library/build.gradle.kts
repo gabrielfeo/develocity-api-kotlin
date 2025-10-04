@@ -108,6 +108,11 @@ tasks.named("compileJava", JavaCompile::class) {
     targetCompatibility = JavaVersion.VERSION_11.majorVersion
 }
 
+tasks.processIntegrationTestResources {
+    dependsOn(tasks.apiCheck)
+    from(project.layout.projectDirectory.dir("api/library.api"))
+}
+
 tasks.named("compileKotlin", KotlinCompile::class) {
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_1_8
