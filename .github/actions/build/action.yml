@@ -47,7 +47,7 @@ runs:
         fi
     - name: Upload
       if: ${{ inputs.path-to-upload }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: ${{ inputs.artifact-name }}
         path: ${{ inputs.path-to-upload }}
