@@ -29,7 +29,7 @@ jobs:
       DEVELOCITY_ACCESS_KEY: "${{ secrets.DEVELOCITY_ACCESS_KEY }}"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Verify that version property matches tag
         if: ${{ inputs.dry_run != true }}
         run: grep -qP '^version=${{ github.ref_name }}$' gradle.properties
