@@ -2,7 +2,7 @@
 kotlin = "2.2.10"
 kotlin-stdlib = "2.0.0"
 dokka = "2.1.0"
-openapi-generator = "7.16.0"
+openapi-generator = "7.17.0"
 jupyter = "0.15.0-650"
 okio = "3.16.4"
 moshi = "1.15.2"
