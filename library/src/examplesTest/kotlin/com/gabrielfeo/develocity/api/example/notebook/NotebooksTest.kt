@@ -73,7 +73,7 @@ class NotebooksTest {
         }
         return replacePattern(
             path = sourceNotebook,
-            pattern = Regex("(?:DependsOn|%use).*develocity-api-kotlin.*"),
+            pattern = Regex("(?:DependsOn|%use).*develocity-api-kotlin.*|%useLatestDescriptors"),
             replacement = """
                 %use develocity-api-kotlin@file[$libraryDescriptor]
                 %trackClasspath on
