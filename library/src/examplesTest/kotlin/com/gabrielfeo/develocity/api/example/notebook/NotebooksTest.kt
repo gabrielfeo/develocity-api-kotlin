@@ -22,10 +22,11 @@ class NotebooksTest {
     @Test
     fun testMostFrequentBuildsNotebook(@TempDir tempDir: Path) {
         val jupyter = setup(tempDir)
-        val sourceNotebook = tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb"
-        val fasterNotebook = jupyter.forceUseOfFasterQuery(sourceNotebook)
-        val snapshotNotebook = jupyter.forceUseOfMavenLocalSnapshotArtifact(fasterNotebook)
-        val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
+        val notebook = (tempDir / "examples/example-notebooks/MostFrequentBuilds.ipynb")
+            .let { jupyter.forceUseOfFasterQuery(it) }
+            .let { jupyter.forceUseOfMavenLocalSnapshotArtifact(it) }
+            .let { jupyter.forceUseOfEmbeddedLibraryDescriptors(it) }
+        val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(notebook) }
         with(JsonAdapter.fromJson(executedNotebook.outputNotebook).asNotebookJson()) {
             assertTrue(textOutputLines.any { Regex("""Collected \d+ builds from the API""").containsMatchIn(it) }) {
                 "Expected line match not found in text outputs:\n${JsonAdapter.toPrettyJson(properties)}"
@@ -59,9 +60,10 @@ class NotebooksTest {
     @Test
     fun testLoggingNotebook(@TempDir tempDir: Path) {
         val jupyter = setup(tempDir)
-        val sourceNotebook = tempDir / "examples/example-notebooks/Logging.ipynb"
-        val snapshotNotebook = jupyter.forceUseOfMavenLocalSnapshotArtifact(sourceNotebook)
-        val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(snapshotNotebook) }
+        val notebook = (tempDir / "examples/example-notebooks/Logging.ipynb")
+            .let { jupyter.forceUseOfMavenLocalSnapshotArtifact(it) }
+            .let { jupyter.forceUseOfEmbeddedLibraryDescriptors(it) }
+        val executedNotebook = assertDoesNotThrow { jupyter.executeNotebook(notebook) }
         val kernelLogs = executedNotebook.outputStreams.stderr
         assertTrue(kernelLogs.contains("gabrielfeo.develocity.api.Cache - HTTP cache", ignoreCase = true))
     }
@@ -73,13 +75,19 @@ class NotebooksTest {
         }
         return replacePattern(
             path = sourceNotebook,
-            pattern = Regex("(?:DependsOn|%use).*develocity-api-kotlin.*|%useLatestDescriptors"),
+            pattern = Regex("(?:DependsOn|%use).*develocity-api-kotlin.*"),
             replacement = """
                 %use develocity-api-kotlin@file[$libraryDescriptor]
                 %trackClasspath on
                 %logLevel debug
             """.trimIndent()
         )
+    }
+
+    private fun Jupyter.forceUseOfEmbeddedLibraryDescriptors(sourceNotebook: Path): Path {
+        // Use the embedded descriptors of other libraries used in examples, e.g. Dataframe and Kandy,
+        // instead of the latest from GitHub, in order to ensure a reproducible build
+        return replacePattern(sourceNotebook, Regex("%useLatestDescriptors"), "")
     }
 
     @Suppress("SameParameterValue")
