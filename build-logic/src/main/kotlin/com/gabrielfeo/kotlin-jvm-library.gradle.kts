@@ -32,3 +32,10 @@ val testTasks = tasks.named {
 tasks.named { it.startsWith("publish") }.configureEach {
     shouldRunAfter(testTasks)
 }
+
+tasks.withType<Test>().configureEach {
+    develocity.testRetry {
+        maxRetries.set(3)
+        failOnPassedAfterRetry.set(true)
+    }
+}
