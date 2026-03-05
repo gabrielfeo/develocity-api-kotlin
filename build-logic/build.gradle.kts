@@ -33,5 +33,6 @@ dependencies {
     implementation(libs.dokka.plugin)
     implementation(libs.openapi.generator.plugin)
     implementation(libs.vanniktech.mavenPublishPlugin)
+    implementation(libs.develocity.gradle.plugin)
     "functionalTestImplementation"(project)
 }
