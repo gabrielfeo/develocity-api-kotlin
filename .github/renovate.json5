@@ -20,10 +20,13 @@
   // Remove "dependency " prefix which makes message subjects too long
   "commitMessageTopic": "{{depName}}",
   "packageRules": [
-    // Add a changelog link to Develocity plugin PRs
+    // Group Develocity plugin bumps across all files into a single PR (settings.gradle.kts +
+    // libs.versions.toml), and add a changelog link
     {
-      "matchDepNames": ["com.gradle.develocity"],
+      "matchDepNames": ["com.gradle.develocity", "com.gradle:develocity-gradle-plugin"],
       "prBodyNotes": ["https://docs.gradle.com/develocity/gradle-plugin/current#release_history"],
+      "groupName": "Develocity Gradle plugin",
+      "groupSlug": "develocity-gradle-plugin",
     },
     // Group Kotlin/Jupyter artifact bumps
     {
