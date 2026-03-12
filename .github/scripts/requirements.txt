@@ -1,8 +1,8 @@
 certifi==2026.2.25
-charset-normalizer==3.4.4
+charset-normalizer==3.4.5
 gitdb==4.0.12
 GitPython==3.1.46
 idna==3.11
 requests==2.32.5
-smmap==5.0.2
+smmap==5.0.3
 urllib3==2.6.3
