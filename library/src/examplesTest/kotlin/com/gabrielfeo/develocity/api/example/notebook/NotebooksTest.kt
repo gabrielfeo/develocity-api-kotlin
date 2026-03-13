@@ -9,7 +9,6 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.io.TempDir
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT
-import java.net.URI
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.absolute
@@ -69,9 +68,8 @@ class NotebooksTest {
     }
 
     private fun Jupyter.forceUseOfMavenLocalSnapshotArtifact(sourceNotebook: Path): Path {
-        val mavenLocal = Path(System.getProperty("user.home"), ".m2/repository").toUri()
         val libraryDescriptor = (workDir / "develocity-api-kotlin.json").apply {
-            writeText(buildLibraryDescriptor(version = "SNAPSHOT", repository = mavenLocal))
+            writeText(buildLibraryDescriptor(version = "SNAPSHOT"))
         }
         return replacePattern(
             path = sourceNotebook,
@@ -91,10 +89,10 @@ class NotebooksTest {
     }
 
     @Suppress("SameParameterValue")
-    private fun buildLibraryDescriptor(version: String, repository: URI) = """
+    private fun buildLibraryDescriptor(version: String) = """
         {
           "dependencies": ["com.gabrielfeo:develocity-api-kotlin:$version"],
-          "repositories": ["$repository"]
+          "repositories": ["*mavenLocal"]
         }
     """.trimIndent()
 }
