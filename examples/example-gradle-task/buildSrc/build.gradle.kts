@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation("com.gabrielfeo:develocity-api-kotlin:2025.1.1")
+    implementation("com.gabrielfeo:develocity-api-kotlin:2025.2.0")
     implementation("org.apache.commons:commons-math3:3.6.1")
 }
 
