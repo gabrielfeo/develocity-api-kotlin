@@ -14,6 +14,7 @@ interface FakeBuildsApiScaffold : BuildsApi {
         models: List<BuildModelName>?,
         allModels: Boolean?,
         availabilityWaitTimeoutSecs: Int?,
+        skipUnavailableModels: Boolean?,
     ): Build {
         TODO("Not yet implemented")
     }
@@ -43,6 +44,7 @@ interface FakeBuildsApiScaffold : BuildsApi {
         allModels: Boolean?,
         since: Long?,
         sinceBuild: String?,
+        skipUnavailableModels: Boolean?,
     ): List<Build> {
         TODO("Not yet implemented")
     }
@@ -183,6 +185,18 @@ interface FakeBuildsApiScaffold : BuildsApi {
     }
 
     override suspend fun getMavenExtensions(id: String, availabilityWaitTimeoutSecs: Int?): MavenExtensions {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getGradleFailures(id: String, availabilityWaitTimeoutSecs: Int?): GradleFailures {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenFailures(id: String, availabilityWaitTimeoutSecs: Int?): MavenFailures {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getNpmDependencies(id: String, availabilityWaitTimeoutSecs: Int?): NpmDependencies {
         TODO("Not yet implemented")
     }
 }
