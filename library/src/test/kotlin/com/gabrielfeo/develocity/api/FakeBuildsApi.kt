@@ -22,6 +22,7 @@ class FakeBuildsApi(
         allModels: Boolean?,
         since: Long?,
         sinceBuild: String?,
+        skipUnavailableModels: Boolean?,
     ): List<Build> {
         getBuildsCallCount.value++
         check((reverse ?: maxWaitSecs ?: query ?: models) == null) { "Not supported" }
