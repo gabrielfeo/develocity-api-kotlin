@@ -70,6 +70,15 @@ abstract class PostProcessGeneratedApi @Inject constructor(
         ).forEach { (match, replace) ->
             replaceAll(match, replace, dir = srcDir, includes = mavenExtensionFile)
         }
+
+        // Replace entries.firstOrNull with values().firstOrNull to avoid requiring
+        // language version 1.9+ (entries property is experimental before that)
+        replaceAll(
+            match = "entries.firstOrNull",
+            replace = "values().firstOrNull",
+            dir = srcDir,
+            includes = "${modelsPackage.replace('.', '/')}/*.kt",
+        )
     }
 
     private fun replaceAll(
