@@ -29,8 +29,8 @@
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://helm.gradle.com",
       // Writes "develocity.version=2025.4" (prefix truthy → no patch)
-      //    and "version=2025.4.0"          (prefix falsy  → appends patch)
-      "autoReplaceStringTemplate": "{{prefix}}version={{newMajor}}.{{newMinor}}{{#unless prefix}}.{{newPatch}}{{/unless}}",
+      //    and "version=2025.4.0"          (prefix falsy  → always reset to .0)
+      "autoReplaceStringTemplate": "{{prefix}}version={{newMajor}}.{{newMinor}}{{#unless prefix}}.0{{/unless}}",
       "versioningTemplate": "semver-coerced",
     },
   ],
