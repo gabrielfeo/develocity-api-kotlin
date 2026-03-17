@@ -3,11 +3,16 @@ on:
   schedule:
     - cron: '0 3 * * 1'   # Mondays at 3 AM UTC
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry-run mode: extract, lookup, or full'
+        required: false
+        default: ''
   workflow_call:
     inputs:
       dry_run:
-        type: boolean
-        default: false
+        type: string
+        default: ''
 jobs:
   renovate:
     runs-on: ubuntu-latest
@@ -18,4 +23,4 @@ jobs:
           configurationFile: .github/renovate-self-hosted.json5
           token: ${{ secrets.RENOVATE_TOKEN }}
         env:
-          RENOVATE_DRY_RUN: ${{ inputs.dry_run && 'full' || '' }}
+          RENOVATE_DRY_RUN: ${{ inputs.dry_run }}
