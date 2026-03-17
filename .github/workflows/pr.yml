@@ -52,7 +52,3 @@ jobs:
       dry_run: true
     secrets: inherit
 
-  dry-run-update-api-spec:
-    uses: ./.github/workflows/update-api-spec.yml
-    with:
-      dry_run: true

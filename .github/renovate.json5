@@ -19,6 +19,31 @@
   "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
   // Remove "dependency " prefix which makes message subjects too long
   "commitMessageTopic": "{{depName}}",
+  "customManagers": [
+    {
+      "description": "Develocity API spec and library version (tracks gradle-enterprise Helm chart)",
+      "customType": "regex",
+      "fileMatch": ["^gradle\\.properties$"],
+      "matchStrings": ["(?m)^(?<prefix>develocity\\.)?version=(?<currentValue>[\\d.]+)"],
+      "depNameTemplate": "gradle-enterprise",
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "https://helm.gradle.com",
+      // Writes "develocity.version=2025.4" (prefix truthy → no patch)
+      //    and "version=2025.4.0"          (prefix falsy  → appends patch)
+      "autoReplaceStringTemplate": "{{prefix}}version={{newMajor}}.{{newMinor}}{{#unless prefix}}.{{newPatch}}{{/unless}}",
+      "versioningTemplate": "semver-coerced",
+    },
+  ],
+  "allowedCommands": [
+    "^./gradlew",
+  ],
+  "postUpgradeTasks": {
+    "commands": [
+      "./gradlew :library:apiDump",
+    ],
+    "fileFilters": ["library/api/library.api"],
+    "executionMode": "update",
+  },
   "packageRules": [
     // Group Develocity plugin bumps; add changelog link
     {
@@ -48,6 +73,13 @@
     {
       "matchFileNames": ["examples/**"],
       "groupName": "examples dependencies",
+    },
+    // Disable patch updates for Develocity API spec
+    {
+      "matchDepNames": ["gradle-enterprise"],
+      "matchUpdateTypes": ["patch"],
+      "enabled": false,
+      "prBodyNotes": ["https://docs.gradle.com/enterprise/api-manual/#release_history"],
     },
   ],
 }
