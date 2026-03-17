@@ -35,7 +35,7 @@
     },
   ],
   "allowedCommands": [
-    "^./gradlew",
+    "^./gradlew :library:apiDump$",
   ],
   "postUpgradeTasks": {
     "commands": [
