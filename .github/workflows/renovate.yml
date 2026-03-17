@@ -3,23 +3,13 @@ on:
   schedule:
     - cron: '0 3 * * 1'   # Mondays at 3 AM UTC
   workflow_dispatch:
-  pull_request:
-    paths:
-      - .github/renovate.json5
-      - .github/renovate-self-hosted.json5
-      - .github/workflows/renovate.yml
+  workflow_call:
+    inputs:
+      dry_run:
+        type: boolean
+        default: false
 jobs:
   renovate:
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: renovatebot/github-action@v40
-        with:
-          configurationFile: .github/renovate-self-hosted.json5
-          token: ${{ secrets.RENOVATE_TOKEN }}
-  dry-run:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,4 +18,4 @@ jobs:
           configurationFile: .github/renovate-self-hosted.json5
           token: ${{ secrets.RENOVATE_TOKEN }}
         env:
-          RENOVATE_DRY_RUN: full
+          RENOVATE_DRY_RUN: ${{ inputs.dry_run && 'full' || '' }}

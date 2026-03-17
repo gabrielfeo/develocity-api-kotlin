@@ -52,3 +52,9 @@ jobs:
       dry_run: true
     secrets: inherit
 
+  dry-run-renovate:
+    uses: ./.github/workflows/renovate.yml
+    with:
+      dry_run: true
+    secrets: inherit
+
