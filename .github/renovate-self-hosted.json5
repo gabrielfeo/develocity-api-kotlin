@@ -1,0 +1,11 @@
+{
+  // Self-hosted-only settings (silently ignored in repo config by hosted Renovate app)
+  "allowedCommands": [
+    "^./gradlew :library:apiDump$",
+  ],
+  "allowedUnsafeExecutions": ["gradleWrapper"],
+  // Repo config to extend
+  "extends": [
+    "local>.github/renovate.json5",
+  ],
+}
