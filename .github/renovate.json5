@@ -79,6 +79,9 @@
     {
       "matchDepNames": ["gradle-enterprise"],
       "branchTopic": "develocity-api-spec",
+      "prBodyNotes": [
+        "[Develocity release history](https://docs.gradle.com/develocity/current/reference/release-history/#{{newMajor}}-{{newMinor}})",
+      ],
     },
   ],
 }
