@@ -76,7 +76,7 @@
     // Group bumps of examples/ dependencies
     {
       "matchFileNames": ["examples/**"],
-      "groupName": "example dependencies",
+      "groupName": "examples dependencies",
       "commitMessageTopic": "{{groupName}}",
     },
     // Use a predictable branch name for the API spec PR (matched by the update-api-dump job in pr.yml)
