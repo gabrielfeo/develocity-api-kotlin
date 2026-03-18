@@ -34,13 +34,6 @@
       "versioningTemplate": "semver-coerced",
     },
   ],
-  "postUpgradeTasks": {
-    "commands": [
-      "./gradlew :library:apiDump",
-    ],
-    "fileFilters": ["library/api/library.api"],
-    "executionMode": "update",
-  },
   "packageRules": [
     // Group Develocity plugin bumps; add changelog link
     {
@@ -77,6 +70,11 @@
       "matchUpdateTypes": ["patch"],
       "enabled": false,
       "prBodyNotes": ["https://docs.gradle.com/enterprise/api-manual/#release_history"],
+    },
+    // Use a predictable branch name for the API spec PR (matched by the update-api-dump job in pr.yml)
+    {
+      "matchDepNames": ["gradle-enterprise"],
+      "branchTopic": "develocity-api-spec",
     },
   ],
 }

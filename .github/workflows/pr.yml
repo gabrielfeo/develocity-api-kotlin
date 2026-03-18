@@ -52,8 +52,21 @@ jobs:
       dry_run: true
     secrets: inherit
 
-  dry-run-renovate:
-    uses: ./.github/workflows/renovate.yml
-    with:
-      dry_run: full
-    secrets: inherit
+  update-api-dump:
+    if: github.head_ref == 'renovate/develocity-api-spec'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.RENOVATE_TOKEN }}
+      - name: Run apiDump
+        uses: ./.github/actions/build
+        with:
+          args: :library:apiDump
+      - name: Commit updated API dump
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          file_pattern: library/api/library.api
+          commit_message: 'Update API dump'
