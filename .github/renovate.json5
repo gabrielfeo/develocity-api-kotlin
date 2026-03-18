@@ -52,6 +52,7 @@
       "prBodyNotes": ["https://docs.gradle.com/develocity/gradle-plugin/current#release_history"],
       "groupName": "Develocity Gradle plugin",
       "groupSlug": "develocity-gradle-plugin",
+      "commitMessageTopic": "{{groupName}}",
     },
     // Group Kotlin/Jupyter artifact bumps
     {
@@ -64,16 +65,19 @@
       ],
       "groupName": "Kotlin/Jupyter",
       "groupSlug": "kotlin-jupyter",
+      "commitMessageTopic": "{{groupName}}",
     },
     // Group bumps of .github/scripts dependencies
     {
       "matchFileNames": [".github/scripts/**"],
       "groupName": ".github/scripts dependencies",
+      "commitMessageTopic": "{{groupName}}",
     },
     // Group bumps of examples/ dependencies
     {
       "matchFileNames": ["examples/**"],
       "groupName": "examples dependencies",
+      "commitMessageTopic": "{{groupName}}",
     },
     // Use a predictable branch name for the API spec PR (matched by the update-api-dump job in pr.yml)
     {
@@ -82,6 +86,9 @@
       "prBodyNotes": [
         "[Develocity release history](https://docs.gradle.com/develocity/current/reference/release-history/#{{newMajor}}-{{newMinor}})",
       ],
+      "commitMessageAction": "Bump versions for",
+      "commitMessageTopic": "Develocity API",
+      "commitMessageExtra": "{{newValue}}",
     },
   ],
 }
