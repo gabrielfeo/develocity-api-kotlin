@@ -6,7 +6,6 @@ on:
     inputs:
       dry_run:
         description: 'Dry-run mode: extract, lookup, or full'
-        required: false
         default: ''
   workflow_call:
     inputs:
