@@ -10,8 +10,8 @@ plugins {
 
 val downloadApiSpec by tasks.registering {
     val remoteSpecUrl = providers.gradleProperty("remoteSpecUrl").orElse(
-        providers.gradleProperty("develocity.version").map { geVersion ->
-            "https://docs.gradle.com/downloads/develocity-api-specification/develocity-api-specification-$geVersion.yaml"
+        providers.gradleProperty("develocity.version").map { dvVersion ->
+            "https://docs.gradle.com/downloads/develocity-api-specification/develocity-api-specification-$dvVersion.yaml"
         }
     )
     val spec = resources.text.fromUri(remoteSpecUrl)
