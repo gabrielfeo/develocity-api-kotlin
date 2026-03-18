@@ -34,9 +34,6 @@
       "versioningTemplate": "semver-coerced",
     },
   ],
-  "allowedCommands": [
-    "^./gradlew :library:apiDump$",
-  ],
   "postUpgradeTasks": {
     "commands": [
       "./gradlew :library:apiDump",

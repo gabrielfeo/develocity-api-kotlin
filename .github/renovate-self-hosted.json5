@@ -1,0 +1,8 @@
+{
+  "allowedCommands": [
+    "^./gradlew :library:apiDump$",
+  ],
+  "allowedUnsafeExecutions": [
+    "gradleWrapper",
+  ],
+}
