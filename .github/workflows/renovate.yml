@@ -24,4 +24,4 @@ jobs:
         env:
           RENOVATE_DRY_RUN: ${{ inputs.dry_run }}
           RENOVATE_REPOSITORIES: ${{ github.repository }}
-          LOG_LEVEL: debug
+          RENOVATE_SCHEDULE: ${{ github.event_name == 'workflow_dispatch' && 'at any time' || '' }}
