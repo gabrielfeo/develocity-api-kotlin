@@ -24,7 +24,7 @@
       "description": "Develocity API spec and library version (tracks gradle-enterprise Helm chart)",
       "customType": "regex",
       "fileMatch": ["^gradle\\.properties$"],
-      "matchStrings": ["(?m)^(?<prefix>develocity\\.)?version=(?<currentValue>[\\d.]+)"],
+      "matchStrings": ["(?m)^(?<prefix>develocity\\.)?version=(?<currentValue>\\d+\\.\\d+)(?:\\.\\d+)?"],
       "depNameTemplate": "gradle-enterprise",
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://helm.gradle.com",
