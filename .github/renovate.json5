@@ -28,6 +28,8 @@
       "depNameTemplate": "gradle-enterprise",
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://helm.gradle.com",
+      // Only track major.minor from the Helm chart (ignore patch releases)
+      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+)",
       // Writes "develocity.version=2025.4" (prefix truthy → no patch)
       //    and "version=2025.4.0"          (prefix falsy  → always reset to .0)
       "autoReplaceStringTemplate": "{{prefix}}version={{newMajor}}.{{newMinor}}{{#unless prefix}}.0{{/unless}}",
@@ -63,13 +65,6 @@
     {
       "matchFileNames": ["examples/**"],
       "groupName": "examples dependencies",
-    },
-    // Disable patch updates for Develocity API spec
-    {
-      "matchDepNames": ["gradle-enterprise"],
-      "matchUpdateTypes": ["patch"],
-      "enabled": false,
-      "prBodyNotes": ["https://docs.gradle.com/enterprise/api-manual/#release_history"],
     },
     // Use a predictable branch name for the API spec PR (matched by the update-api-dump job in pr.yml)
     {
