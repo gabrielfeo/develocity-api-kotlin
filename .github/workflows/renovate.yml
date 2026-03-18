@@ -24,3 +24,4 @@ jobs:
         env:
           RENOVATE_DRY_RUN: ${{ inputs.dry_run }}
           RENOVATE_REPOSITORIES: ${{ github.repository }}
+          LOG_LEVEL: debug
