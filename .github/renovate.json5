@@ -21,18 +21,27 @@
   "commitMessageTopic": "{{depName}}",
   "customManagers": [
     {
-      "description": "Develocity API spec and library version (tracks gradle-enterprise Helm chart)",
+      "description": "Library version (tracks gradle-enterprise Helm chart, resets patch to .0)",
       "customType": "regex",
       "fileMatch": ["^gradle\\.properties$"],
-      "matchStrings": ["(?m)^(?<prefix>develocity\\.)?version=(?<currentValue>\\d+\\.\\d+)(?:\\.\\d+)?"],
+      "matchStrings": ["(?m)^version=(?<currentValue>\\d+\\.\\d+)(?:\\.\\d+)?"],
       "depNameTemplate": "gradle-enterprise",
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://helm.gradle.com",
-      // Only track major.minor from the Helm chart (ignore patch releases)
       "extractVersionTemplate": "^(?<version>\\d+\\.\\d+)",
-      // Writes "develocity.version=2025.4" (prefix truthy → no patch)
-      //    and "version=2025.4.0"          (prefix falsy  → always reset to .0)
-      "autoReplaceStringTemplate": "{{prefix}}version={{newMajor}}.{{newMinor}}{{#unless prefix}}.0{{/unless}}",
+      "autoReplaceStringTemplate": "version={{newMajor}}.{{newMinor}}.0",
+      "versioningTemplate": "semver-coerced",
+    },
+    {
+      "description": "Develocity API spec version (tracks gradle-enterprise Helm chart, major.minor only)",
+      "customType": "regex",
+      "fileMatch": ["^gradle\\.properties$"],
+      "matchStrings": ["(?m)^develocity\\.version=(?<currentValue>\\d+\\.\\d+)"],
+      "depNameTemplate": "gradle-enterprise",
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "https://helm.gradle.com",
+      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+)",
+      "autoReplaceStringTemplate": "develocity.version={{newMajor}}.{{newMinor}}",
       "versioningTemplate": "semver-coerced",
     },
   ],
