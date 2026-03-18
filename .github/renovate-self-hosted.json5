@@ -4,8 +4,4 @@
     "^./gradlew :library:apiDump$",
   ],
   "allowedUnsafeExecutions": ["gradleWrapper"],
-  // Repo config to extend
-  "extends": [
-    "local>.github/renovate.json5",
-  ],
 }
