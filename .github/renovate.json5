@@ -72,12 +72,14 @@
       "matchFileNames": [".github/scripts/**"],
       "groupName": ".github/scripts dependencies",
       "commitMessageTopic": ".github/scripts dependencies",
+      "commitMessageExtra": "",
     },
     // Group bumps of examples/ dependencies
     {
       "matchFileNames": ["examples/**"],
       "groupName": "examples dependencies",
       "commitMessageTopic": "examples dependencies",
+      "commitMessageExtra": "",
     },
     // Use a predictable branch name for the API spec PR (matched by the update-api-dump job in pr.yml)
     {
