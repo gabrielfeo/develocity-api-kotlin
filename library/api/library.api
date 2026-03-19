@@ -220,8 +220,6 @@ public final class com/gabrielfeo/develocity/api/extension/BuildAttributesValueE
 public final class com/gabrielfeo/develocity/api/extension/BuildsApiExtensionsKt {
 	public static final fun getBuildsFlow (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;ILjava/util/List;Ljava/lang/Boolean;)Lkotlinx/coroutines/flow/Flow;
 	public static synthetic fun getBuildsFlow$default (Lcom/gabrielfeo/develocity/api/BuildsApi;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;ILjava/util/List;Ljava/lang/Boolean;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
-	public static final fun getGradleAttributesFlow (Lcom/gabrielfeo/develocity/api/BuildsApi;JLjava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Lkotlinx/coroutines/CoroutineScope;Ljava/util/List;)Lkotlinx/coroutines/flow/Flow;
-	public static synthetic fun getGradleAttributesFlow$default (Lcom/gabrielfeo/develocity/api/BuildsApi;JLjava/lang/String;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Boolean;Ljava/lang/Integer;Lkotlinx/coroutines/CoroutineScope;Ljava/util/List;ILjava/lang/Object;)Lkotlinx/coroutines/flow/Flow;
 }
 
 public final class com/gabrielfeo/develocity/api/internal/FreshOkHttpClientBuilderFactory : com/gabrielfeo/develocity/api/internal/OkHttpClientBuilderFactory {
