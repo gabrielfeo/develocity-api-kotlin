@@ -4,9 +4,11 @@ import com.gabrielfeo.develocity.api.*
 import com.gabrielfeo.develocity.api.internal.*
 import com.gabrielfeo.develocity.api.model.BuildModelName
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import okhttp3.Request
+import okhttp3.mockwebserver.MockResponse
+import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
 import kotlin.test.AfterTest
@@ -17,12 +19,11 @@ class BuildsApiExtensionsIntegrationTest {
 
     private val recorder = RequestRecorder()
     private lateinit var api: DevelocityApi
-    private lateinit var mockWebServer: okhttp3.mockwebserver.MockWebServer
+    private lateinit var mockWebServer: MockWebServer
 
     @BeforeTest
     fun setup() {
-        mockWebServer = okhttp3.mockwebserver.MockWebServer()
-        mockWebServer.enqueue(okhttp3.mockwebserver.MockResponse().setBody("[]"))
+        mockWebServer = MockWebServer()
         mockWebServer.start()
         env = FakeEnv()
         api = buildApi(recorder)
@@ -35,7 +36,10 @@ class BuildsApiExtensionsIntegrationTest {
     }
 
     @Test
-    fun getBuildsFlowPreservesParamsAcrossRequests() = runTest(timeout = 6.minutes) {
+    fun getBuildsFlowPreservesParamsAcrossRequests() = runTest(timeout = 1.minutes) {
+        val buildsJson = requireResource("/response/api/builds/5-builds.json").readText()
+        mockWebServer.enqueue(MockResponse().setBody(buildsJson))
+        mockWebServer.enqueue(MockResponse().setBody("[]"))
         api.buildsApi.getBuildsFlow(
             since = 0,
             query = "user:*",
@@ -43,7 +47,8 @@ class BuildsApiExtensionsIntegrationTest {
             allModels = true,
             reverse = true,
             buildsPerPage = 2,
-        ).take(4).collect()
+        ).collect()
+        assertTrue(recorder.requests.size >= 2, "Expected at least 2 requests")
         recorder.requests.forEach {
             assertUrlParam(it, "query", "user:*")
             assertUrlParam(it, "models", "gradle-attributes")
@@ -53,19 +58,26 @@ class BuildsApiExtensionsIntegrationTest {
     }
 
     @Test
-    fun getBuildsFlowReplacesSinceForFromBuildAfterFirstRequest() = runTest {
-        api.buildsApi.getBuildsFlow(since = 1, buildsPerPage = 2).take(10).collect()
+    fun getBuildsFlowReplacesSinceForFromBuildAfterFirstRequest() = runTest(timeout = 1.minutes) {
+        val buildsJson = requireResource("/response/api/builds/5-builds.json").readText()
+        mockWebServer.enqueue(MockResponse().setBody(buildsJson))
+        mockWebServer.enqueue(MockResponse().setBody("[]"))
+        api.buildsApi.getBuildsFlow(since = 1, buildsPerPage = 2).collect()
         assertReplacedForFromBuildAfterFirstRequest(param = "since" to "1")
     }
 
     @Test
-    fun getBuildsFlowReplacesFromInstantForFromBuildAfterFirstRequest() = runTest {
-        api.buildsApi.getBuildsFlow(fromInstant = 1, buildsPerPage = 2).take(10).collect()
+    fun getBuildsFlowReplacesFromInstantForFromBuildAfterFirstRequest() = runTest(timeout = 1.minutes) {
+        val buildsJson = requireResource("/response/api/builds/5-builds.json").readText()
+        mockWebServer.enqueue(MockResponse().setBody(buildsJson))
+        mockWebServer.enqueue(MockResponse().setBody("[]"))
+        api.buildsApi.getBuildsFlow(fromInstant = 1, buildsPerPage = 2).collect()
         assertReplacedForFromBuildAfterFirstRequest(param = "fromInstant" to "1")
     }
 
     private fun assertReplacedForFromBuildAfterFirstRequest(param: Pair<String, String>) {
         with(recorder.requests) {
+            assertTrue(size >= 2, "Expected at least 2 requests")
             val (key, value) = param
             first().let {
                 assertUrlParam(it, key, value)
