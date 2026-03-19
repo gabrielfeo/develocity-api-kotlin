@@ -40,6 +40,7 @@ interface DevelocityApi {
     val testsApi: TestsApi
     val metaApi: MetaApi
     val testDistributionApi: TestDistributionApi
+    val failuresApi: FailuresApi
 
     /**
      * Library configuration options.
@@ -86,6 +87,7 @@ internal class RealDevelocityApi(
     override val testsApi: TestsApi by lazy { retrofit.create() }
     override val metaApi: MetaApi by lazy { retrofit.create() }
     override val testDistributionApi: TestDistributionApi by lazy { retrofit.create() }
+    override val failuresApi: FailuresApi by lazy { retrofit.create() }
 
     override fun shutdown() {
         okHttpClient.run {

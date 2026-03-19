@@ -188,15 +188,31 @@ interface FakeBuildsApiScaffold : BuildsApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getGradleFailures(id: String, availabilityWaitTimeoutSecs: Int?): GradleFailures {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getMavenFailures(id: String, availabilityWaitTimeoutSecs: Int?): MavenFailures {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getNpmDependencies(id: String, availabilityWaitTimeoutSecs: Int?): NpmDependencies {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getNpmNetworkActivity(id: String, availabilityWaitTimeoutSecs: Int?): NpmNetworkActivity {
+        TODO("Not yet implemented")
+    }
+}
+
+/**
+ * Scaffold for a fake `FailuresApi` implementation with default methods throwing a
+ * [NotImplementedError]. Extend this interface and override methods to fake behavior as needed.
+ */
+interface FakeFailuresApiScaffold : FailuresApi {
+
+    override suspend fun getBuildFailures(id: String, buildFailuresQuery: BuildFailuresQuery?): BuildFailures {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getFailureGroups(
+        failureTypes: List<FailureType>?,
+        query: String,
+        maxFailureGroups: Int?,
+        maxBuildIdsPerGroup: Int?,
+    ): FailureGroupsResponse {
         TODO("Not yet implemented")
     }
 }
