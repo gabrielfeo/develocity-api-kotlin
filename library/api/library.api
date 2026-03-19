@@ -136,6 +136,7 @@ public abstract interface class com/gabrielfeo/develocity/api/DevelocityApi {
 	public abstract fun getBuildCacheApi ()Lcom/gabrielfeo/develocity/api/BuildCacheApi;
 	public abstract fun getBuildsApi ()Lcom/gabrielfeo/develocity/api/BuildsApi;
 	public abstract fun getConfig ()Lcom/gabrielfeo/develocity/api/Config;
+	public abstract fun getFailuresApi ()Lcom/gabrielfeo/develocity/api/FailuresApi;
 	public abstract fun getMetaApi ()Lcom/gabrielfeo/develocity/api/MetaApi;
 	public abstract fun getProjectsApi ()Lcom/gabrielfeo/develocity/api/ProjectsApi;
 	public abstract fun getTestDistributionApi ()Lcom/gabrielfeo/develocity/api/TestDistributionApi;
