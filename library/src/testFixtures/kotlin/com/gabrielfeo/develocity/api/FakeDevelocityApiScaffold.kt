@@ -195,6 +195,14 @@ interface FakeBuildsApiScaffold : BuildsApi {
     override suspend fun getNpmNetworkActivity(id: String, availabilityWaitTimeoutSecs: Int?): NpmNetworkActivity {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getGradleDependencyCaching(id: String, availabilityWaitTimeoutSecs: Int?): GradleDependencyCaching {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMavenDependencyCaching(id: String, availabilityWaitTimeoutSecs: Int?): MavenDependencyCaching {
+        TODO("Not yet implemented")
+    }
 }
 
 /**
