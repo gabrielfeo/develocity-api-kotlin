@@ -18,7 +18,6 @@ class DevelocityApiJupyterIntegrationTest : JupyterReplTestCase() {
 
     @Test
     fun `imports all extensions`() = assertSucceeds("""
-        com.gabrielfeo.develocity.api.BuildsApi::getGradleAttributesFlow
         com.gabrielfeo.develocity.api.BuildsApi::getBuildsFlow
 
         val attrs = emptyList<com.gabrielfeo.develocity.api.model.BuildAttributesValue>()
