@@ -87,19 +87,6 @@ publishing {
             from(components["java"])
             pom(libraryPom)
         }
-        register<MavenPublication>("relocation") {
-            artifactId = "gradle-enterprise-api-kotlin"
-            pom {
-                libraryPom(this)
-                distributionManagement {
-                    relocation {
-                        groupId = project.group.toString()
-                        artifactId = "develocity-api-kotlin"
-                        message = "artifactId has been changed. Part of the rename to Develocity."
-                    }
-                }
-            }
-        }
     }
 }
 

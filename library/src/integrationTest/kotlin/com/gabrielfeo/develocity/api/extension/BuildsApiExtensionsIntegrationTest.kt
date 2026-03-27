@@ -75,6 +75,17 @@ class BuildsApiExtensionsIntegrationTest {
         assertReplacedForFromBuildAfterFirstRequest(param = "fromInstant" to "1")
     }
 
+    @Test
+    fun getBuildsFlowTerminatesOnEmptyResponse() = runTest(timeout = 1.minutes) {
+        val buildsJson = requireResource("/response/api/builds/5-builds.json").readText()
+        mockWebServer.enqueue(MockResponse().setBody(buildsJson))
+        mockWebServer.enqueue(MockResponse().setBody(buildsJson))
+        mockWebServer.enqueue(MockResponse().setBody("[]"))
+        val builds = api.buildsApi.getBuildsFlow(since = 0, buildsPerPage = 1000).toList()
+        assertEquals(3, recorder.requests.size)
+        assertEquals(10, builds.size)
+    }
+
     private fun assertReplacedForFromBuildAfterFirstRequest(param: Pair<String, String>) {
         with(recorder.requests) {
             assertTrue(size >= 2, "Expected at least 2 requests")
