@@ -40,7 +40,6 @@ jobs:
           args: >-
             check
             publishDevelocityApiKotlinPublicationToMavenCentralRepository
-            publishRelocationPublicationToMavenCentralRepository
             --rerun-tasks
             '-PmavenCentralUsername=${{ secrets.MAVEN_CENTRAL_USERNAME }}'
             '-PmavenCentralPassword=${{ secrets.MAVEN_CENTRAL_PASSWORD }}'
