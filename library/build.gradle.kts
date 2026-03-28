@@ -102,7 +102,7 @@ tasks.processIntegrationTestResources {
 
 tasks.named("compileKotlin", KotlinCompile::class) {
     compilerOptions {
-        languageVersion = KotlinVersion.KOTLIN_1_8
+        languageVersion = KotlinVersion.KOTLIN_2_0
         jvmTarget = JvmTarget.JVM_11
     }
 }
