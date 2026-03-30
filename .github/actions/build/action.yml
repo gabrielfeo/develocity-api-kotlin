@@ -30,7 +30,7 @@ runs:
         python-version: '3.14'
         cache: 'pip'
     - name: Set up Gradle
-      uses: gradle/actions/setup-gradle@v5
+      uses: gradle/actions/setup-gradle@v6
       with:
         validate-wrappers: true
         add-job-summary-as-pr-comment: 'on-failure'
