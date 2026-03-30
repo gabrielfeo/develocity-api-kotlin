@@ -23,8 +23,12 @@ gradlePlugin {
     testSourceSets(sourceSets["functionalTest"])
 }
 
-tasks.named("check") {
+tasks.check {
     dependsOn(tasks.withType<Test>())
+}
+
+tasks.validatePlugins {
+    enableStricterValidation = true
 }
 
 dependencies {
