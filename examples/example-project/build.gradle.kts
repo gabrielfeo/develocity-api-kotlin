@@ -8,7 +8,7 @@ application {
 }
 
 dependencies {
-    implementation("com.gabrielfeo:develocity-api-kotlin:2025.4.0")
+    implementation("com.gabrielfeo:develocity-api-kotlin:2026.1.0")
 }
 
 repositories {
