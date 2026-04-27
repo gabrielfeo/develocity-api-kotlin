@@ -1,6 +1,6 @@
 [versions]
-kotlin = "2.3.20"
-kotlin-stdlib = "2.3.20"
+kotlin = "2.3.21"
+kotlin-stdlib = "2.3.21"
 dokka = "2.2.0"
 openapi-generator = "7.21.0"
 jupyter = "0.15.0-650"
