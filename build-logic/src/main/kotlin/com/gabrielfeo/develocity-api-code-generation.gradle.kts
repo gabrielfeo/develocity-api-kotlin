@@ -27,12 +27,9 @@ val downloadApiSpec by tasks.registering {
 
 openApiGenerate {
     generatorName = "kotlin"
-    inputSpec = downloadApiSpec.map { it.outputs.files.first().absolutePath }
-    val generateDir = project.layout.buildDirectory.dir("generated-api")
-        .map { it.asFile.absolutePath }
-    outputDir = generateDir
-    val ignoreFile = project.layout.projectDirectory.file(".openapi-generator-ignore")
-    ignoreFileOverride.set(ignoreFile.asFile.absolutePath)
+    inputSpec = downloadApiSpec.map { it.outputs.files.singleFile }
+    outputDir = project.layout.buildDirectory.dir("generated-api")
+    ignoreFileOverride = project.layout.projectDirectory.file(".openapi-generator-ignore")
     apiPackage = "com.gabrielfeo.develocity.api"
     modelPackage = "com.gabrielfeo.develocity.api.model"
     packageName = "com.gabrielfeo.develocity.api.internal"
@@ -45,10 +42,7 @@ openApiGenerate {
 }
 
 val postProcessGeneratedApi by tasks.registering(PostProcessGeneratedApi::class) {
-    val generatedSrc = tasks.openApiGenerate
-        .flatMap { it.outputDir }
-        .map { File(it) }
-    originalFiles.convention(project.layout.dir(generatedSrc))
+    originalFiles.convention(tasks.openApiGenerate.flatMap { it.outputDir })
     postProcessedFiles.convention(project.layout.buildDirectory.dir("post-processed-api"))
     modelsPackage.convention(tasks.openApiGenerate.flatMap { it.modelPackage })
 }
