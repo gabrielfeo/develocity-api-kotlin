@@ -19,7 +19,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Submit Gradle dependencies
         uses: gradle/actions/dependency-submission@v6
         env:
