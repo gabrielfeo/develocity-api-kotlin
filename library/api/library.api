@@ -1564,10 +1564,10 @@ public final class com/gabrielfeo/develocity/api/model/ComparisonActions {
 
 public final class com/gabrielfeo/develocity/api/model/ComparisonDifferenceType : java/lang/Enum {
 	public static final field Companion Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType$Companion;
-	public static final field aCTIONS Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType;
-	public static final field iMPLEMENTATIONCLASS Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType;
-	public static final field iNPUTS Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType;
-	public static final field oUTPUTS Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType;
+	public static final field actions Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType;
+	public static final field implementationClass Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType;
+	public static final field inputs Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType;
+	public static final field outputs Lcom/gabrielfeo/develocity/api/model/ComparisonDifferenceType;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
@@ -1662,9 +1662,9 @@ public final class com/gabrielfeo/develocity/api/model/ComparisonFileNormalizati
 }
 
 public final class com/gabrielfeo/develocity/api/model/ComparisonFileNormalization$DirectorySensitivity : java/lang/Enum {
-	public static final field dEFAULT Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$DirectorySensitivity;
-	public static final field iGNORE Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$DirectorySensitivity;
-	public static final field uNKNOWN Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$DirectorySensitivity;
+	public static final field default Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$DirectorySensitivity;
+	public static final field ignore Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$DirectorySensitivity;
+	public static final field unknown Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$DirectorySensitivity;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$DirectorySensitivity;
@@ -1672,9 +1672,9 @@ public final class com/gabrielfeo/develocity/api/model/ComparisonFileNormalizati
 }
 
 public final class com/gabrielfeo/develocity/api/model/ComparisonFileNormalization$LineEndingSensitivity : java/lang/Enum {
-	public static final field dEFAULT Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$LineEndingSensitivity;
-	public static final field nORMALIZE Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$LineEndingSensitivity;
-	public static final field uNKNOWN Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$LineEndingSensitivity;
+	public static final field default Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$LineEndingSensitivity;
+	public static final field normalize Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$LineEndingSensitivity;
+	public static final field unknown Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$LineEndingSensitivity;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$LineEndingSensitivity;
@@ -1682,12 +1682,12 @@ public final class com/gabrielfeo/develocity/api/model/ComparisonFileNormalizati
 }
 
 public final class com/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy : java/lang/Enum {
-	public static final field aBSOLUTEPATH Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
-	public static final field cLASSPATH Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
-	public static final field cOMPILECLASSPATH Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
-	public static final field iGNOREDPATH Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
-	public static final field nAMEONLY Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
-	public static final field rELATIVEPATH Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
+	public static final field absolutePath Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
+	public static final field classpath Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
+	public static final field compileClasspath Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
+	public static final field ignoredPath Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
+	public static final field nameOnly Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
+	public static final field relativePath Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lcom/gabrielfeo/develocity/api/model/ComparisonFileNormalization$Strategy;
@@ -1791,9 +1791,9 @@ public final class com/gabrielfeo/develocity/api/model/ComparisonOutputChange {
 
 public final class com/gabrielfeo/develocity/api/model/ComparisonPresence : java/lang/Enum {
 	public static final field Companion Lcom/gabrielfeo/develocity/api/model/ComparisonPresence$Companion;
-	public static final field iNBOTH Lcom/gabrielfeo/develocity/api/model/ComparisonPresence;
-	public static final field oNLYINA Lcom/gabrielfeo/develocity/api/model/ComparisonPresence;
-	public static final field oNLYINB Lcom/gabrielfeo/develocity/api/model/ComparisonPresence;
+	public static final field inBoth Lcom/gabrielfeo/develocity/api/model/ComparisonPresence;
+	public static final field onlyInA Lcom/gabrielfeo/develocity/api/model/ComparisonPresence;
+	public static final field onlyInB Lcom/gabrielfeo/develocity/api/model/ComparisonPresence;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getValue ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
