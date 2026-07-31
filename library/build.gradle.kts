@@ -100,6 +100,23 @@ tasks.processIntegrationTestResources {
     from(project.layout.projectDirectory.dir("api/library.api"))
 }
 
+// Keep the Jupyter REPL classpath readable by kotlin-jupyter 0.15.0-650, whose
+// embedded 2.2.20 compiler reads Kotlin metadata only up to 2.3.0.
+val stdlibForRepl = libs.versions.kotlin.stdlib.get()
+configurations.matching { it.name.startsWith("integrationTest") }.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin" && requested.name.startsWith("kotlin-stdlib")) {
+            useVersion(stdlibForRepl)
+        }
+    }
+}
+
+tasks.named("compileIntegrationTestKotlin", KotlinCompile::class) {
+    compilerOptions {
+        languageVersion = KotlinVersion.KOTLIN_2_0
+    }
+}
+
 tasks.named("compileKotlin", KotlinCompile::class) {
     compilerOptions {
         languageVersion = KotlinVersion.KOTLIN_2_0
