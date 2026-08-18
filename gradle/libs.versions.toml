@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.3.20"
+kotlin = "2.4.10"
 kotlin-stdlib = "2.3.20"
 dokka = "2.2.0"
 openapi-generator = "7.24.0"
