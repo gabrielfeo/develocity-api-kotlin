@@ -151,4 +151,12 @@ tasks.named<Test>("examplesTest") {
     providers.environmentVariablesPrefixedBy("DEVELOCITY_API_").get().forEach { (name, value) ->
         inputs.property("${name}.hashCode", value.hashCode())
     }
+    val userHome = providers.systemProperty("user.home").get()
+    val develocityAccessKeyFiles = listOf(
+        gradle.gradleUserHomeDir.resolve("develocity/keys.properties"),
+        File(userHome, ".m2/.develocity/keys.properties"),
+    )
+    inputs.files(develocityAccessKeyFiles)
+        .withPropertyName("develocityAccessKeyFiles")
+        .withPathSensitivity(PathSensitivity.NONE)
 }
