@@ -31,25 +31,19 @@ internal class AccessKeyResolver(
     }
 
     private fun fromEnvVar(varName: String, host: String): HostAccessKeyEntry? =
-        env[varName]?.let { envVar ->
-            envVar.split(';')
-                .firstNotNullOfOrNull { entry ->
-                    if (entry.isBlank()) null
-                    else HostAccessKeyEntry(entry).takeIf { it.host == host }
-                }
-        }
+        env[varName]?.split(';')
+            ?.filterNot { it.isBlank() }
+            ?.map(::HostAccessKeyEntry)
+            ?.lastOrNull { it.host == host }
 
     private fun fromFile(path: Path, host: String): HostAccessKeyEntry? {
         if (!fileSystem.exists(path)) return null
-        fileSystem.read(path) {
-            while (true) {
-                val line = readUtf8Line()?.trim(' ') ?: break
-                if (line.isBlank() || line.isComment()) continue
-                val entry = HostAccessKeyEntry(line)
-                if (entry.host == host) return entry
-            }
+        return fileSystem.read(path) {
+            generateSequence { readUtf8Line()?.trim(' ') }
+                .filterNot { it.isBlank() || it.isComment() }
+                .map(::HostAccessKeyEntry)
+                .lastOrNull { it.host == host }
         }
-        return null
     }
 
     private fun String.isComment() = startsWith('#')
