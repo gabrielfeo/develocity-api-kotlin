@@ -9,11 +9,12 @@ import kotlin.io.path.div
 
 
 @OptIn(ExperimentalPathApi::class)
-fun Any.copyFromResources(path: String, targetDir: Path) {
+fun Any.copyFromResources(path: String, targetDir: Path): Path {
     val sourcePath = Path.of(requireResource(path).toURI())
     val destPath = targetDir / path.removePrefix("/")
     destPath.createParentDirectories()
     sourcePath.copyToRecursively(destPath, followLinks = false, overwrite = true)
+    return destPath
 }
 
 fun Any.requireResource(path: String): URL =
