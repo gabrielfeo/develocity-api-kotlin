@@ -18,19 +18,23 @@ import kotlin.io.path.div
  * correctly when only a newer okhttp jar is present on the consumer's classpath.
  */
 @Execution(CONCURRENT)
-class ConsumerOkHttp5UpgradeTest {
+class OkHttp5ConsumerUpgradeTest {
 
-    class TestPaths(val rootDir: Path) {
+    class TestPaths(
+        val rootDir: Path,
+        val forceSnapshotLibraryInitScript: Path,
+        val forceConsumerOkHttp5InitScript: Path,
+    ) {
         val projectDir = rootDir / "examples/example-project"
-        val forceSnapshotLibraryInitScript = rootDir / ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY
-        val forceConsumerOkHttp5InitScript = rootDir / ResourceInitScripts.FORCE_CONSUMER_OKHTTP_5
     }
 
     private fun setup(tempDir: Path): TestPaths {
         copyFromResources("/examples", tempDir)
-        copyFromResources("/${ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}", tempDir)
-        copyFromResources("/${ResourceInitScripts.FORCE_CONSUMER_OKHTTP_5}", tempDir)
-        return TestPaths(tempDir)
+        val forceSnapshotLibraryInitScript =
+            copyFromResources("/${ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}", tempDir)
+        val forceConsumerOkHttp5InitScript =
+            copyFromResources("/${ResourceInitScripts.FORCE_CONSUMER_OKHTTP_5}", tempDir)
+        return TestPaths(tempDir, forceSnapshotLibraryInitScript, forceConsumerOkHttp5InitScript)
     }
 
     @Test
