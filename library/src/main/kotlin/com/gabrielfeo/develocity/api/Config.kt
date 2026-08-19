@@ -26,8 +26,9 @@ data class Config(
         requireNotNull(env["DEVELOCITY_URL"]?.let(::URI)) { ERROR_NULL_DEVELOCITY_URL },
 
     /**
-     * Provides the access key for the Develocity server. By default, resolves to the first key from
-     * these sources that matches the host of [server]:
+     * Provides the access key for the Develocity server. By default, resolves to the first of these
+     * sources with a matching host for [server]; if a source has multiple matching entries, the last
+     * one takes precedence:
      *
      * - variable `DEVELOCITY_ACCESS_KEY`
      * - variable `GRADLE_ENTERPRISE_ACCESS_KEY`

@@ -18,7 +18,7 @@ The library will automatically resolve the access key using the same conventions
 - File `$GRADLE_USER_HOME/.gradle/develocity/keys.properties` (or `~/.gradle/develocity/keys.properties` if `GRADLE_USER_HOME` is not set)
 - File `~/.m2/.develocity/keys.properties`
 
-Please check if you already have an access key set up in your build environment for the Develocity server you want to query. The first key for a matching host will be used, if found.
+Please check if you already have an access key set up in your build environment for the Develocity server you want to query. The first source with a matching host is used; within that source, if multiple entries match the same host, the last one takes precedence.
 
 See the official manuals for instructions on how to set up a new access key in one of these locations:
 
