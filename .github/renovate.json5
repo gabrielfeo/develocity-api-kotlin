@@ -101,5 +101,14 @@
       "commitMessageTopic": "Develocity API",
       "commitMessageExtra": "{{newValue}}",
     },
+    // Hold okhttp's major bump (still on 4.x) until the library or API spec
+    // version reaches 2026.4, matching the 2027.1 library release that will
+    // ship okhttp 5. Check the box on the Dependency Dashboard once that lands.
+    {
+      "matchFileNames": ["gradle/libs.versions.toml"],
+      "matchDepNames": ["com.squareup.okhttp3:okhttp"],
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true,
+    },
   ],
 }
