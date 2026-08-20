@@ -10,6 +10,7 @@ import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT
 import java.nio.file.Path
 import kotlin.io.path.div
+import kotlin.io.path.readText
 
 /*
  * The library declares (and is tested against) okhttp 4.x, but a consumer may have
@@ -39,16 +40,17 @@ class OkHttp5ConsumerUpgradeTest {
 
     @Test
     fun ensureConsumerResolvesToOkHttp5(@TempDir tempDir: Path) = with(setup(tempDir)) {
+        val forcedVersion = forcedOkHttpVersion(forceConsumerOkHttp5InitScript)
         val dependencies = runBuild("dependencies --configuration runtimeClasspath").stdout
         val okHttpRequestLines = dependencies.lines().filter { "com.squareup.okhttp3:okhttp:" in it }
         assertTrue(okHttpRequestLines.isNotEmpty()) {
             "Expected an okhttp entry in the runtime classpath, found none in:\n$dependencies"
         }
-        assertTrue(okHttpRequestLines.all { "-> 5.4.0" in it }) {
-            "Expected okhttp forced to 5.4.0, but found [${okHttpRequestLines.joinToString(", ")}]"
+        assertTrue(okHttpRequestLines.all { "-> $forcedVersion" in it }) {
+            "Expected okhttp forced to $forcedVersion, but found [${okHttpRequestLines.joinToString(", ")}]"
         }
-        assertTrue("com.squareup.okhttp3:okhttp-jvm:5.4.0" in dependencies) {
-            "Expected the resolved classpath to contain okhttp-jvm:5.4.0, found none in:\n$dependencies"
+        assertTrue("com.squareup.okhttp3:okhttp-jvm:$forcedVersion" in dependencies) {
+            "Expected the resolved classpath to contain okhttp-jvm:$forcedVersion, found none in:\n$dependencies"
         }
     }
 
@@ -69,4 +71,11 @@ class OkHttp5ConsumerUpgradeTest {
             "-I $forceConsumerOkHttp5InitScript",
             gradleArgs,
         )
+
+    private fun forcedOkHttpVersion(initScript: Path): String =
+        Regex("""force\("com\.squareup\.okhttp3:okhttp:([\d.]+)"\)""")
+            .find(initScript.readText())
+            ?.groupValues
+            ?.get(1)
+            ?: error("Could not find forced okhttp version in $initScript")
 }
