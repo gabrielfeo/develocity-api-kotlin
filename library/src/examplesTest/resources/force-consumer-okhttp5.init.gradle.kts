@@ -6,7 +6,7 @@
 afterProject {
     configurations.all {
         resolutionStrategy {
-            force("com.squareup.okhttp3:okhttp:5.4.0")
+            force("com.squareup.okhttp3:okhttp:5.5.0")
         }
     }
 }
