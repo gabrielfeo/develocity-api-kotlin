@@ -33,15 +33,20 @@
       "versioningTemplate": "semver-coerced",
     },
     {
-      "description": "Develocity API spec version (tracks gradle-enterprise Helm chart, major.minor only)",
+      // The chart is versioned per product release (2026.2.1), but the API spec is
+      // published once per XXXX.YY line and its file always ends in .0, so there is
+      // no 2026.2.1 spec. Reset the patch to .0, and only bump on major.minor, or a
+      // chart patch would propose a spec that doesn't exist. Spec file linked from
+      // https://docs.develocity.ai/2026.2/reference/develocity-api/
+      "description": "Develocity API spec version (tracks gradle-enterprise Helm chart, resets patch to .0)",
       "customType": "regex",
       "fileMatch": ["^gradle\\.properties$"],
-      "matchStrings": ["(?m)^develocity\\.api\\.spec\\.version=(?<currentValue>\\d+\\.\\d+\\.\\d+)"],
+      "matchStrings": ["(?m)^develocity\\.api\\.spec\\.version=(?<currentValue>\\d+\\.\\d+)(?:\\.\\d+)?"],
       "depNameTemplate": "gradle-enterprise",
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://helm.gradle.com",
-      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+\\.\\d+)",
-      "autoReplaceStringTemplate": "develocity.api.spec.version={{newMajor}}.{{newMinor}}.{{newPatch}}",
+      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+)",
+      "autoReplaceStringTemplate": "develocity.api.spec.version={{newMajor}}.{{newMinor}}.0",
       "versioningTemplate": "semver-coerced",
     },
     {

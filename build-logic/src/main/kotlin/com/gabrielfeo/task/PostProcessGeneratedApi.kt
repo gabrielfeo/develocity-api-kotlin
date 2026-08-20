@@ -71,6 +71,38 @@ abstract class PostProcessGeneratedApi @Inject constructor(
             replaceAll(match, replace, dir = srcDir, includes = mavenExtensionFile)
         }
 
+        // Fix mapping of the Comparison enums: oNLYINA -> onlyInA
+        mapOf(
+            "com/gabrielfeo/develocity/api/model/ComparisonDifferenceType.kt" to mapOf(
+                "iMPLEMENTATIONCLASS" to "implementationClass",
+                "iNPUTS" to "inputs",
+                "oUTPUTS" to "outputs",
+                "aCTIONS" to "actions",
+            ),
+            "com/gabrielfeo/develocity/api/model/ComparisonFileNormalization.kt" to mapOf(
+                "iGNOREDPATH" to "ignoredPath",
+                "nAMEONLY" to "nameOnly",
+                "rELATIVEPATH" to "relativePath",
+                "aBSOLUTEPATH" to "absolutePath",
+                "cOMPILECLASSPATH" to "compileClasspath",
+                "cLASSPATH" to "classpath",
+                "dEFAULT" to "default",
+                "iGNORE" to "ignore",
+                "nORMALIZE" to "normalize",
+                "uNKNOWN" to "unknown",
+            ),
+            "com/gabrielfeo/develocity/api/model/ComparisonPresence.kt" to mapOf(
+                "oNLYINA" to "onlyInA",
+                "oNLYINB" to "onlyInB",
+                "iNBOTH" to "inBoth",
+            ),
+        ).forEach { (comparisonFile, replacements) ->
+            replacements.forEach { (match, replace) ->
+                // Match whole words only, so iGNORE doesn't corrupt iGNOREDPATH
+                replaceAll("""\b$match\b""", replace, dir = srcDir, includes = comparisonFile)
+            }
+        }
+
         // Replace entries.firstOrNull with values().firstOrNull to avoid requiring
         // language version 1.9+ (entries property is experimental before that)
         replaceAll(
