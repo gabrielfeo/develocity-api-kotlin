@@ -159,4 +159,12 @@ tasks.named<Test>("examplesTest") {
     inputs.files(develocityAccessKeyFiles)
         .withPropertyName("develocityAccessKeyFiles")
         .withPathSensitivity(PathSensitivity.NONE)
+    listOf(
+        "com.gabrielfeo.develocity.api.examplesTest.gradle-task.daemon-jvmargs",
+    ).forEach { inheritedProperty ->
+        systemProperty(
+            inheritedProperty,
+            providers.systemProperty(inheritedProperty).get(),
+        )
+    }
 }
