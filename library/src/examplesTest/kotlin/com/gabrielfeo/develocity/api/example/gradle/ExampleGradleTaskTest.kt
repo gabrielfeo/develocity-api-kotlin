@@ -12,6 +12,9 @@ import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.CONCURRENT
 import kotlin.io.path.div
 
+private val JVM_ARGS =
+    System.getProperty("com.gabrielfeo.develocity.api.examplesTest.gradle-task.daemon-jvmargs")
+
 @Execution(CONCURRENT)
 class ExampleGradleTaskTest {
 
@@ -55,6 +58,7 @@ class ExampleGradleTaskTest {
         runInShell(
             projectDir,
             "./gradlew --stacktrace --no-daemon",
+            "-Dorg.gradle.jvmargs=${JVM_ARGS}",
             "-I ${initScriptsDir / ResourceInitScripts.FORCE_SNAPSHOT_LIBRARY}",
             gradleArgs,
         )
