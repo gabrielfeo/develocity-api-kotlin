@@ -1,119 +1,131 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
   ],
-  "schedule": [
-    // Runs once, despite '*' minutes (https://docs.renovatebot.com/configuration-options/#schedule)
-    "* 0-6 * * 1",
+  schedule: [
+    '* 0-6 * * 1',
   ],
-  "ignorePaths": [
-    "**/test_resources/**",
+  ignorePaths: [
+    '**/test_resources/**',
   ],
-  "dependencyDashboard": true,
-  "branchConcurrentLimit": 0,
-  "prConcurrentLimit": 0,
-  "prHourlyLimit": 0,
-  "rebaseWhen": "behind-base-branch",
-  // Remove configDescription from PR body
-  "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
-  // Remove "dependency " prefix which makes message subjects too long
-  "commitMessageTopic": "{{depName}}",
-  "customManagers": [
+  dependencyDashboard: true,
+  branchConcurrentLimit: 0,
+  prConcurrentLimit: 0,
+  prHourlyLimit: 0,
+  rebaseWhen: 'behind-base-branch',
+  prBodyTemplate: '{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}',
+  commitMessageTopic: '{{depName}}',
+  customManagers: [
     {
-      "description": "Library version (tracks gradle-enterprise Helm chart, resets patch to .0)",
-      "customType": "regex",
-      "fileMatch": ["^gradle\\.properties$"],
-      "matchStrings": ["(?m)^version=(?<currentValue>\\d+\\.\\d+)(?:\\.\\d+)?"],
-      "depNameTemplate": "gradle-enterprise",
-      "datasourceTemplate": "helm",
-      "registryUrlTemplate": "https://helm.gradle.com",
-      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+)",
-      "autoReplaceStringTemplate": "version={{newMajor}}.{{newMinor}}.0",
-      "versioningTemplate": "semver-coerced",
-    },
-    {
-      // The chart is versioned per product release (2026.2.1), but the API spec is
-      // published once per XXXX.YY line and its file always ends in .0, so there is
-      // no 2026.2.1 spec. Reset the patch to .0, and only bump on major.minor, or a
-      // chart patch would propose a spec that doesn't exist. Spec file linked from
-      // https://docs.develocity.ai/2026.2/reference/develocity-api/
-      "description": "Develocity API spec version (tracks gradle-enterprise Helm chart, resets patch to .0)",
-      "customType": "regex",
-      "fileMatch": ["^gradle\\.properties$"],
-      "matchStrings": ["(?m)^develocity\\.api\\.spec\\.version=(?<currentValue>\\d+\\.\\d+)(?:\\.\\d+)?"],
-      "depNameTemplate": "gradle-enterprise",
-      "datasourceTemplate": "helm",
-      "registryUrlTemplate": "https://helm.gradle.com",
-      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+)",
-      "autoReplaceStringTemplate": "develocity.api.spec.version={{newMajor}}.{{newMinor}}.0",
-      "versioningTemplate": "semver-coerced",
-    },
-    {
-      "description": "okhttp version forced in the consumer okhttp5-upgrade examplesTest scenario",
-      "customType": "regex",
-      "managerFilePatterns": ["/^library\\/src\\/examplesTest\\/resources\\/force-consumer-okhttp5\\.init\\.gradle\\.kts$/"],
-      "matchStrings": ["force\\(\"com\\.squareup\\.okhttp3:okhttp:(?<currentValue>[\\d.]+)\"\\)"],
-      "depNameTemplate": "com.squareup.okhttp3:okhttp",
-      "datasourceTemplate": "maven",
-      "versioningTemplate": "semver-coerced",
-    },
-  ],
-  "packageRules": [
-    // Group Develocity plugin bumps; add changelog link
-    {
-      "matchDepNames": ["com.gradle.develocity", "com.gradle:develocity-gradle-plugin"],
-      "prBodyNotes": ["https://docs.gradle.com/develocity/gradle-plugin/current#release_history"],
-      "groupName": "Develocity Gradle plugin",
-      "groupSlug": "develocity-gradle-plugin",
-      "commitMessageTopic": "Develocity Gradle plugin",
-    },
-    // Group Kotlin/Jupyter artifact bumps
-    {
-      "matchDepNames": [
-        "org.jetbrains.kotlinx:kotlin-jupyter-test-kit",
-        "org.jetbrains.kotlinx:kotlin-jupyter-api",
-        // Two possible names for the plugin (GAV or plugin ID)
-        "org.jetbrains.kotlinx:kotlin-jupyter-api-gradle-plugin",
-        "org.jetbrains.kotlin.jupyter.api",
+      description: 'Library version (tracks gradle-enterprise Helm chart, resets patch to .0)',
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^gradle\\.properties$/',
       ],
-      "groupName": "Kotlin/Jupyter",
-      "groupSlug": "kotlin-jupyter",
-      "commitMessageTopic": "Kotlin/Jupyter",
-    },
-    // Group bumps of .github/scripts dependencies
-    {
-      "matchFileNames": [".github/scripts/**"],
-      "groupName": ".github/scripts dependencies",
-      "commitMessageTopic": ".github/scripts dependencies",
-      "commitMessageExtra": "",
-    },
-    // Group bumps of examples/ dependencies
-    {
-      "matchFileNames": ["examples/**"],
-      "groupName": "examples dependencies",
-      "commitMessageTopic": "examples dependencies",
-      "commitMessageExtra": "",
-    },
-    // Use a predictable branch name for the API spec PR (matched by the update-api-dump job in pr.yml)
-    {
-      "matchDepNames": ["gradle-enterprise"],
-      "branchTopic": "develocity-api-spec",
-      "prBodyNotes": [
-        "[Develocity release history](https://docs.gradle.com/develocity/current/reference/release-history/#{{newMajor}}-{{newMinor}})",
+      matchStrings: [
+        '(?m)^version=(?<currentValue>\\d+\\.\\d+)(?:\\.\\d+)?',
       ],
-      "commitMessageAction": "Bump versions for",
-      "commitMessageTopic": "Develocity API",
-      "commitMessageExtra": "{{newValue}}",
+      depNameTemplate: 'gradle-enterprise',
+      datasourceTemplate: 'helm',
+      registryUrlTemplate: 'https://helm.gradle.com',
+      extractVersionTemplate: '^(?<version>\\d+\\.\\d+)',
+      autoReplaceStringTemplate: 'version={{newMajor}}.{{newMinor}}.0',
+      versioningTemplate: 'semver-coerced',
     },
-    // Hold okhttp's major bump (still on 4.x) until the library or API spec
-    // version reaches 2026.4, matching the 2027.1 library release that will
-    // ship okhttp 5. Check the box on the Dependency Dashboard once that lands.
     {
-      "matchFileNames": ["gradle/libs.versions.toml"],
-      "matchDepNames": ["com.squareup.okhttp3:okhttp"],
-      "matchUpdateTypes": ["major"],
-      "dependencyDashboardApproval": true,
+      description: 'Develocity API spec version (tracks gradle-enterprise Helm chart, resets patch to .0)',
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^gradle\\.properties$/',
+      ],
+      matchStrings: [
+        '(?m)^develocity\\.api\\.spec\\.version=(?<currentValue>\\d+\\.\\d+)(?:\\.\\d+)?',
+      ],
+      depNameTemplate: 'gradle-enterprise',
+      datasourceTemplate: 'helm',
+      registryUrlTemplate: 'https://helm.gradle.com',
+      extractVersionTemplate: '^(?<version>\\d+\\.\\d+)',
+      autoReplaceStringTemplate: 'develocity.api.spec.version={{newMajor}}.{{newMinor}}.0',
+      versioningTemplate: 'semver-coerced',
+    },
+    {
+      description: 'okhttp version forced in the consumer okhttp5-upgrade examplesTest scenario',
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^library\\/src\\/examplesTest\\/resources\\/force-consumer-okhttp5\\.init\\.gradle\\.kts$/',
+      ],
+      matchStrings: [
+        'force\\("com\\.squareup\\.okhttp3:okhttp:(?<currentValue>[\\d.]+)"\\)',
+      ],
+      depNameTemplate: 'com.squareup.okhttp3:okhttp',
+      datasourceTemplate: 'maven',
+      versioningTemplate: 'semver-coerced',
+    },
+  ],
+  packageRules: [
+    {
+      matchDepNames: [
+        'com.gradle.develocity',
+        'com.gradle:develocity-gradle-plugin',
+      ],
+      prBodyNotes: [
+        'https://docs.gradle.com/develocity/gradle-plugin/current#release_history',
+      ],
+      groupName: 'Develocity Gradle plugin',
+      groupSlug: 'develocity-gradle-plugin',
+      commitMessageTopic: 'Develocity Gradle plugin',
+    },
+    {
+      matchDepNames: [
+        'org.jetbrains.kotlinx:kotlin-jupyter-test-kit',
+        'org.jetbrains.kotlinx:kotlin-jupyter-api',
+        'org.jetbrains.kotlinx:kotlin-jupyter-api-gradle-plugin',
+        'org.jetbrains.kotlin.jupyter.api',
+      ],
+      groupName: 'Kotlin/Jupyter',
+      groupSlug: 'kotlin-jupyter',
+      commitMessageTopic: 'Kotlin/Jupyter',
+    },
+    {
+      matchFileNames: [
+        '.github/scripts/**',
+      ],
+      groupName: '.github/scripts dependencies',
+      commitMessageTopic: '.github/scripts dependencies',
+      commitMessageExtra: '',
+    },
+    {
+      matchFileNames: [
+        'examples/**',
+      ],
+      groupName: 'examples dependencies',
+      commitMessageTopic: 'examples dependencies',
+      commitMessageExtra: '',
+    },
+    {
+      matchDepNames: [
+        'gradle-enterprise',
+      ],
+      branchTopic: 'develocity-api-spec',
+      prBodyNotes: [
+        '[Develocity release history](https://docs.gradle.com/develocity/current/reference/release-history/#{{newMajor}}-{{newMinor}})',
+      ],
+      commitMessageAction: 'Bump versions for',
+      commitMessageTopic: 'Develocity API',
+      commitMessageExtra: '{{newValue}}',
+    },
+    {
+      matchFileNames: [
+        'gradle/libs.versions.toml',
+      ],
+      matchDepNames: [
+        'com.squareup.okhttp3:okhttp',
+      ],
+      matchUpdateTypes: [
+        'major',
+      ],
+      dependencyDashboardApproval: true,
     },
   ],
 }
